@@ -4,7 +4,8 @@
   "description": "Client for the use of the Gedcom File Format v7 with node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node ./lib/index.js"
   },
   "repository": {
     "type": "git",
