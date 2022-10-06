@@ -4,7 +4,7 @@
   "description": "Client for the use of the Gedcom File Format v7 with node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./test/gedcomMochaTest.js",
     "run": "node ./lib/index.js"
   },
   "repository": {
@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/DwieDave/gedcom.js/issues"
   },
-  "homepage": "https://github.com/DwieDave/gedcom.js#readme"
+  "homepage": "https://github.com/DwieDave/gedcom.js#readme",
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
 }
