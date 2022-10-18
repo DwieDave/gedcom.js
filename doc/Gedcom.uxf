@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>70</x><y>320</y><w>220</w><h>150</h></coordinates><panel_attributes>Parser
+<diagram program="umletino" version="15.0.0"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>96</x><y>144</y><w>132</w><h>90</h></coordinates><panel_attributes>Parser
 --
 -path: String
 --
@@ -7,16 +7,23 @@
 --
 Responsibilities
 -- Reading the .ged-File and parsing 
-    it  into a workable structure</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>150</y><w>210</w><h>190</h></coordinates><panel_attributes>Structure
+    it  into a workable structure</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>138</y><w>126</w><h>114</h></coordinates><panel_attributes>Structure
 --
--tag: String
--ptr: Structure
--str: String
--ext: String
+&lt;&lt;get/set&gt;&gt; -level: String
+&lt;&lt;get/set&gt;&gt; -xref Structure
+&lt;&lt;get/set&gt;&gt; -tag: String
+&lt;&lt;get/set&gt;&gt; -lineValue: String
 --
-+fixPtrs(ids: int[]): void
-+removePtrs(): void
++ addSubstructure(structure: Structure)
++ print()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>348</x><y>330</y><w>126</w><h>114</h></coordinates><panel_attributes>Individual
 --
-Responsibilities
--- Basic Structure for Gedcom data</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLActor</id><coordinates><x>570</x><y>0</y><w>60</w><h>110</h></coordinates><panel_attributes>Actor</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>150</x><y>60</y><w>120</w><h>40</h></coordinates><panel_attributes>Use case 2
-bg=blue</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>330</y><w>126</w><h>114</h></coordinates><panel_attributes>Family
+--
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>414</x><y>246</y><w>90</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>130;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>522</x><y>246</y><w>72</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;100;140</additional_attributes></element></diagram>
