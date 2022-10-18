@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>70</x><y>380</y><w>220</w><h>150</h></coordinates><panel_attributes>Parser
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>70</x><y>320</y><w>220</w><h>150</h></coordinates><panel_attributes>Parser
 --
 -path: String
 --
@@ -7,7 +7,7 @@
 --
 Responsibilities
 -- Reading the .ged-File and parsing 
-    it  into a workable structure</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>360</y><w>210</w><h>190</h></coordinates><panel_attributes>Structure
+    it  into a workable structure</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>150</y><w>210</w><h>190</h></coordinates><panel_attributes>Structure
 --
 -tag: String
 -ptr: Structure
@@ -18,6 +18,5 @@ Responsibilities
 +removePtrs(): void
 --
 Responsibilities
--- Basic Structure for Gedcom data</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>440</y><w>130</w><h>50</h></coordinates><panel_attributes>lt=-()
-m2=provide
-</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element></diagram>
+-- Basic Structure for Gedcom data</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLActor</id><coordinates><x>570</x><y>0</y><w>60</w><h>110</h></coordinates><panel_attributes>Actor</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>150</x><y>60</y><w>120</w><h>40</h></coordinates><panel_attributes>Use case 2
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element></diagram>
