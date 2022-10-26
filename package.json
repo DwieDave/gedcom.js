@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/gedcomMochaTest.js",
-    "run": "node ./lib/index.mjs"
+    "run": "node ./lib/index.mjs",
+    "parse": "node ./lib/grammar/parse.js",
+    "generateParser": "npx nearleyc ./lib/grammar/json.ne -o ./lib/grammar/json.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +32,8 @@
   "homepage": "https://github.com/DwieDave/gedcom.js#readme",
   "devDependencies": {
     "mocha": "^10.0.0"
+  },
+  "dependencies": {
+    "nearley": "^2.20.1"
   }
 }
