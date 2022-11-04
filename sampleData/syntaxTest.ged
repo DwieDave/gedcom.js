@@ -5,5 +5,9 @@
 1 HUSB @I1@
 2 PHRASE hat ein sehr schönes Haus
 1 WIFE @I2@
+1 NCHI 4
+2 TYPE Bishop
+1 RESI in a mobile caravan
+2 TYPE car
 1 CHIL @I4@
 1 CHIL @I5@

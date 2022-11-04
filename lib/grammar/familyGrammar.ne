@@ -1,5 +1,6 @@
 structure 
-    -> HUSB
+    -> FAMILY_ATTRIBUTE_STRUCTURE
+    |  HUSB
     |  WIFE
     |  CHIL
 
@@ -53,6 +54,14 @@ stdEnum -> stdTag | Integer
 Enum    -> stdEnum | extTag
 
 
+ageDuration 
+    -> years 
+years   -> Integer "y"
+months  -> Integer "m"
+weeks   -> Integer "w"
+days    -> Integer "d"
+
+
 
 # =====================================================
 # SUBSTRUCTURES
@@ -68,9 +77,40 @@ WIFE
 CHIL 
     -> "1" D "CHIL" D Xref
     |  CHIL newLine PHRASE
+    
+
+# Family attributes
+FAMILY_ATTRIBUTE_STRUCTURE
+    -> NCHI
+    |  RESI
+    |  FACT
+
+NCHI 
+    -> Level D "NCHI" D Integer
+    |  NCHI newLine TYPE
+
+RESI
+    -> Level D "RESI" D Text
+    |  RESI newLine TYPE
+
+FACT
+    -> Level D "FACT" D Text
+    |  FACT newLine TYPE
+
+
+# Substructures shared by most family events and attributes
+FAMILY_EVENT_DETAIL
+    -> Level D "HUSB" newLine Level D "AGE" 
+
+# =====================================================
+# MULTIFUNCTIONAL SUBSTRUCTURES
+# =====================================================
 
 PHRASE
     -> Level D "PHRASE" D Text
+
+TYPE
+    -> Level D "TYPE" D Text
 
 
 
