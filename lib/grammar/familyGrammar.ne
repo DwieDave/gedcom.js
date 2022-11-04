@@ -3,6 +3,7 @@ structure
     |  HUSB
     |  WIFE
     |  CHIL
+    |  TEST
 
 # =====================================================
 # LINE GRAMMAR
@@ -53,13 +54,17 @@ Integer -> digit:+
 stdEnum -> stdTag | Integer
 Enum    -> stdEnum | extTag
 
-
+Age         -> (ageBound D):? ageDuration
+ageBound    -> "<" | ">"
+years       -> Integer "y"
+months      -> Integer "m"
+weeks       -> Integer "w"
+days        -> Integer "d"
 ageDuration 
-    -> years 
-years   -> Integer "y"
-months  -> Integer "m"
-weeks   -> Integer "w"
-days    -> Integer "d"
+    -> years (D months):? (D weeks):? (D days):?
+    |  months (D weeks):? (D days):?
+    |  weeks (D days):?
+    |  days
 
 
 
@@ -77,6 +82,9 @@ WIFE
 CHIL 
     -> "1" D "CHIL" D Xref
     |  CHIL newLine PHRASE
+
+TEST
+    -> Level D "TEST" D Age
     
 
 # Family attributes
@@ -99,8 +107,8 @@ FACT
 
 
 # Substructures shared by most family events and attributes
-FAMILY_EVENT_DETAIL
-    -> Level D "HUSB" newLine Level D "AGE" 
+# FAMILY_EVENT_DETAIL
+    # -> Level D "HUSB" newLine Level D "AGE" 
 
 # =====================================================
 # MULTIFUNCTIONAL SUBSTRUCTURES
