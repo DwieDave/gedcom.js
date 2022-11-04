@@ -3,7 +3,6 @@ structure
     |  WIFE
     |  CHIL
 
-
 # Line grammar
 Level 
     -> "0"

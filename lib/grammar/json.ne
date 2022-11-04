@@ -1,6 +1,9 @@
 # nearley starts with the very first rule of the file
 # terminal: are to be taken literally and must be wrapped inside of ""
 # nonterminal: describe a set of possible strings and is described by a rule (like value, number, ...)
+inputs
+    -> input
+    |  input inputs
 
 input -> _ value _  # {% id %} == {% (data) => data[0] %}
     {% (data) => data[1] %}
