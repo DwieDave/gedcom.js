@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>84</x><y>36</y><w>174</w><h>90</h></coordinates><panel_attributes>Parser
+<diagram program="umletino" version="15.0.0"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>222</x><y>138</y><w>174</w><h>90</h></coordinates><panel_attributes>Parser
 --
 - gedcomLineRegex: RegExp
 - dataset: Structures[]
@@ -7,7 +7,7 @@
 + parseString(gedcomString: String): Structures[]
 + parseLine()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>210</y><w>150</w><h>132</h></coordinates><panel_attributes>Structure
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>312</y><w>150</w><h>132</h></coordinates><panel_attributes>Structure
 --
 &lt;&lt;get/set&gt;&gt; -level: String
 &lt;&lt;get/set&gt;&gt; -xref: String
@@ -22,14 +22,18 @@
 + addSubstructure(structure: Structure)
 + getSuperstructure()
 + setSuperstructure(structure: Structure)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>258</x><y>402</y><w>126</w><h>114</h></coordinates><panel_attributes>Individual
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>396</x><y>504</y><w>132</w><h>114</h></coordinates><panel_attributes>Individual
 --
 
 --
 + Individual()
 + getName(): String
 + getSex(): String
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>432</x><y>402</y><w>162</w><h>138</h></coordinates><panel_attributes>Family
++ getBirthDate(): String
++ getDeathDate(): String
++ getResidenceInformation(): String
++ getFamiliesXref(): [String]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>504</y><w>162</w><h>138</h></coordinates><panel_attributes>Family
 --
 
 --
@@ -44,7 +48,7 @@
 + getNumbersOfChildren(): Structure[]
 + getResidenceInformation(): Structure[]
 + getFamilyFacts(): Structure[]
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>312</x><y>336</y><w>84</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>444</x><y>336</y><w>78</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>18</y><w>150</w><h>126</h></coordinates><panel_attributes>Dataset
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>438</y><w>84</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>438</y><w>78</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>120</y><w>150</w><h>126</h></coordinates><panel_attributes>Dataset
 --
 - header: Structure
 - trlr: Structure
@@ -61,4 +65,4 @@
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>252</x><y>72</y><w>102</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>408</x><y>138</y><w>18</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>174</y><w>102</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>546</x><y>240</y><w>18</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element></diagram>
