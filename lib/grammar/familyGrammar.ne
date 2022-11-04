@@ -6,23 +6,23 @@ structure
 # =====================================================
 # LINE GRAMMAR
 # =====================================================
-Level    -> "0" | nonzero digit:*
-D        -> [ ]
-Xref     -> atsign tagChar:+ atsign
-Tag      -> stdTag | extTag
-LineVal  -> pointer | lineStr
-EOL      -> [\x0D] [\x0A]:? | [\x0A]
+Level       -> "0" | nonzero digit:*
+D           -> [ ]
+Xref        -> atsign tagChar:+ atsign
+Tag         -> stdTag | extTag
+LineVal     -> pointer | lineStr
+EOL         -> [\x0D] [\x0A]:? | [\x0A]
 
-stdTag  -> ucletter tagChar:*
-extTag  -> underscore tagChar:+
-tagChar -> ucletter | digit | underscore
+stdTag      -> ucletter tagChar:*
+extTag      -> underscore tagChar:+
+tagChar     -> ucletter | digit | underscore
 
-pointer -> voidPrt | Xref
-voidPrt -> "@VOID@"
+pointer     -> voidPrt | Xref
+voidPrt     -> "@VOID@"
 
 nonAt       -> [^@\n]
 nonEOL      -> [^\n]
-lineStr -> nonAt nonEOL:* | atsign atsign nonEOL:*
+lineStr     -> nonAt nonEOL:* | atsign atsign nonEOL:*
 
 digit       -> [0-9]
 nonzero     -> [1-9]
@@ -45,12 +45,12 @@ notBanned -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F]
 # DATA TYPES
 # =====================================================
 anychar -> notBanned
-Text -> anychar:*
+Text    -> anychar:*
 
 Integer -> digit:+
 
 stdEnum -> stdTag | Integer
-Enum -> stdEnum | extTag
+Enum    -> stdEnum | extTag
 
 
 
@@ -59,10 +59,18 @@ Enum -> stdEnum | extTag
 # =====================================================
 HUSB 
     -> "1" D "HUSB" D Xref
+    |  HUSB newLine PHRASE
 
-WIFE -> "1" D "WIFE" D Xref
+WIFE 
+    -> "1" D "WIFE" D Xref
+    |  WIFE newLine PHRASE
 
-CHIL -> "1" D "CHIL" D Xref
+CHIL 
+    -> "1" D "CHIL" D Xref
+    |  CHIL newLine PHRASE
+
+PHRASE
+    -> Level D "PHRASE" D Text
 
 
 

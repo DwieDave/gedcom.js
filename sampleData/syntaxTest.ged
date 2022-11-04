@@ -1,5 +1,10 @@
+0 HEAD
+1 GEDC
+2 VERS 7.0
 0 @F1@ FAM
 1 HUSB @I1@
+2 PHRASE hat ein sehr schönes Haus
+1 HUSB @I2@
 1 WIFE @I2@
 1 CHIL @I4@
 1 CHIL @I5@
