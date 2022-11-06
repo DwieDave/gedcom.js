@@ -2,12 +2,20 @@
 @include "./LineGrammar.ne"
 @include "./ReusableSubstructures.ne"
 
+# Leerzeichen am Ende einer Line erlaubt? 
+input 
+    -> FAM D:* 
+    |  FAM D:* (newLine structure D:*):*
+
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
     |  FAM_HUSB
     |  FAM_WIFE
     |  CHIL
     |  TEST
+
+FAM 
+    -> Level D Xref D "FAM"
 
 # =====================================================
 # FIRST LEVEL 
