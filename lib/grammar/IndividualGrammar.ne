@@ -23,7 +23,6 @@ INDI
 # =====================================================
 
 RESN -> Level D "RESN" RESN_ENUM
-RESN_ENUM -> "CONFIDENTIAL" | "LOCKED" | "PRIVACY"
 
 PERSONAL_NAME_STRUCTURE -> Level D "NAME" PersonalName 
     | PERSONAL_NAME_STRUCTURE newLine TYPE
