@@ -6,7 +6,6 @@
   "scripts": {
     "test": "mocha ./test/gedcomMochaTest.js",
     "run": "node ./lib/index.mjs",
-    "parse": "node ./lib/grammar/parse.js",
     "generateParser": "npx nearleyc ./lib/grammar/familyGrammar.ne -o ./lib/grammar/familyGrammar.js"
   },
   "repository": {
