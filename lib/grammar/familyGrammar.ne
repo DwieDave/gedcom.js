@@ -69,10 +69,6 @@ FAMILY_EVENT_DETAIL
     |  WIFE
     |  EVENT_DETAIL
 
-EVENT_DETAIL
-    -> DATE
-
-
 
 
 

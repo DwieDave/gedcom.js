@@ -1,7 +1,9 @@
+@include "./Enums.ne"
+
 # =====================================================
 # DATA TYPES
 # =====================================================
-# Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#datatypes 
+# Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#datatypes
 
 # Text
 anychar     -> notBanned
@@ -93,3 +95,6 @@ mt_qpair        -> "\\" [\x09-7E]
 
 # Special
 Special         -> Text
+
+Null -> "NULL"
+NullOrY -> "Y" | Null
