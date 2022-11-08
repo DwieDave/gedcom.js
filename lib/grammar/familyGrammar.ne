@@ -5,7 +5,20 @@
 # Leerzeichen am Ende einer Line erlaubt? 
 input 
     -> FAM D:* 
-    |  FAM D:* (newLine structure D:*):*
+    |  FAM D:* (newLine structure D:*):* {% (d, l, reject) => {
+
+        const subs = d[2].map((arr) => arr[1][0]);
+        let husb_counter = 0;
+        for(sub of subs) {
+            if(sub.tag === 'HUSB') husb_counter += 1
+        }
+        if(husb_counter > 1) return reject;
+        return {
+            line: d[0],
+            substructures: subs
+        }
+    }
+    %}
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
@@ -15,13 +28,25 @@ structure
     |  TEST
 
 FAM 
-    -> Level D Xref D "FAM"
+    -> "0" D Xref D "FAM" {% (data) => {
+        return {
+            level: data[0],
+            Xref: data[2],
+            tag: data[4]
+        }
+    }%}
 
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
-    -> "1" D "HUSB" D Xref
+    -> "1" D "HUSB" D Xref {% (data) => {
+        return {
+            level: data[0],
+            tag: data[2],
+            xref: data[4]
+        }
+    }%}
     |  FAM_HUSB newLine PHRASE
 
 HUSB
