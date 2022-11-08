@@ -4,7 +4,7 @@
   "description": "Client for the use of the Gedcom File Format v7 with node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/gedcomMochaTest.js",
+    "test": "mocha ./test/gedcomMochaTest.mjs",
     "run": "node ./lib/index.mjs",
     "generateFamilyParser": "npx nearleyc ./lib/grammar/FamilyGrammar.ne -o ./lib/grammar/FamilyGrammar.js",
     "generateIndividualParser": "npx nearleyc ./lib/grammar/IndividualGrammar.ne -o ./lib/grammar/IndividualGrammar.js"
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "moo": "^0.5.2",
+    "moo-ignore": "^2.5.1",
     "nearley": "^2.20.1"
   }
 }
