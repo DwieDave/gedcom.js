@@ -1,4 +1,5 @@
 @include "./Enums.ne"
+@include "./Line.ne"
 
 # =====================================================
 # DATA TYPES
