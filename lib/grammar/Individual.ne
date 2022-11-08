@@ -1,10 +1,12 @@
 @include "./DataTypes.ne"
-@include "./LineGrammar.ne"
-@include "./ReusableSubstructures.ne"
+@include "./Substructures.ne"
 
 input 
     -> INDI D:* 
     |  INDI D:* (newLine structure D:*):*
+
+INDI 
+    -> Level D Xref D "INDI"
 
 structure 
     -> RESN
@@ -29,24 +31,19 @@ structure
     |  CREATION_DATE
 
 
-
-INDI 
-    -> Level D Xref D "INDI"
-
-
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 
 RESN -> Level D "RESN" RESN_ENUM
 
-PERSONAL_NAME_STRUCTURE -> Level D "NAME" PersonalName 
+PERSONAL_NAME_STRUCTURE -> Level D "NAME" D PersonalName 
     | PERSONAL_NAME_STRUCTURE newLine TYPE
     | PERSONAL_NAME_STRUCTURE newLine TYPE newLine PHRASE
     | PERSONAL_NAME_STRUCTURE newLine NAME_PIECES
     | PERSONAL_NAME_STRUCTURE newLine NOTE_STRUCTURE
-    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" language
-    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" language newLine NAME_PIECES
+    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D language
+    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D language newLine NAME_PIECES
 
 SEX -> Level D "SEX" D SEX_ENUM
 
@@ -77,27 +74,22 @@ DESI -> Level D "DESI" D Xref
 # =====================================================
 
 
-INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE -> Level D ("CAST" | "DSCR" | "EDUC") Text
-    | INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE newLine Level D "TYPE" Text
+INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE -> Level D ("CAST" | "DSCR" | "EDUC") D Text
+    | INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE newLine Level D "TYPE" D Text
     | INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE newLine INDIVIDUAL_EVENT_DETAIL
 
 INDIVIDUAL_ATTRIBUTE_STRUCTURE -> INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE 
     | INDIVIDUAL_ATTRIBUTE_STRUCTURE newLine INDIVIDUAL_ATTRIBUTE_STRUCTURE_NODE 
-    | INDIVIDUAL_ATTRIBUTE_STRUCTURE newLine Level D "IDNO" Special
+    | INDIVIDUAL_ATTRIBUTE_STRUCTURE newLine Level D "IDNO" D Special
 
-
-
-INDIVIDUAL_EVENT -> Level D INDIVIDUAL_EVENTS
-    | INDIVIDUAL_EVENT newLine Level D "TYPE" Text
+INDIVIDUAL_EVENT -> Level D INDIVIDUAL_EVENTS D:? NullOrY
+    | INDIVIDUAL_EVENT newLine Level D "TYPE" D Text
     | INDIVIDUAL_EVENT newLine INDIVIDUAL_EVENT_DETAIL
 
 INDIVIDUAL_EVENT_DETAIL -> EVENT_DETAIL | AGE
 
-INDIVIDUAL_EVENT_BIRT_CHR -> INDIVIDUAL_EVENT newLine Level D "FAMC" Xref
+INDIVIDUAL_EVENT_BIRT_CHR -> INDIVIDUAL_EVENT newLine Level D "FAMC" D Xref
+
 INDIVIDUAL_EVENT_ADOP -> INDIVIDUAL_EVENT_BIRT_CHR
-    | INDIVIDUAL_EVENT_ADOP newLine Level D "ADOP" ADOP_ENUM
-    | INDIVIDUAL_EVENT_ADOP newLine Level D "ADOP" ADOP_ENUM newLine PHRASE
-
-
-
-
+    | INDIVIDUAL_EVENT_ADOP newLine Level D "ADOP" D ADOP_ENUM
+    | INDIVIDUAL_EVENT_ADOP newLine Level D "ADOP" D ADOP_ENUM newLine PHRASE

@@ -1,6 +1,5 @@
 @include "./DataTypes.ne"
-@include "./LineGrammar.ne"
-@include "./ReusableSubstructures.ne"
+@include "./Substructures.ne"
 
 # Leerzeichen am Ende einer Line erlaubt? 
 input 
