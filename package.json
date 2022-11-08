@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha ./test/gedcomMochaTest.mjs",
     "run": "node ./lib/index.mjs",
-    "generateFamilyParser": "npx nearleyc ./lib/grammar/FamilyGrammar.ne -o ./lib/grammar/FamilyGrammar.js",
-    "generateIndividualParser": "npx nearleyc ./lib/grammar/IndividualGrammar.ne -o ./lib/grammar/IndividualGrammar.js"
+    "generateFamilyParser": "npx nearleyc ./lib/grammar/Family.ne -o ./lib/grammar/parser/FamilyParser.js",
+    "generateIndividualParser": "npx nearleyc ./lib/grammar/Individual.ne -o ./lib/grammar/parser/IndividualParser.js"
   },
   "repository": {
     "type": "git",
