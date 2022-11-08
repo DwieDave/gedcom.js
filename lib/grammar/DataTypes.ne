@@ -1,4 +1,5 @@
 @include "./Enums.ne"
+@include "./Line.ne"
 
 # =====================================================
 # DATA TYPES
@@ -96,5 +97,4 @@ mt_qpair        -> "\\" [\x09-7E]
 # Special
 Special         -> Text
 
-Null -> "NULL"
-NullOrY -> "Y" | Null
+NullOrY -> "Y":?
