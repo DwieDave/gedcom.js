@@ -11,11 +11,11 @@
 # Text
 anychar     -> notBanned    
 Text        -> anychar:* 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 
 # Integer
 Integer     -> digit:+ 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 
 # Enumeration
 stdEnum     -> stdTag 
@@ -26,184 +26,186 @@ Enum        -> stdEnum
 # Date
 DateValue   -> (date | DatePeriod | dateRange | dateApprox):?
 DateExact   -> day D month D year 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 DatePeriod  -> ("TO" D date):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  "FROM" D date (D "TO" D date):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 date        -> (calendar D):? ((day D):? month D):? year (D epoch):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 dateRange   -> "BET" D date D "AND" D date 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  "AFT" D date 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  "BEF" D date 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 dateApprox  -> ("ABT" | "CAL" | "EST") D date 
-                {% (d) => functions.joinAndUnpackAll(d) %}
-dateRestrict ->  "FROM" {% id %} 
-            |  "TO" {% id %} 
-            |  "BET" {% id %} 
-            |  "AND" {% id %} 
-            |  "BEF" {% id %} 
-            |  "AFT" {% id %} 
-            |  "ABT" {% id %} 
-            |  "CAL" {% id %} 
-            |  "EST" {% id %} 
-            |  "BCE" {% id %}
-calendar    -> "GREGORIAN" {% id %} 
-            |  "JULIAN" {% id %} 
-            |  "FRENCH_R" {% id %} 
-            |  "HEBREW" {% id %} 
+                {% functions.joinAndUnpackAll %}
+dateRestrict ->  "FROM" {%id%} 
+            |  "TO" {%id%} 
+            |  "BET" {%id%} 
+            |  "AND" {%id%} 
+            |  "BEF" {%id%} 
+            |  "AFT" {%id%} 
+            |  "ABT" {%id%} 
+            |  "CAL" {%id%} 
+            |  "EST" {%id%} 
+            |  "BCE" {%id%}
+calendar    -> "GREGORIAN" {%id%} 
+            |  "JULIAN" {%id%} 
+            |  "FRENCH_R" {%id%} 
+            |  "HEBREW" {%id%} 
             |  extTag
 day         -> Integer
 year        -> Integer
 month       -> stdTag 
             |  extTag
-epoch       -> "BCE" {% id %} 
+epoch       -> "BCE" {%id%} 
             |  extTag
 
 # Time (represented in 24-hour clock)
 Time        -> hour ":" minute (":" second ("." fraction):? ):? ("Z"):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
-hour        -> digit | ("0" | "1") digit | "2" ("0" | "1" | "2" | "3") 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
+hour        -> digit 
+            |  ("0" | "1") digit | "2" ("0" | "1" | "2" | "3") 
+                {% functions.joinAndUnpackAll %}
 minute      -> ("0" | "1" | "2" | "3" | "4" | "5") digit 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 second      -> ("0" | "1" | "2" | "3" | "4" | "5") digit 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 fraction    -> digit:+ 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 
 # Age
 Age         -> (ageBound D):? ageDuration 
-                {% (d) => functions.joinAndUnpackAll(d) %}
-ageBound    -> "<" {% id %} | ">" {% id %}
+                {% functions.joinAndUnpackAll %}
+ageBound    -> "<" {% id %} 
+            |  ">" {%id%}
 years       -> Integer "y" 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 months      -> Integer "m" 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 weeks       -> Integer "w" 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 days        -> Integer "d" 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 ageDuration -> years (D months):? (D weeks):? (D days):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  months (D weeks):? (D days):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  weeks (D days):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
             |  days 
 
 # List
 list        -> listItem (listDelim listItem):* 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 listItem    -> (nocommasp | nocommasp nocomma:* nocommasp):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
                                 
 listDelim   -> D:* "," D:* 
-                {% (d) => functions.joinAndUnpackAll(d) %}
-nocomma     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C] {% id %}
-nocommasp   -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C\x1E-\x20] {% id %}
+                {% functions.joinAndUnpackAll %}
+nocomma     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C] {%id%}
+nocommasp   -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C\x1E-\x20] {%id%}
 List_Text   -> list
 List_Enum   -> Enum (listDelim Enum):* 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 
 # Personal Name
 PersonalName -> nameStr 
             |  nameStr:? "/" nameStr:? "/" nameStr:? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
-nameChar    -> [^\x00-\x19\x2F] {% id %}
+                {% functions.joinAndUnpackAll %}
+nameChar    -> [^\x00-\x19\x2F] {%id%}
 nameStr     -> nameChar:+ 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 
 # Language
 LangTag     -> language ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 language    -> alpha alpha alpha:? ("-" extlang):? 
-                {% (d) => functions.joinAndUnpackAll(d) %} 
+                {% functions.joinAndUnpackAll %} 
             |  alpha alpha alpha alpha 
-                {% (d) => functions.joinAndUnpackAll(d) %} 
+                {% functions.joinAndUnpackAll %} 
             |  alpha alpha alpha alpha alpha (alpha):? (alpha):? (alpha):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 extlang     -> alpha alpha alpha ("-" alpha alpha alpha):? ("-" alpha alpha alpha):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 script      -> alpha alpha alpha alpha 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 region      -> alpha alpha 
-                {% (d) => functions.joinAndUnpackAll(d) %} 
+                {% functions.joinAndUnpackAll %} 
             |  digit digit digit 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 variant     -> digit alphanum alphanum alphanum 
-                {% (d) => functions.joinAndUnpackAll(d) %} 
+                {% functions.joinAndUnpackAll %} 
             |  alphanum alphanum alphanum alphanum alphanum (alphanum):? (alphanum):? (alphanum):? 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 extension   -> singleton ("-" alphanum alphanum (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):?):+ 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 singleton   -> digit 
             |  [\x41-\x57\x59-\x5A\x61-\x77\x79-\x7A] {% id %}
 privateuse  -> "x" ("-" alphanum (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):?):+ 
-                {% (d) => functions.joinAndUnpackAll(d) %}
+                {% functions.joinAndUnpackAll %}
 alpha       -> [a-zA-z]
 alphanum    -> alpha 
             |  digit
-irregular   -> "en-GB-oed" {% id %} 
-            |  "i-ami" {% id %} 
-            |  "i-bnn" {% id %} 
-            |  "i-default" {% id %} 
-            |  "i-enochian" {% id %} 
-            |  "i-hak" {% id %} 
-            |  "i-klingon" {% id %} 
-            |  "i-lux" {% id %} 
-            |  "i-mingo" {% id %} 
-            |  "i-navajo" {% id %} 
-            |  "i-pwn" {% id %} 
-            |  "i-tao" {% id %} 
-            |  "i-tay" {% id %} 
-            |  "i-tsu" {% id %} 
-            |  "sgn-BE-FR" {% id %} 
-            |  "sgn-BE-NL" {% id %} 
-            |  "sgn-CH-DE" {% id %}
-regular     ->  "art-lojban" {% id %} 
-            |  "cel-gaulish" {% id %} 
-            |  "no-bok" {% id %} 
-            |  "no-nyn" {% id %} 
-            |  "zh-guoyu" {% id %} 
-            |  "zh-hakka" {% id %} 
-            |  "zh-min" {% id %} 
-            |  "zh-min-nan" {% id %} 
-            |  "zh-xiang" {% id %}
+irregular   -> "en-GB-oed" {%id%} 
+            |  "i-ami" {%id%}
+            |  "i-bnn" {%id%} 
+            |  "i-default" {%id%} 
+            |  "i-enochian" {%id%} 
+            |  "i-hak" {%id%} 
+            |  "i-klingon" {%id%} 
+            |  "i-lux" {%id%} 
+            |  "i-mingo" {%id%} 
+            |  "i-navajo" {%id%} 
+            |  "i-pwn" {%id%} 
+            |  "i-tao" {%id%} 
+            |  "i-tay" {%id%} 
+            |  "i-tsu" {%id%} 
+            |  "sgn-BE-FR" {%id%} 
+            |  "sgn-BE-NL" {%id%} 
+            |  "sgn-CH-DE" {%id%}
+regular     ->  "art-lojban" {%id%} 
+            |  "cel-gaulish" {%id%} 
+            |  "no-bok" {%id%} 
+            |  "no-nyn" {%id%} 
+            |  "zh-guoyu" {%id%} 
+            |  "zh-hakka" {%id%} 
+            |  "zh-min" {%id%} 
+            |  "zh-min-nan" {%id%} 
+            |  "zh-xiang" {%id%}
 grandfathered -> irregular 
             | regular
 
 # Media Type
 MediaType       -> mt_type "/" mt_subtype (";" mt_parameter):*
-                    {% (d) => functions.joinAndUnpackAll(d) %}
+                    {% functions.joinAndUnpackAll %}
 mt_type         -> mt_token
 mt_subtype      -> mt_token
 mt_parameter    -> mt_attribute "=" mt_value
-                    {% (d) => functions.joinAndUnpackAll(d) %}
+                    {% functions.joinAndUnpackAll %}
 mt_token        -> (mt_char):+
-                    {% (d) => functions.joinAndUnpackAll(d) %}
+                    {% functions.joinAndUnpackAll %}
 mt_attribute    -> mt_token
 mt_value        -> mt_token 
                 |  mt_qstring
-mt_char         -> [\x20-\x21] {% id %} 
-                |  [\x23-\x27] {% id %} 
-                |  [\x2A-\x2B] {% id %} 
-                |  [\x2D-\x2E] {% id %} 
-                |  [\x30-\x39] {% id %} 
-                |  [\x41-\x5A] {% id %} 
-                |  [\x5E-\x7E] {% id %}
+mt_char         -> [\x20-\x21] {%id%} 
+                |  [\x23-\x27] {%id%} 
+                |  [\x2A-\x2B] {%id%} 
+                |  [\x2D-\x2E] {%id%} 
+                |  [\x30-\x39] {%id%} 
+                |  [\x41-\x5A] {%id%} 
+                |  [\x5E-\x7E] {%id%}
 mt_qstring      -> [\x22] (mt_qtext |  mt_qpair):* [\x22]
-                    {% (d) => functions.joinAndUnpackAll(d) %}
-mt_qtext        -> [\x09-\x0A] {% id %} 
-                |  [\x20-\x21] {% id %} 
-                |  [\x23-\x5B] {% id %} 
-                |  [\x5D-\x7E] {% id %}
+                    {% functions.joinAndUnpackAll %}
+mt_qtext        -> [\x09-\x0A] {%id%} 
+                |  [\x20-\x21] {%id%} 
+                |  [\x23-\x5B] {%id%} 
+                |  [\x5D-\x7E] {%id%}
 mt_qpair        -> "\\" [\x09-7E] 
-                    {% (d) => functions.joinAndUnpackAll(d) %}
+                    {% functions.joinAndUnpackAll %}
 
 # Special
 Special     -> Text
-NullOrY     -> "Y":? {% id %}
+NullOrY     -> "Y":? {%id%}

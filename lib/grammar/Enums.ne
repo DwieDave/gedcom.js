@@ -44,7 +44,7 @@ INDIVIDUAL_EVENTS -> "ADOP" {%id%}
             | "BLES" {%id%} 
             | "BURI" {%id%} 
             | "CENS" {%id%} 
-            | "CHR" {%id%} 
+            | "CHR"  {%id%} 
             | "CHRA" {%id%} 
             | "CONF" {%id%} 
             | "CREM" {%id%} 
@@ -77,7 +77,7 @@ INDIVIDUAL_ATTRIBUTES -> "CAST" {%id%}
             |  "IDNO" {%id%} 
             |  "NATI" {%id%} 
             |  "NCHI" {%id%} 
-            |  "NMR" {%id%} 
+            |  "NMR"  {%id%} 
             |  "OCCU" {%id%} 
             |  "PROP" {%id%} 
             |  "RELI" {%id%} 
@@ -86,7 +86,6 @@ INDIVIDUAL_ATTRIBUTES -> "CAST" {%id%}
             |  "TITL" {%id%}
 FAMILY_ATTRIBUTES -> "NCHI" {%id%} 
             |  "RESI" {%id%}
-
 
 FAMC_STAT_ENUM -> "CHALLENGED" {%id%} 
             |  "DISPROVEN" {%id%} 

@@ -8,7 +8,7 @@
 
 %}
 input 
-    -> ADOP_ENUM {% id %}
+    -> DateExact {% id %}
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
