@@ -2,8 +2,13 @@
 @include "./Substructures.ne"
 
 # Leerzeichen am Ende einer Line erlaubt? 
+
+@{%
+    const functions = require('./Postprocessors.js');
+
+%}
 input 
-    -> Text
+    -> ADOP_ENUM {% id %}
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
