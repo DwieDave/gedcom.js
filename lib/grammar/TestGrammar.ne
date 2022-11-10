@@ -5,38 +5,36 @@
 
 @{%
     const functions = require('./Postprocessors.js');
+    const CONSTANTS = {
+        LINEVAL_POINTER_TYPE: "pointer",
+        LINEVAL_LINESTR_TYPE: "lineStr"
+    }
+
 
 %}
+
+
 input 
-    -> DateExact {% id %}
+    -> FAM D:* 
+    |  FAM D:* (newLine structure D:*):* {% functions.createStructure %}
 
 structure 
-    -> FAMILY_ATTRIBUTE_STRUCTURE
-    |  FAM_HUSB
+    -> FAM_HUSB
     |  FAM_WIFE
-    |  CHIL
-    |  TEST
+
 
 FAM 
-    -> "0" D Xref D "FAM" {% (data) => {
-        return {
-            level: data[0],
-            Xref: data[2],
-            tag: data[4]
-        }
-    }%}
+    -> "0" D Xref D "FAM"
+        {% functions.parseLineNoLineVal %}
+        
+
 
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
-    -> "1" D "HUSB" D Xref {% (data) => {
-        return {
-            level: data[0],
-            tag: data[2],
-            xref: data[4]
-        }
-    }%}
+    -> "1" D "HUSB" D Xref 
+        {% (data) => functions.parseLineNoXref(data, CONSTANTS.LINEVAL_POINTER_TYPE) %}
     |  FAM_HUSB newLine PHRASE
 
 HUSB
@@ -45,6 +43,7 @@ HUSB
 
 FAM_WIFE 
     -> "1" D "WIFE" D Xref
+        {% (data) => functions.parseLineNoXref(data, CONSTANTS.LINEVAL_POINTER_TYPE) %}
     |  FAM_WIFE newLine PHRASE
 
 WIFE
