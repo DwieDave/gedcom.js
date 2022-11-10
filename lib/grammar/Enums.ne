@@ -2,24 +2,99 @@
 # ENUMS
 # =====================================================
 
-RESN_ENUM -> "CONFIDENTIAL" | "LOCKED" | "PRIVACY"
-NAME_PIECES_ENUM -> "NPFX" | "GIVN" | "NICK" | "SPFX" | "SURN" | "NSFX"
-ROLE -> "CHIL" | "CLERGY" | "FATH" | "FRIEND" | "GODP" | "HUSB" | "MOTH" | "MULTIPLE" | "NGHBR" | "OFFICIATOR" | "SPOU" | "WIFE" | "WITN" | "OTHER"
-SEX_ENUM -> "M" | "F" | "X" | "U"
-ADOP_ENUM -> "HUSB" | "WIFE" | "BOTH"
+RESN_ENUM   -> "CONFIDENTIAL" {%id%} 
+            |  "LOCKED"  {%id%}
+            |  "PRIVACY" {%id%}
+NAME_PIECES_ENUM -> "NPFX" {%id%} 
+            |  "GIVN" {%id%} 
+            |  "NICK" {%id%}  
+            |  "SPFX" {%id%} 
+            |  "SURN" {%id%} 
+            |  "NSFX" {%id%}
+ROLE        -> "CHIL" {%id%} 
+            |  "CLERGY" {%id%} 
+            |  "FATH" {%id%} 
+            |  "FRIEND" {%id%} 
+            |  "GODP" {%id%} 
+            |  "HUSB" {%id%} 
+            |  "MOTH" {%id%} 
+            |  "MULTIPLE" {%id%} 
+            |  "NGHBR" {%id%} 
+            |  "OFFICIATOR" {%id%} 
+            |  "SPOU" {%id%} 
+            |  "WIFE" {%id%} 
+            |  "WITN" {%id%} 
+            |  "OTHER" {%id%}
+SEX_ENUM    -> "M" {%id%} 
+            |  "F" {%id%} 
+            |  "X" {%id%} 
+            |  "U" {%id%}
+ADOP_ENUM   -> "HUSB" {%id%} 
+            |  "WIFE" {%id%} 
+            |  "BOTH" {%id%}
 
 # EVENTS
-EVENTS -> INDIVIDUAL_EVENTS | FAMILY_EVENTS
-INDIVIDUAL_EVENTS -> "ADOP" | "BAPM" | "BARM" | "BASM" | "BIRT" | "BLES" | "BURI" | "CENS" | "CHR" | "CHRA" | "CONF" | "CREM" | "DEAT" | "EMIG" | "FCOM" | "GRAD" | "IMMI" | "NATU" | "ORDN" | "PROB" | "RETI" | "WILL"
-FAMILY_EVENTS -> "ANUL" | "CENS" | "DIV" | "DIVFG" | "ENGA" | "MARB" | "MARC" | "MARR" | "MARS"
+EVENTS      -> INDIVIDUAL_EVENTS 
+            |  FAMILY_EVENTS
+INDIVIDUAL_EVENTS -> "ADOP" {%id%} 
+            | "BAPM" {%id%} 
+            | "BARM" {%id%} 
+            | "BASM" {%id%} 
+            | "BIRT" {%id%} 
+            | "BLES" {%id%} 
+            | "BURI" {%id%} 
+            | "CENS" {%id%} 
+            | "CHR" {%id%} 
+            | "CHRA" {%id%} 
+            | "CONF" {%id%} 
+            | "CREM" {%id%} 
+            | "DEAT" {%id%} 
+            | "EMIG" {%id%} 
+            | "FCOM" {%id%} 
+            | "GRAD" {%id%} 
+            | "IMMI" {%id%} 
+            | "NATU" {%id%} 
+            | "ORDN" {%id%} 
+            | "PROB" {%id%} 
+            | "RETI" {%id%} 
+            | "WILL" {%id%}
+FAMILY_EVENTS -> "ANUL" {%id%} 
+            | "CENS" {%id%} 
+            | "DIV"  {%id%}
+            | "DIVFG" {%id%} 
+            | "ENGA" {%id%} 
+            | "MARB" {%id%} 
+            | "MARC" {%id%} 
+            | "MARR" {%id%} 
+            | "MARS" {%id%}
 
 # ATTRIBUTES
-ATTRIBUTES -> INDIVIDUAL_ATTRIBUTES | FAMILY_ATTRIBUTES
-INDIVIDUAL_ATTRIBUTES -> "CAST" | "DSCR" | "EDUC" | "IDNO" | "NATI" | "NCHI" | "NMR" | "OCCU" | "PROP" | "RELI" | "RESI" | "SSN" | "TITL"
-FAMILY_ATTRIBUTES -> "NCHI" | "RESI"
+ATTRIBUTES  -> INDIVIDUAL_ATTRIBUTES 
+            |  FAMILY_ATTRIBUTES
+INDIVIDUAL_ATTRIBUTES -> "CAST" {%id%} 
+            |  "DSCR" {%id%} 
+            |  "EDUC" {%id%} 
+            |  "IDNO" {%id%} 
+            |  "NATI" {%id%} 
+            |  "NCHI" {%id%} 
+            |  "NMR" {%id%} 
+            |  "OCCU" {%id%} 
+            |  "PROP" {%id%} 
+            |  "RELI" {%id%} 
+            |  "RESI" {%id%} 
+            |  "SSN"  {%id%}
+            |  "TITL" {%id%}
+FAMILY_ATTRIBUTES -> "NCHI" {%id%} 
+            |  "RESI" {%id%}
 
 
-FAMC_STAT_ENUM -> "CHALLENGED" | "DISPROVEN" | "PROVEN"
+FAMC_STAT_ENUM -> "CHALLENGED" {%id%} 
+            |  "DISPROVEN" {%id%} 
+            |  "PROVEN" {%id%}
 
-PEDI_ENUM -> "ADOPTED" | "BIRTH" | "FOSTER" | "SEALING" | "OTHER"
+PEDI_ENUM   -> "ADOPTED" {%id%} 
+            |  "BIRTH" {%id%} 
+            |  "FOSTER" {%id%} 
+            |  "SEALING" {%id%} 
+            |  "OTHER" {%id%}
 
