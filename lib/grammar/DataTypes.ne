@@ -6,9 +6,14 @@
 # =====================================================
 # Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#datatypes
 
+@{%
+    const functions = require('./Postprocessors.js');
+
+%}
+
 # Text
-anychar     -> notBanned
-Text        -> anychar:*
+anychar     -> notBanned    {% id %}
+Text        -> anychar:*    {% (data) =>  %}
 
 # Integer
 Integer     -> digit:+
