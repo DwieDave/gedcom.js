@@ -2,10 +2,15 @@
 # REUSABLE SUBSTRUCTURES
 # =====================================================
 AGE -> Level D "AGE" D Age
+        {% functions.createStructureNoXref %}
     | AGE newLine PHRASE
+        {% (data) => {
+            data[0].addSubstructure(data[2])
+            return data[0]} %}
 
 PHRASE
     -> Level D "PHRASE" D Text
+        {% functions.createStructureNoXref %}
 
 TYPE
     -> Level D "TYPE" D Text

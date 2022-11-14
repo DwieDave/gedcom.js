@@ -13,10 +13,12 @@
 
 %}
 
+TEST 
+    -> AGE
 
 input 
     -> FAM D:* 
-    |  FAM D:* (newLine structure D:*):* {% functions.createStructure %}
+    |  FAM D:* (newLine structure D:*):* {% functions.createRecord %}
 
 structure 
     -> FAM_HUSB
@@ -26,6 +28,8 @@ structure
 FAM 
     -> "0" D Xref D "FAM"
         {% functions.parseLineNoLineVal %}
+
+
         
 
 
