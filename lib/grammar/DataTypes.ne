@@ -10,6 +10,9 @@
 anychar     -> notBanned
 Text        -> anychar:*
 
+anycharNoNewLine -> notBannedNoNewLine
+TextNoNewLine    -> anycharNoNewLine:*
+
 # Integer
 Integer     -> digit:+
 

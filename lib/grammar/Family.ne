@@ -4,7 +4,7 @@
 # Leerzeichen am Ende einer Line erlaubt? 
 input 
     -> FAM D:* 
-    |  FAM D:* (newLine structure D:*):*
+    |  FAM D:* newLine (structure D:* newLine):* (structure D:* newLine):?
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
@@ -40,7 +40,7 @@ CHIL
     |  CHIL newLine PHRASE
 
 TEST
-    -> Level D "TEST" D DateExact
+    -> Level D "TEST" D TextNoNewLine
     
 
 FAMILY_ATTRIBUTE_STRUCTURE
@@ -56,11 +56,11 @@ NCHI
     |  NCHI newLine TYPE
 
 RESI
-    -> Level D "RESI" D Text
+    -> Level D "RESI" D TextNoNewLine
     |  RESI newLine TYPE
 
 FACT
-    -> Level D "FACT" D Text
+    -> Level D "FACT" D TextNoNewLine
     |  FACT newLine TYPE
 
 FAMILY_EVENT_DETAIL

@@ -5,10 +5,10 @@ AGE -> Level D "AGE" D Age
     | AGE newLine PHRASE
 
 PHRASE
-    -> Level D "PHRASE" D Text
+    -> Level D "PHRASE" D TextNoNewLine
 
 TYPE
-    -> Level D "TYPE" D Text
+    -> Level D "TYPE" D TextNoNewLine
 
 TIME
     -> Level D "TIME" D Time
@@ -27,7 +27,7 @@ DATEPERIOD
     | DATEPERIOD newLine PHRASE
 
 TEXT
-    -> Level D "TEXT" D Text
+    -> Level D "TEXT" D TextNoNewLine
     | TEXT newLine Level D "MIME" MediaType
     | TEXT newLine Level D "LANG" language
 
@@ -42,7 +42,7 @@ CROP -> Level D "CROP" D
 EVENT_DETAIL
     -> DATE
 
-NAME_PIECES -> Level D NAME_PIECES_ENUM D Text
+NAME_PIECES -> Level D NAME_PIECES_ENUM D TextNoNewLine
 
 
 NON_EVENT_STRUCTURE -> Level D "NO" D EVENTS
@@ -51,19 +51,19 @@ NON_EVENT_STRUCTURE -> Level D "NO" D EVENTS
     | NON_EVENT_STRUCTURE newLine SOURCE_CITATION
 
 # NOTE
-NOTE_STRUCTURE -> (Level D "NOTE" D Text
+NOTE_STRUCTURE -> (Level D "NOTE" D TextNoNewLine
     | NOTE_STRUCTURE newLine Level D "MIME" D MediaType
     | NOTE_STRUCTURE newLine Level D "LANG" D language
     | NOTE_STRUCTURE newLine NOTE_TRAN
     | NOTE_STRUCTURE newLine SOURCE_CITATION) | Level D "SNOTE" D Xref
 
-NOTE_TRAN -> Level D "TRAN" D Text 
+NOTE_TRAN -> Level D "TRAN" D TextNoNewLine
         | NOTE_TRAN newLine Level D "MIME" D MediaType
         | NOTE_TRAN newLine Level D "LANG" D language
 
 # Source Citation
 SOURCE_CITATION -> Level D "SOUR" D Xref
-    | SOURCE_CITATION newLine Level D "PAGE" D Text
+    | SOURCE_CITATION newLine Level D "PAGE" D TextNoNewLine
     | SOURCE_CITATION newLine SOUR_DATA
     | SOURCE_CITATION newLine SOUR_EVEN
     | SOURCE_CITATION newLine QUAY
@@ -82,11 +82,11 @@ SOUR_EVEN -> Level D "EVEN" (ATTRIBUTES | EVENTS)
 # Multimedia Link
 MULTIMEDIA_LINK -> Level D "OBJE" D Xref
     | MULTIMEDIA_LINK newLine CROP
-    | MULTIMEDIA_LINK newLine Level D "TITL" D Text
+    | MULTIMEDIA_LINK newLine Level D "TITL" D TextNoNewLine
 
 # LDS Ordinance Detail
 LDS_ORDINANCE_DETAIL -> DATE
-    | Level D "TEMP" D Text
+    | Level D "TEMP" D TextNoNewLine
     | PLACE_STRUCTURE
     | Level D "STAT" D FAMC_STAT_ENUM newLine DATE_EXACT
     | NOTE_STRUCTURE
@@ -109,7 +109,7 @@ MAP -> Level D "MAP"
 EXID -> Level D "EXID" D Special
     | EXID newLine Level D "TYPE" D Special
 
-PLAC_TRAN -> Level D "TRAN" D Text
+PLAC_TRAN -> Level D "TRAN" D TextNoNewLine
     | PLAC_TRAN newLine Level D "LANG" D language
 
 
@@ -128,7 +128,7 @@ ASSOCIATION_STRUCTURE -> Level D "ASSO" D Xref
     | ASSOCIATION_STRUCTURE newLine SOURCE_CITATION
 
 REFN -> Level D "REFN" D Special
-    | REFN newLine Level D "TYPE" D Text
+    | REFN newLine Level D "TYPE" D TextNoNewLine
 
 UID -> Level D "UID" D Special
 

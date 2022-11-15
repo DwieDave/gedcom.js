@@ -7,7 +7,6 @@ input
 
 TEST
     -> Level D "TEST" D Text
-    |  TEST newLine FAM_HUSB
 
 # =====================================================
 # FIRST LEVEL 
