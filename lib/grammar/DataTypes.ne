@@ -7,11 +7,8 @@
 # Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#datatypes
 
 # Text
-anychar     -> notBanned
+anychar     -> notBannedNoEOL
 Text        -> anychar:*
-
-anycharNoNewLine -> notBannedNoNewLine
-TextNoNewLine    -> anycharNoNewLine:*
 
 # Integer
 Integer     -> digit:+

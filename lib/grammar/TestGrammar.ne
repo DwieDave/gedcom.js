@@ -13,23 +13,23 @@ TEST
 # =====================================================
 FAM_HUSB 
     -> "1" D "HUSB" D Xref
-    |  FAM_HUSB newLine PHRASE
+    |  FAM_HUSB EOL PHRASE
 
 HUSB
-    -> Level D "HUSB" newLine Level D "AGE" D Age
-    |  HUSB newLine PHRASE
+    -> Level D "HUSB" EOL Level D "AGE" D Age
+    |  HUSB EOL PHRASE
 
 FAM_WIFE 
     -> "1" D "WIFE" D Xref
-    |  FAM_WIFE newLine PHRASE
+    |  FAM_WIFE EOL PHRASE
 
 WIFE
-    -> Level D "WIFE" newLine Level D "AGE" D Age
-    |  WIFE newLine PHRASE
+    -> Level D "WIFE" EOL Level D "AGE" D Age
+    |  WIFE EOL PHRASE
 
 CHIL 
     -> "1" D "CHIL" D Xref
-    |  CHIL newLine PHRASE
+    |  CHIL EOL PHRASE
 
 TEST
     -> Level D "TEST" D DateExact
@@ -45,15 +45,15 @@ FAMILY_ATTRIBUTE_STRUCTURE
 # =====================================================
 NCHI 
     -> Level D "NCHI" D Integer
-    |  NCHI newLine TYPE
+    |  NCHI EOL TYPE
 
 RESI
     -> Level D "RESI" D Text
-    |  RESI newLine TYPE
+    |  RESI EOL TYPE
 
 FACT
     -> Level D "FACT" D Text
-    |  FACT newLine TYPE
+    |  FACT EOL TYPE
 
 FAMILY_EVENT_DETAIL
     -> HUSB

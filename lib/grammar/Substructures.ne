@@ -1,142 +1,141 @@
 # =====================================================
 # REUSABLE SUBSTRUCTURES
 # =====================================================
-AGE -> Level D "AGE" D Age
-    | AGE newLine PHRASE
+AGE -> Level D "AGE" D Age EOL
+    | AGE PHRASE EOL
 
 PHRASE
-    -> Level D "PHRASE" D TextNoNewLine
+    -> Level D "PHRASE" D Text EOL
 
 TYPE
-    -> Level D "TYPE" D TextNoNewLine
+    -> Level D "TYPE" D Text EOL
 
 TIME
-    -> Level D "TIME" D Time
+    -> Level D "TIME" D Time EOL
 
 DATE
-    -> Level D "DATE" D DateValue
-    | DATE newLine TIME:? PHRASE:?
-    | DATE newLine PHRASE:? TIME:?
-
+    -> Level D "DATE" D DateValue EOL
+    | DATE TIME:? PHRASE:? EOL
+    | DATE PHRASE:? TIME:? 
 DATE_EXACT
-    -> Level D "DATE" D DateExact
-    | DATE newLine TIME
+    -> Level D "DATE" D DateExact EOL
+    | DATE TIME EOL
 
 DATEPERIOD
-    -> Level D "DATE" D DatePeriod
-    | DATEPERIOD newLine PHRASE
+    -> Level D "DATE" D DatePeriod EOL
+    | DATEPERIOD PHRASE EOL
 
 TEXT
-    -> Level D "TEXT" D TextNoNewLine
-    | TEXT newLine Level D "MIME" MediaType
-    | TEXT newLine Level D "LANG" language
+    -> Level D "TEXT" D Text EOL
+    | TEXT Level D "MIME" MediaType EOL
+    | TEXT Level D "LANG" language EOL
 
 QUAY -> Level D "QUAY" D ("0" | "1" | "2" | "3")
 
 CROP -> Level D "CROP" D
-    | CROP newLine Level D "TOP" D Integer
-    | CROP newLine Level D "LEFT" D Integer
-    | CROP newLine Level D "HEIGHT" D Integer
-    | CROP newLine Level D "WIDTH" D Integer
+    | CROP Level D "TOP" D Integer EOL
+    | CROP Level D "LEFT" D Integer EOL
+    | CROP Level D "HEIGHT" D Integer EOL
+    | CROP Level D "WIDTH" D Integer EOL
 
 EVENT_DETAIL
     -> DATE
 
-NAME_PIECES -> Level D NAME_PIECES_ENUM D TextNoNewLine
+NAME_PIECES -> Level D NAME_PIECES_ENUM D Text EOL
 
 
-NON_EVENT_STRUCTURE -> Level D "NO" D EVENTS
-    | NON_EVENT_STRUCTURE newLine DATEPERIOD
-    | NON_EVENT_STRUCTURE newLine NOTE_STRUCTURE
-    | NON_EVENT_STRUCTURE newLine SOURCE_CITATION
+NON_EVENT_STRUCTURE -> Level D "NO" D EVENTS EOL
+    | NON_EVENT_STRUCTURE DATEPERIOD EOL
+    | NON_EVENT_STRUCTURE NOTE_STRUCTURE EOL
+    | NON_EVENT_STRUCTURE SOURCE_CITATION EOL
 
 # NOTE
-NOTE_STRUCTURE -> (Level D "NOTE" D TextNoNewLine
-    | NOTE_STRUCTURE newLine Level D "MIME" D MediaType
-    | NOTE_STRUCTURE newLine Level D "LANG" D language
-    | NOTE_STRUCTURE newLine NOTE_TRAN
-    | NOTE_STRUCTURE newLine SOURCE_CITATION) | Level D "SNOTE" D Xref
+NOTE_STRUCTURE -> (Level D "NOTE" D Text EOL
+    | NOTE_STRUCTURE Level D "MIME" D MediaType EOL
+    | NOTE_STRUCTURE Level D "LANG" D language EOL
+    | NOTE_STRUCTURE NOTE_TRAN EOL
+    | NOTE_STRUCTURE SOURCE_CITATION) | Level D "SNOTE" D Xref EOL
 
-NOTE_TRAN -> Level D "TRAN" D TextNoNewLine
-        | NOTE_TRAN newLine Level D "MIME" D MediaType
-        | NOTE_TRAN newLine Level D "LANG" D language
+NOTE_TRAN -> Level D "TRAN" D Text EOL
+        | NOTE_TRAN Level D "MIME" D MediaType EOL
+        | NOTE_TRAN Level D "LANG" D language EOL
 
 # Source Citation
-SOURCE_CITATION -> Level D "SOUR" D Xref
-    | SOURCE_CITATION newLine Level D "PAGE" D TextNoNewLine
-    | SOURCE_CITATION newLine SOUR_DATA
-    | SOURCE_CITATION newLine SOUR_EVEN
-    | SOURCE_CITATION newLine QUAY
-    | SOURCE_CITATION newLine MULTIMEDIA_LINK
-    | SOURCE_CITATION newLine NOTE_STRUCTURE
+SOURCE_CITATION -> Level D "SOUR" D Xref EOL
+    | SOURCE_CITATION Level D "PAGE" D Text EOL
+    | SOURCE_CITATION SOUR_DATA EOL
+    | SOURCE_CITATION SOUR_EVEN EOL
+    | SOURCE_CITATION QUAY EOL
+    | SOURCE_CITATION MULTIMEDIA_LINK EOL
+    | SOURCE_CITATION NOTE_STRUCTURE EOL
 
-SOUR_DATA -> Level D "DATA"
-    | SOUR_DATA newLine DATE
-    | SOUR_DATA newLine TEXT
+SOUR_DATA -> Level D "DATA" EOL
+    | SOUR_DATA DATE EOL
+    | SOUR_DATA TEXT EOL
 
-SOUR_EVEN -> Level D "EVEN" (ATTRIBUTES | EVENTS)
-    | SOUR_EVEN newLine PHRASE
-    | SOUR_EVEN newLine ROLE
-    | SOUR_EVEN newLine ROLE newLine PHRASE
+SOUR_EVEN -> Level D "EVEN" (ATTRIBUTES | EVENTS) EOL
+    | SOUR_EVEN PHRASE EOL
+    | SOUR_EVEN ROLE EOL
+    | SOUR_EVEN ROLE EOL PHRASE EOL
 
 # Multimedia Link
-MULTIMEDIA_LINK -> Level D "OBJE" D Xref
-    | MULTIMEDIA_LINK newLine CROP
-    | MULTIMEDIA_LINK newLine Level D "TITL" D TextNoNewLine
+MULTIMEDIA_LINK -> Level D "OBJE" D Xref EOL
+    | MULTIMEDIA_LINK CROP EOL
+    | MULTIMEDIA_LINK Level D "TITL" D Text EOL
 
 # LDS Ordinance Detail
-LDS_ORDINANCE_DETAIL -> DATE
-    | Level D "TEMP" D TextNoNewLine
-    | PLACE_STRUCTURE
-    | Level D "STAT" D FAMC_STAT_ENUM newLine DATE_EXACT
-    | NOTE_STRUCTURE
-    | SOURCE_CITATION
+LDS_ORDINANCE_DETAIL -> DATE EOL
+    | Level D "TEMP" D Text EOL
+    | PLACE_STRUCTURE EOL
+    | Level D "STAT" D FAMC_STAT_ENUM DATE_EXACT EOL
+    | NOTE_STRUCTURE EOL
+    | SOURCE_CITATION EOL
 
 # Place Structure
-PLACE_STRUCTURE -> Level D "PLAC" D List_Text
-    | PLACE_STRUCTURE newLine Level D "FORM" D List_Text
-    | PLACE_STRUCTURE newLine Level D "LANG" D language
-    | PLACE_STRUCTURE newLine PLAC_TRAN
-    | PLACE_STRUCTURE newLine MAP
-    | PLACE_STRUCTURE newLine EXID
-    | PLACE_STRUCTURE newLine NOTE_STRUCTURE
+PLACE_STRUCTURE -> Level D "PLAC" D List_Text EOL
+    | PLACE_STRUCTURE Level D "FORM" D List_Text EOL
+    | PLACE_STRUCTURE Level D "LANG" D language EOL
+    | PLACE_STRUCTURE PLAC_TRAN EOL
+    | PLACE_STRUCTURE MAP EOL
+    | PLACE_STRUCTURE EXID EOL
+    | PLACE_STRUCTURE NOTE_STRUCTURE EOL
 
 
-MAP -> Level D "MAP"
-    | MAP newLine Level D "LATI" D Special
-    | MAP newLine Level D "LONG" D Special
+MAP -> Level D "MAP" EOL
+    | MAP Level D "LATI" D Special EOL
+    | MAP Level D "LONG" D Special EOL
 
-EXID -> Level D "EXID" D Special
-    | EXID newLine Level D "TYPE" D Special
+EXID -> Level D "EXID" D Special EOL
+    | EXID Level D "TYPE" D Special EOL
 
-PLAC_TRAN -> Level D "TRAN" D TextNoNewLine
-    | PLAC_TRAN newLine Level D "LANG" D language
+PLAC_TRAN -> Level D "TRAN" D Text EOL
+    | PLAC_TRAN Level D "LANG" D language EOL
 
 
-FAMC_STAT -> Level D "STAT" FAMC_STAT_ENUM
+FAMC_STAT -> Level D "STAT" FAMC_STAT_ENUM EOL
 
-PEDI -> Level D "PEDI" D PEDI_ENUM
-    | PEDI newLine PHRASE
+PEDI -> Level D "PEDI" D PEDI_ENUM EOL
+    | PEDI PHRASE EOL
 
-FAMS -> Level D "FAMS" D Xref
-    | FAMS newLine NOTE_STRUCTURE
+FAMS -> Level D "FAMS" D Xref EOL
+    | FAMS NOTE_STRUCTURE EOL
 
-ASSOCIATION_STRUCTURE -> Level D "ASSO" D Xref
-    | ASSOCIATION_STRUCTURE newLine PHRASE
-    | ASSOCIATION_STRUCTURE newLine ROLE
-    | ASSOCIATION_STRUCTURE newLine NOTE_STRUCTURE
-    | ASSOCIATION_STRUCTURE newLine SOURCE_CITATION
+ASSOCIATION_STRUCTURE -> Level D "ASSO" D Xref EOL
+    | ASSOCIATION_STRUCTURE PHRASE EOL
+    | ASSOCIATION_STRUCTURE ROLE EOL
+    | ASSOCIATION_STRUCTURE NOTE_STRUCTURE EOL
+    | ASSOCIATION_STRUCTURE SOURCE_CITATION EOL
 
-REFN -> Level D "REFN" D Special
-    | REFN newLine Level D "TYPE" D TextNoNewLine
+REFN -> Level D "REFN" D Special EOL
+    | REFN Level D "TYPE" D Text EOL
 
-UID -> Level D "UID" D Special
+UID -> Level D "UID" D Special EOL
 
-IDENTIFIER_STRUCTURE -> REFN | UID | EXID
+IDENTIFIER_STRUCTURE -> (REFN | UID | EXID) EOL
 
-CHANGE_DATE -> Level D "CHAN"
-    | CHANGE_DATE newLine DATE_EXACT
-    | CHANGE_DATE newLine NOTE_STRUCTURE
+CHANGE_DATE -> Level D "CHAN" EOL
+    | CHANGE_DATE DATE_EXACT EOL
+    | CHANGE_DATE NOTE_STRUCTURE EOL
 
-CREATION_DATE -> Level D "CREA"
-    | CREATION_DATE newLine DATE_EXACT
+CREATION_DATE -> Level D "CREA" EOL
+    | CREATION_DATE DATE_EXACT EOL

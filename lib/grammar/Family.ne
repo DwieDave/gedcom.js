@@ -4,7 +4,7 @@
 # Leerzeichen am Ende einer Line erlaubt? 
 input 
     -> FAM D:* 
-    |  FAM D:* newLine (structure D:* newLine):* (structure D:* newLine):?
+    |  FAM D:* structure:*
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE
@@ -14,33 +14,33 @@ structure
     |  TEST
 
 FAM 
-    -> Level D Xref D "FAM"
+    -> Level D Xref D "FAM" D:* EOL
 
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
-    -> "1" D "HUSB" D Xref
-    |  FAM_HUSB newLine PHRASE
+    -> "1" D "HUSB" D Xref EOL
+    |  FAM_HUSB PHRASE EOL
 
 HUSB
-    -> Level D "HUSB" newLine Level D "AGE" D Age
-    |  HUSB newLine PHRASE
+    -> Level D "HUSB" EOL Level D "AGE" D Age EOL
+    |  HUSB PHRASE EOL
 
 FAM_WIFE 
-    -> "1" D "WIFE" D Xref
-    |  FAM_WIFE newLine PHRASE
+    -> "1" D "WIFE" D Xref EOL
+    |  FAM_WIFE PHRASE EOL
 
 WIFE
-    -> Level D "WIFE" newLine Level D "AGE" D Age
-    |  WIFE newLine PHRASE
+    -> Level D "WIFE" Level D "AGE" D Age EOL
+    |  WIFE PHRASE EOL
 
 CHIL 
-    -> "1" D "CHIL" D Xref
-    |  CHIL newLine PHRASE
+    -> "1" D "CHIL" D Xref EOL
+    |  CHIL PHRASE EOL
 
 TEST
-    -> Level D "TEST" D TextNoNewLine
+    -> Level D "TEST" D Text EOL
     
 
 FAMILY_ATTRIBUTE_STRUCTURE
@@ -52,16 +52,16 @@ FAMILY_ATTRIBUTE_STRUCTURE
 # SECOND LEVEL 
 # =====================================================
 NCHI 
-    -> Level D "NCHI" D Integer
-    |  NCHI newLine TYPE
+    -> Level D "NCHI" D Integer EOL
+    |  NCHI TYPE EOL
 
 RESI
-    -> Level D "RESI" D TextNoNewLine
-    |  RESI newLine TYPE
+    -> Level D "RESI" D Text EOL
+    |  RESI TYPE EOL
 
 FACT
-    -> Level D "FACT" D TextNoNewLine
-    |  FACT newLine TYPE
+    -> Level D "FACT" D Text EOL
+    |  FACT TYPE EOL
 
 FAMILY_EVENT_DETAIL
     -> HUSB
