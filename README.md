@@ -10,4 +10,5 @@ Library for the use of the Gedcom-File-Format v7 with node.js
   <li>JS-Parser: https://github.com/gedcom7code/js-parser</li>
   <li>Python Project: https://github.com/nickreynke/python-gedcom</li>
   <li>Java Project: https://github.com/FamilySearch/gedcom5-java</li>
+  <li>Nearley JS: https://nearley.js.org/</li>
 </ul>
