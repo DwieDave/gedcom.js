@@ -22,79 +22,105 @@
 # Leerzeichen am Ende einer Line erlaubt? 
 
 input 
-    -> FAM {%id%}
+    -> FAM 
+        {%id%}
     |  FAM structure:*
-        {% functions.addSubstructure %}
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["HUSB", "WIFE"]}) %}
 
 structure 
-    -> FAMILY_ATTRIBUTE_STRUCTURE {%id%}
-    |  FAM_HUSB {%id%}
-    |  FAM_WIFE {%id%}
-    |  CHIL {%id%}
-    |  TEST {%id%}
+    -> FAMILY_ATTRIBUTE_STRUCTURE 
+        {%id%}
+    |  FAM_HUSB 
+        {%id%}
+    |  FAM_WIFE 
+        {%id%}
+    |  CHIL 
+        {%id%}
+    |  TEST 
+        {%id%}
 
 FAM 
     -> Level D Xref D "FAM" EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_LINEVAL})%}
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_LINEVAL})%}
+
+TEST
+    -> Level D "TEST" D Text EOL
 
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
     -> "1" D "HUSB" D Xref EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
     |  FAM_HUSB PHRASE
-        {% functions.addSubstructure %}
-
-PHRASE
-    -> Level D "PHRASE" D Text EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
-
-HUSB
-    -> Level D "HUSB" EOL Level D "AGE" D Age EOL
-    |  HUSB PHRASE EOL
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
 
 FAM_WIFE 
     -> "1" D "WIFE" D Xref EOL
-    |  FAM_WIFE PHRASE EOL
-
-WIFE
-    -> Level D "WIFE" Level D "AGE" D Age EOL
-    |  WIFE PHRASE EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+    |  FAM_WIFE PHRASE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 CHIL 
     -> "1" D "CHIL" D Xref EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
-    |  CHIL PHRASE EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+    |  CHIL PHRASE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
-TEST
-    -> Level D "TEST" D Text EOL
-    
 
 FAMILY_ATTRIBUTE_STRUCTURE
     -> NCHI
+        {%id%} 
     |  RESI
+        {%id%}
     |  FACT
+        {%id%}
+
+#HUSB
+#    -> Level D "HUSB" EOL Level D "AGE" D Age EOL
+#    |  HUSB PHRASE EOL
+#WIFE
+#    -> Level D "WIFE" Level D "AGE" D Age EOL
+#    |  WIFE PHRASE EOL
+
 
 # =====================================================
 # SECOND LEVEL 
 # =====================================================
 NCHI 
     -> Level D "NCHI" D Integer EOL
-    |  NCHI TYPE EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+    |  NCHI TYPE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 RESI
     -> Level D "RESI" D Text EOL
-    |  RESI TYPE EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+    |  RESI TYPE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 FACT
     -> Level D "FACT" D Text EOL
-    |  FACT TYPE EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+    |  FACT TYPE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
-FAMILY_EVENT_DETAIL
-    -> HUSB
-    |  WIFE
-    |  EVENT_DETAIL
+#FAMILY_EVENT_DETAIL
+#    -> HUSB
+#    |  WIFE
+#    |  EVENT_DETAIL
+
+
+# =====================================================
+# SUBSTRUCTURES
+# =====================================================
+TYPE
+    -> Level D "TYPE" D Text EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+
+PHRASE
+    -> Level D "PHRASE" D Text EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
 
 
 
