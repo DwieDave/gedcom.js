@@ -20,9 +20,11 @@ const lexer = moo.compile({
 
 @lexer lexer
 
-main -> AGE
+main 
+    -> AGE
 
-AGE -> Level D "AGE" D Age EOL
+AGE 
+    -> Level D "AGE" D Age EOL
         {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
     | AGE PHRASE
         {% (data) => functions.addSubstructure(data[0], data[1])%}

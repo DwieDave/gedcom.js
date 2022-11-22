@@ -2,10 +2,12 @@
 @include "./Substructures.ne"
 
 @{%
+    // required modules
     const functions = require('./Postprocessors.js');
     const TYPE = require('../../Types.js')
     const moo = require("moo");
 
+    // moo-lexer to pre-compile input
     const lexer = moo.compile({
         D : /[ ]/,
         digit      : /[0-9]/,
@@ -17,10 +19,12 @@
     });
 %}
 
+# call moo-lexer
 @lexer lexer
 
-# Leerzeichen am Ende einer Line erlaubt? 
-
+# =====================================================
+# DATA INPUT
+# =====================================================
 input 
     -> FAM 
         {%id%}
@@ -59,7 +63,7 @@ FAM_WIFE
     -> "1" D "WIFE" D Xref EOL
         {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
     |  FAM_WIFE PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
 
 CHIL 
     -> "1" D "CHIL" D Xref EOL
@@ -111,15 +115,18 @@ FACT
 #    |  EVENT_DETAIL
 
 
+# ISSUE: Parsing is not working, when Substructures are imported
+# e.g. TYPE: unexpected token "TYPE" -> expecting "T" based on "T" "Y" "P" "E"
+# Parsing works if Substructure definition is in main .ne file
 # =====================================================
 # SUBSTRUCTURES
 # =====================================================
-TYPE
-    -> Level D "TYPE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
-
 PHRASE
     -> Level D "PHRASE" D Text EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+
+TYPE
+    -> Level D "TYPE" D Text EOL
         {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
 
 
