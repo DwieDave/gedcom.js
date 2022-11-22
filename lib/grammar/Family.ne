@@ -49,6 +49,7 @@ FAM
 
 TEST
     -> Level D "TEST" D Text EOL
+        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
 
 # =====================================================
 # FIRST LEVEL 
