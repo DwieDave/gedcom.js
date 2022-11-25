@@ -4,7 +4,7 @@
 # Leerzeichen am Ende einer Line erlaubt? 
 @{%
     const functions = require('./Postprocessors.js');
-    const TYPE = require('../../Types.js')
+    const {lineTypes} = require('../../Constants.js')
     const moo = require("moo");
 
 const lexer = moo.compile({
@@ -25,14 +25,14 @@ main
 
 AGE 
     -> Level D "AGE" D Age EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
+        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
     | AGE PHRASE
         {% (data) => functions.addSubstructure(data[0], data[1])%}
         
 
 PHRASE
     -> Level D "PHRASE" D Text EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
+        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
 
 
 

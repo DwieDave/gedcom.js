@@ -3,17 +3,17 @@
 # =====================================================
 
 AGE -> Level D "AGE" D Age EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
+        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
     | AGE PHRASE EOL
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
         
 PHRASE
     -> Level D "PHRASE" D Text EOL
-        {% (data) => functions.createStructure({line: data, type: TYPE.NO_XREF})%}
+        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
 
 TYPE
     -> Level D "TYPE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TIME
     -> Level D "TIME" D Time EOL

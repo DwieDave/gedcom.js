@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/gedcomMochaTest.mjs",
-    "run": "node ./lib/index.mjs",
+    "run": "node ./lib/index.js",
     "generateFamilyParser": "npx nearleyc ./lib/grammar/Family.ne -o ./lib/grammar/parser/FamilyParser.js",
     "generateIndividualParser": "npx nearleyc ./lib/grammar/Individual.ne -o ./lib/grammar/parser/IndividualParser.js",
     "generateTestParser": "npx nearleyc ./lib/grammar/TestGrammar.ne -o ./lib/grammar/parser/TestParser.js"

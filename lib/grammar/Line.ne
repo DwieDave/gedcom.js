@@ -6,7 +6,7 @@
 
 Level       
     -> "0" {%id%} 
-    |  nonzero digit:* 
+    |  nonzero digit:*
         {% functions.joinAndUnpackAll %}
 
 D           
@@ -24,9 +24,12 @@ LineVal
     -> pointer {%id%}
     |  lineStr {%id%}
 
+#EOL         
+#    -> [\x0D] [\x0A]:? {%id%}
+#    |  [\x0A] {%id%}
+
 EOL         
-    -> [\x0D] [\x0A]:? {%id%}
-    |  [\x0A] {%id%}
+    -> [\x0A] {%id%}
 
 stdTag      
     -> ucletter tagChar:* 
@@ -55,26 +58,25 @@ nonEOL
     -> [^\n] {%id%}
 
 lineStr     
-    -> nonAt nonEOL:* 
+    -> nonAt nonEOL:*
         {% functions.joinAndUnpackAll %} 
-    |  atsign atsign nonEOL:* 
+    |  atsign atsign nonEOL:*
         {% functions.joinAndUnpackAll %}
 
 digit       
     -> [0-9] {%id%}
+
 nonzero     
     -> [1-9] {%id%}
+
 ucletter    
     -> [A-Z] {%id%}
+
 underscore  
     -> "_" {%id%}
+
 atsign      
     -> "@" {%id%}
-newLine     
-    -> "\n" {%id%} 
-    |  "\n\r" {%id%} 
-    |  "\r" {%id%} 
-    |  "\r\n" {%id%}
 
 banned      
     -> [\x00-\x08] {%id%}    # C0 other than LF CR and Tab
@@ -85,5 +87,6 @@ banned
 
 notBanned 
     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F] {%id%}
+
 notBannedNoEOL 
     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D] {%id%}

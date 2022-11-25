@@ -4,7 +4,7 @@
 @{%
     // required modules
     const functions = require('./Postprocessors.js');
-    const TYPE = require('../../Types.js')
+    const {lineTypes} = require('../../Constants.js')
     const moo = require("moo");
 
     // moo-lexer to pre-compile input
@@ -25,10 +25,13 @@
 # =====================================================
 # DATA INPUT
 # =====================================================
+# ISSUE: postprocessor createStructure is called twice for every line
+# ISSUE: postprocessor addSubstructure is called way to often
+
 input 
     -> FAM 
         {%id%}
-    |  FAM structure:*
+    |  FAM structure:+
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["HUSB", "WIFE"]}) %}
 
 structure 
@@ -45,30 +48,30 @@ structure
 
 FAM 
     -> Level D Xref D "FAM" EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_LINEVAL})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_LINEVAL})%}
 
 TEST
     -> Level D "TEST" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 # =====================================================
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
     -> "1" D "HUSB" D Xref EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  FAM_HUSB PHRASE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
 
 FAM_WIFE 
     -> "1" D "WIFE" D Xref EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  FAM_WIFE PHRASE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
 
 CHIL 
     -> "1" D "CHIL" D Xref EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  CHIL PHRASE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
@@ -94,19 +97,19 @@ FAMILY_ATTRIBUTE_STRUCTURE
 # =====================================================
 NCHI 
     -> Level D "NCHI" D Integer EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  NCHI TYPE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 RESI
     -> Level D "RESI" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  RESI TYPE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 FACT
     -> Level D "FACT" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  FACT TYPE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
@@ -124,11 +127,11 @@ FACT
 # =====================================================
 PHRASE
     -> Level D "PHRASE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TYPE
     -> Level D "TYPE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: TYPE.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 
 
