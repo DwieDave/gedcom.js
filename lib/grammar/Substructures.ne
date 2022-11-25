@@ -1,3 +1,8 @@
+
+
+# call moo-lexer
+@lexer lexer
+
 # =====================================================
 # REUSABLE SUBSTRUCTURES
 # =====================================================
@@ -66,7 +71,7 @@ NOTE_STRUCTURE
     | NOTE_STRUCTURE Level D "MIME" D MediaType EOL
     | NOTE_STRUCTURE Level D "LANG" D language EOL
     | NOTE_STRUCTURE NOTE_TRAN EOL
-    | NOTE_STRUCTURE SOURCE_CITATION) | Level D "SNOTE" D Xref EOL
+    | NOTE_STRUCTURE SOURCE_CITATION) | Level D "SNOTE" D %Xref EOL
 
 NOTE_TRAN 
     -> Level D "TRAN" D Text EOL
@@ -76,7 +81,7 @@ NOTE_TRAN
 
 # Source Citation
 SOURCE_CITATION 
-    -> Level D "SOUR" D Xref EOL
+    -> Level D "SOUR" D %Xref EOL
     | SOURCE_CITATION Level D "PAGE" D Text EOL
     | SOURCE_CITATION SOUR_DATA EOL
     | SOURCE_CITATION SOUR_EVEN EOL
@@ -97,7 +102,7 @@ SOUR_EVEN
 
 # Multimedia Link
 MULTIMEDIA_LINK 
-    -> Level D "OBJE" D Xref EOL
+    -> Level D "OBJE" D %Xref EOL
     | MULTIMEDIA_LINK CROP EOL
     | MULTIMEDIA_LINK Level D "TITL" D Text EOL
 
@@ -143,11 +148,11 @@ PEDI
     | PEDI PHRASE EOL
 
 FAMS 
-    -> Level D "FAMS" D Xref EOL
+    -> Level D "FAMS" D %Xref EOL
     | FAMS NOTE_STRUCTURE EOL
 
 ASSOCIATION_STRUCTURE 
-    -> Level D "ASSO" D Xref EOL
+    -> Level D "ASSO" D %Xref EOL
     | ASSOCIATION_STRUCTURE PHRASE EOL
     | ASSOCIATION_STRUCTURE ROLE EOL
     | ASSOCIATION_STRUCTURE NOTE_STRUCTURE EOL

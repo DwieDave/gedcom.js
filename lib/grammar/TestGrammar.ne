@@ -1,38 +1,57 @@
-@include "./DataTypes.ne"
-@include "./Substructures.ne"
-
-# Leerzeichen am Ende einer Line erlaubt? 
 @{%
-    const functions = require('./Postprocessors.js');
-    const {lineTypes} = require('../../Constants.js')
-    const moo = require("moo");
 
-const lexer = moo.compile({
-  D : /[ ]/,
-  digit      : /[0-9]/,
-  underscore : /[_]/,
-  atsign     : /[@]/,
-  EOL: {match: /(?:\r\n?|\n)/, lineBreaks: true },
-  // not Banned, no EOL, no Space, no @, no _
-  notBannedNoEOLNoSpace:  /[^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x20\x40\x5F]+/
-});
+    const moo = require("moo");
+    // moo-lexer to pre-compile input
+    const lexer = moo.compile({
+        lexer_D          : /[ ]/,
+        lexer_digit      : /[0-9]/,
+        lexer_underscore : /[_]/,
+        lexer_xref     : /\@[A-Z0-9\_]+\@/,
+        lexer_EOL: {match: /[\n]/, lineBreaks: true },
+        // not Banned, no EOL, no Space, no @, no _
+        lexer_notBannedNoEOLNoSpace:  /[^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x20\x40\x5F]+/
+    });
 %}
 
+# call moo-lexer
 @lexer lexer
 
-main 
-    -> AGE
+input -> fam
 
-AGE 
-    -> Level D "AGE" D Age EOL
-        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
-    | AGE PHRASE
-        {% (data) => functions.addSubstructure(data[0], data[1])%}
-        
+fam -> Level D %lexer_xref D "FAM" EOL
+    {%
+        (data) => {
+            console.log("postprocessor called");
+            return data;
+        }
+    %}
 
-PHRASE
-    -> Level D "PHRASE" D Text EOL
-        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
+EOL -> "\n"
+D -> " "
 
+Level       
+    -> "0" {%id%} 
+    |  nonzero digit:*
 
+digit       
+    -> [0-9] {%id%}
 
+nonzero     
+    -> [1-9] {%id%}
+
+Xref        
+    -> %lexer_atsign tagChar %lexer_atsign  
+
+atsign      
+    -> "@" {%id%}
+
+tagChar     
+    -> ucletter {%id%}
+    |  digit {%id%}
+    |  underscore {%id%}
+
+ucletter    
+    -> [A-Z] {%id%}
+
+underscore  
+    -> "_" {%id%}

@@ -6,7 +6,7 @@ input
     |  INDI D:* (newLine structure D:*):*
 
 INDI 
-    -> Level D Xref D "INDI"
+    -> Level D %Xref D "INDI"
 
 structure 
     -> RESN
@@ -58,26 +58,26 @@ INDIVIDUAL_EVENT_STRUCTURE
 LDS_INDIVIDUAL_ORDINANCE 
     -> Level D ("BAPL" | "CONL" | "ENDL" | "INIL" | "SLGC")
     | LDS_INDIVIDUAL_ORDINANCE newLine LDS_ORDINANCE_DETAIL
-    | Level D "SLGC" newLine Level D "FAMC" D Xref
+    | Level D "SLGC" newLine Level D "FAMC" D %Xref
 
 INDI_FAMC 
-    -> Level D "FAMC" D Xref
+    -> Level D "FAMC" D %Xref
     | INDI_FAMC newLine PEDI
     | INDI_FAMC newLine FAMC_STAT
     | INDI_FAMC newLine NOTE_STRUCTURE
 
 SUBM 
-    -> Level D "SUBM" D Xref
+    -> Level D "SUBM" D %Xref
 
 ALIA 
-    -> Level D "ALIA" D Xref
+    -> Level D "ALIA" D %Xref
     | ALIA newLine PHRASE
 
 ANCI 
-    -> Level D "ANCI" D Xref
+    -> Level D "ANCI" D %Xref
 
 DESI 
-    -> Level D "DESI" D Xref
+    -> Level D "DESI" D %Xref
 
 
 
@@ -104,7 +104,7 @@ INDIVIDUAL_EVENT_DETAIL
     | AGE
 
 INDIVIDUAL_EVENT_BIRT_CHR 
-    -> INDIVIDUAL_EVENT newLine Level D "FAMC" D Xref
+    -> INDIVIDUAL_EVENT newLine Level D "FAMC" D %Xref
 
 INDIVIDUAL_EVENT_ADOP 
     -> INDIVIDUAL_EVENT_BIRT_CHR

@@ -25,8 +25,9 @@ LineVal
     |  lineStr {%id%}
 
 #EOL         
-#    -> [\x0D] [\x0A]:? {%id%}
+#    -> [\x0D] [\x0A] {%id%}
 #    |  [\x0A] {%id%}
+#    |  [\x0D] {%id%}
 
 EOL         
     -> [\x0A] {%id%}
@@ -44,6 +45,7 @@ tagChar
     |  digit {%id%}
     |  underscore {%id%}
 
+# ISSUE: doesn't work with lexer-xref
 pointer     
     -> voidPrt {%id%}
     |  Xref {%id%}
