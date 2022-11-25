@@ -1,5 +1,6 @@
 @include "./DataTypes.ne"
 @include "./Substructures.ne"
+@include "./Family.ne"
 
 @{%
     // required modules
@@ -22,13 +23,15 @@
 # call moo-lexer
 @lexer lexer
 
+
+
 # =====================================================
-# DATA INPUT
+# FAMILY
 # =====================================================
 # ISSUE: postprocessor createStructure is called twice for every line
 # ISSUE: postprocessor addSubstructure is called way to often
 
-input 
+FAMILY
     -> FAM 
         {%id%}
     |  FAM structure:+
