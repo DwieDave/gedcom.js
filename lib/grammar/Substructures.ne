@@ -9,7 +9,7 @@ AGE -> Level D "AGE" D Age EOL
         
 PHRASE
     -> Level D "PHRASE" D Text EOL
-        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TYPE
     -> Level D "TYPE" D Text EOL
