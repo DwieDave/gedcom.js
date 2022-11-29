@@ -1,8 +1,10 @@
+# call moo-lexer
+@lexer lexer
+
 # =====================================================
 # LINE GRAMMAR
 # =====================================================
 # Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#lines
-
 
 Level       
     -> "0" {%id%} 

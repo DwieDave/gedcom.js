@@ -1,6 +1,8 @@
 @include "./Enums.ne"
 @include "./Line.ne"
 
+# call moo-lexer
+@lexer lexer
 
 # =====================================================
 # DATA TYPES
