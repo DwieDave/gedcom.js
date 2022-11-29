@@ -2,10 +2,11 @@
 @lexer lexer
 
 # ISSUE: Family grammar is not functional because imports etc. are relocated at Gedcom.ne
+
 # =====================================================
 # FAMILY
 # =====================================================
-Family 
+FAMILY_RECORD 
     -> FAM
         {%id%}
     |  FAM structure:+

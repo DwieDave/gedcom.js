@@ -4,13 +4,10 @@
   "description": "Client for the use of the Gedcom File Format v7 with node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/gedcomMochaTest.mjs",
-    "run": "node ./lib/index.js",
+    "start": "node ./lib/index.js",
     "generateGedcomParser": "npx nearleyc ./lib/grammar/Gedcom.ne -o ./lib/grammar/parser/GedcomParser.js",
-    "generateFamilyParser": "npx nearleyc ./lib/grammar/Family.ne -o ./lib/grammar/parser/FamilyParser.js",
-    "generateIndividualParser": "npx nearleyc ./lib/grammar/Individual.ne -o ./lib/grammar/parser/IndividualParser.js",
-    "generateHeaderParser": "npx nearleyc ./lib/grammar/Header.ne -o ./lib/grammar/parser/HeaderParser.js",
-    "generateTestParser": "npx nearleyc ./lib/grammar/TestGrammar.ne -o ./lib/grammar/parser/TestParser.js"
+    "generateAndStart": "npm run generateGedcomParser && npm run start",
+    "test": "mocha ./test/gedcomMochaTest.mjs"
   },
   "repository": {
     "type": "git",
