@@ -1,7 +1,7 @@
 0 HEAD
 1 GEDC
 2 VERS 7.0
-0 @F1@ FAMMI
+0 @F1@ FAM
 1 HUSB @I1@
 2 PHRASE hat ein sehr schönes Haus
 1 WIFE @I2@
@@ -11,4 +11,7 @@
 2 TYPE car
 1 CHIL @I4@
 1 CHIL @I5@
+0 @F2@ FAM
+1 HUSB @I6@
+1 WIFE @I7@
 0 TRLR

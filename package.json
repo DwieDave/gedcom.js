@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./lib/index.js",
     "generateGedcomParser": "npx nearleyc ./lib/grammar/Gedcom.ne -o ./lib/grammar/parser/GedcomParser.js",
+    "generateFamilyParser": "npx nearleyc ./lib/grammar/Family.ne -o ./lib/grammar/parser/FamilyParser.js",
     "generateAndStart": "npm run generateGedcomParser && npm run start",
+    "generateSubGrammars": "node ./lib/grammar/generateSubGrammars.js",
     "test": "mocha ./test/gedcomMochaTest.mjs"
   },
   "repository": {

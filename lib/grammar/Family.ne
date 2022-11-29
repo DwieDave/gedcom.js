@@ -2,6 +2,12 @@
 @lexer lexer
 
 # ISSUE: Family grammar is not functional because imports etc. are relocated at Gedcom.ne
+# =====================================================
+# FAMILY
+# =====================================================
+STRUCT_NO_XREF[Level, Xref, Tag, LineVal] 
+    -> $Level D $Xref D $Tag EOL
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 # =====================================================
 # FAMILY
