@@ -1,8 +1,6 @@
 # call moo-lexer
 @lexer lexer
 
-# ISSUE: Header grammar is not functional because imports etc. are relocated at Gedcom.ne
-
 # =====================================================
 # HEADER
 # =====================================================

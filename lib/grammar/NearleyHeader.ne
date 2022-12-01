@@ -1,5 +1,5 @@
-@include "./DataTypes.ne"
-@include "./Substructures.ne"
+@include "./structure/DataTypes.ne"
+@include "./structure/ReusableStructures.ne"
 
 @{%
     // required modules

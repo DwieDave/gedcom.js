@@ -1,5 +1,5 @@
-@include "./DataTypes.ne"
-@include "./Substructures.ne"
+# call moo-lexer
+@lexer lexer
 
 input 
     -> INDI D:* 
