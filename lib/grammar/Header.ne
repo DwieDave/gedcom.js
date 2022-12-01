@@ -16,8 +16,8 @@ HEAD
         {% (d) => functions.createStructure({line: d, type: lineTypes.HEADER})%}
 
 Header_Subs
-    -> GEDC
-    |  SCHMA
+    -> GEDC {%id%}
+    |  SCHMA {%id%}
 # =====================================================
 # FIRST LEVEL 
 # =====================================================

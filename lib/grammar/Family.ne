@@ -1,12 +1,11 @@
 # call moo-lexer
 @lexer lexer
 
-# ISSUE: Family grammar is not functional because imports etc. are relocated at Gedcom.ne
 # =====================================================
-# FAMILY
+# MACROS
 # =====================================================
-STRUCT_NO_XREF[Level, Xref, Tag, LineVal] 
-    -> $Level D $Xref D $Tag EOL
+STRUCT_NO_XREF[Level, Tag, LineVal] 
+    -> $Level D $Tag D $LineVal EOL
         {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 # =====================================================
@@ -43,7 +42,7 @@ TEST
 # =====================================================
 FAM_HUSB 
     -> "1" D "HUSB" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%} 
     |  FAM_HUSB PHRASE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: {PHRASE:"0:1"}}) %}
 
