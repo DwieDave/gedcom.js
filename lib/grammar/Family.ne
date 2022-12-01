@@ -2,20 +2,13 @@
 @lexer lexer
 
 # =====================================================
-# MACROS
-# =====================================================
-STRUCT_NO_XREF[Level, Tag, LineVal] 
-    -> $Level D $Tag D $LineVal EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
-
-# =====================================================
 # FAMILY
 # =====================================================
 FAMILY_RECORD 
     -> FAM
         {%id%}
     |  FAM structure:+
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1"}}) %}
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 structure 
     -> FAMILY_ATTRIBUTE_STRUCTURE 
@@ -31,7 +24,7 @@ structure
 
 FAM 
     -> Level D %Xref D "FAM" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.FAM_RECORD})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.FAM_RECORD, checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1"}})%}
 
 TEST
     -> Level D "TEST" D Text EOL
@@ -41,19 +34,19 @@ TEST
 # FIRST LEVEL 
 # =====================================================
 FAM_HUSB 
-    -> "1" D "HUSB" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%} 
+    -> Level D "HUSB" D %Xref EOL
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%} 
     |  FAM_HUSB PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: {PHRASE:"0:1"}}) %}
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 FAM_WIFE 
-    -> "1" D "WIFE" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+    -> Level D "WIFE" D %Xref EOL
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%}
     |  FAM_WIFE PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: {PHRASE:"0:1"}}) %}
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 CHIL 
-    -> "1" D "CHIL" D %Xref EOL
+    -> Level D "CHIL" D %Xref EOL
         {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  CHIL PHRASE
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
@@ -66,13 +59,6 @@ FAMILY_ATTRIBUTE_STRUCTURE
         {%id%}
     |  FACT
         {%id%}
-
-#HUSB
-#    -> Level D "HUSB" EOL Level D "AGE" D Age EOL
-#    |  HUSB PHRASE EOL
-#WIFE
-#    -> Level D "WIFE" Level D "AGE" D Age EOL
-#    |  WIFE PHRASE EOL
 
 
 # =====================================================

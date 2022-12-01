@@ -8,12 +8,12 @@
 # =====================================================
 Header
     -> HEAD {%id%}
-    |  HEAD Header_Subs
+    |  HEAD Header_Subs:+
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 HEAD 
     -> Level D "HEAD" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.HEADER})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.HEADER, checkCardinalityOf: {GEDC:"1:1"}})%}
 
 Header_Subs
     -> GEDC {%id%}
@@ -23,7 +23,7 @@ Header_Subs
 # =====================================================
 GEDC
     -> Level D "GEDC" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL, checkCardinalityOf: {VERS:"1:1"}})%}
     |  GEDC GEDC_VERS
         {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
