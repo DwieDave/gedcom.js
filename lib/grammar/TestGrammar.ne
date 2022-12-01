@@ -1,66 +1,13 @@
-@include "./DataTypes.ne"
-@include "./Substructures.ne"
+#FAM 
+#    -> Level D %Xref D "FAM" EOL
+#        {% (d) => functions.createStructure({line: d, type: lineTypes.FAM_RECORD})%}
 
-# Leerzeichen am Ende einer Line erlaubt? 
-input 
-    -> TEST
+STRUCT_NO_XREF[Level, Xref, Tag, LineVal] 
+    -> $Level D $Xref D $Tag EOL
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
-TEST
-    -> Level D "TEST" D Text
-
-# =====================================================
-# FIRST LEVEL 
-# =====================================================
-FAM_HUSB 
-    -> "1" D "HUSB" D Xref
-    |  FAM_HUSB EOL PHRASE
-
-HUSB
-    -> Level D "HUSB" EOL Level D "AGE" D Age
-    |  HUSB EOL PHRASE
-
-FAM_WIFE 
-    -> "1" D "WIFE" D Xref
-    |  FAM_WIFE EOL PHRASE
-
-WIFE
-    -> Level D "WIFE" EOL Level D "AGE" D Age
-    |  WIFE EOL PHRASE
-
-CHIL 
-    -> "1" D "CHIL" D Xref
-    |  CHIL EOL PHRASE
-
-TEST
-    -> Level D "TEST" D DateExact
-    
-
-FAMILY_ATTRIBUTE_STRUCTURE
-    -> NCHI
-    |  RESI
-    |  FACT
-
-# =====================================================
-# SECOND LEVEL 
-# =====================================================
-NCHI 
-    -> Level D "NCHI" D Integer
-    |  NCHI EOL TYPE
-
-RESI
-    -> Level D "RESI" D Text
-    |  RESI EOL TYPE
-
-FACT
-    -> Level D "FACT" D Text
-    |  FACT EOL TYPE
-
-FAMILY_EVENT_DETAIL
-    -> HUSB
-    |  WIFE
-    |  EVENT_DETAIL
-
-
-
-
-
+        FAM_HUSB 
+    -> "1" D "HUSB" D %Xref EOL
+        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+    |  FAM_HUSB PHRASE
+        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: {PHRASE:"0:1"}}) %}

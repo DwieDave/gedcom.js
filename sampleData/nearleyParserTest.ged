@@ -1,18 +1,12 @@
-0 HEAD
-1 GEDC
-2 VERS 7.0
 0 @F1@ FAM
 1 HUSB @I1@
 2 PHRASE hat ein sehr schönes Haus
 1 WIFE @I2@
-1 CHIL @I4@
-1 CHIL @I5@
-1 NCHI 2
+1 NCHI 4
+2 TYPE Bishop
 1 RESI in a mobile caravan
 2 TYPE car
-1 CHIL @I4@
 1 CHIL @I5@
-0 @F2@ FAM
-1 HUSB @I6@
-1 WIFE @I7@
-0 TRLR
+1 CHIL @I6@
+1 CHIL @I7@
+1 CHIL @I8@
