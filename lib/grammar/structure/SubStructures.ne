@@ -4,7 +4,6 @@
 # =====================================================
 # REUSABLE SUBSTRUCTURES
 # =====================================================
-
 AGE -> Level D "AGE" D Age EOL
         {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
     | AGE PHRASE EOL
