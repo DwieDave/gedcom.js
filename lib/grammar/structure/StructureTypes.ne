@@ -6,21 +6,21 @@
 # =====================================================
 FAM_HUSB 
     -> Level D "HUSB" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%} 
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%} 
     |  FAM_HUSB PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 FAM_WIFE 
     -> Level D "WIFE" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF, checkCardinalityOf: {PHRASE:"0:1"}})%}
     |  FAM_WIFE PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 CHIL 
     -> Level D "CHIL" D %Xref EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  CHIL PHRASE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 #ABBR (Abbreviation)
 #g7_ABBR

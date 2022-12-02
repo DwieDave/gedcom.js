@@ -7,11 +7,11 @@
 Header
     -> HEAD {%id%}
     |  HEAD Header_Subs:+
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 HEAD 
     -> Level D "HEAD" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.HEADER, checkCardinalityOf: {GEDC:"1:1"}})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.HEADER, checkCardinalityOf: {GEDC:"1:1"}})%}
 
 Header_Subs
     -> GEDC {%id%}
@@ -21,15 +21,15 @@ Header_Subs
 # =====================================================
 GEDC
     -> Level D "GEDC" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL, checkCardinalityOf: {VERS:"1:1"}})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL, checkCardinalityOf: {VERS:"1:1"}})%}
     |  GEDC GEDC_VERS
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 SCHMA
     -> Level D "SCHMA" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
     |  SCHMA TAG
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 
 # =====================================================
@@ -37,8 +37,8 @@ SCHMA
 # =====================================================
 GEDC_VERS
     -> Level D "VERS" D Special EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TAG
     -> Level D "TAG" D Special EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}

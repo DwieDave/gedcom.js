@@ -27,4 +27,4 @@ Record
 
 TRLR
     -> Level D "TRLR" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}

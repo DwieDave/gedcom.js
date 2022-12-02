@@ -8,11 +8,11 @@ g7_record_FAM
     -> Fam
         {%id%}
     |  Fam FamilySubstructures:+
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 Fam 
     -> Level D %Xref D "FAM" EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.FAM_RECORD, checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1"}})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.FAM_RECORD, checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1"}})%}
 
 FamilySubstructures 
     -> FAMILY_ATTRIBUTE_STRUCTURE 
@@ -56,21 +56,21 @@ FAMILY_ATTRIBUTE_STRUCTURE
 # =====================================================
 NCHI 
     -> Level D "NCHI" D Integer EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  NCHI TYPE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 RESI
     -> Level D "RESI" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  RESI TYPE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 FACT
     -> Level D "FACT" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
     |  FACT TYPE
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]}) %}
 
 #FAMILY_EVENT_DETAIL
 #    -> HUSB

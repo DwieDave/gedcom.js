@@ -8,7 +8,8 @@
     "generateGedcomParser": "npx nearleyc ./lib/grammar/Gedcom.ne -o ./lib/grammar/parser/GedcomParser.js",
     "generateAndStart": "npm run generateGedcomParser && npm run start",
     "generateSubGrammars": "node ./lib/helpers/generateSubGrammars.js",
-    "test": "mocha ./test/gedcomMochaTest.mjs"
+    "test": "mocha ./test/gedcomMochaTest.mjs",
+    "generateGrammar": "node ./lib/grammar/generateGrammar.js"
   },
   "repository": {
     "type": "git",

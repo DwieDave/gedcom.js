@@ -44,8 +44,8 @@ PERSONAL_NAME_STRUCTURE
     | PERSONAL_NAME_STRUCTURE newLine TYPE newLine PHRASE
     | PERSONAL_NAME_STRUCTURE newLine NAME_PIECES
     | PERSONAL_NAME_STRUCTURE newLine NOTE_STRUCTURE
-    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D language
-    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D language newLine NAME_PIECES
+    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D Language
+    | PERSONAL_NAME_STRUCTURE newLine "TRAN" PersonalName newLine Level D "LANG" D Language newLine NAME_PIECES
 
 SEX 
     -> Level D "SEX" D SEX_ENUM
