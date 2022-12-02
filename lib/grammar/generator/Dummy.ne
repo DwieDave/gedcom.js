@@ -1,3 +1,8 @@
+@include "../nearley/syntax/DataTypes.ne"
+@include "../nearley/syntax/Enums.ne"
+@include "../nearley/syntax/Line.ne"
+@include "../nearley/syntax/StructureTypes.ne"
+@include "../nearley/syntax/Substructures.ne"
 @{%
     // required modules
     const postprocessor = require('../generator/Postprocessors.js');
@@ -18,3 +23,9 @@
 
 
 
+# call moo-lexer
+@lexer lexer
+
+g7_TEST
+	-> Level D "TEST" D Text EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF"})%}
