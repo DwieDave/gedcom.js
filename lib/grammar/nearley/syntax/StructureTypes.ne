@@ -31,15 +31,35 @@ g7_ADDR3
 	-> Level D "ADDR3" D Special EOL
 		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF"})%}
 
+g7_GEDC
+	-> Level D "GEDC" EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF_NO_LINEVAL"})%}
+	|  g7_GEDC g7_GEDC_VERS
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+g7_GEDC_VERS
+	-> Level D "VERS" D Special EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF"})%}
+
+g7_SCHMA
+	-> Level D "SCHMA" EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF_NO_LINEVAL"})%}
+	|  g7_SCHMA g7_TAG
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+g7_TAG
+	-> Level D "TAG" D Special EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF"})%}
+
 g7_FAM_HUSB
-	-> Level D %Xref D "HUSB" EOL
-		{% (d) => postprocessor.createStructure({line: d, type: "NO_LINEVAL", checkCardinalityOf: {PHRASE:"0:1"}})%}
+	-> Level D "HUSB" D %Xref EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF", checkCardinalityOf: {PHRASE:"0:1"}})%}
 	|  g7_FAM_HUSB g7_PHRASE
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 g7_FAM_WIFE
-	-> Level D %Xref D "WIFE" EOL
-		{% (d) => postprocessor.createStructure({line: d, type: "NO_LINEVAL", checkCardinalityOf: {PHRASE:"0:1"}})%}
+	-> Level D "WIFE" D %Xref EOL
+		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF", checkCardinalityOf: {PHRASE:"0:1"}})%}
 	|  g7_FAM_WIFE g7_PHRASE
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 

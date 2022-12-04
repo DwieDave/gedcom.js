@@ -3,6 +3,7 @@
 @include "../nearley/syntax/Line.ne"
 @include "../nearley/syntax/StructureTypes.ne"
 @include "../nearley/syntax/Substructures.ne"
+@include "../nearley/Header.ne"
 @include "../nearley/Family.ne"
 @include "../nearley/Individual.ne"
 @include "../nearley/Multimedia.ne"
@@ -33,8 +34,25 @@
 # call moo-lexer
 @lexer lexer
 
-g7_FAM_HUSB
-	-> Level D %Xref D "FAM" EOL
-		{% (d) => postprocessor.createStructure({line: d, type: "FAM_RECORD", checkCardinalityOf: {HUSB:"0:1"}})%}
-	|  g7_FAM_HUSB g7_FAM_HUSB
-		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+GEDCOM
+	-> g7_record_HEAD RECORDS:* TRLR
+
+RECORDS
+	-> g7_record_FAM
+		{%id%}
+	|  g7_record_INDI
+		{%id%}
+	|  g7_record_OBJE
+		{%id%}
+	|  g7_record_REPO
+		{%id%}
+	|  g7_record_SNOTE
+		{%id%}
+	|  g7_record_SOUR
+		{%id%}
+	|  g7_record_SUBM
+		{%id%}
+
+TRLR
+	-> Level D "TRLR" EOL
+		{% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
