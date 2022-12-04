@@ -1,6 +1,6 @@
 # call moo-lexer
 @lexer lexer
 
-g7_RepositoryTest
+g7_record_REPO
 	-> Level D "TEST" D Text EOL
 		{% (d) => postprocessor.createStructure({line: d, type: "NO_XREF"})%}
