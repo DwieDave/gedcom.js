@@ -22,4 +22,4 @@ RECORDS
 
 TRLR
 	-> Level D "TRLR" EOL
-		{% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF_NO_LINEVAL})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "GEDCOM",type: lineTypes.NO_XREF_NO_LINEVAL})%}

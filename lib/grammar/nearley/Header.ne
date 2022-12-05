@@ -9,7 +9,7 @@ g7_record_HEAD
 
 recordHEAD
 	->Level D "HEAD" EOL
-		{% (d) => postprocessor.createStructure({line: d, type: "HEADER", checkCardinalityOf: {GEDC:"1:1", SCHMA:"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "g7_record_HEAD", type: "HEADER", checkCardinalityOf: {"g7_GEDC":"1:1", "g7_SCHMA":"0:1"}})%}
 
 recordHEADSubstructs
 	-> g7_GEDC
