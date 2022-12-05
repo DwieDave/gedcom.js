@@ -1,14 +1,15 @@
-const {lineTypes, dataTypes} = require("../../../Constants.js");
+const {lineTypes, dataTypes} = require("../../lib/Constants.js");
 
 module.exports = {
-    grammarName: "Source",
+    grammarName: "Individual",
     rules:[
         {
-            uri: "g7:record-SOUR",
+            uri: "g7:record-INDI",
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
             tag: "TEST",
             substructs: {}
         }
+        
     ]
 }

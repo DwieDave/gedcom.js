@@ -2,17 +2,17 @@ const fs = require('fs/promises');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const fsExists = require('fs.promises.exists');
+const OSPath = require('path');
 const nearley = require("nearley");
-const {lineTypes, dataTypes} = require("../../Constants.js");
+const {lineTypes, dataTypes} = require("../lib/Constants");
 //const gedcomGrammar = require("../parser/rules.js");
 
-// TO-DO: add support for SUBSTRUCTURES (name is not starting with g7)
 
 class GrammarGenerator{
     constructor(path, nearleyHeader){
         // path at which grammar is build
         this.path = path;
-        this.dummyPath = this.path + "generator/Dummy.ne"
+        this.dummyPath = OSPath.join(__dirname, "Dummy.ne")
 
         // header of .ne-files with include statements, imports and lexer definition
         // imported from NearleyHeader.ne
@@ -52,7 +52,7 @@ class GrammarGenerator{
 
     static async build(path){
         // read nearley header
-        const nearleyHeader = await fs.readFile(path + "generator/NearleyHeader.ne", { encoding: 'utf8' });
+        const nearleyHeader = await fs.readFile(OSPath.join(__dirname, "NearleyHeader.ne"), { encoding: 'utf8' });
 
         // return instance of GrammarGenerator 
         return new GrammarGenerator(path, nearleyHeader);
@@ -233,7 +233,7 @@ class GrammarGenerator{
                 
         // add include statements
         for(const file of include){
-            fileStr += `@include "../nearley/${file}"\n`;
+            fileStr += `@include ".${this.path}nearley/${file}"\n`;
         }
 
         // add nearley header
@@ -249,10 +249,6 @@ class GrammarGenerator{
         fs.appendFile(this.dummyPath, grammar);
 
         // compile dummy .ne-file
-        if(fileName === "Gedcom"){
-            await fs.writeFile("./gedcomTest.ne", fileStr+grammar);
-        }
-        
         await exec(`npx nearleyc ${this.dummyPath} -o ${this.path}parser/${fileName}Parser.js`);
     }
 
@@ -298,7 +294,7 @@ async function generateGrammarAndParser(){
     console.log("Generate gedcom-parser");
     await grammarGenerator.generateParser();
     console.log("Process finished");
-    grammarGenerator.testGrammar("0 @F1@ FAM\n1 HUSB @I1@\n2 PHRASE schoenes haus\n", "../parser/FamilyParser.js");
+    grammarGenerator.testGrammar("0 @F1@ FAM\n1 HUSB @I1@\n2 PHRASE schoenes haus\n", "../lib/grammar/parser/FamilyParser.js");
 }
 
 module.exports = {generateGrammar, generateGrammarAndParser}

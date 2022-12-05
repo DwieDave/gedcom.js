@@ -1,10 +1,10 @@
-const {lineTypes, dataTypes} = require("../../../Constants.js");
+const {lineTypes, dataTypes} = require("../../lib/Constants.js");
 
 module.exports = {
-    grammarName: "SharedNote",
+    grammarName: "Source",
     rules:[
         {
-            uri: "g7:record-SNOTE",
+            uri: "g7:record-SOUR",
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
             tag: "TEST",

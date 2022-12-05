@@ -1,4 +1,4 @@
-const {lineTypes, dataTypes} = require("../../../Constants.js");
+const {lineTypes, dataTypes} = require("../../lib/Constants");
 module.exports = {
     grammarName: "StructureTypes",
     rules:[

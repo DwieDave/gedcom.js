@@ -9,7 +9,7 @@
     "generateAndStart": "npm run generateGedcomParser && npm run start",
     "generateSubGrammars": "node ./lib/helpers/generateSubGrammars.js",
     "test": "mocha ./test/gedcomMochaTest.mjs",
-    "generateGrammar": "node ./lib/grammar/generator/GrammarGenerator.js"
+    "generateGrammar": "node ./grammarGenerator/GrammarGenerator.js"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 @{%
     // required modules
-    const postprocessor = require('../generator/Postprocessors.js');
+    const postprocessor = require('../Postprocessors.js');
     const {lineTypes} = require('../../Constants.js')
     const moo = require("moo");
 

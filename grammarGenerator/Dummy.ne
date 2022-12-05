@@ -1,19 +1,19 @@
-@include "../nearley/syntax/DataTypes.ne"
-@include "../nearley/syntax/Enums.ne"
-@include "../nearley/syntax/Line.ne"
-@include "../nearley/syntax/StructureTypes.ne"
-@include "../nearley/syntax/Substructures.ne"
-@include "../nearley/Header.ne"
-@include "../nearley/Family.ne"
-@include "../nearley/Individual.ne"
-@include "../nearley/Multimedia.ne"
-@include "../nearley/Repository.ne"
-@include "../nearley/SharedNote.ne"
-@include "../nearley/Source.ne"
-@include "../nearley/Submitter.ne"
+@include "../lib/grammar/nearley/syntax/DataTypes.ne"
+@include "../lib/grammar/nearley/syntax/Enums.ne"
+@include "../lib/grammar/nearley/syntax/Line.ne"
+@include "../lib/grammar/nearley/syntax/StructureTypes.ne"
+@include "../lib/grammar/nearley/syntax/Substructures.ne"
+@include "../lib/grammar/nearley/Header.ne"
+@include "../lib/grammar/nearley/Family.ne"
+@include "../lib/grammar/nearley/Individual.ne"
+@include "../lib/grammar/nearley/Multimedia.ne"
+@include "../lib/grammar/nearley/Repository.ne"
+@include "../lib/grammar/nearley/SharedNote.ne"
+@include "../lib/grammar/nearley/Source.ne"
+@include "../lib/grammar/nearley/Submitter.ne"
 @{%
     // required modules
-    const postprocessor = require('../generator/Postprocessors.js');
+    const postprocessor = require('../Postprocessors.js');
     const {lineTypes} = require('../../Constants.js')
     const moo = require("moo");
 
