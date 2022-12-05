@@ -7,7 +7,7 @@
 # Characters
 # =====================================================
 digit       
-    -> [0-9] 
+    -> %digit 
         {%id%}
 
 nonzero     
@@ -203,25 +203,32 @@ ageDuration
 # =====================================================
 # List
 list        
-    -> listItem (listDelim listItem):* 
+    -> Text
         {% postprocessor.joinAndUnpackAll %}
 
-listItem    
-    -> (nocommasp | nocommasp nocomma:* nocommasp):? 
+
+listItem
+    -> notBannedNoEOL
         {% postprocessor.joinAndUnpackAll %}
                                 
 listDelim   
-    -> D:* "," D:* 
+    -> "," 
         {% postprocessor.joinAndUnpackAll %}
 
-nocomma     
-    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C] {%id%}
+notBannedNoEOLNoComma
+    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x2C] 
+        {%id%}
 
-nocommasp   
-    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C\x1E-\x20] {%id%}
+comma 
+    -> [\x2C]
+
+notBannedNoEOLNoCommaNoSpace
+    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x20\x2C] 
+        {%id%}    
 
 ListText   
-    -> list {%id%}
+    -> list 
+        {%id%}
 
 ListEnum   
     -> Enum (listDelim Enum):* 

@@ -5,11 +5,8 @@ const fsExists = require('fs.promises.exists');
 const OSPath = require('path');
 const nearley = require("nearley");
 const {lineTypes, dataTypes} = require("../lib/Constants");
-//const gedcomGrammar = require("../parser/rules.js");
 
-// TO-DO: accept @-Characters in lineStr (escaped if first character is @)
 // TO-DO: support for line continuation (CONT)
-
 
 class GrammarGenerator{
     constructor(path, nearleyHeader){
