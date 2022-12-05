@@ -4,25 +4,75 @@
 @lexer lexer
 
 # =====================================================
+# Characters
+# =====================================================
+digit       
+    -> [0-9] 
+        {%id%}
+
+nonzero     
+    -> [1-9] 
+        {%id%}
+
+ucletter    
+    -> [A-Z] 
+        {%id%}
+
+underscore  
+    -> %underscore 
+        {%id%}
+
+atsign      
+    -> %atsign
+        {%id%}
+
+# =====================================================
+
+banned      
+    -> [\x00-\x08]  # C0 other than LF CR and Tab
+        {%id%}    
+    |  [\x0B-\x0C] 
+        {%id%}
+    |  [\x0E-\x1F] 
+        {%id%}
+    |  [\x7F]       # DEL 
+        {%id%}    
+    |  [\x80-\x9F]  # C1
+        {%id%}    
+
+notBanned 
+    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F] 
+        {%id%}
+
+notBannedNoEOL 
+    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D] 
+        {%id%}
+
+notBannedNoEOLNoAt
+    -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x40] 
+        {%id%}
+
+
+# =====================================================
 # DATA TYPES
 # =====================================================
-# Defined in https://gedcom.io/specifications/FamilySearchGEDCOMv7.html#datatypes
-
 # Text
 anychar     
     -> notBannedNoEOL {%id%} 
 
 Text        
-    -> anychar:* 
+    -> notBannedNoEOLNoAt anychar:*
+        {% postprocessor.joinAndUnpackAll %}
+    |  atsign atsign anychar:*
         {% postprocessor.joinAndUnpackAll %}
 
-
+# =====================================================
 # Integer
 Integer     
     -> digit:+ 
         {% postprocessor.joinAndUnpackAll %}
 
-
+# =====================================================
 # Enumeration
 stdEnum     
     -> stdTag {%id%} 
@@ -32,7 +82,7 @@ Enum
     -> stdEnum {%id%} 
     |  extTag {%id%} 
 
-
+# =====================================================
 # Date
 DateValue   
     -> (date | DatePeriod | dateRange | dateApprox):? {%id%} 
@@ -96,7 +146,7 @@ epoch
     -> "BCE" {%id%} 
     |  extTag {%id%} 
 
-
+# =====================================================
 # Time (represented in 24-hour clock)
 Time        
     -> hour ":" minute (":" second ("." fraction):? ):? ("Z"):? 
@@ -115,7 +165,7 @@ fraction
     -> digit:+ 
         {% postprocessor.joinAndUnpackAll %}
 
-
+# =====================================================
 # Age
 Age         
     -> (ageBound D):? ageDuration 
@@ -150,7 +200,7 @@ ageDuration
         {% postprocessor.joinAndUnpackAll %}
     |  days {%id%}
 
-
+# =====================================================
 # List
 list        
     -> listItem (listDelim listItem):* 
@@ -177,7 +227,7 @@ ListEnum
     -> Enum (listDelim Enum):* 
         {% postprocessor.joinAndUnpackAll %}
 
-
+# =====================================================
 # Personal Name
 PersonalName 
     -> nameStr 
@@ -190,7 +240,7 @@ nameStr
     -> nameChar:+ 
         {% postprocessor.joinAndUnpackAll %}
 
-
+# =====================================================
 # Language
 Language     
     -> lang ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
@@ -275,7 +325,7 @@ grandfathered
     -> irregular {%id%}
     | regular {%id%}
 
-
+# =====================================================
 # Media Type
 MediaType       
     -> mt_type "/" mt_subtype (";" mt_parameter):*
@@ -325,6 +375,7 @@ mt_qpair
     -> "\\" [\x09-7E] 
         {% postprocessor.joinAndUnpackAll %}
 
+# =====================================================
 # Special
 Special     
     -> Text {%id%}

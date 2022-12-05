@@ -7,6 +7,9 @@ const nearley = require("nearley");
 const {lineTypes, dataTypes} = require("../lib/Constants");
 //const gedcomGrammar = require("../parser/rules.js");
 
+// TO-DO: accept @-Characters in lineStr (escaped if first character is @)
+// TO-DO: support for line continuation (CONT)
+
 
 class GrammarGenerator{
     constructor(path, nearleyHeader){
@@ -85,7 +88,12 @@ class GrammarGenerator{
         const ruleArray = [];
         // convert ruleDefinition to nearley rules
         for(const rule of ruleDefinition){
-            ruleArray.push(this.generateRule(rule));
+            if(rule.incomplete){
+                // pass
+            }else{
+                ruleArray.push(this.generateRule(rule));
+            }
+            
         }
 
         // return rules as one string
@@ -163,17 +171,17 @@ class GrammarGenerator{
                 case lineTypes.NO_LINEVAL:
                 case lineTypes.FAM_RECORD:
                 case lineTypes.INDI_RECORD:
-                    lineString += `Level D %Xref D "${tag}" EOL`;
+                    lineString += `Level D Xref D "${tag}" EOL`;
                     break;
 
                 // Structure of the form: LEVEL D TAG D LINEVAL EOL
                 case lineTypes.NO_XREF:
-                    lineString += `Level D "${tag}" D ${lineValType} EOL`;
+                    lineString += `Level D "${tag}" (D ${lineValType}):? EOL`;
                     break;
                 
                 // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
                 default:
-                    lineString += `Level D %Xref D "${tag}" D ${lineValType} EOL`;
+                    lineString += `Level D Xref D "${tag}" D ${lineValType} EOL`;
             }
             // add postprocessor
             lineString += `${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}", type: "${lineType}"${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`
@@ -253,7 +261,7 @@ class GrammarGenerator{
     }
 
     convertUri(uri){
-        return uri.replace(":", "_").replace("-", "_")
+        return uri.replaceAll(":", "_").replaceAll("-", "_")
     }
     
     convertCheckCardinalityOf(checkCardinalityOf){
@@ -294,7 +302,7 @@ async function generateGrammarAndParser(){
     console.log("Generate gedcom-parser");
     await grammarGenerator.generateParser();
     console.log("Process finished");
-    grammarGenerator.testGrammar("0 @F1@ FAM\n1 HUSB @I1@\n2 PHRASE schoenes haus\n", "../lib/grammar/parser/FamilyParser.js");
+    //grammarGenerator.testGrammar("0 @F1@ FAM\n1 HUSB @I1@\n2 PHRASE schoenes haus\n", "../lib/grammar/parser/FamilyParser.js");
 }
 
 module.exports = {generateGrammar, generateGrammarAndParser}

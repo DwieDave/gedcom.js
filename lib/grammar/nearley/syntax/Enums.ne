@@ -4,120 +4,103 @@
 # =====================================================
 # ENUMS
 # =====================================================
+g7_enumset_ADOP
+    -> "HUSB"   {%id%}
+    |  "WIFE"   {%id%}
+    |  "BOTH"   {%id%}
 
-RESN_ENUM   
+#g7_enumset_EVEN
+#g7_enumset_EVENATTR
+
+g7_enumset_MEDI
+    -> "AUDIO"      {%id%}
+    |  "BOOk"       {%id%}
+    |  "CARD"       {%id%}
+    |  "ELECTRONIC" {%id%}
+    |  "FICHE"      {%id%}
+    |  "FILM"       {%id%}
+    |  "MAGAZINE"   {%id%}
+    |  "MANUSKRIPT" {%id%}
+    |  "MAP"        {%id%}
+    |  "NEWSPAPER"  {%id%}
+    |  "PHOTO"      {%id%}
+    |  "TOMBSTONE"  {%id%}
+    |  "VIDEO"      {%id%}
+    |  "OTHER"      {%id%}
+
+
+g7_enumset_PEDI
+    -> "ADOPTED"    {%id%}
+    |  "BIRTH"      {%id%}
+    |  "FOSTER"     {%id%}   
+    |  "SEALING"    {%id%}
+    |  "OTHER"      {%id%}
+
+
+g7_enumset_QUAY
+    -> "0"  {%id%}
+    |  "1"  {%id%}
+    |  "2"  {%id%}
+    |  "3"  {%id%}
+
+
+g7_enumset_RESN 
     -> "CONFIDENTIAL" {%id%} 
-    |  "LOCKED"  {%id%}
-    |  "PRIVACY" {%id%}
+    |  "LOCKED"       {%id%}
+    |  "PRIVACY"      {%id%}
 
-NAME_PIECES_ENUM -> "NPFX" {%id%} 
-    |  "GIVN" {%id%} 
-    |  "NICK" {%id%}  
-    |  "SPFX" {%id%} 
-    |  "SURN" {%id%} 
-    |  "NSFX" {%id%}
 
-ROLE        
-    -> "CHIL" {%id%} 
-    |  "CLERGY" {%id%} 
-    |  "FATH" {%id%} 
-    |  "FRIEND" {%id%} 
-    |  "GODP" {%id%} 
-    |  "HUSB" {%id%} 
-    |  "MOTH" {%id%} 
-    |  "MULTIPLE" {%id%} 
-    |  "NGHBR" {%id%} 
+g7_enumset_ROLE      
+    -> "CHIL"       {%id%} 
+    |  "CLERGY"     {%id%} 
+    |  "FATH"       {%id%} 
+    |  "FRIEND"     {%id%} 
+    |  "GODP"       {%id%} 
+    |  "HUSB"       {%id%} 
+    |  "MOTH"       {%id%} 
+    |  "MULTIPLE"   {%id%} 
+    |  "NGHBR"      {%id%} 
     |  "OFFICIATOR" {%id%} 
-    |  "SPOU" {%id%} 
-    |  "WIFE" {%id%} 
-    |  "WITN" {%id%} 
-    |  "OTHER" {%id%}
+    |  "SPOU"       {%id%} 
+    |  "WIFE"       {%id%} 
+    |  "WITN"       {%id%} 
+    |  "OTHER"      {%id%}
 
-SEX_ENUM    
+
+g7_enumset_SEX  
     -> "M" {%id%} 
     |  "F" {%id%} 
     |  "X" {%id%} 
     |  "U" {%id%}
 
-ADOP_ENUM   
-    -> "HUSB" {%id%} 
-    |  "WIFE" {%id%} 
-    |  "BOTH" {%id%}
+
+g7_enumset_FAMC_STAT
+    -> "CHALLENGED" {%id%}
+    |  "DISPROVEN"  {%id%}
+    |  "PROVEN"     {%id%}
 
 
-# EVENTS
-EVENTS      
-    -> INDIVIDUAL_EVENTS 
-    |  FAMILY_EVENTS
-
-INDIVIDUAL_EVENTS 
-    -> "ADOP" {%id%} 
-    | "BAPM" {%id%} 
-    | "BARM" {%id%} 
-    | "BASM" {%id%} 
-    | "BIRT" {%id%} 
-    | "BLES" {%id%} 
-    | "BURI" {%id%} 
-    | "CENS" {%id%} 
-    | "CHR"  {%id%} 
-    | "CHRA" {%id%} 
-    | "CONF" {%id%} 
-    | "CREM" {%id%} 
-    | "DEAT" {%id%} 
-    | "EMIG" {%id%} 
-    | "FCOM" {%id%} 
-    | "GRAD" {%id%} 
-    | "IMMI" {%id%} 
-    | "NATU" {%id%} 
-    | "ORDN" {%id%} 
-    | "PROB" {%id%} 
-    | "RETI" {%id%} 
-    | "WILL" {%id%}
-
-FAMILY_EVENTS 
-    -> "ANUL" {%id%} 
-    | "CENS" {%id%} 
-    | "DIV"  {%id%}
-    | "DIVFG" {%id%} 
-    | "ENGA" {%id%} 
-    | "MARB" {%id%} 
-    | "MARC" {%id%} 
-    | "MARR" {%id%} 
-    | "MARS" {%id%}
+g7_enumset_ord_STAT
+    -> "BIC"        {%id%}
+    |  "CANCELED"   {%id%}
+    |  "CHILD"      {%id%}
+    |  "COMPLETED"  {%id%}
+    |  "EXCLUDED"   {%id%}
+    |  "DNS"        {%id%}
+    |  "DNS_CAN"    {%id%}
+    |  "INFANT"     {%id%}  
+    |  "PRE_1970"   {%id%}
+    |  "STILLBORN"  {%id%}
+    |  "SUBMITTED"  {%id%}
+    |  "UNCLEARED"  {%id%}
 
 
-# ATTRIBUTES
-ATTRIBUTES  
-    -> INDIVIDUAL_ATTRIBUTES {%id%}
-    |  FAMILY_ATTRIBUTES {%id%}
+g7_enumset_NAME_TYPE
+    -> "AKA"            {%id%}
+    |  "BIRTH"          {%id%}
+    |  "IMMIGRANT"      {%id%}
+    |  "MAIDEN"         {%id%}
+    |  "MARRIED"        {%id%}
+    |  "PROFESSIONAL"   {%id%}
+    |  "OTHER"          {%id%}
 
-INDIVIDUAL_ATTRIBUTES 
-    -> "CAST" {%id%} 
-    |  "DSCR" {%id%} 
-    |  "EDUC" {%id%} 
-    |  "IDNO" {%id%} 
-    |  "NATI" {%id%} 
-    |  "NCHI" {%id%} 
-    |  "NMR"  {%id%} 
-    |  "OCCU" {%id%} 
-    |  "PROP" {%id%} 
-    |  "RELI" {%id%} 
-    |  "RESI" {%id%} 
-    |  "SSN"  {%id%}
-    |  "TITL" {%id%}
-
-FAMILY_ATTRIBUTES 
-    -> "NCHI" {%id%} 
-    |  "RESI" {%id%}
-
-FAMC_STAT_ENUM 
-    -> "CHALLENGED" {%id%} 
-    |  "DISPROVEN" {%id%} 
-    |  "PROVEN" {%id%}
-
-PEDI_ENUM   
-    -> "ADOPTED" {%id%} 
-    |  "BIRTH" {%id%} 
-    |  "FOSTER" {%id%} 
-    |  "SEALING" {%id%} 
-    |  "OTHER" {%id%}

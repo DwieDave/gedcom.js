@@ -1,1 +1,26 @@
-0 AGE 2y 215m\n1 PHRASE frisch geboren
+0 HEAD
+1 GEDC
+2 VERS 7.0
+1 SOUR Gedcom.js Version 1.4
+2 VERS 1.4
+2 NAME @@Marius Mueller
+2 CORP MM Solutions
+3 WWW www.mm-solutions.de
+3 EMAIL m.mueller@outlook.com
+3 ADDR Peter-Lambert-Straße 6, 54292 Trier
+4 ADR1 Peter-Lambert-Straße
+4 ADR2 6
+4 ADR3 Apartement 321
+4 CITY Trier
+4 STAE Rheinland-Pfalz
+4 POST 54292
+4 CTRY Deutschland
+1 DATE 5 DEC 2022
+0 @F1@ FAM
+1 HUSB @I1@
+2 PHRASE hat ein sehr schönes Haus
+1 WIFE @I2@
+0 @F2@ FAM
+1 HUSB @I6@
+1 WIFE @I7@
+0 TRLR
