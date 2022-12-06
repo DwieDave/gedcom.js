@@ -4,7 +4,7 @@ const exec = util.promisify(require('child_process').exec);
 const fsExists = require('fs.promises.exists');
 const OSPath = require('path');
 const nearley = require("nearley");
-const {lineTypes, dataTypes} = require("../lib/Constants");
+const {lineTypes, dataTypes, gedcomEnumTypes} = require("../lib/Constants");
 
 // TO-DO: support for line continuation (CONT)
 
@@ -179,9 +179,18 @@ class GrammarGenerator{
                 // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
                 default:
                     lineString += `Level D Xref D "${tag}" D ${lineValType} EOL`;
+                        
+                    
             }
             // add postprocessor
-            lineString += `${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}", type: "${lineType}"${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`
+            lineString += `${this.postprocessorLine}createStructure({line: d`;
+            lineString += `, uri: "${this.convertUri(uri)}"`;
+            lineString += `, type: "${lineType}"`;
+            lineString += `${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}`;
+            lineString += `${(lineValType && lineValType === dataTypes.ListEnum) ? `, enumType: "${this.convertUri(struct.enumType)}"`: ``}`;
+            lineString += `${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`;
+            
+            
             // structure has more than one substructure
             if(substructs.length > 1){
                 lineString += `\n\n${helperRuleName}Substructs${this.ruleArrow} ${this.convertUri(substructs[0])}`

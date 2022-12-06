@@ -1,4 +1,4 @@
-const {lineTypes, dataTypes} = require("../../lib/Constants");
+const {lineTypes, dataTypes, gedcomEnumTypes} = require("../../lib/Constants");
 module.exports = {
     grammarName: "StructureTypes",
     rules:[
@@ -1168,11 +1168,11 @@ module.exports = {
         {
             // Restriction 
             uri: "g7:RESN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            lineValType: dataTypes.ListEnum,
+            enumType: "g7:enumset-RESN",
             tag: "RESN",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Repository 

@@ -1,4 +1,5 @@
 0 HEAD
+1 RESN LOCKED, PRIVACY
 1 GEDC
 2 VERS 7.0
 1 SOUR Gedcom.js Version 1.4
@@ -19,6 +20,7 @@
 1 PLAC
 2 FORM Haus, Maus, Klaus, Raus
 0 @F1@ FAM
+1 RESN LOCKED, PRIVACY
 1 HUSB @I1@
 2 PHRASE hat ein sehr schönes Haus
 1 WIFE @I2@

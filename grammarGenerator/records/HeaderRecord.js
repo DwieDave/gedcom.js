@@ -8,6 +8,7 @@ module.exports = {
             lineType: lineTypes.HEADER,
             tag: "HEAD",
             substructs: {
+                "g7:RESN":"0:1",
                 "g7:GEDC":"1:1", 
                 "g7:SCHMA":"0:1", 
                 "g7:HEAD-SOUR":"0:1", 

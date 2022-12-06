@@ -155,6 +155,10 @@ g7_POST
 	-> Level D "POST" (D Special):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_POST", type: "NO_XREF", lineValType: "Special"})%}
 
+g7_RESN
+	-> Level D "RESN" (D ListEnum):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "g7_RESN", type: "NO_XREF", lineValType: "ListEnum", enumType: "g7_enumset_RESN"})%}
+
 g7_SCHMA
 	-> Level D "SCHMA" EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_SCHMA", type: "NO_XREF_NO_LINEVAL"})%}
