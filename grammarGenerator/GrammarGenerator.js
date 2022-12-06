@@ -181,7 +181,7 @@ class GrammarGenerator{
                     lineString += `Level D Xref D "${tag}" D ${lineValType} EOL`;
             }
             // add postprocessor
-            lineString += `${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}", type: "${lineType}"${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`
+            lineString += `${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}", type: "${lineType}"${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`
             // structure has more than one substructure
             if(substructs.length > 1){
                 lineString += `\n\n${helperRuleName}Substructs${this.ruleArrow} ${this.convertUri(substructs[0])}`
