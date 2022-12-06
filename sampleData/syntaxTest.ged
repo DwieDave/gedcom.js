@@ -1,5 +1,4 @@
 0 HEAD
-1 RESN LOCKED, PRIVACY
 1 GEDC
 2 VERS 7.0
 1 SOUR Gedcom.js Version 1.4
@@ -18,11 +17,12 @@
 4 CTRY Deutschland
 1 DATE 5 DEC 2022
 1 PLAC
-2 FORM Haus, Maus, Klaus, Raus
+2 FORM City, County, State, Country
 0 @F1@ FAM
 1 RESN LOCKED, PRIVACY
 1 HUSB @I1@
 2 PHRASE hat ein sehr schönes Haus
+3 CONT und dazu ein schöner Garten
 1 WIFE @I2@
 0 @F2@ FAM
 1 HUSB @I6@
