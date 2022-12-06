@@ -6,7 +6,7 @@ const OSPath = require('path');
 const nearley = require("nearley");
 const {lineTypes, dataTypes, gedcomEnumTypes, continuationTypes} = require("../lib/Constants");
 
-// TO-DO: support for line continuation (CONT)
+// ISSUE: Line continuation does not work with Substructures
 
 class GrammarGenerator{
     constructor(path, nearleyHeader){
@@ -78,6 +78,7 @@ class GrammarGenerator{
 
         // generate Gedcom
         await fs.writeFile(`${this.path}nearley/${this.gedcom.grammarName}.ne`, this.generateRuleString(this.gedcom.rules))
+
     }
 
     generateRuleString(ruleDefinition){
@@ -168,6 +169,11 @@ class GrammarGenerator{
                 case lineTypes.NO_LINEVAL:
                 case lineTypes.FAM_RECORD:
                 case lineTypes.INDI_RECORD:
+                case lineTypes.OBJE_RECORD:
+                case lineTypes.REPO_RECORD:
+                case lineTypes.SNOTE_RECORD:
+                case lineTypes.SOUR_RECORD:
+                case lineTypes.SUBM_RECORD:
                     lineString += `Level D Xref D "${tag}" EOL`;
                     break;
 
@@ -240,6 +246,9 @@ class GrammarGenerator{
             gedcomInclude.push(`${record.grammarName}.ne`);
         }
         await this.buildParser(this.gedcom.grammarName, gedcomInclude);
+        
+        // clear dummy.ne file
+        await fs.writeFile(this.dummyPath, "");
     }
 
     async buildParser(fileName, include){

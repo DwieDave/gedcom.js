@@ -5,10 +5,12 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-INDI",
-            lineType: lineTypes.NO_XREF,
+            lineType: lineTypes.INDI_RECORD,
             lineValType: dataTypes.Text,
-            tag: "TEST",
-            substructs: {}
+            tag: "INDI",
+            substructs: {
+                "g7:RESN":"0:1"
+            }
         }
         
     ]
