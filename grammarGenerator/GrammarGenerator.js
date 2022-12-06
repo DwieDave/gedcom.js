@@ -4,7 +4,7 @@ const exec = util.promisify(require('child_process').exec);
 const fsExists = require('fs.promises.exists');
 const OSPath = require('path');
 const nearley = require("nearley");
-const {lineTypes, dataTypes, gedcomEnumTypes} = require("../lib/Constants");
+const {lineTypes, dataTypes, gedcomEnumTypes, continuationTypes} = require("../lib/Constants");
 
 // TO-DO: support for line continuation (CONT)
 
@@ -139,7 +139,7 @@ class GrammarGenerator{
             let helperRuleName = "";
 
             // structure has more than one substructure
-            if(substructs.length > 1){
+            if(substructs.length > 0){
                 helperRuleName = uri.split("_");
                 helperRuleName.shift();
                 helperRuleName = helperRuleName.join("");
@@ -174,6 +174,7 @@ class GrammarGenerator{
                 // Structure of the form: LEVEL D TAG D LINEVAL EOL
                 case lineTypes.NO_XREF:
                     lineString += `Level D "${tag}" (D ${lineValType}):? EOL`;
+                    substructs.push(continuationTypes[lineValType]);
                     break;
                 
                 // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL

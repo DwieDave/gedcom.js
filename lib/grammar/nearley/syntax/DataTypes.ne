@@ -368,3 +368,15 @@ Special
     -> Text {%id%}
 NullOrY     
     -> "Y":? {%id%}
+
+# =====================================================
+# CONTINUATION
+# =====================================================
+# A pseudo-structure to indicate a line break
+TEXT_CONTINUATION
+    -> Level D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+INTEGER_CONTINUATION
+    -> Level D "CONT" (D Integer):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Integer"})%}

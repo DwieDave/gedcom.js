@@ -7,7 +7,7 @@
 2 CORP MM Solutions
 3 WWW www.mm-solutions.de
 3 EMAIL m.mueller@outlook.com
-3 ADDR Peter-Lambert-Straße 6, 54292 Trier
+3 ADDR
 4 ADR1 Peter-Lambert-Straße
 4 ADR2 6
 4 ADR3 Apartement 321
@@ -21,8 +21,8 @@
 0 @F1@ FAM
 1 RESN LOCKED, PRIVACY
 1 HUSB @I1@
-2 PHRASE hat ein sehr schönes Haus
-3 CONT und dazu ein schöner Garten
+2 PHRASE guter Mann
+3 CONT Leider zu früh verstorben!
 1 WIFE @I2@
 0 @F2@ FAM
 1 HUSB @I6@

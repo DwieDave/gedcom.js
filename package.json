@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./lib/index.js",
-    "generateGedcomParser": "npx nearleyc ./lib/oldGrammar/Gedcom.ne -o ./lib/oldGrammar/parser/GedcomParser.js",
-    "generateAndStart": "npm run generateGedcomParser && npm run start",
-    "generateSubGrammars": "node ./lib/helpers/generateSubGrammars.js",
-    "test": "mocha ./test/gedcomMochaTest.mjs",
-    "generateGrammar": "node ./grammarGenerator/GrammarGenerator.js"
+    "generateGrammar": "node ./grammarGenerator/GrammarGenerator.js",
+    "test": "mocha ./test/gedcomMochaTest.mjs"
+    
   },
   "repository": {
     "type": "git",
