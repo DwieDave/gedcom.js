@@ -21,8 +21,7 @@
 0 @F1@ FAM
 1 RESN LOCKED, PRIVACY
 1 HUSB @I1@
-2 PHRASE guter Mann
-3 CONT Leider zu früh verstorben!
+2 PHRASE Guter Mann. Leider zu früh verstorben!
 1 WIFE @I2@
 0 @F2@ FAM
 1 HUSB @I6@
