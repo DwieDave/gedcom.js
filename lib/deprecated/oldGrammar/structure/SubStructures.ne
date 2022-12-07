@@ -4,19 +4,18 @@
 # =====================================================
 # REUSABLE SUBSTRUCTURES
 # =====================================================
-
 AGE -> Level D "AGE" D Age EOL
-        {% (data) => functions.createStructure({line: data, type: lineTypes.NO_XREF})%}
+        {% (data) => postprocessor.createStructure({line: data, type: lineTypes.NO_XREF})%}
     | AGE PHRASE EOL
-        {% (d) => functions.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
+        {% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1], checkCardinalityOf: ["PHRASE"]}) %}
         
 PHRASE
     -> Level D "PHRASE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TYPE
     -> Level D "TYPE" D Text EOL
-        {% (d) => functions.createStructure({line: d, type: lineTypes.NO_XREF})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.NO_XREF})%}
 
 TIME
     -> Level D "TIME" D Time EOL
@@ -25,7 +24,6 @@ DATE
     -> Level D "DATE" D DateValue EOL
     | DATE TIME:? PHRASE:? EOL
     | DATE PHRASE:? TIME:? 
-
 DATE_EXACT
     -> Level D "DATE" D DateExact EOL
     | DATE TIME EOL
@@ -37,7 +35,7 @@ DATEPERIOD
 TEXT
     -> Level D "TEXT" D Text EOL
     | TEXT Level D "MIME" MediaType EOL
-    | TEXT Level D "LANG" language EOL
+    | TEXT Level D "LANG" Language EOL
 
 QUAY 
     -> Level D "QUAY" D ("0" | "1" | "2" | "3")
@@ -67,14 +65,14 @@ NON_EVENT_STRUCTURE
 NOTE_STRUCTURE 
     -> (Level D "NOTE" D Text EOL
     | NOTE_STRUCTURE Level D "MIME" D MediaType EOL
-    | NOTE_STRUCTURE Level D "LANG" D language EOL
+    | NOTE_STRUCTURE Level D "LANG" D Language EOL
     | NOTE_STRUCTURE NOTE_TRAN EOL
     | NOTE_STRUCTURE SOURCE_CITATION) | Level D "SNOTE" D %Xref EOL
 
 NOTE_TRAN 
     -> Level D "TRAN" D Text EOL
     | NOTE_TRAN Level D "MIME" D MediaType EOL
-    | NOTE_TRAN Level D "LANG" D language EOL
+    | NOTE_TRAN Level D "LANG" D Language EOL
 
 
 # Source Citation
@@ -115,9 +113,9 @@ LDS_ORDINANCE_DETAIL
 
 # Place Structure
 PLACE_STRUCTURE 
-    -> Level D "PLAC" D List_Text EOL
-    | PLACE_STRUCTURE Level D "FORM" D List_Text EOL
-    | PLACE_STRUCTURE Level D "LANG" D language EOL
+    -> Level D "PLAC" D ListText EOL
+    | PLACE_STRUCTURE Level D "FORM" D ListText EOL
+    | PLACE_STRUCTURE Level D "LANG" D Language EOL
     | PLACE_STRUCTURE PLAC_TRAN EOL
     | PLACE_STRUCTURE MAP EOL
     | PLACE_STRUCTURE EXID EOL
@@ -135,7 +133,7 @@ EXID
 
 PLAC_TRAN 
     -> Level D "TRAN" D Text EOL
-    | PLAC_TRAN Level D "LANG" D language EOL
+    | PLAC_TRAN Level D "LANG" D Language EOL
 
 
 FAMC_STAT 

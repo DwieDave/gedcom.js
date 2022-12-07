@@ -15,13 +15,13 @@ anychar
 
 Text        
     -> anychar:* 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 
 # Integer
 Integer     
     -> digit:+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 
 # Enumeration
@@ -40,29 +40,29 @@ DateValue
 
 DateExact   
     -> day D month D year 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 DatePeriod  
     -> ("TO" D date):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  "FROM" D date (D "TO" D date):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 date        
     -> (calendar D):? ((day D):? month D):? year (D epoch):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 dateRange   
     -> "BET" D date D "AND" D date 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  "AFT" D date 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  "BEF" D date 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 dateApprox  
     -> ("ABT" | "CAL" | "EST") D date 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 dateRestrict 
     -> "FROM" {%id%} 
@@ -101,26 +101,26 @@ epoch
 # Time (represented in 24-hour clock)
 Time        
     -> hour ":" minute (":" second ("." fraction):? ):? ("Z"):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 hour        
     -> digit {%id%} 
     |  ("0" | "1") digit | "2" ("0" | "1" | "2" | "3") 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 minute      
     -> ("0" | "1" | "2" | "3" | "4" | "5") digit 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 second      
     -> ("0" | "1" | "2" | "3" | "4" | "5") digit 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 fraction    
     -> digit:+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 
 # Age
 Age         
     -> (ageBound D):? ageDuration 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 ageBound    
     -> "<" {%id%} 
@@ -128,42 +128,42 @@ ageBound
 
 years       
     -> Integer "y" 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 months      
     -> Integer "m" 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 weeks       
     -> Integer "w" 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 days        
     -> Integer "d" 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 ageDuration 
     -> years (D months):? (D weeks):? (D days):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  months (D weeks):? (D days):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  weeks (D days):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
     |  days {%id%}
 
 
 # List
 list        
     -> listItem (listDelim listItem):* 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 listItem    
     -> (nocommasp | nocommasp nocomma:* nocommasp):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
                                 
 listDelim   
     -> D:* "," D:* 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 nocomma     
     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C] {%id%}
@@ -171,63 +171,63 @@ nocomma
 nocommasp   
     -> [^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x2C\x1E-\x20] {%id%}
 
-List_Text   
+ListText   
     -> list {%id%}
 
-List_Enum   
+ListEnum   
     -> Enum (listDelim Enum):* 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 
 # Personal Name
 PersonalName 
     -> nameStr 
     |  nameStr:? "/" nameStr:? "/" nameStr:? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 nameChar    
     -> [^\x00-\x19\x2F] {%id%}
 nameStr     
     -> nameChar:+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 
 # Language
-LangTag     
-    -> language ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
-        {% functions.joinAndUnpackAll %}
+Language     
+    -> lang ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
+        {% postprocessor.joinAndUnpackAll %}
 
-language    
+lang    
     -> alpha alpha alpha:? ("-" extlang):? 
-        {% functions.joinAndUnpackAll %} 
+        {% postprocessor.joinAndUnpackAll %} 
     |  alpha alpha alpha alpha 
-        {% functions.joinAndUnpackAll %} 
+        {% postprocessor.joinAndUnpackAll %} 
     |  alpha alpha alpha alpha alpha (alpha):? (alpha):? (alpha):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 extlang     
     -> alpha alpha alpha ("-" alpha alpha alpha):? ("-" alpha alpha alpha):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 script      
     -> alpha alpha alpha alpha 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 region      
     -> alpha alpha 
-        {% functions.joinAndUnpackAll %} 
+        {% postprocessor.joinAndUnpackAll %} 
     |  digit digit digit 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 variant     
     -> digit alphanum alphanum alphanum 
-        {% functions.joinAndUnpackAll %} 
+        {% postprocessor.joinAndUnpackAll %} 
     |  alphanum alphanum alphanum alphanum alphanum (alphanum):? (alphanum):? (alphanum):? 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 extension   
     -> singleton ("-" alphanum alphanum (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):?):+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 singleton   
     -> digit {%id%}
@@ -235,7 +235,7 @@ singleton
 
 privateuse  
     -> "x" ("-" alphanum (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):?):+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 alpha       
     -> [a-zA-z] {%id%}
@@ -280,7 +280,7 @@ grandfathered
 # Media Type
 MediaType       
     -> mt_type "/" mt_subtype (";" mt_parameter):*
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 mt_type         
     -> mt_token {%id%}
@@ -290,11 +290,11 @@ mt_subtype
 
 mt_parameter    
     -> mt_attribute "=" mt_value
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 mt_token        
     -> (mt_char):+
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 mt_attribute    
     -> mt_token {%id%}
@@ -314,7 +314,7 @@ mt_char
 
 mt_qstring      
     -> [\x22] (mt_qtext |  mt_qpair):* [\x22]
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 mt_qtext        
     -> [\x09-\x0A] {%id%} 
@@ -324,7 +324,7 @@ mt_qtext
 
 mt_qpair        
     -> "\\" [\x09-7E] 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 # Special
 Special     

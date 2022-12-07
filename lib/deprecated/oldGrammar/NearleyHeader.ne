@@ -1,9 +1,10 @@
-@include "./DataTypes.ne"
-@include "./Substructures.ne"
+@include "./structure/DataTypes.ne"
+@include "./structure/SubStructures.ne"
+@include "./structure/StructureTypes.ne"
 
 @{%
     // required modules
-    const functions = require('./Postprocessors.js');
+    const postprocessor = require('./Postprocessors.js');
     const {lineTypes} = require('../../Constants.js')
     const moo = require("moo");
 

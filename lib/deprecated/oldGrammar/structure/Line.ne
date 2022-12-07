@@ -9,14 +9,14 @@
 Level       
     -> "0" {%id%} 
     |  nonzero digit:*
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 D           
     -> [ ] {%id%}
 
 Xref        
     -> atsign tagChar:+ atsign  
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 Tag         
     -> stdTag {%id%}
@@ -36,11 +36,11 @@ EOL
 
 stdTag      
     -> ucletter tagChar:* 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 extTag      
     -> underscore tagChar:+ 
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 tagChar     
     -> ucletter {%id%}
@@ -63,9 +63,9 @@ nonEOL
 
 lineStr     
     -> nonAt nonEOL:*
-        {% functions.joinAndUnpackAll %} 
+        {% postprocessor.joinAndUnpackAll %} 
     |  atsign atsign nonEOL:*
-        {% functions.joinAndUnpackAll %}
+        {% postprocessor.joinAndUnpackAll %}
 
 digit       
     -> [0-9] {%id%}
