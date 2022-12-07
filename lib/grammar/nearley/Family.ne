@@ -18,3 +18,5 @@ recordFAMSubstructs
 		{%id%}
 	|  g7_FAM_WIFE
 		{%id%}
+	|  g7_CHIL
+		{%id%}

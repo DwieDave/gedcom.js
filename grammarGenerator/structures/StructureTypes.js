@@ -244,11 +244,10 @@ module.exports = {
         {
             // Child 
             uri: "g7:CHIL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            lineValType: dataTypes.Xref,
             tag: "CHIL",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:PHRASE":"0:1"}
         },
         {
             // Christening, adult 

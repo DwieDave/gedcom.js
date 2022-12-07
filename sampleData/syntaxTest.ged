@@ -14,7 +14,8 @@
 4 CITY Trier
 4 STAE Rheinland-Pfalz
 4 POST 54292
-4 CTRY Deutschland
+4 CTRY Deutsch
+5 CONT land
 1 DATE 5 DEC 2022
 1 PLAC
 2 FORM City, County, State, Country
@@ -23,6 +24,7 @@
 1 HUSB @I1@
 2 PHRASE Guter Mann. Leider zu früh verstorben!
 1 WIFE @I2@
+1 CHIL @I3@
 0 @F2@ FAM
 1 HUSB @I6@
 1 WIFE @I7@

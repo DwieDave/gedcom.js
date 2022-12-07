@@ -47,6 +47,22 @@ g7_ADR3
 	|  g7_ADR3 TEXT_CONTINUATION
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
+g7_CHIL
+	-> CHIL
+		{%id%}
+	|  CHIL CHILSubstructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+CHIL
+	->Level D "CHIL" (D Xref):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "g7_CHIL", type: "NO_XREF", lineValType: "Xref", checkCardinalityOf: {"g7_PHRASE":"0:1"}})%}
+
+CHILSubstructs
+	-> g7_PHRASE
+		{%id%}
+	|  TEXT_CONTINUATION
+		{%id%}
+
 g7_CITY
 	-> Level D "CITY" (D Special):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_CITY", type: "NO_XREF", lineValType: "Special"})%}
