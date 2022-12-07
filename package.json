@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./lib/index.js",
-    "generateGedcomParser": "npx nearleyc ./lib/grammar/Gedcom.ne -o ./lib/grammar/parser/GedcomParser.js",
-    "generateAndStart": "npm run generateGedcomParser && npm run start",
-    "generateSubGrammars": "node ./lib/helpers/generateSubGrammars.js",
-    "test": "mocha ./test/gedcomMochaTest.mjs",
-    "generateGrammar": "node ./lib/grammar/generateGrammar.js"
+    "generateGrammar": "node ./grammarGenerator/GrammarGenerator.js",
+    "test": "mocha ./test/gedcomMochaTest.mjs"
+    
   },
   "repository": {
     "type": "git",
@@ -36,6 +34,7 @@
     "mocha": "^10.0.0"
   },
   "dependencies": {
+    "fs.promises.exists": "^1.1.3",
     "moo": "^0.5.2",
     "moo-ignore": "^2.5.1",
     "nearley": "^2.20.1"

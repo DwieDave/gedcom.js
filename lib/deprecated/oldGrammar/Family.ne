@@ -12,7 +12,7 @@ g7_record_FAM
 
 Fam 
     -> Level D %Xref D "FAM" EOL
-        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.FAM_RECORD, checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1"}})%}
+        {% (d) => postprocessor.createStructure({line: d, type: lineTypes.FAM_RECORD, checkCardinalityOf: {HUSB:"0:1", WIFE:"0:1",}})%}
 
 FamilySubstructures 
     -> FAMILY_ATTRIBUTE_STRUCTURE 
