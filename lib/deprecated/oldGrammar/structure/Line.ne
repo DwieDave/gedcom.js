@@ -47,7 +47,6 @@ tagChar
     |  digit {%id%}
     |  underscore {%id%}
 
-# ISSUE: doesn't work with lexer-xref
 pointer     
     -> voidPrt {%id%}
     |  Xref {%id%}

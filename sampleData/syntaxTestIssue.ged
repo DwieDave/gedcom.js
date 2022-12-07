@@ -1,0 +1,16 @@
+0 HEAD
+1 GEDC
+2 VERS 7.0
+1 TEST test
+2 DATA test data
+3 DATE 7 DEC 2022
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 CHIL @I3@
+1 TEST test
+2 DATA test data
+3 DATE 7 DEC 2022
+4 TIME 16:37
+0 TRLR
+
