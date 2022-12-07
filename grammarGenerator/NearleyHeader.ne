@@ -12,6 +12,7 @@
         Xref        : /\@[A-Z0-9\_]+\@/,
         atsign      : /\@/,
         comma       : /[\,]/,
+        colon       : /[:]/,
         EOL         : {match: /(?:\r\n?|\n)/, lineBreaks: true },
 
         // not Banned, no EOL, no Space, no @, no _, no comma

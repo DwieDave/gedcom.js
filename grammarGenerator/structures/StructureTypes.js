@@ -3,6 +3,14 @@ module.exports = {
     grammarName: "StructureTypes",
     rules:[
         {
+            // Test
+            uri: "g7:TEST",
+            lineType: lineTypes.NO_XREF,
+            lineValType: dataTypes.Text,
+            tag: "TEST",
+            substructs: {"g7:HEAD-SOUR-DATA":"0:1"}
+        },
+        {
             // Abbreviation 
             uri: "g7:ABBR",
             lineType: "",

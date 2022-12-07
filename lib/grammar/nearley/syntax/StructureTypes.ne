@@ -1,6 +1,22 @@
 # call moo-lexer
 @lexer lexer
 
+g7_TEST
+	-> TEST
+		{%id%}
+	|  TEST TEST_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+TEST
+	->Level D "TEST" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "g7_TEST", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"g7_HEAD_SOUR_DATA":"0:1"}})%}
+
+TEST_Substructs
+	-> g7_HEAD_SOUR_DATA
+		{%id%}
+	|  TEXT_CONTINUATION
+		{%id%}
+
 g7_ADDR
 	-> ADDR
 		{%id%}

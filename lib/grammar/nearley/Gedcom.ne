@@ -5,7 +5,9 @@ GEDCOM
 	-> g7_record_HEAD RECORDS:* TRLR
 
 RECORDS
-	-> g7_record_FAM
+	-> g7_record_HEAD
+		{%id%}
+	|  g7_record_FAM
 		{%id%}
 	|  g7_record_INDI
 		{%id%}
