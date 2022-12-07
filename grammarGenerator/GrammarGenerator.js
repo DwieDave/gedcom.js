@@ -6,25 +6,26 @@ const OSPath = require('path');
 const nearley = require("nearley");
 const {lineTypes, dataTypes, gedcomEnumTypes, continuationTypes} = require("../lib/Constants");
 
-// ISSUE: Line continuation does not work with Substructures
 
 class GrammarGenerator{
+    // class constructor (don't call constructor directly - instead use build method)
     constructor(path, nearleyHeader){
         // path at which grammar is build
         this.path = path;
+
+        // path of Dummy.ne file in which the grammars are temporarily assembled and compiled to parser
         this.dummyPath = OSPath.join(__dirname, "Dummy.ne")
 
-        // header of .ne-files with include statements, imports and lexer definition
-        // imported from NearleyHeader.ne
+        // header of .ne-files with imports and lexer definition; imported from NearleyHeader.ne
         this.nearleyHeader = nearleyHeader;
 
-        // 
+        // object notation of grammar rules for a whole Gedcom Dataset
         this.gedcom = require("./Gedcom.js");
 
-        // Header structure of a gedcom dataset
+        // object notation of grammar rules for a Gedcom Header Record
         this.headerRecord = require("./records/HeaderRecord")
 
-        // gedcom records that build a dataset
+        // object notation of grammar rules for all Gedcom Records
         this.records = [
             require("./records/FamilyRecord.js"),
             require("./records/IndividualRecord.js"),
@@ -35,10 +36,10 @@ class GrammarGenerator{
             require("./records/SubmitterRecord.js")
         ]
 
-        // structures composed of structureTypes
+        // object notation of grammar rules for all Gedcom Substructures
         this.substructures = require("./structures/Substructures.js");
 
-        // low level structures that are used to build records and substructures
+        // object notation of grammar rules for all Gedcom Substructures (low level structures that are used to build records and substructures)
         this.structureTypes = require("./structures/StructureTypes.js");
 
         // nearley-building constants
@@ -50,6 +51,7 @@ class GrammarGenerator{
 
     }
 
+    // class method to build an instance of GrammarGenerator asynchronously 
     static async build(path){
         // read nearley header
         const nearleyHeader = await fs.readFile(OSPath.join(__dirname, "NearleyHeader.ne"), { encoding: 'utf8' });
@@ -58,89 +60,102 @@ class GrammarGenerator{
         return new GrammarGenerator(path, nearleyHeader);
     }
 
+    // build nearley grammar files on basis of the object notation of grammar rules for Gedcom Structures given in this instance
     async buildGrammar(){
         // create nearley folder if not exist
         if(!await fsExists(this.path + "nearley")){
             await fs.mkdir(this.path + "nearley")
         }
 
-        // generate nearley-string with all rules from rule definition
-        // and save nearley-string as .ne-file
+        // generate nearley-string with all rules for Gedcom StructureTypes and Substructures and save it as .ne-file
         await fs.writeFile(`${this.path}nearley/syntax/${this.structureTypes.grammarName}.ne`, this.generateRuleString(this.structureTypes.rules))
         await fs.writeFile(`${this.path}nearley/syntax/${this.substructures.grammarName}.ne`, this.generateRuleString(this.substructures.rules))
 
+        // generate nearley-string with all rules for Gedcom Header Record and save it as .ne-file
+        await fs.writeFile(`${this.path}nearley/${this.headerRecord.grammarName}.ne`, this.generateRuleString(this.headerRecord.rules))
+
+        // generate nearley-string with all rules for Gedcom Records and save it as .ne-file
         for(const record of this.records){
             await fs.writeFile(`${this.path}nearley/${record.grammarName}.ne`, this.generateRuleString(record.rules))
         }
 
-        // generate Gedcom Header
-        await fs.writeFile(`${this.path}nearley/${this.headerRecord.grammarName}.ne`, this.generateRuleString(this.headerRecord.rules))
-
-        // generate Gedcom
+        // generate nearley-string with all rules for a Gedcom Dataset and save it as .ne-file
         await fs.writeFile(`${this.path}nearley/${this.gedcom.grammarName}.ne`, this.generateRuleString(this.gedcom.rules))
 
     }
 
+    // reads all rules from given ruleDefinition, convert them to a nearley-conform rule string and return them as one composed nearley string
     generateRuleString(ruleDefinition){
         // string array with nearley rules
         const ruleArray = [];
+
         // convert ruleDefinition to nearley rules
         for(const rule of ruleDefinition){
             if(rule.incomplete){
-                // pass
+                // pass if the rule in the object notation is flagged as incomplete 
             }else{
                 ruleArray.push(this.generateRule(rule));
             }
-            
         }
 
-        // return rules as one string
+        // return rules as one string seperated with two newline characters
         return this.callLexer + ruleArray.join("\n\n");
     }
     
+    // generate a nearley-conform rule string for the given struct
     generateRule(struct){
-        // rule information
+        // rule information of struct
         const uri = this.convertUri(struct.uri);
         const lineType = struct.lineType;
         let substructs = [];
         let checkCardinalityOf = {};
 
+        // read cardinality and uri of substructs
         for(const [uri, cardinality] of Object.entries(struct.substructs)){
+            // save substruct uri in substructs-array so it can be included in the nearley-rule-string
             substructs.push(uri);
+            // cardinality check is only necessary for "0:1", "1:1" and "1:M"
             if(cardinality !== "0:M"){
                 checkCardinalityOf[this.convertUri(uri)] = cardinality;
             }
         }
 
         // string representation of nearley rule for given struct
-        let lineString = "";
-        lineString += `${uri}${this.ruleArrow} `;
+        let lineString = `${uri}${this.ruleArrow} `;
 
-        if(lineType === lineTypes.SUBSTRUCTURE){
-            // name of rule
-            lineString += this.convertUri(substructs[0]) + this.idPostprocessor;
-
-            for(let i=1; i<substructs.length; i++){
-                lineString += this.rulePipe + this.convertUri(substructs[i]) + this.idPostprocessor;
-            }
-        }else if(lineType === lineTypes.GEDCOM){
-            
+        // given struct is a Gedcom Structure for a whole Dataset
+        if(lineType === lineTypes.GEDCOM){
+            // top-level input rule for a Gedcom Dataset with Header, Records and Trailer
             lineString += `${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
-            lineString += `RECORDS${this.ruleArrow} ${this.convertUri(substructs[0])}${this.idPostprocessor}`;
 
+            // add records Gedcom rule
+            lineString += `RECORDS${this.ruleArrow} ${this.convertUri(substructs[0])}${this.idPostprocessor}`;
             for(let i=1; i<this.records.length; i++){
                 lineString += `${this.rulePipe} ${this.convertUri(substructs[i])}${this.idPostprocessor}`;
             }
 
+            // add rule for Gedcom Trailer
             lineString += `\n\nTRLR${this.ruleArrow} Level D "TRLR" EOL${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}",type: lineTypes.NO_XREF_NO_LINEVAL})%}`;
+        
+        // given struct is a Gedcom Substructure
+        }else if(lineType === lineTypes.SUBSTRUCTURE){
+
+            // add substructs to rule
+            lineString += this.convertUri(substructs[0]) + this.idPostprocessor;
+            for(let i=1; i<substructs.length; i++){
+                lineString += this.rulePipe + this.convertUri(substructs[i]) + this.idPostprocessor;
+            }
+        
+        // given struct is a Gedcom Record or StructureType
         }else{
             const tag = struct.tag;
             const lineValType = struct.lineValType;
         
             let helperRuleName = "";
 
-            // structure has more than one substructure
+            // there has to be a helper-rule for substructs, if a structure has more than one substruct (line continuation inclusive)
             if(substructs.length > 0){
+                // example helperRuleName: "CORP_Substructs"
                 helperRuleName = uri.split("_");
                 helperRuleName.shift();
                 helperRuleName = helperRuleName.join("");
@@ -149,7 +164,7 @@ class GrammarGenerator{
                 lineString += helperRuleName + this.idPostprocessor;
 
                 // add helper substructs
-                lineString += `${this.rulePipe} ${helperRuleName} ${helperRuleName}Substructs:+`
+                lineString += `${this.rulePipe} ${helperRuleName} ${helperRuleName}_Substructs:+`
                 lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}\n\n`
 
                 // create helper rule
@@ -158,14 +173,13 @@ class GrammarGenerator{
         
             // generate rule on basis of lineType
             switch(lineType){
-                // Structure of the form: LEVEL D TAG EOL
+                // structure of the form: LEVEL D TAG EOL
                 case lineTypes.NO_XREF_NO_LINEVAL:
-                // Header
                 case lineTypes.HEADER:
                     lineString += `Level D "${tag}" EOL`;
                     break;
 
-                // Structure of the form: LEVEL D XREF D TAG EOL
+                // structure of the form: LEVEL D XREF D TAG EOL
                 case lineTypes.NO_LINEVAL:
                 case lineTypes.FAM_RECORD:
                 case lineTypes.INDI_RECORD:
@@ -177,9 +191,11 @@ class GrammarGenerator{
                     lineString += `Level D Xref D "${tag}" EOL`;
                     break;
 
-                // Structure of the form: LEVEL D TAG D LINEVAL EOL
+                // structure of the form: LEVEL D TAG D LINEVAL EOL
                 case lineTypes.NO_XREF:
                     lineString += `Level D "${tag}" (D ${lineValType}):? EOL`;
+
+                    // structures with a line value can contain a line-continuation
                     substructs.push(continuationTypes[lineValType]);
                     break;
                 
@@ -189,7 +205,7 @@ class GrammarGenerator{
                         
                     
             }
-            // add postprocessor
+            // add postprocessor to rule string
             lineString += `${this.postprocessorLine}createStructure({line: d`;
             lineString += `, uri: "${this.convertUri(uri)}"`;
             lineString += `, type: "${lineType}"`;
@@ -198,9 +214,17 @@ class GrammarGenerator{
             lineString += `${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`;
             
             
-            // structure has more than one substructure
-            if(substructs.length > 1){
-                lineString += `\n\n${helperRuleName}Substructs${this.ruleArrow} ${this.convertUri(substructs[0])}`
+            // structure has exactly one substruct
+            if(substructs.length === 1){
+                // generate rule
+                lineString += `${this.rulePipe} ${uri} ${this.convertUri(substructs[0])}`
+                // add postprocessor
+                lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}`
+            
+            // structure has more than one substruct
+            }else if(substructs.length > 1){
+                // generate rule for substructs 
+                lineString += `\n\n${helperRuleName}_Substructs${this.ruleArrow} ${this.convertUri(substructs[0])}`
                 lineString += this.idPostprocessor;
                 
                 // add all remaining substructs with pipe
@@ -208,21 +232,18 @@ class GrammarGenerator{
                     lineString += `${this.rulePipe} ${this.convertUri(substructs[i])}`
                     lineString += this.idPostprocessor;
                 }
-            }else if(substructs.length === 1){
-                // generate rule
-                lineString += `${this.rulePipe} ${uri} ${this.convertUri(substructs[0])}`
-                // add postprocessor
-                lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}`
             }
         }
         
         return lineString;
     }
 
+    // generate Nearley Parser for a whole Gedcom Dataset and all Gedcom Records
     async generateParser(){
         let syntaxNeFile = [];
-        // open all nearley files of directory "nearley/syntax"
+        
         try{
+            // open all nearley files inside directory "nearley/syntax"
             if(await fsExists(this.path + "nearley/syntax")){
                 syntaxNeFile = await fs.readdir(this.path + "nearley/syntax");
                 syntaxNeFile = syntaxNeFile.map(file => `syntax/${file}`)
@@ -231,31 +252,34 @@ class GrammarGenerator{
             console.log(e.message)
         }
 
-        // Header Record Parser
+        // build Gedcom Header Record Parser
         await this.buildParser(this.headerRecord.grammarName, syntaxNeFile);
 
-        // Parser for records
+        // build Parser for all other Gedcom Records
         for(const record of this.records){
             await this.buildParser(record.grammarName, syntaxNeFile);
         }
 
-        // Gedcom Parser
+        // add all Gedcom Records to include statement for Gedcom Parser
         let gedcomInclude = syntaxNeFile;
         gedcomInclude.push(`${this.headerRecord.grammarName}.ne`)
         for(const record of this.records){
             gedcomInclude.push(`${record.grammarName}.ne`);
         }
+
+        // build Gedcom Parser for a whole Gedcom Dataset
         await this.buildParser(this.gedcom.grammarName, gedcomInclude);
         
         // clear dummy.ne file
         await fs.writeFile(this.dummyPath, "");
     }
 
+    // build nearley-file with include statements and NearleyHeader inside of dummy.ne-file and compile it to a nearley parser
     async buildParser(fileName, include){
-        // build .ne-file with include statements and NearleyHeader inside of dummy.ne-file
+        // string representation of the grammar to be compiled
         let fileStr = ""; 
                 
-        // add include statements
+        // add given include statements
         for(const file of include){
             fileStr += `@include ".${this.path}nearley/${file}"\n`;
         }
@@ -269,17 +293,19 @@ class GrammarGenerator{
         // read grammar of given file
         const grammar = await fs.readFile(`${this.path}nearley/${fileName}.ne`, { encoding: 'utf8' });
 
-        // append grammar of current file to dummy-file
+        // append grammar to dummy-file
         fs.appendFile(this.dummyPath, grammar);
 
-        // compile dummy .ne-file
+        // compile composed dummy.ne-file to nearley parser
         await exec(`npx nearleyc ${this.dummyPath} -o ${this.path}parser/${fileName}Parser.js`);
     }
 
+    // convenience function to make gedcom uri's nearley-readable
     convertUri(uri){
         return uri.replaceAll(":", "_").replaceAll("-", "_")
     }
     
+    // convenience function to convert checkCardinalityOf-attribute to appropriate nearley string
     convertCheckCardinalityOf(checkCardinalityOf){
         let str = "{";
         for(const [uri, cardinality] of Object.entries(checkCardinalityOf)){
@@ -288,7 +314,8 @@ class GrammarGenerator{
         return str.slice(0,-2) + "}";
     }
 
-    testGrammar(input, grammarPath){
+    // function to test a given nearley grammar with given input
+    static testGrammar(input, grammarPath){
         const Parser = new nearley.Parser(nearley.Grammar.fromCompiled(require(grammarPath)));
         try{
             console.log(`Try to parse:\n${input}`)
@@ -297,8 +324,7 @@ class GrammarGenerator{
             
         }catch(e){
             console.log(e.message);
-        }
-        
+        } 
     }
 }
 
@@ -318,7 +344,6 @@ async function generateGrammarAndParser(){
     console.log("Generate gedcom-parser");
     await grammarGenerator.generateParser();
     console.log("Process finished");
-    //grammarGenerator.testGrammar("0 @F1@ FAM\n1 HUSB @I1@\n2 PHRASE schoenes haus\n", "../lib/grammar/parser/FamilyParser.js");
 }
 
 module.exports = {generateGrammar, generateGrammarAndParser}

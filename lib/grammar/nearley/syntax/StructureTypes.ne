@@ -4,14 +4,14 @@
 g7_ADDR
 	-> ADDR
 		{%id%}
-	|  ADDR ADDRSubstructs:+
+	|  ADDR ADDR_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 ADDR
 	->Level D "ADDR" (D Special):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_ADDR", type: "NO_XREF", lineValType: "Special", checkCardinalityOf: {"g7_ADR1":"0:1", "g7_ADR2":"0:1", "g7_ADR3":"0:1", "g7_CITY":"0:1", "g7_STAE":"0:1", "g7_POST":"0:1", "g7_CTRY":"0:1"}})%}
 
-ADDRSubstructs
+ADDR_Substructs
 	-> g7_ADR1
 		{%id%}
 	|  g7_ADR2
@@ -50,14 +50,14 @@ g7_ADR3
 g7_CHIL
 	-> CHIL
 		{%id%}
-	|  CHIL CHILSubstructs:+
+	|  CHIL CHIL_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 CHIL
 	->Level D "CHIL" (D Xref):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_CHIL", type: "NO_XREF", lineValType: "Xref", checkCardinalityOf: {"g7_PHRASE":"0:1"}})%}
 
-CHILSubstructs
+CHIL_Substructs
 	-> g7_PHRASE
 		{%id%}
 	|  TEXT_CONTINUATION
@@ -78,14 +78,14 @@ g7_COPR
 g7_CORP
 	-> CORP
 		{%id%}
-	|  CORP CORPSubstructs:+
+	|  CORP CORP_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 CORP
 	->Level D "CORP" (D Text):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_CORP", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"ADDRESS_STRUCTURE":"0:1"}})%}
 
-CORPSubstructs
+CORP_Substructs
 	-> ADDRESS_STRUCTURE
 		{%id%}
 	|  g7_PHON
@@ -108,14 +108,14 @@ g7_CTRY
 g7_HEAD_SOUR_DATA
 	-> HEADSOURDATA
 		{%id%}
-	|  HEADSOURDATA HEADSOURDATASubstructs:+
+	|  HEADSOURDATA HEADSOURDATA_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 HEADSOURDATA
 	->Level D "DATA" (D Text):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_HEAD_SOUR_DATA", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"g7_DATE_exact":"0:1", "g7_COPR":"0:1"}})%}
 
-HEADSOURDATASubstructs
+HEADSOURDATA_Substructs
 	-> g7_DATE_exact
 		{%id%}
 	|  g7_COPR
@@ -126,14 +126,14 @@ HEADSOURDATASubstructs
 g7_DATE_exact
 	-> DATEexact
 		{%id%}
-	|  DATEexact DATEexactSubstructs:+
+	|  DATEexact DATEexact_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 DATEexact
 	->Level D "DATE" (D DateExact):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_DATE_exact", type: "NO_XREF", lineValType: "DateExact", checkCardinalityOf: {"g7_TIME":"0:1"}})%}
 
-DATEexactSubstructs
+DATEexact_Substructs
 	-> g7_TIME
 		{%id%}
 	|  TEXT_CONTINUATION
@@ -142,14 +142,14 @@ DATEexactSubstructs
 g7_HEAD_DATE
 	-> HEADDATE
 		{%id%}
-	|  HEADDATE HEADDATESubstructs:+
+	|  HEADDATE HEADDATE_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 HEADDATE
 	->Level D "DATE" (D DateExact):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_HEAD_DATE", type: "NO_XREF", lineValType: "DateExact", checkCardinalityOf: {"g7_TIME":"0:1"}})%}
 
-HEADDATESubstructs
+HEADDATE_Substructs
 	-> g7_TIME
 		{%id%}
 	|  TEXT_CONTINUATION
@@ -182,7 +182,7 @@ g7_HEAD_PLAC_FORM
 g7_GEDC
 	-> GEDC
 		{%id%}
-	|  GEDC GEDCSubstructs:+
+	|  GEDC GEDC_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 GEDC
@@ -194,14 +194,14 @@ GEDC
 g7_FAM_HUSB
 	-> FAMHUSB
 		{%id%}
-	|  FAMHUSB FAMHUSBSubstructs:+
+	|  FAMHUSB FAMHUSB_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 FAMHUSB
 	->Level D "HUSB" (D Xref):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_FAM_HUSB", type: "NO_XREF", lineValType: "Xref", checkCardinalityOf: {"g7_PHRASE":"0:1"}})%}
 
-FAMHUSBSubstructs
+FAMHUSB_Substructs
 	-> g7_PHRASE
 		{%id%}
 	|  TEXT_CONTINUATION
@@ -234,7 +234,7 @@ g7_PHRASE
 g7_HEAD_PLAC
 	-> HEADPLAC
 		{%id%}
-	|  HEADPLAC HEADPLACSubstructs:+
+	|  HEADPLAC HEADPLAC_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 HEADPLAC
@@ -258,7 +258,7 @@ g7_RESN
 g7_SCHMA
 	-> SCHMA
 		{%id%}
-	|  SCHMA SCHMASubstructs:+
+	|  SCHMA SCHMA_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 SCHMA
@@ -270,14 +270,14 @@ SCHMA
 g7_HEAD_SOUR
 	-> HEADSOUR
 		{%id%}
-	|  HEADSOUR HEADSOURSubstructs:+
+	|  HEADSOUR HEADSOUR_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 HEADSOUR
 	->Level D "SOUR" (D Special):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_HEAD_SOUR", type: "NO_XREF", lineValType: "Special", checkCardinalityOf: {"g7_VERS":"0:1", "g7_NAME":"0:1", "g7_CORP":"0:1", "g7_HEAD_SOUR_DATA":"0:1"}})%}
 
-HEADSOURSubstructs
+HEADSOUR_Substructs
 	-> g7_VERS
 		{%id%}
 	|  g7_NAME
@@ -328,14 +328,14 @@ g7_GEDC_VERS
 g7_FAM_WIFE
 	-> FAMWIFE
 		{%id%}
-	|  FAMWIFE FAMWIFESubstructs:+
+	|  FAMWIFE FAMWIFE_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 FAMWIFE
 	->Level D "WIFE" (D Xref):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "g7_FAM_WIFE", type: "NO_XREF", lineValType: "Xref", checkCardinalityOf: {"g7_PHRASE":"0:1"}})%}
 
-FAMWIFESubstructs
+FAMWIFE_Substructs
 	-> g7_PHRASE
 		{%id%}
 	|  TEXT_CONTINUATION

@@ -4,7 +4,7 @@
 g7_record_INDI
 	-> recordINDI
 		{%id%}
-	|  recordINDI recordINDISubstructs:+
+	|  recordINDI recordINDI_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 recordINDI

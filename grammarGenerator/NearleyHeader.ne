@@ -14,7 +14,7 @@
         comma       : /[\,]/,
         EOL         : {match: /(?:\r\n?|\n)/, lineBreaks: true },
 
-        // not Banned, no EOL, no Space, no @, no _, no ,
+        // not Banned, no EOL, no Space, no @, no _, no comma
         notBannedNoEOLNoSpace:  /[^\x00-\x08\x0B-\x0C\x0E-\x1F\x7F\x80-\x9F\x0A\x0D\x20\x40\x5F\x2C]+/
     });
 %}
