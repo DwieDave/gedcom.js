@@ -1,14 +1,16 @@
 # call moo-lexer
 @lexer lexer
 
-g7_record_INDI
-	-> recordINDI
+0_g7_record_INDI
+	-> 0_recordINDI
 		{%id%}
-	|  recordINDI recordINDI_Substructs:+
+	|  0_recordINDI 0_recordINDI_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
-recordINDI
-	->Level D Xref D "INDI" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "g7_record_INDI", type: "INDI_RECORD", lineValType: "Text", checkCardinalityOf: {"g7_RESN":"0:1"}})%}
-	|  g7_record_INDI g7_RESN
-		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+0_recordINDI
+	->"0" D Xref D "INDI" EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_INDI", type: "INDI_RECORD", lineValType: "Text", checkCardinalityOf: {"1_g7_RESN":"0:1"}})%}
+
+0_recordINDI_Substructs
+	-> 1_g7_RESN
+		{%id%}

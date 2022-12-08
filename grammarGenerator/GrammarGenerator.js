@@ -94,7 +94,10 @@ class GrammarGenerator{
             if(rule.incomplete){
                 // pass if the rule in the object notation is flagged as incomplete 
             }else{
-                ruleArray.push(this.generateRule(rule));
+                this.generateRule(rule).forEach(ele => {
+                    ruleArray.push(ele);
+                })
+                
             }
         }
 
@@ -107,135 +110,136 @@ class GrammarGenerator{
         // rule information of struct
         const uri = this.convertUri(struct.uri);
         const lineType = struct.lineType;
-        let substructs = [];
-        let checkCardinalityOf = {};
+        let lineStrings = [];
+        const levels = struct.level;
 
-        // read cardinality and uri of substructs
-        for(const [uri, cardinality] of Object.entries(struct.substructs)){
-            // save substruct uri in substructs-array so it can be included in the nearley-rule-string
-            substructs.push(uri);
-            // cardinality check is only necessary for "0:1", "1:1" and "1:M"
-            if(cardinality !== "0:M"){
-                checkCardinalityOf[this.convertUri(uri)] = cardinality;
-            }
-        }
+        for(const level of struct.level){
+            let substructs = [];
+            let checkCardinalityOf = {};
 
-        // string representation of nearley rule for given struct
-        let lineString = `${uri}${this.ruleArrow} `;
-
-        // given struct is a Gedcom Structure for a whole Dataset
-        if(lineType === lineTypes.GEDCOM){
-            // top-level input rule for a Gedcom Dataset with Header, Records and Trailer
-            lineString += `${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
-
-            // add records Gedcom rule
-            lineString += `RECORDS${this.ruleArrow} ${this.convertUri(substructs[0])}${this.idPostprocessor}`;
-            for(let i=1; i<this.records.length; i++){
-                lineString += `${this.rulePipe} ${this.convertUri(substructs[i])}${this.idPostprocessor}`;
-            }
-
-            // add rule for Gedcom Trailer
-            lineString += `\n\nTRLR${this.ruleArrow} Level D "TRLR" EOL${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}",type: lineTypes.NO_XREF_NO_LINEVAL})%}`;
-        
-        // given struct is a Gedcom Substructure
-        }else if(lineType === lineTypes.SUBSTRUCTURE){
-
-            // add substructs to rule
-            lineString += this.convertUri(substructs[0]) + this.idPostprocessor;
-            for(let i=1; i<substructs.length; i++){
-                lineString += this.rulePipe + this.convertUri(substructs[i]) + this.idPostprocessor;
-            }
-        
-        // given struct is a Gedcom Record or StructureType
-        }else{
-            const tag = struct.tag;
-            const lineValType = struct.lineValType;
-        
-            let helperRuleName = "";
-
-            // there has to be a helper-rule for substructs, if a structure has more than one substruct (line continuation inclusive)
-            if(substructs.length > 0){
-                // example helperRuleName: "CORP_Substructs"
-                helperRuleName = uri.split("_");
-                helperRuleName.shift();
-                helperRuleName = helperRuleName.join("");
-
-                // add helper rule
-                lineString += helperRuleName + this.idPostprocessor;
-
-                // add helper substructs
-                lineString += `${this.rulePipe} ${helperRuleName} ${helperRuleName}_Substructs:+`
-                lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}\n\n`
-
-                // create helper rule
-                lineString += helperRuleName + this.ruleArrow;
-            }
-        
-            // generate rule on basis of lineType
-            switch(lineType){
-                // structure of the form: LEVEL D TAG EOL
-                case lineTypes.NO_XREF_NO_LINEVAL:
-                case lineTypes.HEADER:
-                    lineString += `Level D "${tag}" EOL`;
-                    break;
-
-                // structure of the form: LEVEL D XREF D TAG EOL
-                case lineTypes.NO_LINEVAL:
-                case lineTypes.FAM_RECORD:
-                case lineTypes.INDI_RECORD:
-                case lineTypes.OBJE_RECORD:
-                case lineTypes.REPO_RECORD:
-                case lineTypes.SNOTE_RECORD:
-                case lineTypes.SOUR_RECORD:
-                case lineTypes.SUBM_RECORD:
-                    lineString += `Level D Xref D "${tag}" EOL`;
-                    break;
-
-                // structure of the form: LEVEL D TAG D LINEVAL EOL
-                case lineTypes.NO_XREF:
-                    lineString += `Level D "${tag}" (D ${lineValType}):? EOL`;
-
-                    // structures with a line value can contain a line-continuation
-                    substructs.push(continuationTypes[lineValType]);
-                    break;
-                
-                // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
-                default:
-                    lineString += `Level D Xref D "${tag}" D ${lineValType} EOL`;
-                        
-                    
-            }
-            // add postprocessor to rule string
-            lineString += `${this.postprocessorLine}createStructure({line: d`;
-            lineString += `, uri: "${this.convertUri(uri)}"`;
-            lineString += `, type: "${lineType}"`;
-            lineString += `${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}`;
-            lineString += `${(lineValType && lineValType === dataTypes.ListEnum) ? `, enumType: "${this.convertUri(struct.enumType)}"`: ``}`;
-            lineString += `${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`;
-            
-            
-            // structure has exactly one substruct
-            if(substructs.length === 1){
-                // generate rule
-                lineString += `${this.rulePipe} ${uri} ${this.convertUri(substructs[0])}`
-                // add postprocessor
-                lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}`
-            
-            // structure has more than one substruct
-            }else if(substructs.length > 1){
-                // generate rule for substructs 
-                lineString += `\n\n${helperRuleName}_Substructs${this.ruleArrow} ${this.convertUri(substructs[0])}`
-                lineString += this.idPostprocessor;
-                
-                // add all remaining substructs with pipe
-                for(let i=1; i<substructs.length; i++){
-                    lineString += `${this.rulePipe} ${this.convertUri(substructs[i])}`
-                    lineString += this.idPostprocessor;
+            // read cardinality and uri of substructs
+            for(const [uri, cardinality] of Object.entries(struct.substructs)){
+                // save substruct uri in substructs-array so it can be included in the nearley-rule-string
+                substructs.push(uri);
+                // cardinality check is only necessary for "0:1", "1:1" and "1:M"
+                if(cardinality !== "0:M"){
+                    checkCardinalityOf[`${level+1}_${this.convertUri(uri)}`] = cardinality;
                 }
             }
+
+            // string representation of nearley rule for given struct
+            let lineString = `${level}_${uri}${this.ruleArrow} `;
+
+            // given struct is a Gedcom Structure for a whole Dataset
+            if(lineType === lineTypes.GEDCOM){
+                // top-level input rule for a Gedcom Dataset with Header, Records and Trailer
+                lineString += `${level}_${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
+
+                // add records Gedcom rule
+                lineString += `RECORDS${this.ruleArrow} ${level}_${this.convertUri(substructs[0])}${this.idPostprocessor}`;
+                for(let i=1; i<this.records.length; i++){
+                    lineString += `${this.rulePipe} ${level}_${this.convertUri(substructs[i])}${this.idPostprocessor}`;
+                }
+
+                // add rule for Gedcom Trailer
+                lineString += `\n\nTRLR${this.ruleArrow} "0" D "TRLR" EOL${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}",type: lineTypes.NO_XREF_NO_LINEVAL})%}`;
+            
+            // given struct is a Gedcom Substructure
+            }else if(lineType === lineTypes.SUBSTRUCTURE){
+
+                // add substructs to rule
+                lineString += `${level}_${this.convertUri(substructs[0])}${this.idPostprocessor}`;
+                for(let i=1; i<substructs.length; i++){
+                    lineString += `${this.rulePipe} ${level}_${this.convertUri(substructs[i])}${this.idPostprocessor}`;
+                }
+            
+            // given struct is a Gedcom Record or StructureType
+            }else{
+                const tag = struct.tag;
+                const lineValType = struct.lineValType;
+            
+                let helperRuleName = "";
+
+                // there has to be a helper-rule for substructs, if a structure has more than one substruct (line continuation inclusive)
+                if(substructs.length > 0 || lineType === lineTypes.NO_XREF){
+                    // example helperRuleName: "CORP_Substructs"
+                    helperRuleName = uri.split("_");
+                    helperRuleName.shift();
+                    helperRuleName = helperRuleName.join("");
+
+                    // add helper rule
+                    lineString += `${level}_${helperRuleName}${this.idPostprocessor}`;
+
+                    // add helper substructs
+                    lineString += `${this.rulePipe} ${level}_${helperRuleName} ${level}_${helperRuleName}_Substructs:+`
+                    lineString += `${this.postprocessorLine}addSubstructure({superstruct: d[0], substructs: d[1]})%}\n\n`
+
+                    // create helper rule
+                    lineString += `${level}_${helperRuleName}${this.ruleArrow}`;
+                }
+            
+                // generate rule on basis of lineType
+                switch(lineType){
+                    // structure of the form: LEVEL D TAG EOL
+                    case lineTypes.NO_XREF_NO_LINEVAL:
+                    case lineTypes.HEADER:
+                        lineString += `"${level}" D "${tag}" EOL`;
+                        break;
+
+                    // structure of the form: LEVEL D XREF D TAG EOL
+                    case lineTypes.NO_LINEVAL:
+                    case lineTypes.FAM_RECORD:
+                    case lineTypes.INDI_RECORD:
+                    case lineTypes.OBJE_RECORD:
+                    case lineTypes.REPO_RECORD:
+                    case lineTypes.SNOTE_RECORD:
+                    case lineTypes.SOUR_RECORD:
+                    case lineTypes.SUBM_RECORD:
+                        lineString += `"${level}" D Xref D "${tag}" EOL`;
+                        break;
+
+                    // structure of the form: LEVEL D TAG D LINEVAL EOL
+                    case lineTypes.NO_XREF:
+                        lineString += `"${level}" D "${tag}" (D ${lineValType}):? EOL`;
+
+                        // structures with a line value can contain a line-continuation
+                        substructs.push(continuationTypes[lineValType]);
+                        break;
+                    
+                    // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
+                    default:
+                        lineString += `"${level}" D Xref D "${tag}" D ${lineValType} EOL`;
+                            
+                        
+                }
+                // add postprocessor to rule string
+                lineString += `${this.postprocessorLine}createStructure({line: d`;
+                lineString += `, uri: "${level}_${this.convertUri(uri)}"`;
+                lineString += `, type: "${lineType}"`;
+                lineString += `${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}`;
+                lineString += `${(lineValType && lineValType === dataTypes.ListEnum) ? `, enumType: "${this.convertUri(struct.enumType)}"`: ``}`;
+                lineString += `${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`;
+                
+                // generate rule for substructs 
+                if(substructs.length > 0){
+                    lineString += `\n\n${level}_${helperRuleName}_Substructs${this.ruleArrow} ${level+1}_${this.convertUri(substructs[0])}`
+                    lineString += this.idPostprocessor;
+                    
+                    // add all remaining substructs with pipe
+                    for(let i=1; i<substructs.length; i++){
+                        lineString += `${this.rulePipe} ${level+1}_${this.convertUri(substructs[i])}`
+                        lineString += this.idPostprocessor;
+                    }
+                }
+                
+                
+            }
+
+            lineStrings.push(lineString);
         }
         
-        return lineString;
+        
+        return lineStrings;
     }
 
     // generate Nearley Parser for a whole Gedcom Dataset and all Gedcom Records

@@ -6,6 +6,7 @@ module.exports = {
         {
             uri: "ADDRESS_STRUCTURE",
             lineType: lineTypes.SUBSTRUCTURE,
+            level: [3],
             substructs: {"g7:ADDR":"1:1"}
         },
         {

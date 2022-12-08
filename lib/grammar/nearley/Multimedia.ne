@@ -1,8 +1,16 @@
 # call moo-lexer
 @lexer lexer
 
-g7_record_OBJE
-	-> Level D "TEST" (D Text):? EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "g7_record_OBJE", type: "NO_XREF", lineValType: "Text"})%}
-	|  g7_record_OBJE TEXT_CONTINUATION
+0_g7_record_OBJE
+	-> 0_recordOBJE
+		{%id%}
+	|  0_recordOBJE 0_recordOBJE_Substructs:+
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+0_recordOBJE
+	->"0" D "TEST" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_OBJE", type: "NO_XREF", lineValType: "Text"})%}
+
+0_recordOBJE_Substructs
+	-> 1_TEXT_CONTINUATION
+		{%id%}

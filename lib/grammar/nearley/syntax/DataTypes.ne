@@ -373,10 +373,41 @@ NullOrY
 # CONTINUATION
 # =====================================================
 # A pseudo-structure to indicate a line break
-TEXT_CONTINUATION
-    -> Level D "CONT" (D Text):? EOL
+#TEXT_CONTINUATION[level] -> $level D "CONT" (D Text):? EOL
+#		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+#
+#INTEGER_CONTINUATION[level] -> $Level D "CONT" (D Integer):? EOL
+#		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Integer"})%}
+
+
+0_TEXT_CONTINUATION -> "0" D "CONT" (D Text):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
 
-INTEGER_CONTINUATION
-    -> Level D "CONT" (D Integer):? EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Integer"})%}
+1_TEXT_CONTINUATION -> "1" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+2_TEXT_CONTINUATION -> "2" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+3_TEXT_CONTINUATION -> "3" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+4_TEXT_CONTINUATION -> "4" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+5_TEXT_CONTINUATION -> "5" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+6_TEXT_CONTINUATION -> "6" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+7_TEXT_CONTINUATION -> "7" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+8_TEXT_CONTINUATION -> "8" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+9_TEXT_CONTINUATION -> "9" D "CONT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "CONT", type: "NO_XREF", lineValType: "Text"})%}
+
+

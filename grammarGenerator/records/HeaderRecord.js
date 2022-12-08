@@ -6,6 +6,7 @@ module.exports = {
         {
             uri: "g7:record-HEAD",
             lineType: lineTypes.HEADER,
+            level: [0],
             tag: "HEAD",
             substructs: {
                 "g7:GEDC":"1:1", 

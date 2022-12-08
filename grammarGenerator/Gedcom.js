@@ -6,6 +6,7 @@ module.exports = {
         {
             uri: "GEDCOM",
             lineType: lineTypes.GEDCOM,
+            level: [0],
             substructs: {
                 "g7:record-FAM":"0:M", 
                 "g7:record-INDI":"0:M", 

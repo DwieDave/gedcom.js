@@ -1,6 +1,6 @@
 # call moo-lexer
 @lexer lexer
 
-ADDRESS_STRUCTURE
-	-> g7_ADDR
+3_ADDRESS_STRUCTURE
+	-> 3_g7_ADDR
 		{%id%}
