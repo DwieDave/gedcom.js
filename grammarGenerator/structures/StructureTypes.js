@@ -805,11 +805,11 @@ module.exports = {
         {
             // Language 
             uri: "g7:LANG",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [3,4],
+            lineValType: dataTypes.Language,
             tag: "LANG",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Language 
@@ -922,11 +922,11 @@ module.exports = {
         {
             // Media type 
             uri: "g7:MIME",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [3,4],
+            lineValType: dataTypes.MediaType,
             tag: "MIME",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Name 
@@ -1012,11 +1012,11 @@ module.exports = {
         {
             // Note 
             uri: "g7:NOTE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [2],
+            lineValType: dataTypes.Text,
             tag: "NOTE",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:MIME":"0:1", "g7:LANG":"0:1", "g7:NOTE-TRAN":"0:M"}
         },
         {
             // Name prefix 
@@ -1308,11 +1308,11 @@ module.exports = {
         {
             // Shared note 
             uri: "g7:SNOTE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Xref,
             tag: "SNOTE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Shared note 
@@ -1515,11 +1515,11 @@ module.exports = {
         {
             // Translation 
             uri: "g7:NOTE-TRAN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [3],
+            lineValType: dataTypes.Text,
             tag: "TRAN",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:MIME":"0:1", "g7:LANG":"0:1"}
         },
         {
             // Translation 

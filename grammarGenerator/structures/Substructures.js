@@ -108,8 +108,8 @@ module.exports = {
         {
             uri: "NOTE_STRUCTURE",
             lineType: lineTypes.SUBSTRUCTURE,
-            substructs: {},
-            incomplete: true
+            level: [1],
+            substructs: {"g7:NOTE":"1:1", "g7:SNOTE":"1:1"}
         },
         {
             uri: "PERSONAL_NAME_PIECES",

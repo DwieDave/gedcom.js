@@ -319,6 +319,34 @@
 	|  2_TEXT_CONTINUATION
 		{%id%}
 
+3_g7_LANG
+	-> 3_LANG
+		{%id%}
+	|  3_LANG 3_LANG_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+3_LANG
+	->"3" D "LANG" (D Language):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_LANG", type: "NO_XREF", lineValType: "Language"})%}
+
+3_LANG_Substructs
+	-> 4_TEXT_CONTINUATION
+		{%id%}
+
+4_g7_LANG
+	-> 4_LANG
+		{%id%}
+	|  4_LANG 4_LANG_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+4_LANG
+	->"4" D "LANG" (D Language):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "4_g7_LANG", type: "NO_XREF", lineValType: "Language"})%}
+
+4_LANG_Substructs
+	-> 5_TEXT_CONTINUATION
+		{%id%}
+
 1_g7_HEAD_LANG
 	-> 1_HEADLANG
 		{%id%}
@@ -333,6 +361,34 @@
 	-> 2_TEXT_CONTINUATION
 		{%id%}
 
+3_g7_MIME
+	-> 3_MIME
+		{%id%}
+	|  3_MIME 3_MIME_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+3_MIME
+	->"3" D "MIME" (D MediaType):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_MIME", type: "NO_XREF", lineValType: "MediaType"})%}
+
+3_MIME_Substructs
+	-> 4_TEXT_CONTINUATION
+		{%id%}
+
+4_g7_MIME
+	-> 4_MIME
+		{%id%}
+	|  4_MIME 4_MIME_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+4_MIME
+	->"4" D "MIME" (D MediaType):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "4_g7_MIME", type: "NO_XREF", lineValType: "MediaType"})%}
+
+4_MIME_Substructs
+	-> 5_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_NAME
 	-> 2_NAME
 		{%id%}
@@ -345,6 +401,26 @@
 
 2_NAME_Substructs
 	-> 3_TEXT_CONTINUATION
+		{%id%}
+
+2_g7_NOTE
+	-> 2_NOTE
+		{%id%}
+	|  2_NOTE 2_NOTE_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+2_NOTE
+	->"2" D "NOTE" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_NOTE", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"3_g7_MIME":"0:1", "3_g7_LANG":"0:1"}})%}
+
+2_NOTE_Substructs
+	-> 3_g7_MIME
+		{%id%}
+	|  3_g7_LANG
+		{%id%}
+	|  3_g7_NOTE_TRAN
+		{%id%}
+	|  3_TEXT_CONTINUATION
 		{%id%}
 
 3_g7_PHON
@@ -429,6 +505,20 @@
 
 1_SCHMA_Substructs
 	-> 2_g7_TAG
+		{%id%}
+
+2_g7_SNOTE
+	-> 2_SNOTE
+		{%id%}
+	|  2_SNOTE 2_SNOTE_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+2_SNOTE
+	->"2" D "SNOTE" (D Xref):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_SNOTE", type: "NO_XREF", lineValType: "Xref"})%}
+
+2_SNOTE_Substructs
+	-> 3_TEXT_CONTINUATION
 		{%id%}
 
 1_g7_HEAD_SOUR
@@ -521,6 +611,24 @@
 
 4_TIME_Substructs
 	-> 5_TEXT_CONTINUATION
+		{%id%}
+
+3_g7_NOTE_TRAN
+	-> 3_NOTETRAN
+		{%id%}
+	|  3_NOTETRAN 3_NOTETRAN_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+3_NOTETRAN
+	->"3" D "TRAN" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_NOTE_TRAN", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"4_g7_MIME":"0:1", "4_g7_LANG":"0:1"}})%}
+
+3_NOTETRAN_Substructs
+	-> 4_g7_MIME
+		{%id%}
+	|  4_g7_LANG
+		{%id%}
+	|  4_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_VERS
