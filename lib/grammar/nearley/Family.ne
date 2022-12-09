@@ -20,3 +20,5 @@
 		{%id%}
 	|  1_g7_CHIL
 		{%id%}
+	|  1_FAMILY_ATTRIBUTE_STRUCTURE
+		{%id%}

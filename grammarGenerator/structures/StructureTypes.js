@@ -15,6 +15,7 @@ module.exports = {
             // Abbreviation 
             uri: "g7:ABBR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ABBR",
             substructs: {},
@@ -33,6 +34,7 @@ module.exports = {
             // Adoption 
             uri: "g7:ADOP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ADOP",
             substructs: {},
@@ -42,6 +44,7 @@ module.exports = {
             // Adoption 
             uri: "g7:FAMC-ADOP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ADOP",
             substructs: {},
@@ -77,16 +80,17 @@ module.exports = {
         {
             // Age at event 
             uri: "g7:AGE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3],
+            lineValType: dataTypes.Age,
             tag: "AGE",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:PHRASE":"0:1"}
         },
         {
             // Responsible agency 
             uri: "g7:AGNC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "AGNC",
             substructs: {},
@@ -96,6 +100,7 @@ module.exports = {
             // Alias 
             uri: "g7:ALIA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ALIA",
             substructs: {},
@@ -105,6 +110,7 @@ module.exports = {
             // Ancestor interest 
             uri: "g7:ANCI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ANCI",
             substructs: {},
@@ -114,6 +120,7 @@ module.exports = {
             // Annulment 
             uri: "g7:ANUL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ANUL",
             substructs: {},
@@ -123,6 +130,7 @@ module.exports = {
             // Associates 
             uri: "g7:ASSO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ASSO",
             substructs: {},
@@ -132,6 +140,7 @@ module.exports = {
             // Author 
             uri: "g7:AUTH",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "AUTH",
             substructs: {},
@@ -141,6 +150,7 @@ module.exports = {
             // Baptism, Latter-Day Saint 
             uri: "g7:BAPL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BAPL",
             substructs: {},
@@ -150,6 +160,7 @@ module.exports = {
             // Baptism 
             uri: "g7:BAPM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BAPM",
             substructs: {},
@@ -159,6 +170,7 @@ module.exports = {
             // Bar Mitzvah 
             uri: "g7:BARM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BARM",
             substructs: {},
@@ -168,6 +180,7 @@ module.exports = {
             // Bas Mitzvah 
             uri: "g7:BASM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BASM",
             substructs: {},
@@ -177,6 +190,7 @@ module.exports = {
             // Birth 
             uri: "g7:BIRT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BIRT",
             substructs: {},
@@ -186,6 +200,7 @@ module.exports = {
             // Blessing 
             uri: "g7:BLES",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BLES",
             substructs: {},
@@ -195,6 +210,7 @@ module.exports = {
             // Burial 
             uri: "g7:BURI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "BURI",
             substructs: {},
@@ -204,6 +220,7 @@ module.exports = {
             // Call number 
             uri: "g7:CALN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CALN",
             substructs: {},
@@ -213,6 +230,7 @@ module.exports = {
             // Caste 
             uri: "g7:CAST",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CAST",
             substructs: {},
@@ -267,6 +285,7 @@ module.exports = {
             // Christening, adult 
             uri: "g7:CHRA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CHRA",
             substructs: {},
@@ -276,6 +295,7 @@ module.exports = {
             // Christening 
             uri: "g7:CHR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CHR",
             substructs: {},
@@ -294,6 +314,7 @@ module.exports = {
             // Confirmation 
             uri: "g7:CONF",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CONF",
             substructs: {},
@@ -303,6 +324,7 @@ module.exports = {
             // Confirmation, Latter-Day Saint 
             uri: "g7:CONL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CONL",
             substructs: {},
@@ -312,6 +334,7 @@ module.exports = {
             // 
             uri: "",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CONT",
             substructs: {},
@@ -348,6 +371,7 @@ module.exports = {
             // Cremation 
             uri: "g7:CREM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CREM",
             substructs: {},
@@ -357,6 +381,7 @@ module.exports = {
             // Crop 
             uri: "g7:CROP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CROP",
             substructs: {},
@@ -375,6 +400,7 @@ module.exports = {
             // Data 
             uri: "g7:DATA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATA",
             substructs: {},
@@ -384,6 +410,7 @@ module.exports = {
             // Data 
             uri: "g7:SOUR-DATA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATA",
             substructs: {},
@@ -401,11 +428,11 @@ module.exports = {
         {
             // Date 
             uri: "g7:DATE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.DateValue,
             tag: "DATE",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:TIME":"0:1", "g7:PHRASE":"0:1"}
         },
         {
             // Date 
@@ -429,6 +456,7 @@ module.exports = {
             // Date 
             uri: "g7:NO-DATE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATE",
             substructs: {},
@@ -438,6 +466,7 @@ module.exports = {
             // Date 
             uri: "g7:DATA-EVEN-DATE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATE",
             substructs: {},
@@ -447,6 +476,7 @@ module.exports = {
             // Death 
             uri: "g7:DEAT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DEAT",
             substructs: {},
@@ -456,6 +486,7 @@ module.exports = {
             // Descendant Interest 
             uri: "g7:DESI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DESI",
             substructs: {},
@@ -474,6 +505,7 @@ module.exports = {
             // Divorce filing 
             uri: "g7:DIVF",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DIVF",
             substructs: {},
@@ -483,6 +515,7 @@ module.exports = {
             // Divorce 
             uri: "g7:DIV",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DIV",
             substructs: {},
@@ -492,6 +525,7 @@ module.exports = {
             // Description 
             uri: "g7:DSCR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DSCR",
             substructs: {},
@@ -501,6 +535,7 @@ module.exports = {
             // Description 
             uri: "g7:EDUC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EDUC",
             substructs: {},
@@ -519,6 +554,7 @@ module.exports = {
             // Description 
             uri: "g7:EMIG",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EMIG",
             substructs: {},
@@ -528,6 +564,7 @@ module.exports = {
             // Endowment, Latter-Day Saint 
             uri: "g7:ENDL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ENDL",
             substructs: {},
@@ -537,6 +574,7 @@ module.exports = {
             // Engagement 
             uri: "g7:ENGA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ENGA",
             substructs: {},
@@ -546,6 +584,7 @@ module.exports = {
             // Event 
             uri: "g7:FAM-EVEN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EVEN",
             substructs: {},
@@ -555,6 +594,7 @@ module.exports = {
             // Event 
             uri: "g7:INDI-EVEN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EVEN",
             substructs: {},
@@ -564,6 +604,7 @@ module.exports = {
             // Event 
             uri: "g7:DATA-EVEN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EVEN",
             substructs: {},
@@ -573,6 +614,7 @@ module.exports = {
             // Event 
             uri: "g7:SOUR-EVEN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EVEN",
             substructs: {},
@@ -582,6 +624,7 @@ module.exports = {
             // External Identifier 
             uri: "g7:EXID",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EXID",
             substructs: {},
@@ -591,6 +634,7 @@ module.exports = {
             // Family record 
             uri: "g7:record-FAM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAM",
             substructs: {},
@@ -599,16 +643,17 @@ module.exports = {
         {
             // Fact 
             uri: "g7:FAM-FACT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "FACT",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:TYPE":"1:1", "FAMILY_EVENT_DETAIL":"0:1"}
         },
         {
             // Fact 
             uri: "g7:INDI-FACT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FACT",
             substructs: {},
@@ -618,6 +663,7 @@ module.exports = {
             // Family child 
             uri: "g7:INDI-FAMC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAMC",
             substructs: {},
@@ -627,6 +673,7 @@ module.exports = {
             // Family child 
             uri: "g7:FAMC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAMC",
             substructs: {},
@@ -636,6 +683,7 @@ module.exports = {
             // Family child 
             uri: "g7:ADOP-FAMC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAMC",
             substructs: {},
@@ -645,6 +693,7 @@ module.exports = {
             // Family spouse 
             uri: "g7:FAMS",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAMS",
             substructs: {},
@@ -663,6 +712,7 @@ module.exports = {
             // First communion 
             uri: "g7:FCOM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FCOM",
             substructs: {},
@@ -672,6 +722,7 @@ module.exports = {
             // File reference 
             uri: "g7:FILE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FILE",
             substructs: {},
@@ -681,6 +732,7 @@ module.exports = {
             // Format 
             uri: "g7:FORM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FORM",
             substructs: {},
@@ -690,6 +742,7 @@ module.exports = {
             // Format 
             uri: "g7:PLAC-FORM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FORM",
             substructs: {},
@@ -716,6 +769,7 @@ module.exports = {
             // Given name 
             uri: "g7:GIVN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "GIVN",
             substructs: {},
@@ -725,17 +779,9 @@ module.exports = {
             // Graduation 
             uri: "g7:GRAD",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "GRAD",
-            substructs: {},
-            incomplete: true
-        },
-        {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "HEAD",
             substructs: {},
             incomplete: true
         },
@@ -743,6 +789,7 @@ module.exports = {
             // Height in pixels 
             uri: "g7:HEIGHT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "HEIGHT",
             substructs: {},
@@ -751,11 +798,10 @@ module.exports = {
         {
             // Husband 
             uri: "g7:HUSB",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2],
             tag: "HUSB",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:AGE":"1:1"}
         },
         {
             // Husband 
@@ -770,6 +816,7 @@ module.exports = {
             // Identification number 
             uri: "g7:IDNO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "IDNO",
             substructs: {},
@@ -779,6 +826,7 @@ module.exports = {
             // Immigration 
             uri: "g7:IMMI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "IMMI",
             substructs: {},
@@ -788,6 +836,7 @@ module.exports = {
             // Individual 
             uri: "g7:record-INDI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "INDI",
             substructs: {},
@@ -797,6 +846,7 @@ module.exports = {
             // Initiatory, Latter-Day Saint 
             uri: "g7:INIL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "INIL",
             substructs: {},
@@ -806,7 +856,7 @@ module.exports = {
             // Language 
             uri: "g7:LANG",
             lineType: lineTypes.NO_XREF,
-            level: [3,4],
+            level: [2,3],
             lineValType: dataTypes.Language,
             tag: "LANG",
             substructs: {}
@@ -824,6 +874,7 @@ module.exports = {
             // Language 
             uri: "g7:SUBM-LANG",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "LANG",
             substructs: {},
@@ -833,6 +884,7 @@ module.exports = {
             // Latitude 
             uri: "g7:LATI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "LATI",
             substructs: {},
@@ -842,6 +894,7 @@ module.exports = {
             // Left crop width 
             uri: "g7:LEFT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "LEFT",
             substructs: {},
@@ -851,6 +904,7 @@ module.exports = {
             // Longitude 
             uri: "g7:LONG",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "LONG",
             substructs: {},
@@ -860,6 +914,7 @@ module.exports = {
             // Map 
             uri: "g7:MAP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MAP",
             substructs: {},
@@ -869,6 +924,7 @@ module.exports = {
             // Marriage banns 
             uri: "g7:MARB",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MARB",
             substructs: {},
@@ -878,6 +934,7 @@ module.exports = {
             // Marriage contract 
             uri: "g7:MARC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MARC",
             substructs: {},
@@ -887,6 +944,7 @@ module.exports = {
             // Marriage license 
             uri: "g7:MARL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MARL",
             substructs: {},
@@ -896,6 +954,7 @@ module.exports = {
             // Marriage 
             uri: "g7:MARR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MARR",
             substructs: {},
@@ -905,6 +964,7 @@ module.exports = {
             // Marriage settlement 
             uri: "g7:MARS",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MARS",
             substructs: {},
@@ -914,6 +974,7 @@ module.exports = {
             // Medium 
             uri: "g7:MEDI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "MEDI",
             substructs: {},
@@ -923,7 +984,7 @@ module.exports = {
             // Media type 
             uri: "g7:MIME",
             lineType: lineTypes.NO_XREF,
-            level: [3,4],
+            level: [2,3],
             lineValType: dataTypes.MediaType,
             tag: "MIME",
             substructs: {}
@@ -941,6 +1002,7 @@ module.exports = {
             // Name 
             uri: "g7:INDI-NAME",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NAME",
             substructs: {},
@@ -950,6 +1012,7 @@ module.exports = {
             // Nationality 
             uri: "g7:NATI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NATI",
             substructs: {},
@@ -959,6 +1022,7 @@ module.exports = {
             // Naturalization 
             uri: "g7:NATU",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NATU",
             substructs: {},
@@ -967,16 +1031,17 @@ module.exports = {
         {
             // Number of children 
             uri: "g7:FAM-NCHI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Integer,
             tag: "NCHI",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:TYPE":"0:1", "FAMILY_EVENT_DETAIL":"0:1"}
         },
         {
             // Number of children 
             uri: "g7:INDI-NCHI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NCHI",
             substructs: {},
@@ -986,6 +1051,7 @@ module.exports = {
             // Nickname 
             uri: "g7:NICK",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NICK",
             substructs: {},
@@ -995,6 +1061,7 @@ module.exports = {
             // Number of marriages 
             uri: "g7:NMR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NMR",
             substructs: {},
@@ -1004,6 +1071,7 @@ module.exports = {
             // Did not happen 
             uri: "g7:NO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NO",
             substructs: {},
@@ -1013,7 +1081,7 @@ module.exports = {
             // Note 
             uri: "g7:NOTE",
             lineType: lineTypes.NO_XREF,
-            level: [2],
+            level: [1],
             lineValType: dataTypes.Text,
             tag: "NOTE",
             substructs: {"g7:MIME":"0:1", "g7:LANG":"0:1", "g7:NOTE-TRAN":"0:M"}
@@ -1022,6 +1090,7 @@ module.exports = {
             // Name prefix 
             uri: "g7:NPFX",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NPFX",
             substructs: {},
@@ -1031,6 +1100,7 @@ module.exports = {
             // Name suffix 
             uri: "g7:NSFX",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "NSFX",
             substructs: {},
@@ -1040,6 +1110,7 @@ module.exports = {
             // Object 
             uri: "g7:OBJE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "OBJE",
             substructs: {},
@@ -1049,6 +1120,7 @@ module.exports = {
             // Object 
             uri: "g7:record-OBJE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "OBJE",
             substructs: {},
@@ -1058,6 +1130,7 @@ module.exports = {
             // Occupation 
             uri: "g7:OCCU",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "OCCU",
             substructs: {},
@@ -1067,6 +1140,7 @@ module.exports = {
             // Ordination 
             uri: "g7:ORDN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ORDN",
             substructs: {},
@@ -1076,6 +1150,7 @@ module.exports = {
             // Page 
             uri: "g7:PAGE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PAGE",
             substructs: {},
@@ -1085,6 +1160,7 @@ module.exports = {
             // Pedigree 
             uri: "g7:PEDI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PEDI",
             substructs: {},
@@ -1103,7 +1179,7 @@ module.exports = {
             // Phrase 
             uri: "g7:PHRASE",
             lineType: lineTypes.NO_XREF,
-            level: [2],
+            level: [2,3,4],
             lineValType: dataTypes.Text,
             tag: "PHRASE",
             substructs: {}
@@ -1112,6 +1188,7 @@ module.exports = {
             // Place 
             uri: "g7:PLAC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PLAC",
             substructs: {},
@@ -1138,6 +1215,7 @@ module.exports = {
             // Probate 
             uri: "g7:PROB",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PROB",
             substructs: {},
@@ -1147,6 +1225,7 @@ module.exports = {
             // Property 
             uri: "g7:PROP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PROP",
             substructs: {},
@@ -1156,6 +1235,7 @@ module.exports = {
             // Publication 
             uri: "g7:PUBL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PUBL",
             substructs: {},
@@ -1165,6 +1245,7 @@ module.exports = {
             // Quality of data 
             uri: "g7:QUAY",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "QUAY",
             substructs: {},
@@ -1174,6 +1255,7 @@ module.exports = {
             // Reference 
             uri: "g7:REFN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "REFN",
             substructs: {},
@@ -1183,6 +1265,7 @@ module.exports = {
             // Religion 
             uri: "g7:RELI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "RELI",
             substructs: {},
@@ -1192,6 +1275,7 @@ module.exports = {
             // Religion 
             uri: "g7:INDI-RELI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "RELI",
             substructs: {},
@@ -1211,6 +1295,7 @@ module.exports = {
             // Repository 
             uri: "g7:REPO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "REPO",
             substructs: {},
@@ -1220,6 +1305,7 @@ module.exports = {
             // Repository 
             uri: "g7:record-REPO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "REPO",
             substructs: {},
@@ -1228,16 +1314,17 @@ module.exports = {
         {
             // Residence 
             uri: "g7:FAM-RESI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "RESI",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:TYPE":"0:1", "FAMILY_EVENT_DETAIL":"0:1"}
         },
         {
             // Residence 
             uri: "g7:INDI-RESI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "RESI",
             substructs: {},
@@ -1247,6 +1334,7 @@ module.exports = {
             // Retirement 
             uri: "g7:RETI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "RETI",
             substructs: {},
@@ -1256,6 +1344,7 @@ module.exports = {
             // Role 
             uri: "g7:ROLE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ROLE",
             substructs: {},
@@ -1273,6 +1362,7 @@ module.exports = {
             // Sort date 
             uri: "g7:SDATE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SDATE",
             substructs: {},
@@ -1282,6 +1372,7 @@ module.exports = {
             // Sex 
             uri: "g7:SEX",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SEX",
             substructs: {},
@@ -1291,6 +1382,7 @@ module.exports = {
             // Sealing, child 
             uri: "g7:SLGC",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SLGC",
             substructs: {},
@@ -1300,6 +1392,7 @@ module.exports = {
             // Sealing, spouse 
             uri: "g7:SLGS",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SLGS",
             substructs: {},
@@ -1309,7 +1402,7 @@ module.exports = {
             // Shared note 
             uri: "g7:SNOTE",
             lineType: lineTypes.NO_XREF,
-            level:[2],
+            level:[1],
             lineValType: dataTypes.Xref,
             tag: "SNOTE",
             substructs: {}
@@ -1318,6 +1411,7 @@ module.exports = {
             // Shared note 
             uri: "g7:record-SNOTE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SNOTE",
             substructs: {},
@@ -1327,6 +1421,7 @@ module.exports = {
             // Source 
             uri: "g7:SOUR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SOUR",
             substructs: {},
@@ -1336,6 +1431,7 @@ module.exports = {
             // Source 
             uri: "g7:record-SOUR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SOUR",
             substructs: {},
@@ -1354,6 +1450,7 @@ module.exports = {
             // Surname prefix 
             uri: "g7:SPFX",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SPFX",
             substructs: {},
@@ -1363,6 +1460,7 @@ module.exports = {
             // Social security number 
             uri: "g7:SSN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SSN",
             substructs: {},
@@ -1381,6 +1479,7 @@ module.exports = {
             // Status 
             uri: "g7:ord-STAT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "STAT",
             substructs: {},
@@ -1390,6 +1489,7 @@ module.exports = {
             // Status 
             uri: "g7:FAMC-STAT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "STAT",
             substructs: {},
@@ -1408,6 +1508,7 @@ module.exports = {
             // Submitter 
             uri: "g7:record-SUBM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SUBM",
             substructs: {},
@@ -1417,6 +1518,7 @@ module.exports = {
             // Surname 
             uri: "g7:SURN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SURN",
             substructs: {},
@@ -1435,6 +1537,7 @@ module.exports = {
             // Temple 
             uri: "g7:TEMP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TEMP",
             substructs: {},
@@ -1444,6 +1547,7 @@ module.exports = {
             // Text from Source 
             uri: "g7:TEXT",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TEXT",
             substructs: {},
@@ -1453,7 +1557,7 @@ module.exports = {
             // Time 
             uri: "g7:TIME",
             lineType: lineTypes.NO_XREF,
-            level: [2,4],
+            level: [2,3,4],
             lineValType: dataTypes.Time,
             tag: "TIME",
             substructs: {}
@@ -1462,6 +1566,7 @@ module.exports = {
             // Title 
             uri: "g7:TITL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TITL",
             substructs: {},
@@ -1471,6 +1576,7 @@ module.exports = {
             // Title 
             uri: "g7:INDI-TITL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TITL",
             substructs: {},
@@ -1480,17 +1586,9 @@ module.exports = {
             // Top crop width 
             uri: "g7:TOP",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TOP",
-            substructs: {},
-            incomplete: true
-        },
-        {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "TRAN",
             substructs: {},
             incomplete: true
         },
@@ -1498,6 +1596,7 @@ module.exports = {
             // Translation 
             uri: "g7:NAME-TRAN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TRAN",
             substructs: {},
@@ -1507,6 +1606,7 @@ module.exports = {
             // Translation 
             uri: "g7:PLAC-TRAN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TRAN",
             substructs: {},
@@ -1516,7 +1616,7 @@ module.exports = {
             // Translation 
             uri: "g7:NOTE-TRAN",
             lineType: lineTypes.NO_XREF,
-            level: [3],
+            level: [2],
             lineValType: dataTypes.Text,
             tag: "TRAN",
             substructs: {"g7:MIME":"0:1", "g7:LANG":"0:1"}
@@ -1525,33 +1625,26 @@ module.exports = {
             // Translation 
             uri: "g7:FILE-TRAN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TRAN",
             substructs: {},
             incomplete: true
         },
         {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "TRLR",
-            substructs: {},
-            incomplete: true
-        },
-        {
             // Type 
             uri: "g7:TYPE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "TYPE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Type 
             uri: "g7:NAME-TYPE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TYPE",
             substructs: {},
@@ -1561,6 +1654,7 @@ module.exports = {
             // Type 
             uri: "g7:EXID-TYPE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TYPE",
             substructs: {},
@@ -1570,6 +1664,7 @@ module.exports = {
             // Unique Identifier 
             uri: "g7:UID",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "UID",
             substructs: {},
@@ -1597,6 +1692,7 @@ module.exports = {
             // Width in pixels 
             uri: "g7:WIDTH",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "WIDTH",
             substructs: {},
@@ -1605,11 +1701,10 @@ module.exports = {
         {
             // Wife 
             uri: "g7:WIFE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2],
             tag: "WIFE",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:AGE":"1:1"}
         },
         {
             // Wife 
@@ -1624,6 +1719,7 @@ module.exports = {
             // Will 
             uri: "g7:WILL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "WILL",
             substructs: {},

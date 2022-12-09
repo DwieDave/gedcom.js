@@ -17,7 +17,8 @@ module.exports = {
                 "g7:SUBM":"0:1",
                 "g7:COPR":"0:1",
                 "g7:HEAD-LANG":"0:1",
-                "g7:HEAD-PLAC":"0:1"
+                "g7:HEAD-PLAC":"0:1",
+                "NOTE_STRUCTURE":"0:1"
             }
         }
     ]
