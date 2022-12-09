@@ -5,10 +5,9 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-SUBM",
-            lineType: lineTypes.NO_XREF,
+            lineType: lineTypes.SUBM_RECORD,
             level: [0],
-            lineValType: dataTypes.Text,
-            tag: "TEST",
+            tag: "SUBM",
             substructs: {}
         }
     ]

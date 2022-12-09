@@ -8,9 +8,9 @@
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 0_recordOBJE
-	->"0" D "TEST" (D Text):? EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_OBJE", type: "NO_XREF", lineValType: "Text"})%}
+	->"0" D Xref D "OBJE" EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_OBJE", type: "OBJE_RECORD"})%}
 
 0_recordOBJE_Substructs
-	-> 1_TEXT_CONTINUATION
+	-> 1_SOURCE_CITATION
 		{%id%}

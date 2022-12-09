@@ -5,11 +5,13 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-SNOTE",
-            lineType: lineTypes.NO_XREF,
+            lineType: lineTypes.SNOTE_RECORD,
             level: [0],
             lineValType: dataTypes.Text,
-            tag: "TEST",
-            substructs: {}
+            tag: "SNOTE",
+            substructs: {
+                "SOURCE_CITATION":"0:M"
+            }
         }
     ]
 }

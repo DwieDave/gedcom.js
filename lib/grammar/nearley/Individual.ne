@@ -9,8 +9,8 @@
 
 0_recordINDI
 	->"0" D Xref D "INDI" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_INDI", type: "INDI_RECORD", lineValType: "Text", checkCardinalityOf: {"1_g7_RESN":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_INDI", type: "INDI_RECORD"})%}
 
 0_recordINDI_Substructs
-	-> 1_g7_RESN
+	-> 1_SOURCE_CITATION
 		{%id%}

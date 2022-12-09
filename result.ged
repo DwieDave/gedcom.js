@@ -31,6 +31,22 @@
 2 TYPE Kids
 2 HUSB
 3 AGE 33y 11m
+2 DATE 5 DEC 2022
+3 PHRASE gutes datum
+2 ADDR Peter-Lambert-Straße 6
+3 CONT Apartement 321
+3 CONT 54292 Trier, Rheinland-Pfalz, Deutschland
+3 ADR1 Peter-Lambert-Straße
+3 ADR2 6
+3 ADR3 Apartement 321
+3 CITY Trier
+3 STAE Rheinland-Pfalz
+3 POST 54292
+3 CTRY Deutsch
+2 ASSO @I1@
+3 PHRASE cooler dude
+3 ROLE CHIL
+4 PHRASE coole Rolle
 0 @F2@ FAM
 1 WIFE @I7@
 1 HUSB @I6@

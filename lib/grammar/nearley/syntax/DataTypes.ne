@@ -79,13 +79,13 @@ stdEnum
     |  Integer {%id%} 
 
 Enum        
-    -> stdEnum {%id%} 
-    |  extTag {%id%} 
+    -> Text {%id%}
 
 # =====================================================
 # Date
 DateValue   
-    -> (date | DatePeriod | dateRange | dateApprox):? {%id%} 
+    -> (date | DatePeriod | dateRange | dateApprox):?
+        {% postprocessor.joinAndUnpackAll %} 
 
 DateExact   
     -> day D month D year 

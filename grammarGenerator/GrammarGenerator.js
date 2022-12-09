@@ -6,6 +6,8 @@ const OSPath = require('path');
 const nearley = require("nearley");
 const {lineTypes, dataTypes, gedcomEnumTypes, continuationTypes} = require("../lib/Constants");
 
+//TO-DO: fix cyclic dependency between NOTE_STRUCTURE and SOURCE_CITATION
+
 
 class GrammarGenerator{
     // class constructor (don't call constructor directly - instead use build method)
@@ -192,13 +194,13 @@ class GrammarGenerator{
                     case lineTypes.INDI_RECORD:
                     case lineTypes.OBJE_RECORD:
                     case lineTypes.REPO_RECORD:
-                    case lineTypes.SNOTE_RECORD:
                     case lineTypes.SOUR_RECORD:
                     case lineTypes.SUBM_RECORD:
                         lineString += `"${level}" D Xref D "${tag}" EOL`;
                         break;
 
                     // structure of the form: LEVEL D TAG D LINEVAL EOL
+                    case lineTypes.SNOTE_RECORD:
                     case lineTypes.NO_XREF:
                         lineString += `"${level}" D "${tag}" (D ${lineValType}):? EOL`;
 
@@ -217,7 +219,7 @@ class GrammarGenerator{
                 lineString += `, uri: "${level}_${this.convertUri(uri)}"`;
                 lineString += `, type: "${lineType}"`;
                 lineString += `${struct.lineValType ? `, lineValType: "${lineValType}"`: ``}`;
-                lineString += `${(lineValType && lineValType === dataTypes.ListEnum) ? `, enumType: "${this.convertUri(struct.enumType)}"`: ``}`;
+                lineString += `${(lineValType && (lineValType === dataTypes.ListEnum || lineValType === dataTypes.Enum)) ? `, enumType: "${this.convertUri(struct.enumType)}"`: ``}`;
                 lineString += `${(Object.entries(checkCardinalityOf).length !== 0) ? `, checkCardinalityOf: ${this.convertCheckCardinalityOf(checkCardinalityOf)}` : ``}})%}`;
                 
                 // generate rule for substructs 

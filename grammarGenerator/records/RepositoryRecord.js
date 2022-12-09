@@ -5,10 +5,9 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-REPO",
-            lineType: lineTypes.NO_XREF,
+            lineType: lineTypes.REPO_RECORD,
             level: [0],
-            lineValType: dataTypes.Text,
-            tag: "TEST",
+            tag: "REPO",
             substructs: {}
         }
     ]
