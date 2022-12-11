@@ -5,7 +5,6 @@
 # call moo-lexer
 @lexer lexer
 
-# TO-DO: Implement support for RESN tag
 # Naming convention: 
 #   * for Structure types use g7-URI from gedcom specification
 #   * for Substructures use upper-case name from gedcom specification

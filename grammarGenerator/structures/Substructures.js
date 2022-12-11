@@ -86,6 +86,7 @@ module.exports = {
             substructs: {
                 "g7:ANUL":"1:1",
                 "g7:FAM-CENS":"1:1",
+                "g7:DIV":"1:1",
                 "g7:DIVF":"1:1",
                 "g7:ENGA":"1:1",
                 "g7:MARB":"1:1",

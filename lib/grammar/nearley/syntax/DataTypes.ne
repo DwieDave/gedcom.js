@@ -1,3 +1,5 @@
+# TO-DO: Implement Syntax for Language DataType
+
 @include "./Line.ne"
 
 # call moo-lexer
@@ -92,9 +94,7 @@ DateExact
         {% postprocessor.joinAndUnpackAll %}
 
 DatePeriod  
-    -> ("TO" D date):? 
-        {% postprocessor.joinAndUnpackAll %}
-    |  "FROM" D date (D "TO" D date):? 
+    ->  ("FROM" D date D):? "TO" D date
         {% postprocessor.joinAndUnpackAll %}
 
 date        
@@ -230,8 +230,9 @@ nameStr
 # =====================================================
 # Language
 Language     
-    -> lang ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
-        {% postprocessor.joinAndUnpackAll %}
+    #-> lang ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
+    #    {% postprocessor.joinAndUnpackAll %}
+    -> Text
 
 lang    
     -> alpha alpha alpha:? ("-" extlang):? 

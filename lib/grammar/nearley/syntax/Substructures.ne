@@ -90,6 +90,8 @@
 		{%id%}
 	|  1_g7_FAM_CENS
 		{%id%}
+	|  1_g7_DIV
+		{%id%}
 	|  1_g7_DIVF
 		{%id%}
 	|  1_g7_ENGA
@@ -253,10 +255,20 @@
 	-> 6_g7_OBJE
 		{%id%}
 
+1_NON_EVENT_STRUCTURE
+	-> 1_g7_NO
+		{%id%}
+
 1_NOTE_STRUCTURE
 	-> 1_g7_NOTE
 		{%id%}
 	|  1_g7_SNOTE
+		{%id%}
+
+2_NOTE_STRUCTURE
+	-> 2_g7_NOTE
+		{%id%}
+	|  2_g7_SNOTE
 		{%id%}
 
 3_NOTE_STRUCTURE
@@ -265,14 +277,72 @@
 	|  3_g7_SNOTE
 		{%id%}
 
+4_NOTE_STRUCTURE
+	-> 4_g7_NOTE
+		{%id%}
+	|  4_g7_SNOTE
+		{%id%}
+
+2_PERSONAL_NAME_PIECES
+	-> 2_g7_NPFX
+		{%id%}
+	|  2_g7_GIVN
+		{%id%}
+	|  2_g7_NICK
+		{%id%}
+	|  2_g7_SPFX
+		{%id%}
+	|  2_g7_SURN
+		{%id%}
+	|  2_g7_NSFX
+		{%id%}
+
+3_PERSONAL_NAME_PIECES
+	-> 3_g7_NPFX
+		{%id%}
+	|  3_g7_GIVN
+		{%id%}
+	|  3_g7_NICK
+		{%id%}
+	|  3_g7_SPFX
+		{%id%}
+	|  3_g7_SURN
+		{%id%}
+	|  3_g7_NSFX
+		{%id%}
+
+1_PERSONAL_NAME_STRUCTURE
+	-> 1_g7_INDI_NAME
+		{%id%}
+
 2_PLACE_STRUCTURE
 	-> 2_g7_PLAC
+		{%id%}
+
+3_PLACE_STRUCTURE
+	-> 3_g7_PLAC
 		{%id%}
 
 1_SOURCE_CITATION
 	-> 1_g7_SOUR
 		{%id%}
 
+2_SOURCE_CITATION
+	-> 2_g7_SOUR
+		{%id%}
+
 3_SOURCE_CITATION
 	-> 3_g7_SOUR
+		{%id%}
+
+4_SOURCE_CITATION
+	-> 4_g7_SOUR
+		{%id%}
+
+5_SOURCE_CITATION
+	-> 5_g7_SOUR
+		{%id%}
+
+1_SOURCE_REPOSITORY_CITATION
+	-> 1_g7_REPO
 		{%id%}

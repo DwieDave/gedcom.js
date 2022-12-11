@@ -7,10 +7,9 @@ module.exports = {
             uri: "g7:TEST",
             lineType: lineTypes.NO_XREF,
             level: [1],
-            lineValType: dataTypes.Text,
+            lineValType: dataTypes.DatePeriod,
             tag: "TEST",
             substructs: {
-                "g7:HEAD-SOUR-DATA":"0:1"
             }
         },
         {
@@ -115,22 +114,22 @@ module.exports = {
         {
             // Alias 
             uri: "g7:ALIA",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "ALIA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Ancestor interest 
             uri: "g7:ANCI",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "ANCI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Annulment 
@@ -171,11 +170,11 @@ module.exports = {
         {
             // Baptism, Latter-Day Saint 
             uri: "g7:BAPL",
-            lineType: dataTypes.NO_XREF_NO_LINEVAL,
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "BAPL",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1"
+                "LDS_ORDINANCE_DETAIL":"0:1"
             }
         },
         {
@@ -382,7 +381,7 @@ module.exports = {
             level:[1],
             tag: "CONL",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1"
+                "LDS_ORDINANCE_DETAIL":"0:1"
             }
         },
         {
@@ -566,12 +565,11 @@ module.exports = {
         {
             // Descendant Interest 
             uri: "g7:DESI",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "DESI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Destination 
@@ -658,7 +656,7 @@ module.exports = {
             level:[1],
             tag: "ENDL",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1"
+                "LDS_ORDINANCE_DETAIL":"0:1"
             }
         },
         {
@@ -678,7 +676,7 @@ module.exports = {
             uri: "g7:FAM-EVEN",
             lineType: lineTypes.NO_XREF,
             level:[1],
-            lineValType: dataTypes.NullOrY,
+            lineValType: dataTypes.Text,
             tag: "EVEN",
             substructs: {
                 "g7:TYPE":"0:1",
@@ -712,8 +710,8 @@ module.exports = {
             uri: "g7:SOUR-EVEN",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6],
-            lineValType: dataTypes.Enum,
-            enumType:"g7:enumset-EVENATTR",
+            lineValType: dataTypes.Text,
+            //enumType:"g7:enumset-EVENATTR",
             tag: "EVEN",
             substructs: {
                 "g7:PHRASE":"0:1",
@@ -768,12 +766,15 @@ module.exports = {
         {
             // Family child 
             uri: "g7:INDI-FAMC",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "FAMC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PEDI":"0:1",
+                "g7:FAMC-STAT":"0:1",
+                "NOTE_STRUCTURE":"0:M",
+            }
         },
         {
             // Family child 
@@ -798,12 +799,13 @@ module.exports = {
         {
             // Family spouse 
             uri: "g7:FAMS",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "FAMS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "NOTE_STRUCTURE":"0:M"
+            }
         },
         {
             // Facsimile 
@@ -966,7 +968,7 @@ module.exports = {
             level:[1],
             tag: "INIL",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1"
+                "LDS_ORDINANCE_DETAIL":"0:1"
             }
         },
         {
@@ -1214,8 +1216,8 @@ module.exports = {
             uri: "g7:NO",
             lineType: lineTypes.NO_XREF,
             level:[1],
-            lineValType: dataTypes.Enum,
-            enumType: "g7:enumset-EVEN",
+            lineValType: dataTypes.Text,
+            //enumType: "g7:enumset-EVEN",
             tag: "NO",
             substructs: {
                 "g7:NO-DATE":"0:1",
@@ -1258,7 +1260,7 @@ module.exports = {
         {
             // Object 
             uri: "g7:OBJE",
-            lineType: dataTypes.NO_XREF,
+            lineType: lineTypes.NO_XREF,
             level:[1,2,3,4,5,6],
             lineValType: dataTypes.Xref,
             tag: "OBJE",
@@ -1313,12 +1315,14 @@ module.exports = {
         {
             // Pedigree 
             uri: "g7:PEDI",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-PEDI",
             tag: "PEDI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Phone 
@@ -1553,12 +1557,12 @@ module.exports = {
         {
             // Sex 
             uri: "g7:SEX",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-SEX",
             tag: "SEX",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Sealing, child 
@@ -1567,7 +1571,7 @@ module.exports = {
             level:[1],
             tag: "SLGC",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1",
+                "LDS_ORDINANCE_DETAIL":"0:1",
                 "g7:FAMC":"1:1"
             }
         },
@@ -1578,7 +1582,7 @@ module.exports = {
             level:[1],
             tag: "SLGS",
             substructs: {
-                "LDS_ORDIANCE_DETAIL":"0:1"
+                "LDS_ORDINANCE_DETAIL":"0:1"
             }
         },
         {
@@ -1686,12 +1690,14 @@ module.exports = {
         {
             // Status 
             uri: "g7:FAMC-STAT",
-            lineType: "",
-            level:[],
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-FAMC-STAT",
             tag: "STAT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Submitter 
