@@ -5,9 +5,9 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-SOUR",
-            lineType: lineTypes.NO_XREF,
-            lineValType: dataTypes.Text,
-            tag: "TEST",
+            lineType: lineTypes.SOUR_RECORD,
+            level: [0],
+            tag: "SOUR",
             substructs: {}
         }
     ]

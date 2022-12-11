@@ -5,10 +5,12 @@ module.exports = {
     rules:[
         {
             uri: "g7:record-OBJE",
-            lineType: lineTypes.NO_XREF,
-            lineValType: dataTypes.Text,
-            tag: "TEST",
-            substructs: {}
+            lineType: lineTypes.OBJE_RECORD,
+            level: [0],
+            tag: "OBJE",
+            substructs: {
+                "SOURCE_CITATION":"0:M"
+            }
         }
     ]
 }

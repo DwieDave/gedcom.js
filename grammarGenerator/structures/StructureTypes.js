@@ -6,14 +6,17 @@ module.exports = {
             // Test
             uri: "g7:TEST",
             lineType: lineTypes.NO_XREF,
-            lineValType: dataTypes.Text,
+            level: [1],
+            lineValType: dataTypes.DatePeriod,
             tag: "TEST",
-            substructs: {"g7:HEAD-SOUR-DATA":"0:1"}
+            substructs: {
+            }
         },
         {
             // Abbreviation 
             uri: "g7:ABBR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "ABBR",
             substructs: {},
@@ -23,32 +26,49 @@ module.exports = {
             // Address 
             uri: "g7:ADDR",
             lineType: lineTypes.NO_XREF,
+            level: [1,2,3],
             lineValType: dataTypes.Special,
             tag: "ADDR",
-            substructs: {"g7:ADR1":"0:1", "g7:ADR2":"0:1", "g7:ADR3":"0:1", "g7:CITY":"0:1", "g7:STAE":"0:1", "g7:POST":"0:1", "g7:CTRY":"0:1"}
+            substructs: {
+                "g7:ADR1":"0:1", 
+                "g7:ADR2":"0:1", 
+                "g7:ADR3":"0:1", 
+                "g7:CITY":"0:1", 
+                "g7:STAE":"0:1", 
+                "g7:POST":"0:1", 
+                "g7:CTRY":"0:1"
+            }
         },
         {
             // Adoption 
             uri: "g7:ADOP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "ADOP",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1",
+                "g7:ADOP-FAMC":"0:1"
+            }
         },
         {
             // Adoption 
             uri: "g7:FAMC-ADOP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-ADOP",
             tag: "ADOP",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Address Line 1 
             uri: "g7:ADR1",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "ADR1",
             substructs: {}
@@ -57,6 +77,7 @@ module.exports = {
             // Address Line 2 
             uri: "g7:ADR2",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "ADR2",
             substructs: {}
@@ -65,6 +86,7 @@ module.exports = {
             // Address Line 3 
             uri: "g7:ADR3",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "ADR3",
             substructs: {}
@@ -72,61 +94,74 @@ module.exports = {
         {
             // Age at event 
             uri: "g7:AGE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Age,
             tag: "AGE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Responsible agency 
             uri: "g7:AGNC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "AGNC",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Alias 
             uri: "g7:ALIA",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "ALIA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Ancestor interest 
             uri: "g7:ANCI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "ANCI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Annulment 
             uri: "g7:ANUL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "ANUL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Associates 
             uri: "g7:ASSO",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,2],
+            lineValType: dataTypes.Xref,
             tag: "ASSO",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1",
+                "g7:ROLE":"1:1",
+                "NOTE_STRUCTURE":"0:M",
+                "SOURCE_CITATION":"0:M"
+            }
         },
         {
             // Author 
             uri: "g7:AUTH",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "AUTH",
             substructs: {},
@@ -135,150 +170,194 @@ module.exports = {
         {
             // Baptism, Latter-Day Saint 
             uri: "g7:BAPL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "BAPL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1"
+            }
         },
         {
             // Baptism 
             uri: "g7:BAPM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BAPM",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Bar Mitzvah 
             uri: "g7:BARM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BARM",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Bas Mitzvah 
             uri: "g7:BASM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BASM",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Birth 
             uri: "g7:BIRT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BIRT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1",
+                "g7:FAMC":"0:1"
+            }
         },
         {
             // Blessing 
             uri: "g7:BLES",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BLES",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Burial 
             uri: "g7:BURI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "BURI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Call number 
             uri: "g7:CALN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Special,
             tag: "CALN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:MEDI":"0:1"
+            }
         },
         {
             // Caste 
             uri: "g7:CAST",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "CAST",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Cause 
             uri: "g7:CAUS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "CAUS",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Census 
             uri: "g7:FAM-CENS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CENS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Census 
             uri: "g7:INDI-CENS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CENS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Change 
             uri: "g7:CHAN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1,2],
             tag: "CHAN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:DATE-exact":"1:1",
+                "NOTE_STRUCTURE":"0:M"
+            }
         },
         {
             // Child 
             uri: "g7:CHIL",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Xref,
             tag: "CHIL",
-            substructs: {"g7:PHRASE":"0:1"}
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Christening, adult 
             uri: "g7:CHRA",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CHRA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Christening 
             uri: "g7:CHR",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CHR",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1",
+                "g7:FAMC":"0:1"
+            }
         },
         {
             // City 
             uri: "g7:CITY",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "CITY",
             substructs: {}
@@ -286,25 +365,30 @@ module.exports = {
         {
             // Confirmation 
             uri: "g7:CONF",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CONF",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Confirmation, Latter-Day Saint 
             uri: "g7:CONL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "CONL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1"
+            }
         },
         {
             // 
             uri: "",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "CONT",
             substructs: {},
@@ -313,6 +397,7 @@ module.exports = {
         {
             // Copyright 
             uri: "g7:COPR",
+            level: [1,3],
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
             tag: "COPR",
@@ -322,41 +407,57 @@ module.exports = {
             // Corporate name 
             uri: "g7:CORP",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.Text,
             tag: "CORP",
-            substructs: {"ADDRESS_STRUCTURE":"0:1", "g7:PHON":"0:M", "g7:EMAIL":"0:M", "g7:FAX":"0:M", "g7:WWW":"0:M"}
+            substructs: {
+                "ADDRESS_STRUCTURE":"0:1", 
+                "g7:PHON":"0:M", 
+                "g7:EMAIL":"0:M", 
+                "g7:FAX":"0:M", 
+                "g7:WWW":"0:M"
+            }
         },
         {
             // Creation 
             uri: "g7:CREA",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "CREA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:DATE-exact":"1:1"
+            }
         },
         {
             // Cremation 
             uri: "g7:CREM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "CREM",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Crop 
             uri: "g7:CROP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2,3,4,5,6,7],
             tag: "CROP",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TOP":"0:1",
+                "g7:LEFT":"0:1",
+                "g7:HEIGHT":"0:1",
+                "g7:WIDTH":"0:1"
+            }
         },
         {
             // Country 
             uri: "g7:CTRY",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "CTRY",
             substructs: {}
@@ -365,6 +466,7 @@ module.exports = {
             // Data 
             uri: "g7:DATA",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATA",
             substructs: {},
@@ -373,58 +475,76 @@ module.exports = {
         {
             // Data 
             uri: "g7:SOUR-DATA",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2,3,4,5,6],
             tag: "DATA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:DATE":"0:1",
+                "g7:TEXT":"0:1"
+            }
         },
         {
             // Data 
             uri: "g7:HEAD-SOUR-DATA",
+            level: [2],
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
             tag: "DATA",
-            substructs: {"g7:DATE-exact":"0:1", "g7:COPR":"0:1"}
+            substructs: {
+                "g7:DATE-exact":"0:1", 
+                "g7:COPR":"0:1"
+            }
         },
         {
             // Date 
             uri: "g7:DATE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6,7],
+            lineValType: dataTypes.DateValue,
             tag: "DATE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TIME":"0:1", 
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Date 
             uri: "g7:DATE-exact",
             lineType: lineTypes.NO_XREF,
+            level: [2,3],
             lineValType: dataTypes.DateExact,
             tag: "DATE",
-            substructs: {"g7:TIME":"0:1"}
+            substructs: {
+                "g7:TIME":"0:1"
+            }
         },
         {
             // Date 
             uri: "g7:HEAD-DATE",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.DateExact,
             tag: "DATE",
-            substructs: {"g7:TIME":"0:1"}
+            substructs: {
+                "g7:TIME":"0:1"
+            }
         },
         {
             // Date 
             uri: "g7:NO-DATE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.DatePeriod,
             tag: "DATE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Date 
             uri: "g7:DATA-EVEN-DATE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "DATE",
             substructs: {},
@@ -433,25 +553,29 @@ module.exports = {
         {
             // Death 
             uri: "g7:DEAT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "DEAT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Descendant Interest 
             uri: "g7:DESI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "DESI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Destination 
             uri: "g7:DEST",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Special,
             tag: "DEST",
             substructs: {}
@@ -459,43 +583,56 @@ module.exports = {
         {
             // Divorce filing 
             uri: "g7:DIVF",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "DIVF",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Divorce 
             uri: "g7:DIV",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "DIV",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Description 
             uri: "g7:DSCR",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "DSCR",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Description 
             uri: "g7:EDUC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "EDUC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Email 
             uri: "g7:EMAIL",
             lineType: lineTypes.NO_XREF,
+            level: [2,3],
             lineValType: dataTypes.Special,
             tag: "EMAIL",
             substructs: {}
@@ -503,52 +640,66 @@ module.exports = {
         {
             // Description 
             uri: "g7:EMIG",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "EMIG",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Endowment, Latter-Day Saint 
             uri: "g7:ENDL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "ENDL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1"
+            }
         },
         {
             // Engagement 
             uri: "g7:ENGA",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "ENGA",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Event 
             uri: "g7:FAM-EVEN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "EVEN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Event 
             uri: "g7:INDI-EVEN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "EVEN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Event 
             uri: "g7:DATA-EVEN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "EVEN",
             substructs: {},
@@ -557,25 +708,32 @@ module.exports = {
         {
             // Event 
             uri: "g7:SOUR-EVEN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6],
+            lineValType: dataTypes.Text,
+            //enumType:"g7:enumset-EVENATTR",
             tag: "EVEN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1",
+                "g7:ROLE":"0:1"
+            }
         },
         {
             // External Identifier 
             uri: "g7:EXID",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,3,4],
+            lineValType: dataTypes.Special,
             tag: "EXID",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:EXID-TYPE":"0:1"
+            }
         },
         {
             // Family record 
             uri: "g7:record-FAM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FAM",
             substructs: {},
@@ -584,61 +742,76 @@ module.exports = {
         {
             // Fact 
             uri: "g7:FAM-FACT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "FACT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"1:1", 
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Fact 
             uri: "g7:INDI-FACT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "FACT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Family child 
             uri: "g7:INDI-FAMC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "FAMC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PEDI":"0:1",
+                "g7:FAMC-STAT":"0:1",
+                "NOTE_STRUCTURE":"0:M",
+            }
         },
         {
             // Family child 
             uri: "g7:FAMC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Xref,
             tag: "FAMC",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Family child 
             uri: "g7:ADOP-FAMC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Xref,
             tag: "FAMC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:FAMC-ADOP":"0:1"
+            }
         },
         {
             // Family spouse 
             uri: "g7:FAMS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "FAMS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "NOTE_STRUCTURE":"0:M"
+            }
         },
         {
             // Facsimile 
             uri: "g7:FAX",
             lineType: lineTypes.NO_XREF,
+            level: [2,3],
             lineValType: dataTypes.Special,
             tag: "FAX",
             substructs: {}
@@ -646,16 +819,20 @@ module.exports = {
         {
             // First communion 
             uri: "g7:FCOM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "FCOM",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // File reference 
             uri: "g7:FILE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FILE",
             substructs: {},
@@ -665,6 +842,7 @@ module.exports = {
             // Format 
             uri: "g7:FORM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "FORM",
             substructs: {},
@@ -673,16 +851,17 @@ module.exports = {
         {
             // Format 
             uri: "g7:PLAC-FORM",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4],
+            lineValType: dataTypes.ListText,
             tag: "FORM",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Format 
             uri: "g7:HEAD-PLAC-FORM",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.ListText,
             tag: "FORM",
             substructs: {}
@@ -690,85 +869,93 @@ module.exports = {
         {
             // GEDCOM 
             uri: "g7:GEDC",
+            level: [1],
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             tag: "GEDC",
-            substructs: {"g7:GEDC-VERS":"1:1"}
+            substructs: {
+                "g7:GEDC-VERS":"1:1"
+            }
         },
         {
             // Given name 
             uri: "g7:GIVN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "GIVN",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Graduation 
             uri: "g7:GRAD",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "GRAD",
-            substructs: {},
-            incomplete: true
-        },
-        {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "HEAD",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Height in pixels 
             uri: "g7:HEIGHT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4,5,6,7,8],
+            lineValType: dataTypes.Integer,
             tag: "HEIGHT",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Husband 
             uri: "g7:HUSB",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2],
             tag: "HUSB",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:AGE":"1:1"
+            }
         },
         {
             // Husband 
             uri: "g7:FAM-HUSB",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Xref,
             tag: "HUSB",
-            substructs: {"g7:PHRASE":"0:1"}
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Identification number 
             uri: "g7:IDNO",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Special,
             tag: "IDNO",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Immigration 
             uri: "g7:IMMI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "IMMI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Individual 
             uri: "g7:record-INDI",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "INDI",
             substructs: {},
@@ -777,25 +964,27 @@ module.exports = {
         {
             // Initiatory, Latter-Day Saint 
             uri: "g7:INIL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "INIL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1"
+            }
         },
         {
             // Language 
             uri: "g7:LANG",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [2,3,4,5,6,7,8],
+            lineValType: dataTypes.Language,
             tag: "LANG",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Language 
             uri: "g7:HEAD-LANG",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Language,
             tag: "LANG",
             substructs: {}
@@ -804,6 +993,7 @@ module.exports = {
             // Language 
             uri: "g7:SUBM-LANG",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "LANG",
             substructs: {},
@@ -812,106 +1002,127 @@ module.exports = {
         {
             // Latitude 
             uri: "g7:LATI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[4],
+            lineValType: dataTypes.Special,
             tag: "LATI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Left crop width 
             uri: "g7:LEFT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4,5,6,7,8],
+            lineValType: dataTypes.Integer,
             tag: "LEFT",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Longitude 
             uri: "g7:LONG",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[4],
+            lineValType: dataTypes.Special,
             tag: "LONG",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Map 
             uri: "g7:MAP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[3,4],
             tag: "MAP",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:LATI":"1:1", 
+                "g7:LONG":"1:1"
+            }
         },
         {
             // Marriage banns 
             uri: "g7:MARB",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "MARB",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Marriage contract 
             uri: "g7:MARC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "MARC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Marriage license 
             uri: "g7:MARL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "MARL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Marriage 
             uri: "g7:MARR",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "MARR",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Marriage settlement 
             uri: "g7:MARS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "MARS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Medium 
             uri: "g7:MEDI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-MEDI",
             tag: "MEDI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Media type 
             uri: "g7:MIME",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [2,3,4,5,6,7,8],
+            lineValType: dataTypes.MediaType,
             tag: "MIME",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Name 
             uri: "g7:NAME",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.Text,
             tag: "NAME",
             substructs: {}
@@ -919,115 +1130,150 @@ module.exports = {
         {
             // Name 
             uri: "g7:INDI-NAME",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.PersonalName,
             tag: "NAME",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:NAME-TYPE":"0:1",
+                "PERSONAL_NAME_PIECES":"0:1",
+                "g7:NAME-TRAN":"0:M",
+                "NOTE_STRUCTURE":"0:M",
+                "SOURCE_CITATION":"0:M",
+            }
         },
         {
             // Nationality 
             uri: "g7:NATI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "NATI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Naturalization 
             uri: "g7:NATU",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "NATU",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Number of children 
             uri: "g7:FAM-NCHI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Integer,
             tag: "NCHI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1", 
+                "FAMILY_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Number of children 
             uri: "g7:INDI-NCHI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Integer,
             tag: "NCHI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Nickname 
             uri: "g7:NICK",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "NICK",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Number of marriages 
             uri: "g7:NMR",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Integer,
             tag: "NMR",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Did not happen 
             uri: "g7:NO",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
+            //enumType: "g7:enumset-EVEN",
             tag: "NO",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:NO-DATE":"0:1",
+                "NOTE_STRUCTURE":"0:M",
+                "SOURCE_CITATION":"0:M"
+            }
         },
         {
             // Note 
             uri: "g7:NOTE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [1,2,3,4],
+            lineValType: dataTypes.Text,
             tag: "NOTE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:MIME":"0:1", 
+                "g7:LANG":"0:1", 
+                "g7:NOTE-TRAN":"0:M",
+                "SOURCE_CITATION":"0:M"
+            }
         },
         {
             // Name prefix 
             uri: "g7:NPFX",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "NPFX",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Name suffix 
             uri: "g7:NSFX",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "NSFX",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Object 
             uri: "g7:OBJE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,2,3,4,5,6],
+            lineValType: dataTypes.Xref,
             tag: "OBJE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:CROP":"0:1",
+                "g7:TITL":"0:1"
+            }
         },
         {
             // Object 
             uri: "g7:record-OBJE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "OBJE",
             substructs: {},
@@ -1036,43 +1282,53 @@ module.exports = {
         {
             // Occupation 
             uri: "g7:OCCU",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "OCCU",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Ordination 
             uri: "g7:ORDN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "ORDN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Page 
             uri: "g7:PAGE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6],
+            lineValType: dataTypes.Text,
             tag: "PAGE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Pedigree 
             uri: "g7:PEDI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-PEDI",
             tag: "PEDI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Phone 
             uri: "g7:PHON",
             lineType: lineTypes.NO_XREF,
+            level: [2,3],
             lineValType: dataTypes.Special,
             tag: "PHON",
             substructs: {}
@@ -1081,6 +1337,7 @@ module.exports = {
             // Phrase 
             uri: "g7:PHRASE",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4,5,6,7,8],
             lineValType: dataTypes.Text,
             tag: "PHRASE",
             substructs: {}
@@ -1088,23 +1345,34 @@ module.exports = {
         {
             // Place 
             uri: "g7:PLAC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.ListText,
             tag: "PLAC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PLAC-FORM":"0:1",
+                "g7:LANG":"0:1",
+                "g7:PLAC-TRAN":"0:M",
+                "g7:MAP":"0:1",
+                "g7:EXID":"0:M",
+                "NOTE_STRUCTURE":"0:M"
+            }
         },
         {
             // Place 
             uri: "g7:HEAD-PLAC",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level: [1],
             tag: "PLAC",
-            substructs: {"g7:HEAD-PLAC-FORM":"1:1"}
+            substructs: {
+                "g7:HEAD-PLAC-FORM":"1:1"
+            }
         },
         {
             // Postal code 
             uri: "g7:POST",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "POST",
             substructs: {}
@@ -1112,25 +1380,32 @@ module.exports = {
         {
             // Probate 
             uri: "g7:PROB",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "PROB",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Property 
             uri: "g7:PROP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "PROP",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Publication 
             uri: "g7:PUBL",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "PUBL",
             substructs: {},
@@ -1139,43 +1414,50 @@ module.exports = {
         {
             // Quality of data 
             uri: "g7:QUAY",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-QUAY",
             tag: "QUAY",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Reference 
             uri: "g7:REFN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Special,
             tag: "REFN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1"
+            }
         },
         {
             // Religion 
             uri: "g7:RELI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "RELI",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Religion 
             uri: "g7:INDI-RELI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "RELI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Restriction 
             uri: "g7:RESN",
             lineType: lineTypes.NO_XREF,
+            level: [1,2],
             lineValType: dataTypes.ListEnum,
             enumType: "g7:enumset-RESN",
             tag: "RESN",
@@ -1184,16 +1466,20 @@ module.exports = {
         {
             // Repository 
             uri: "g7:REPO",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Xref,
             tag: "REPO",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "NOTE_STRUCTURE":"0:M",
+                "g7:CALN":"0:M"
+            }
         },
         {
             // Repository 
             uri: "g7:record-REPO",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "REPO",
             substructs: {},
@@ -1202,95 +1488,117 @@ module.exports = {
         {
             // Residence 
             uri: "g7:FAM-RESI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "RESI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1", 
+                "FAMILY_EVENT_DETAIL":"0:1"}
         },
         {
             // Residence 
             uri: "g7:INDI-RESI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "RESI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Retirement 
             uri: "g7:RETI",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "RETI",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Role 
             uri: "g7:ROLE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6,7],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-ROLE",
             tag: "ROLE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Extension schema 
             uri: "g7:SCHMA",
+            level: [1],
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             tag: "SCHMA",
-            substructs: {"g7:TAG":"0:M"}
+            substructs: {
+                "g7:TAG":"0:M"
+            }
         },
         {
             // Sort date 
             uri: "g7:SDATE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.DateValue,
             tag: "SDATE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TIME":"0:1",
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Sex 
             uri: "g7:SEX",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-SEX",
             tag: "SEX",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Sealing, child 
             uri: "g7:SLGC",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "SLGC",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1",
+                "g7:FAMC":"1:1"
+            }
         },
         {
             // Sealing, spouse 
             uri: "g7:SLGS",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[1],
             tag: "SLGS",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "LDS_ORDINANCE_DETAIL":"0:1"
+            }
         },
         {
             // Shared note 
             uri: "g7:SNOTE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,2,3,4],
+            lineValType: dataTypes.Xref,
             tag: "SNOTE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Shared note 
             uri: "g7:record-SNOTE",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SNOTE",
             substructs: {},
@@ -1299,16 +1607,25 @@ module.exports = {
         {
             // Source 
             uri: "g7:SOUR",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,2,3,4,5],
+            lineValType: dataTypes.Xref,
             tag: "SOUR",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PAGE":"0:1",
+                "g7:SOUR-DATA":"0:1",
+                "g7:SOUR-EVEN":"0:1",
+                "g7:QUAY":"0:1",
+                "MULTIMEDIA_LINK":"0:M",
+                "NOTE_STRUCTURE":"0:M"
+
+            }
         },
         {
             // Source 
             uri: "g7:record-SOUR",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SOUR",
             substructs: {},
@@ -1318,32 +1635,42 @@ module.exports = {
             // Source 
             uri: "g7:HEAD-SOUR",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Special,
             tag: "SOUR",
-            substructs: {"g7:VERS":"0:1", "g7:NAME":"0:1", "g7:CORP":"0:1", "g7:HEAD-SOUR-DATA":"0:1"}
+            substructs: {
+                "g7:VERS":"0:1", 
+                "g7:NAME":"0:1", 
+                "g7:CORP":"0:1", 
+                "g7:HEAD-SOUR-DATA":"0:1"
+            }
         },
         {
             // Surname prefix 
             uri: "g7:SPFX",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "SPFX",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Social security number 
             uri: "g7:SSN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Special,
             tag: "SSN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // State 
             uri: "g7:STAE",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4],
             lineValType: dataTypes.Special,
             tag: "STAE",
             substructs: {}
@@ -1351,25 +1678,32 @@ module.exports = {
         {
             // Status 
             uri: "g7:ord-STAT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType: "g7:enumset-ord-STAT",
             tag: "STAT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:DATE-exact":"1:1",
+            }
         },
         {
             // Status 
             uri: "g7:FAMC-STAT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType:"g7:enumset-FAMC-STAT",
             tag: "STAT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Submitter 
             uri: "g7:SUBM",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Xref,
             tag: "SUBM",
             substructs: {}
@@ -1378,6 +1712,7 @@ module.exports = {
             // Submitter 
             uri: "g7:record-SUBM",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "SUBM",
             substructs: {},
@@ -1386,16 +1721,17 @@ module.exports = {
         {
             // Surname 
             uri: "g7:SURN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3],
+            lineValType: dataTypes.Text,
             tag: "SURN",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Extension tag 
             uri: "g7:TAG",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.Special,
             tag: "TAG",
             substructs: {}
@@ -1403,25 +1739,29 @@ module.exports = {
         {
             // Temple 
             uri: "g7:TEMP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "TEMP",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Text from Source 
             uri: "g7:TEXT",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4,5,6,7],
+            lineValType: dataTypes.Text,
             tag: "TEXT",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:MIME":"0:1",
+                "g7:LANG":"0:1"
+            }
         },
         {
             // Time 
             uri: "g7:TIME",
             lineType: lineTypes.NO_XREF,
+            level: [2,3,4,5,6,7,8],
             lineValType: dataTypes.Time,
             tag: "TIME",
             substructs: {}
@@ -1429,124 +1769,121 @@ module.exports = {
         {
             // Title 
             uri: "g7:TITL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,3,4,5,6,7],
+            lineValType: dataTypes.Text,
             tag: "TITL",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Title 
             uri: "g7:INDI-TITL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.Text,
             tag: "TITL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Top crop width 
             uri: "g7:TOP",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4,5,6,7,8],
+            lineValType: dataTypes.Integer,
             tag: "TOP",
-            substructs: {},
-            incomplete: true
-        },
-        {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "TRAN",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Translation 
             uri: "g7:NAME-TRAN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.PersonalName,
             tag: "TRAN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:LANG":"1:1",
+                "PERSONAL_NAME_PIECES":"0:1"
+            }
         },
         {
             // Translation 
             uri: "g7:PLAC-TRAN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4],
+            lineValType: dataTypes.ListText,
             tag: "TRAN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:LANG":"1:1"
+            }
         },
         {
             // Translation 
             uri: "g7:NOTE-TRAN",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level: [2,3,4,5],
+            lineValType: dataTypes.Text,
             tag: "TRAN",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:MIME":"0:1", 
+                "g7:LANG":"0:1"}
         },
         {
             // Translation 
             uri: "g7:FILE-TRAN",
             lineType: "",
+            level:[],
             lineValType: "",
             tag: "TRAN",
-            substructs: {},
-            incomplete: true
-        },
-        {
-            // 
-            uri: "",
-            lineType: "",
-            lineValType: "",
-            tag: "TRLR",
             substructs: {},
             incomplete: true
         },
         {
             // Type 
             uri: "g7:TYPE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Text,
             tag: "TYPE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Type 
             uri: "g7:NAME-TYPE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2],
+            lineValType: dataTypes.Enum,
+            enumType: "g7:enumset-NAME-TYPE",
             tag: "TYPE",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Type 
             uri: "g7:EXID-TYPE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[2,4,5],
+            lineValType: dataTypes.Special,
             tag: "TYPE",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Unique Identifier 
             uri: "g7:UID",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1,2],
+            lineValType: dataTypes.Special,
             tag: "UID",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Version 
             uri: "g7:VERS",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.Special,
             tag: "VERS",
             substructs: {}
@@ -1555,6 +1892,7 @@ module.exports = {
             // Version 
             uri: "g7:GEDC-VERS",
             lineType: lineTypes.NO_XREF,
+            level: [2],
             lineValType: dataTypes.Special,
             tag: "VERS",
             substructs: {}
@@ -1562,42 +1900,48 @@ module.exports = {
         {
             // Width in pixels 
             uri: "g7:WIDTH",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[3,4,5,6,7,8],
+            lineValType: dataTypes.Integer,
             tag: "WIDTH",
-            substructs: {},
-            incomplete: true
+            substructs: {}
         },
         {
             // Wife 
             uri: "g7:WIFE",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF_NO_LINEVAL,
+            level:[2],
             tag: "WIFE",
-            substructs: {},
-            incomplete: true
+            substructs: {"g7:AGE":"1:1"}
         },
         {
             // Wife 
             uri: "g7:FAM-WIFE",
             lineType: lineTypes.NO_XREF,
+            level: [1],
             lineValType: dataTypes.Xref,
             tag: "WIFE",
-            substructs: {"g7:PHRASE":"0:1"}
+            substructs: {
+                "g7:PHRASE":"0:1"
+            }
         },
         {
             // Will 
             uri: "g7:WILL",
-            lineType: "",
-            lineValType: "",
+            lineType: lineTypes.NO_XREF,
+            level:[1],
+            lineValType: dataTypes.NullOrY,
             tag: "WILL",
-            substructs: {},
-            incomplete: true
+            substructs: {
+                "g7:TYPE":"0:1",
+                "INDIVIDUAL_EVENT_DETAIL":"0:1"
+            }
         },
         {
             // Web address 
             uri: "g7:WWW",
             lineType: lineTypes.NO_XREF,
+            level: [2,3],
             lineValType: dataTypes.Special,
             tag: "WWW",
             substructs: {}
