@@ -9,7 +9,14 @@ module.exports = {
             level: [0],
             tag: "OBJE",
             substructs: {
-                "SOURCE_CITATION":"0:M"
+                "g7:RESN":"0:1",
+                "g7:FILE":"1:M",
+                "IDENTIFIER_STRUCTURE":"0:M",
+                "NOTE_STRUCTURE":"0:M",
+                "SOURCE_CITATION" :"0:M",
+                "CHANGE_DATE":"0:1",
+                "CREATION_DATE":"0:1"
+
             }
         }
     ]

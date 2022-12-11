@@ -24,8 +24,7 @@ module.exports = {
                 "SOURCE_CITATION" :"0:M",
                 "MULTIMEDIA_LINK":"0:M",
                 "CHANGE_DATE":"0:1",
-                "CREATION_DATE":"0:1",
-                "g7:TEST":"0:1"
+                "CREATION_DATE":"0:1"
             }
         }
     ]

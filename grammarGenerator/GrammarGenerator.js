@@ -200,7 +200,6 @@ class GrammarGenerator{
                         break;
 
                     // structure of the form: LEVEL D TAG D LINEVAL EOL
-                    case lineTypes.SNOTE_RECORD:
                     case lineTypes.NO_XREF:
                         lineString += `"${level}" D "${tag}" (D ${lineValType}):? EOL`;
 
@@ -209,6 +208,7 @@ class GrammarGenerator{
                         break;
                     
                     // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
+                    case lineTypes.SNOTE_RECORD:
                     default:
                         lineString += `"${level}" D Xref D "${tag}" D ${lineValType} EOL`;
                             

@@ -1,4 +1,5 @@
-# TO-DO: Implement Syntax for Language DataType
+# TO-DO: Implement Syntax for DataType Language
+# TO-DO: Implement Syntax for DataType MediaType
 
 @include "./Line.ne"
 
@@ -316,7 +317,9 @@ grandfathered
 # =====================================================
 # Media Type
 MediaType       
-    -> mt_type "/" mt_subtype (";" mt_parameter):*
+    # -> mt_type "/" mt_subtype (";" mt_parameter):*
+    #     {% postprocessor.joinAndUnpackAll %}
+    -> Text
         {% postprocessor.joinAndUnpackAll %}
 
 mt_type         
@@ -369,6 +372,14 @@ Special
     -> Text {%id%}
 NullOrY    
     -> "Y" {%id%}
+
+ByteOrderMark 
+    -> ByteOrderMark1
+        {%id%}
+    |  ByteOrderMark2
+        {%id%}
+    |  ByteOrderMark3
+        {%id%}
 
 # =====================================================
 # CONTINUATION

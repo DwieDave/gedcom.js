@@ -9,7 +9,7 @@
 
 0_recordFAM
 	->"0" D Xref D "FAM" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_FAM", type: "FAM_RECORD", checkCardinalityOf: {"1_g7_RESN":"0:1", "1_g7_FAM_HUSB":"0:1", "1_g7_FAM_WIFE":"0:1", "1_CHANGE_DATE":"0:1", "1_CREATION_DATE":"0:1", "1_g7_TEST":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_FAM", type: "FAM_RECORD", checkCardinalityOf: {"1_g7_RESN":"0:1", "1_g7_FAM_HUSB":"0:1", "1_g7_FAM_WIFE":"0:1", "1_CHANGE_DATE":"0:1", "1_CREATION_DATE":"0:1"}})%}
 
 0_recordFAM_Substructs
 	-> 1_g7_RESN
@@ -43,6 +43,4 @@
 	|  1_CHANGE_DATE
 		{%id%}
 	|  1_CREATION_DATE
-		{%id%}
-	|  1_g7_TEST
 		{%id%}

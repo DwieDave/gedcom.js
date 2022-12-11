@@ -5,7 +5,7 @@
 2 TAG _SKYPEID http://xmlns.com/foaf/0.1/skypeID
 2 TAG _JABBERID http://xmlns.com/foaf/0.1/jabberID
 1 SOUR https://gedcom.io/
-2 VERS 0.3
+2 VERS 0.4
 2 NAME GEDCOM Steering Committee
 2 CORP FamilySearch
 3 ADDR Family History Department, 15 East South Temple Street, Salt Lake City, UT 84150 USA
@@ -25,12 +25,25 @@
 3 WWW http://gedcom.io
 3 WWW http://gedcom.info
 2 DATA HEAD-SOUR-DATA
-3 DATE 27 MAR 2022
+3 DATE 1 NOV 2022
 4 TIME 8:38
 3 COPR copyright statement
 1 DEST https://gedcom.io/
 1 DATE 10 JUN 2022
 2 TIME 15:43:20.48Z
+1 SUBM @U1@
+1 COPR another copyright statement
+1 LANG en-US
+1 PLAC
+2 FORM City, County, State, Country
+1 NOTE American English
+2 MIME text/plain
+2 LANG en-GB
+2 TRAN British English
+2 SOUR @S1@
+3 PAGE 1
+2 SOUR @S1@
+3 PAGE 2
 0 @F1@ FAM
 1 RESN CONFIDENTIAL, LOCKED
 1 NCHI 2
@@ -509,4 +522,327 @@
 0 @I4@ INDI
 1 SEX U
 1 FAMC @F1@
+0 @O1@ OBJE
+1 RESN CONFIDENTIAL, LOCKED
+1 FILE file:///path/to/file1
+2 FORM text/plain
+3 MEDI OTHER
+4 PHRASE Transcript
+1 FILE media/original.mp3
+2 FORM audio/mp3
+3 MEDI AUDIO
+2 TITL Object title
+2 TRAN media/derived.oga
+3 FORM audio/ogg
+2 TRAN media/transcript.vtt
+3 FORM text/vtt
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 EXID 456
+2 TYPE http://example.com
+1 NOTE American English
+2 MIME text/plain
+2 LANG en-US
+2 TRAN British English
+3 MIME text/plain
+3 LANG en-GB
+2 TRAN Canadian English
+3 MIME text/plain
+3 LANG en-CA
+2 SOUR @S1@
+3 PAGE 1
+2 SOUR @S2@
+3 PAGE 2
+1 SNOTE @N1@
+1 SOUR @S1@
+2 PAGE 1
+2 DATA
+3 DATE 28 MAR 2022
+4 TIME 10:29
+4 PHRASE Morning
+3 TEXT Text 1
+4 MIME text/plain
+4 LANG en-US
+3 TEXT Text 2
+4 MIME text/plain
+4 LANG en-US
+2 EVEN BIRT
+3 PHRASE Event phrase
+3 ROLE OTHER
+4 PHRASE Role phrase
+2 QUAY 0
+2 OBJE @O1@
+3 CROP
+4 TOP 0
+4 LEFT 0
+4 HEIGHT 100
+4 WIDTH 100
+3 TITL Title
+2 OBJE @O1@
+3 CROP
+4 TOP 100
+4 LEFT 100
+3 TITL Title
+2 NOTE American English
+3 MIME text/plain
+3 LANG en-GB
+3 TRAN British English
+3 SOUR @S1@
+4 PAGE 1
+3 SOUR @S2@
+4 PAGE 2
+2 SNOTE @N1@
+1 SOUR @S1@
+2 PAGE 2
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+0 @O2@ OBJE
+1 RESN PRIVACY
+1 FILE http://host.example.com/path/to/file2
+2 FORM text/plain
+3 MEDI ELECTRONIC
+0 @R1@ REPO
+1 NAME Repository 1
+1 ADDR Family History Department, 15 East South Temple Street, Salt Lake City, UT 84150 USA
+2 ADR1 Family History Department
+2 ADR2 15 East South Temple Street
+2 ADR3 Salt Lake City, UT 84150 USA
+2 CITY Salt Lake City
+2 STAE UT
+2 POST 84150
+2 CTRY USA
+1 PHON +1 (555) 555-1212
+1 PHON +1 (555) 555-1234
+1 EMAIL GEDCOM@FamilySearch.org
+1 EMAIL GEDCOM@example.com
+1 FAX +1 (555) 555-1212
+1 FAX +1 (555) 555-1234
+1 WWW http://gedcom.io
+1 WWW http://gedcom.info
+1 NOTE Note text
+1 SNOTE @N1@
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 EXID 456
+2 TYPE http://example.com
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+0 @R2@ REPO
+1 NAME Repository 2
+0 @N1@ SNOTE Shared note 1
+1 MIME text/plain
+1 LANG en-US
+1 TRAN Shared note 1
+2 MIME text/plain
+2 LANG en-GB
+1 TRAN Shared note 1
+2 MIME text/plain
+2 LANG en-CA
+1 SOUR @S1@
+2 PAGE 1
+1 SOUR @S2@
+2 PAGE 2
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 EXID 456
+2 TYPE http://example.com
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+0 @N2@ SNOTE Shared note 2
+0 @S1@ SOUR
+1 DATA
+2 EVEN BIRT, DEAT
+3 DATE FROM 1701 TO 1800
+4 PHRASE 18th century
+3 PLAC Some City, Some County, Some State, Some Country
+4 FORM City, County, State, Country
+4 LANG en-US
+4 TRAN Some City, Some County, Some State, Some Country
+5 LANG en-GB
+4 TRAN Some City, Some County, Some State, Some Country
+5 LANG en
+4 MAP
+5 LATI N18.150944
+5 LONG E168.150944
+4 EXID 123
+5 TYPE http://example.com
+4 EXID 456
+5 TYPE http://example.com
+4 NOTE American English
+5 MIME text/plain
+5 LANG en-GB
+5 TRAN British English
+5 SOUR @S1@
+6 PAGE 1
+5 SOUR @S2@
+6 PAGE 2
+4 SNOTE @N1@
+2 EVEN MARR
+3 DATE FROM 1701 TO 1800
+4 PHRASE 18th century
+2 AGNC Agency name
+2 NOTE American English
+3 MIME text/plain
+3 LANG en-GB
+3 TRAN British English
+3 SOUR @S1@
+4 PAGE 1
+3 SOUR @S2@
+4 PAGE 2
+2 SNOTE @N1@
+1 AUTH Author
+1 TITL Title
+1 ABBR Abbreviation
+1 PUBL Publication info
+1 TEXT Source text
+2 MIME text/plain
+2 LANG en-US
+1 REPO @R1@
+2 NOTE Note text
+2 SNOTE @N1@
+2 CALN Call number
+3 MEDI BOOK
+4 PHRASE Booklet
+1 REPO @R2@
+2 CALN Call number
+3 MEDI VIDEO
+2 CALN Call number
+3 MEDI CARD
+2 CALN Call number
+3 MEDI FICHE
+2 CALN Call number
+3 MEDI FILM
+2 CALN Call number
+3 MEDI MAGAZINE
+2 CALN Call number
+3 MEDI MANUSCRIPT
+2 CALN Call number
+3 MEDI MAP
+2 CALN Call number
+3 MEDI NEWSPAPER
+2 CALN Call number
+3 MEDI PHOTO
+2 CALN Call number
+3 MEDI TOMBSTONE
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 EXID 456
+2 TYPE http://example.com
+1 NOTE Note text
+1 SNOTE @N1@
+1 OBJE @O1@
+1 OBJE @O2@
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+0 @S2@ SOUR
+1 TITL Source Two
+0 @U1@ SUBM
+1 NAME GEDCOM Steering Committee
+1 ADDR Family History Department, 15 East South Temple Street, Salt Lake City, UT 84150 USA
+2 ADR1 Family History Department
+2 ADR2 15 East South Temple Street
+2 ADR3 Salt Lake City, UT 84150 USA
+2 CITY Salt Lake City
+2 STAE UT
+2 POST 84150
+2 CTRY USA
+1 PHON +1 (555) 555-1212
+1 PHON +1 (555) 555-1234
+1 EMAIL GEDCOM@FamilySearch.org
+1 EMAIL GEDCOM@example.com
+1 FAX +1 (555) 555-1212
+1 FAX +1 (555) 555-1234
+1 WWW http://gedcom.io
+1 WWW http://gedcom.info
+1 OBJE @O1@
+2 CROP
+3 TOP 0
+3 LEFT 0
+3 HEIGHT 100
+3 WIDTH 100
+2 TITL Title
+1 OBJE @O1@
+2 CROP
+3 TOP 100
+3 LEFT 100
+2 TITL Title
+1 LANG en-US
+1 LANG en-GB
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 EXID 456
+2 TYPE http://example.com
+1 NOTE American English
+2 MIME text/plain
+2 LANG en-GB
+2 TRAN British English
+2 SOUR @S1@
+3 PAGE 1
+2 SOUR @S2@
+3 PAGE 2
+1 SNOTE @N1@
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+0 @U2@ SUBM
+1 NAME Submitter 2
 0 TRLR

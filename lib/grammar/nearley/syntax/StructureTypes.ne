@@ -15,6 +15,20 @@
 	-> 2_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_ABBR
+	-> 1_ABBR
+		{%id%}
+	|  1_ABBR 1_ABBR_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_ABBR
+	->"1" D "ABBR" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_ABBR", type: "NO_XREF", lineValType: "Text"})%}
+
+1_ABBR_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 1_g7_ADDR
 	-> 1_ADDR
 		{%id%}
@@ -397,6 +411,20 @@
 	|  3_SOURCE_CITATION
 		{%id%}
 	|  3_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_AUTH
+	-> 1_AUTH
+		{%id%}
+	|  1_AUTH 1_AUTH_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_AUTH
+	->"1" D "AUTH" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_AUTH", type: "NO_XREF", lineValType: "Text"})%}
+
+1_AUTH_Substructs
+	-> 2_TEXT_CONTINUATION
 		{%id%}
 
 1_g7_BAPL
@@ -1013,6 +1041,24 @@
 	-> 5_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_DATA
+	-> 1_DATA
+		{%id%}
+	|  1_DATA 1_DATA_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_DATA
+	->"1" D "DATA" EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"2_g7_AGNC":"0:1"}})%}
+
+1_DATA_Substructs
+	-> 2_g7_DATA_EVEN
+		{%id%}
+	|  2_g7_AGNC
+		{%id%}
+	|  2_NOTE_STRUCTURE
+		{%id%}
+
 2_g7_SOUR_DATA
 	-> 2_SOURDATA
 		{%id%}
@@ -1021,7 +1067,7 @@
 
 2_SOURDATA
 	->"2" D "DATA" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"3_g7_DATE":"0:1", "3_g7_TEXT":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"3_g7_DATE":"0:1"}})%}
 
 2_SOURDATA_Substructs
 	-> 3_g7_DATE
@@ -1037,7 +1083,7 @@
 
 3_SOURDATA
 	->"3" D "DATA" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"4_g7_DATE":"0:1", "4_g7_TEXT":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"4_g7_DATE":"0:1"}})%}
 
 3_SOURDATA_Substructs
 	-> 4_g7_DATE
@@ -1053,7 +1099,7 @@
 
 4_SOURDATA
 	->"4" D "DATA" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "4_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"5_g7_DATE":"0:1", "5_g7_TEXT":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "4_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"5_g7_DATE":"0:1"}})%}
 
 4_SOURDATA_Substructs
 	-> 5_g7_DATE
@@ -1069,7 +1115,7 @@
 
 5_SOURDATA
 	->"5" D "DATA" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "5_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"6_g7_DATE":"0:1", "6_g7_TEXT":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "5_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"6_g7_DATE":"0:1"}})%}
 
 5_SOURDATA_Substructs
 	-> 6_g7_DATE
@@ -1085,7 +1131,7 @@
 
 6_SOURDATA
 	->"6" D "DATA" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "6_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"7_g7_DATE":"0:1", "7_g7_TEXT":"0:1"}})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "6_g7_SOUR_DATA", type: "NO_XREF_NO_LINEVAL", checkCardinalityOf: {"7_g7_DATE":"0:1"}})%}
 
 6_SOURDATA_Substructs
 	-> 7_g7_DATE
@@ -1283,6 +1329,22 @@
 	|  3_TEXT_CONTINUATION
 		{%id%}
 
+3_g7_DATA_EVEN_DATE
+	-> 3_DATAEVENDATE
+		{%id%}
+	|  3_DATAEVENDATE 3_DATAEVENDATE_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+3_DATAEVENDATE
+	->"3" D "DATE" (D DatePeriod):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_DATA_EVEN_DATE", type: "NO_XREF", lineValType: "DatePeriod", checkCardinalityOf: {"4_g7_PHRASE":"0:1"}})%}
+
+3_DATAEVENDATE_Substructs
+	-> 4_g7_PHRASE
+		{%id%}
+	|  4_TEXT_CONTINUATION
+		{%id%}
+
 1_g7_DEAT
 	-> 1_DEAT
 		{%id%}
@@ -1401,6 +1463,20 @@
 	|  2_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_EMAIL
+	-> 1_EMAIL
+		{%id%}
+	|  1_EMAIL 1_EMAIL_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_EMAIL
+	->"1" D "EMAIL" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_EMAIL", type: "NO_XREF", lineValType: "Special"})%}
+
+1_EMAIL_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_EMAIL
 	-> 2_EMAIL
 		{%id%}
@@ -1513,6 +1589,24 @@
 	|  2_INDIVIDUAL_EVENT_DETAIL
 		{%id%}
 	|  2_TEXT_CONTINUATION
+		{%id%}
+
+2_g7_DATA_EVEN
+	-> 2_DATAEVEN
+		{%id%}
+	|  2_DATAEVEN 2_DATAEVEN_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+2_DATAEVEN
+	->"2" D "EVEN" (D ListText):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_DATA_EVEN", type: "NO_XREF", lineValType: "ListText", checkCardinalityOf: {"3_g7_DATA_EVEN_DATE":"0:1", "3_PLACE_STRUCTURE":"0:1"}})%}
+
+2_DATAEVEN_Substructs
+	-> 3_g7_DATA_EVEN_DATE
+		{%id%}
+	|  3_PLACE_STRUCTURE
+		{%id%}
+	|  3_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_SOUR_EVEN
@@ -1755,6 +1849,20 @@
 	|  2_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_FAX
+	-> 1_FAX
+		{%id%}
+	|  1_FAX 1_FAX_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_FAX
+	->"1" D "FAX" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_FAX", type: "NO_XREF", lineValType: "Special"})%}
+
+1_FAX_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_FAX
 	-> 2_FAX
 		{%id%}
@@ -1799,6 +1907,58 @@
 	|  2_INDIVIDUAL_EVENT_DETAIL
 		{%id%}
 	|  2_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_FILE
+	-> 1_FILE
+		{%id%}
+	|  1_FILE 1_FILE_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_FILE
+	->"1" D "FILE" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_FILE", type: "NO_XREF", lineValType: "Special", checkCardinalityOf: {"2_g7_FORM":"1:1", "2_g7_TITL":"0:1"}})%}
+
+1_FILE_Substructs
+	-> 2_g7_FORM
+		{%id%}
+	|  2_g7_TITL
+		{%id%}
+	|  2_g7_FILE_TRAN
+		{%id%}
+	|  2_TEXT_CONTINUATION
+		{%id%}
+
+2_g7_FORM
+	-> 2_FORM
+		{%id%}
+	|  2_FORM 2_FORM_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+2_FORM
+	->"2" D "FORM" (D MediaType):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_FORM", type: "NO_XREF", lineValType: "MediaType", checkCardinalityOf: {"3_g7_MEDI":"0:1"}})%}
+
+2_FORM_Substructs
+	-> 3_g7_MEDI
+		{%id%}
+	|  3_TEXT_CONTINUATION
+		{%id%}
+
+3_g7_FORM
+	-> 3_FORM
+		{%id%}
+	|  3_FORM 3_FORM_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+3_FORM
+	->"3" D "FORM" (D MediaType):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "3_g7_FORM", type: "NO_XREF", lineValType: "MediaType", checkCardinalityOf: {"4_g7_MEDI":"0:1"}})%}
+
+3_FORM_Substructs
+	-> 4_g7_MEDI
+		{%id%}
+	|  4_TEXT_CONTINUATION
 		{%id%}
 
 3_g7_PLAC_FORM
@@ -2067,6 +2227,20 @@
 	-> 2_LDS_ORDINANCE_DETAIL
 		{%id%}
 
+1_g7_LANG
+	-> 1_LANG
+		{%id%}
+	|  1_LANG 1_LANG_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_LANG
+	->"1" D "LANG" (D Language):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_LANG", type: "NO_XREF", lineValType: "Language"})%}
+
+1_LANG_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_LANG
 	-> 2_LANG
 		{%id%}
@@ -2179,6 +2353,20 @@
 	-> 2_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_SUBM_LANG
+	-> 1_SUBMLANG
+		{%id%}
+	|  1_SUBMLANG 1_SUBMLANG_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_SUBMLANG
+	->"1" D "LANG" (D Language):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_SUBM_LANG", type: "NO_XREF", lineValType: "Language"})%}
+
+1_SUBMLANG_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 4_g7_LATI
 	-> 4_LATI
 		{%id%}
@@ -2191,6 +2379,20 @@
 
 4_LATI_Substructs
 	-> 5_TEXT_CONTINUATION
+		{%id%}
+
+5_g7_LATI
+	-> 5_LATI
+		{%id%}
+	|  5_LATI 5_LATI_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+5_LATI
+	->"5" D "LATI" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "5_g7_LATI", type: "NO_XREF", lineValType: "Special"})%}
+
+5_LATI_Substructs
+	-> 6_TEXT_CONTINUATION
 		{%id%}
 
 3_g7_LEFT
@@ -2289,6 +2491,20 @@
 
 4_LONG_Substructs
 	-> 5_TEXT_CONTINUATION
+		{%id%}
+
+5_g7_LONG
+	-> 5_LONG
+		{%id%}
+	|  5_LONG 5_LONG_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+5_LONG
+	->"5" D "LONG" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "5_g7_LONG", type: "NO_XREF", lineValType: "Special"})%}
+
+5_LONG_Substructs
+	-> 6_TEXT_CONTINUATION
 		{%id%}
 
 3_g7_MAP
@@ -2429,6 +2645,36 @@
 	|  4_TEXT_CONTINUATION
 		{%id%}
 
+4_g7_MEDI
+	-> 4_MEDI
+		{%id%}
+	|  4_MEDI 4_MEDI_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+4_MEDI
+	->"4" D "MEDI" (D Enum):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "4_g7_MEDI", type: "NO_XREF", lineValType: "Enum", enumType: "g7_enumset_MEDI", checkCardinalityOf: {"5_g7_PHRASE":"0:1"}})%}
+
+4_MEDI_Substructs
+	-> 5_g7_PHRASE
+		{%id%}
+	|  5_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_MIME
+	-> 1_MIME
+		{%id%}
+	|  1_MIME 1_MIME_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_MIME
+	->"1" D "MIME" (D MediaType):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_MIME", type: "NO_XREF", lineValType: "MediaType"})%}
+
+1_MIME_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_MIME
 	-> 2_MIME
 		{%id%}
@@ -2525,6 +2771,20 @@
 
 8_MIME_Substructs
 	-> 9_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_NAME
+	-> 1_NAME
+		{%id%}
+	|  1_NAME 1_NAME_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_NAME
+	->"1" D "NAME" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_NAME", type: "NO_XREF", lineValType: "Text"})%}
+
+1_NAME_Substructs
+	-> 2_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_NAME
@@ -3077,6 +3337,20 @@
 	|  3_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_PHON
+	-> 1_PHON
+		{%id%}
+	|  1_PHON 1_PHON_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_PHON
+	->"1" D "PHON" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_PHON", type: "NO_XREF", lineValType: "Special"})%}
+
+1_PHON_Substructs
+	-> 2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_PHON
 	-> 2_PHON
 		{%id%}
@@ -3345,6 +3619,20 @@
 	|  2_INDIVIDUAL_EVENT_DETAIL
 		{%id%}
 	|  2_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_PUBL
+	-> 1_PUBL
+		{%id%}
+	|  1_PUBL 1_PUBL_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_PUBL
+	->"1" D "PUBL" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_PUBL", type: "NO_XREF", lineValType: "Text"})%}
+
+1_PUBL_Substructs
+	-> 2_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_QUAY
@@ -4135,6 +4423,24 @@
 	-> 3_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_TEXT
+	-> 1_TEXT
+		{%id%}
+	|  1_TEXT 1_TEXT_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_TEXT
+	->"1" D "TEXT" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_TEXT", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"2_g7_MIME":"0:1", "2_g7_LANG":"0:1"}})%}
+
+1_TEXT_Substructs
+	-> 2_g7_MIME
+		{%id%}
+	|  2_g7_LANG
+		{%id%}
+	|  2_TEXT_CONTINUATION
+		{%id%}
+
 3_g7_TEXT
 	-> 3_TEXT
 		{%id%}
@@ -4321,6 +4627,20 @@
 
 8_TIME_Substructs
 	-> 9_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_TITL
+	-> 1_TITL
+		{%id%}
+	|  1_TITL 1_TITL_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_TITL
+	->"1" D "TITL" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_TITL", type: "NO_XREF", lineValType: "Text"})%}
+
+1_TITL_Substructs
+	-> 2_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_TITL
@@ -4559,6 +4879,24 @@
 	|  5_TEXT_CONTINUATION
 		{%id%}
 
+1_g7_NOTE_TRAN
+	-> 1_NOTETRAN
+		{%id%}
+	|  1_NOTETRAN 1_NOTETRAN_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_NOTETRAN
+	->"1" D "TRAN" (D Text):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_NOTE_TRAN", type: "NO_XREF", lineValType: "Text", checkCardinalityOf: {"2_g7_MIME":"0:1", "2_g7_LANG":"0:1"}})%}
+
+1_NOTETRAN_Substructs
+	-> 2_g7_MIME
+		{%id%}
+	|  2_g7_LANG
+		{%id%}
+	|  2_TEXT_CONTINUATION
+		{%id%}
+
 2_g7_NOTE_TRAN
 	-> 2_NOTETRAN
 		{%id%}
@@ -4629,6 +4967,22 @@
 	|  6_g7_LANG
 		{%id%}
 	|  6_TEXT_CONTINUATION
+		{%id%}
+
+2_g7_FILE_TRAN
+	-> 2_FILETRAN
+		{%id%}
+	|  2_FILETRAN 2_FILETRAN_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+2_FILETRAN
+	->"2" D "TRAN" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "2_g7_FILE_TRAN", type: "NO_XREF", lineValType: "Special", checkCardinalityOf: {"3_g7_FORM":"1:1"}})%}
+
+2_FILETRAN_Substructs
+	-> 3_g7_FORM
+		{%id%}
+	|  3_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_TYPE
@@ -4889,6 +5243,20 @@
 	|  2_INDIVIDUAL_EVENT_DETAIL
 		{%id%}
 	|  2_TEXT_CONTINUATION
+		{%id%}
+
+1_g7_WWW
+	-> 1_WWW
+		{%id%}
+	|  1_WWW 1_WWW_Substructs:+
+		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
+
+1_WWW
+	->"1" D "WWW" (D Special):? EOL
+		{% (d) => postprocessor.createStructure({line: d, uri: "1_g7_WWW", type: "NO_XREF", lineValType: "Special"})%}
+
+1_WWW_Substructs
+	-> 2_TEXT_CONTINUATION
 		{%id%}
 
 2_g7_WWW
