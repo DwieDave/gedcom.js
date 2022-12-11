@@ -366,8 +366,8 @@ mt_qpair
 # Special
 Special     
     -> Text {%id%}
-NullOrY     
-    -> "Y":? {%id%}
+NullOrY    
+    -> "Y" {%id%}
 
 # =====================================================
 # CONTINUATION

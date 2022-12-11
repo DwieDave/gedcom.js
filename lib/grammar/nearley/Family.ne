@@ -22,5 +22,3 @@
 		{%id%}
 	|  1_FAMILY_ATTRIBUTE_STRUCTURE
 		{%id%}
-	|  1_SOURCE_CITATION
-		{%id%}
