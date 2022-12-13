@@ -6,9 +6,7 @@
 
     // moo-lexer to pre-compile input
     const lexer = moo.compile({
-        ByteOrderMark1: /[\xEF]/,
-        ByteOrderMark2: /[\xBB]/,
-        ByteOrderMark3: /[\xBF]/,
+        BOM          : /[\ufeff]/,
         D            : /[ ]/,
         digit        : /[0-9]/,
         underscore   : /[_]/,

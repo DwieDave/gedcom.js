@@ -2,7 +2,7 @@
 @lexer lexer
 
 0_GEDCOM
-	-> 0_g7_record_HEAD RECORDS:* TRLR
+	-> %BOM:? 0_g7_record_HEAD RECORDS:* TRLR
 
 RECORDS
 	-> 0_g7_record_FAM

@@ -135,7 +135,7 @@ class GrammarGenerator{
             // given struct is a Gedcom Structure for a whole Dataset
             if(lineType === lineTypes.GEDCOM){
                 // top-level input rule for a Gedcom Dataset with Header, Records and Trailer
-                lineString += `${level}_${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
+                lineString += `%BOM:? ${level}_${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
 
                 // add records Gedcom rule
                 lineString += `RECORDS${this.ruleArrow} ${level}_${this.convertUri(substructs[0])}${this.idPostprocessor}`;
