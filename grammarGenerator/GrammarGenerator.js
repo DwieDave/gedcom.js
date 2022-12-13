@@ -93,14 +93,9 @@ class GrammarGenerator{
 
         // convert ruleDefinition to nearley rules
         for(const rule of ruleDefinition){
-            if(rule.incomplete){
-                // pass if the rule in the object notation is flagged as incomplete 
-            }else{
-                this.generateRule(rule).forEach(ele => {
-                    ruleArray.push(ele);
-                })
-                
-            }
+            this.generateRule(rule).forEach(ele => {
+                ruleArray.push(ele);
+            })
         }
 
         // return rules as one string seperated with two newline characters
@@ -210,7 +205,7 @@ class GrammarGenerator{
                     // Structure of the form: LEVEL D XREF D TAG D LINEVAL EOL
                     case lineTypes.SNOTE_RECORD:
                     default:
-                        lineString += `"${level}" D Xref D "${tag}" D ${lineValType} EOL`;
+                        lineString += `"${level}" D Xref D "${tag}" (D ${lineValType}):? EOL`;
                             
                         
                 }
@@ -232,9 +227,7 @@ class GrammarGenerator{
                         lineString += `${this.rulePipe} ${level+1}_${this.convertUri(substructs[i])}`
                         lineString += this.idPostprocessor;
                     }
-                }
-                
-                
+                } 
             }
 
             lineStrings.push(lineString);

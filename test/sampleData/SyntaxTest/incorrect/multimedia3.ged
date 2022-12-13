@@ -1,0 +1,9 @@
+0 HEAD
+1 GEDC
+2 VERS 7.0
+0 @O1@ OBJE
+1 FILE file:///path/to/file1
+2 FORM text/plain
+3 MEDI OTHER
+4 PHRASE Transcript
+0 TRLR

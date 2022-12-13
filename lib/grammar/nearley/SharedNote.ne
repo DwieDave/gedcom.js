@@ -8,7 +8,7 @@
 		{% (d) => postprocessor.addSubstructure({superstruct: d[0], substructs: d[1]})%}
 
 0_recordSNOTE
-	->"0" D Xref D "SNOTE" D Text EOL
+	->"0" D Xref D "SNOTE" (D Text):? EOL
 		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_SNOTE", type: "SNOTE_RECORD", lineValType: "Text", checkCardinalityOf: {"1_g7_MIME":"0:1", "1_g7_LANG":"0:1", "1_CHANGE_DATE":"0:1", "1_CREATION_DATE":"0:1"}})%}
 
 0_recordSNOTE_Substructs
