@@ -6,5 +6,5 @@ module.exports = {
     slow: 500,
     medium: 100,
     fast: 10,
-    timeout: 5000,
+    timeout: 50000,
 };

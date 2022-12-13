@@ -219,11 +219,13 @@ ListEnum
 # Personal Name
 PersonalName 
     -> nameStr 
+        {%id%}
     |  nameStr:? "/" nameStr:? "/" nameStr:? 
         {% postprocessor.joinAndUnpackAll %}
 
 nameChar    
-    -> [^\x00-\x19\x2F] {%id%}
+    -> [^\x00-\x19\x2F] 
+        {%id%}
 nameStr     
     -> nameChar:+ 
         {% postprocessor.joinAndUnpackAll %}
@@ -234,6 +236,7 @@ Language
     #-> lang ("-" script):? ("-" region):? ("-" variant):* ("-" extension):* ("-" privateuse):? 
     #    {% postprocessor.joinAndUnpackAll %}
     -> Text
+        {%id%}
 
 lang    
     -> alpha alpha alpha:? ("-" extlang):? 
@@ -268,8 +271,10 @@ extension
         {% postprocessor.joinAndUnpackAll %}
 
 singleton   
-    -> digit {%id%}
-    |  [\x41-\x57\x59-\x5A\x61-\x77\x79-\x7A] {%id%}
+    -> digit 
+        {%id%}
+    |  [\x41-\x57\x59-\x5A\x61-\x77\x79-\x7A] 
+        {%id%}
 
 privateuse  
     -> "x" ("-" alphanum (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):? (alphanum):?):+ 
