@@ -7,6 +7,7 @@ import { NearleyParser } from "../lib/NearleyParser.js";
 import Dataset from "../lib/Dataset.js";
 import readGedFile from "../lib/helpers/readGedFile.js";
 import Structure from "../lib/ExportGedcomStructureClasses.js"
+import { DatasetError } from "../lib/Errors.js";
 
 
 describe('Test Dataset Class', () => {
@@ -37,7 +38,6 @@ describe('Test Dataset Class', () => {
             "voidptr.ged"
         ];
             
-
         forEach(gedFiles)
         .it('#%s', async (fileName) => {
             // read Gedcom file as String
@@ -66,7 +66,7 @@ describe('Test Dataset Class', () => {
     });
 
     // ===============================================================================================================================================
-    // GetRecordsByConstructor()
+    // TEST GetRecordsByConstructor()
     describe('Test "getRecordsByConstructor()" with maximal FamilySearch GEDCOM 7.0 File', () => {
         it('should contain two Family Records', () => {
             expect(result.getFamilyRecords()).to.have.lengthOf(2);
@@ -92,58 +92,156 @@ describe('Test Dataset Class', () => {
     });
 
     // ===============================================================================================================================================
-    // GetRecordsByXref()
+    // TEST GetRecordsByXref()
     describe('Test "getRecordByXref()" with maximal FamilySearch GEDCOM 7.0 File', () => {
-        // Family
-        it('should contain Family Record @F1@', () => {
-            expect(result.getRecordByXref("F1")).to.be.an.instanceOf(Structure.Family);
+        const shouldContain = [
+            ["F1", Structure.Family],
+            ["I1", Structure.Individual],
+            ["O1", Structure.Multimedia],
+            ["R1", Structure.Repository],
+            ["N1", Structure.SharedNote],
+            ["S1", Structure.Source],
+            ["U1", Structure.Submitter]
+        ];
+        const shouldNotContain = [
+            "F3","I5","O4","R6","N7","S8","U9"
+        ];
+
+        // Dataset should contain records with given Xrefs
+        forEach(shouldContain)
+        .it('should contain Family Record @%s@', async (xref, structureType) => {
+            expect(result.getRecordByXref(xref)).to.be.an.instanceOf(structureType);
         });
-        it('should not contain Family Record @F3@', () => {
-            expect(result.getRecordByXref("F3")).to.be.null;
-        });
-        // Individual
-        it('should contain Individual Record @I1@', () => {
-            expect(result.getRecordByXref("I1")).to.be.an.instanceOf(Structure.Individual);
-        });
-        it('should not contain Individual Record @I5@', () => {
-            expect(result.getRecordByXref("I5")).to.be.null;
-        });
-        // Multimedia
-        it('should contain Multimedia Record @O1@', () => {
-            expect(result.getRecordByXref("O1")).to.be.an.instanceOf(Structure.Multimedia);
-        });
-        it('should not contain Multimedia Record @O3@', () => {
-            expect(result.getRecordByXref("O3")).to.be.null;
-        });
-        // Repository
-        it('should contain Repository Record @R1@', () => {
-            expect(result.getRecordByXref("R1")).to.be.an.instanceOf(Structure.Repository);
-        });
-        it('should not contain Repository Record @R3@', () => {
-            expect(result.getRecordByXref("R3")).to.be.null;
-        });
-        // SharedNote
-        it('should contain SharedNote Record @N1@', () => {
-            expect(result.getRecordByXref("N1")).to.be.an.instanceOf(Structure.SharedNote);
-        });
-        it('should not contain SharedNote Record @N3@', () => {
-            expect(result.getRecordByXref("N3")).to.be.null;
-        });
-        // Source
-        it('should contain Source Record @S1@', () => {
-            expect(result.getRecordByXref("S1")).to.be.an.instanceOf(Structure.Source);
-        });
-        it('should not contain Source Record @S3@', () => {
-            expect(result.getRecordByXref("S3")).to.be.null;
-        });
-        // Submitter
-        it('should contain Submitter Record @U1@', () => {
-            expect(result.getRecordByXref("U1")).to.be.an.instanceOf(Structure.Submitter);
-        });
-        it('should not contain Submitter Record @U3@', () => {
-            expect(result.getRecordByXref("U3")).to.be.null;
+
+        // Dataset should NOT contain records with given Xrefs
+        forEach(shouldNotContain)
+        .it('should NOT contain Family Record @%s@', async (xref) => {
+            expect(result.getRecordByXref(xref)).to.be.undefined;
         });
     });
+
+    // ===============================================================================================================================================
+    // TEST duplicated xref detection
+    describe('Test duplicated xref detection', () => {
+        const path = "test/sampleData/DatasetTest/DuplicatedXref/";
+        const noDuplicate = [
+            "noDuplicatedXrefsMinimal.ged",
+            "noDuplicatedXrefsMaximal.ged"
+        ];
+        const duplicates = [
+            "oneDuplicatedXrefMinimal.ged",
+            "oneDuplicatedXrefMaximal.ged",
+            "multipleDuplicatedXrefsMinimal.ged",
+            "multipleDuplicatedXrefsMaximal.ged"
+        ];
+
+        // Parse Gedcom files without duplicated xrefs
+        forEach(noDuplicate)
+        .it('#%s -> should return not-empty instance of Dataset', async (fileName) => {
+            // read Gedcom file as String
+            const gedcomString = await readGedFile(path + fileName);
+            // parse Gedcom String
+            expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+        });
+
+        // Parse Gedcom files with one or more duplicated xrefs
+        forEach(duplicates)
+        .it('#%s -> should throw DatasetError', async (fileName) => {
+            // read Gedcom file as String
+            const gedcomString = await readGedFile(path + fileName);
+            // parse Gedcom String
+            expect(() => nearleyParser.parseString(gedcomString)).to.throw(DatasetError)
+        });
+    });
+
+    // ===============================================================================================================================================
+    // TEST missing xref detection
+    describe('Test missing xref detection', () => {
+        const path = "test/sampleData/DatasetTest/MissingXref/";
+        const files = [
+            "missingF1.ged",
+            "missingI1.ged",
+            "missingN1.ged",
+            "missingO1.ged",
+            "missingR1.ged",
+            "missingS1.ged",
+            "missingU1.ged"
+        ];
+
+        // Parse Gedcom files with missing Xrefs
+        forEach(files)
+        .it('#%s -> should throw DatasetError', async (fileName) => {
+            // read Gedcom file as String
+            const gedcomString = await readGedFile(path + fileName);
+            // parse Gedcom String
+            expect(() => nearleyParser.parseString(gedcomString)).to.throw(DatasetError)
+        });
+
+    });
+
+    // ===============================================================================================================================================
+    // TEST detection of byte-order-mark
+    describe('Test detection of byte-order-mark', () => {
+        const path = "test/sampleData/DatasetTest/BOMdetection/";
+        const BOMset = [
+            "BOMsetMinimal.ged",
+            "BOMsetMaximal.ged"
+        ];
+        const noBOM = [
+            "noBOMMinimal.ged",
+            "noBOMMaximal.ged"
+        ];
+        
+
+        // Parse Gedcom files with byte-order-mark as first character of .ged file
+        forEach(BOMset)
+        .it('#%s -> BOMset should be true', async (fileName) => {
+            // read Gedcom file as String
+            const gedcomString = await readGedFile(path + fileName);
+            // parse Gedcom String
+            const dataset = nearleyParser.parseString(gedcomString);
+            expect(dataset.BOMset).to.be.true;
+        });
+
+        // Parse Gedcom files without byte-order-mark as first character of .ged file
+        forEach(noBOM)
+        .it('#%s -> BOMset should be false', async (fileName) => {
+            const gedcomString = await readGedFile(path + fileName);
+            // parse Gedcom String
+            const dataset = nearleyParser.parseString(gedcomString);
+            expect(dataset.BOMset).to.be.false
+        });
+    });
+
+    // ===============================================================================================================================================
+    // TEST detection of EOL-Characters
+    describe('Test detection of EOL-Characters', () => {
+        const input = [
+            ["Gedcom String with \\n EOL characters only", "false", "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n0 TRLR\n"],
+            ["Gedcom String with \\r EOL characters only", "false", "0 HEAD\r1 GEDC\r2 VERS 7.0\r0 @F1@ FAM\r0 TRLR\r"],
+            ["Gedcom String with \\r\\n EOL characters only", "false", "0 HEAD\r\n1 GEDC\r\n2 VERS 7.0\r\n0 @F1@ FAM\r\n0 TRLR\r\n"],
+            ["Gedcom String with multiple EOL characters (\\n, \\r)", "true", "0 HEAD\n1 GEDC\n2 VERS 7.0\r0 @F1@ FAM\r0 TRLR\r"],
+            ["Gedcom String with multiple EOL characters (\\n, \\r\\n)", "true", "0 HEAD\n1 GEDC\n2 VERS 7.0\r\n0 @F1@ FAM\r\n0 TRLR\r\n"],
+            ["Gedcom String with multiple EOL characters (\\r, \\r\\n)", "true", "0 HEAD\r1 GEDC\r2 VERS 7.0\r\n0 @F1@ FAM\r\n0 TRLR\r"],
+            ["Gedcom String with multiple EOL characters (\\n, \\r, \\r\\n)", "true", "0 HEAD\n1 GEDC\n2 VERS 7.0\r\n0 @F1@ FAM\r0 TRLR\r"]
+        ]
+
+        forEach(input)
+        .it('%s -> multipleEOLCharacters should be %s', (name, value, str) => {
+            // parse Gedcom String
+            const dataset = nearleyParser.parseString(str);
+            if(value === "true"){
+                expect(dataset.multipleEOLCharacters).to.be.true;
+            }else{
+                expect(dataset.multipleEOLCharacters).to.be.false;
+            }
+            
+        });
+    });
+
+
+
+    
 
     
 
