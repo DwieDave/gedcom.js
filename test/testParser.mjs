@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { NearleyParser } from "../lib/NearleyParser.js";
+import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
 import readGedFile from "../lib/helpers/readGedFile.js";
 import { ParsingError } from "../lib/Errors.js";
@@ -9,7 +9,7 @@ import forEach from "mocha-each";
 
 describe('Test Gedcom Parser with .ged-files', () => {
 
-    const nearleyParser = new NearleyParser();
+    const gedcomParser = new GedcomParser();
     const records = [
         ["Family", [
             ["Family Record with...", "family1.ged"],
@@ -66,7 +66,7 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(gedFiles)
             .it('#%s', async (fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+                expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
             });
         });
 
@@ -80,7 +80,7 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(gedFiles)
             .it('#%s', async (fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(() => nearleyParser.parseString(gedcomString)).to.throw(ParsingError)
+                expect(() => gedcomParser.parseString(gedcomString)).to.throw(ParsingError)
             });
         });
     });
@@ -99,7 +99,7 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(gedFiles)
             .it('%s', async (description, fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+                expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
             });
         });
 
@@ -109,7 +109,7 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(tests)
             .it('%s', async (description, fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+                expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
             });
         });
     });
@@ -129,8 +129,8 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(gedFiles)
             .it('%s', async (description, fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
-                //expect(nearleyParser.parseString(gedcomString)).to.throw(ParsingError);
+                expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+                //expect(gedcomParser.parseString(gedcomString)).to.throw(ParsingError);
             });
         });
 
@@ -141,8 +141,8 @@ describe('Test Gedcom Parser with .ged-files', () => {
             forEach(tests)
             .it('%s', async (description, fileName) => {
                 const gedcomString = await readGedFile(path + fileName);
-                expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
-                //expect(nearleyParser.parseString(gedcomString)).to.throw(ParsingError);
+                expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+                //expect(gedcomParser.parseString(gedcomString)).to.throw(ParsingError);
             });
         });
     });

@@ -3,7 +3,7 @@ import forEach from "mocha-each";
 import fs from "fs/promises"
 import { diffChars } from "diff";
 
-import { NearleyParser } from "../lib/NearleyParser.js";
+import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
 import readGedFile from "../lib/helpers/readGedFile.js";
 import Structure from "../lib/ExportGedcomStructureClasses.js"
@@ -12,7 +12,7 @@ import constants from "../lib/Constants.js";
 
 
 describe('Test Structure Class', () => {
-    const nearleyParser = new NearleyParser();
+    const gedcomParser = new GedcomParser();
     let gedcomString = "";
     let dataset = null;
 
@@ -21,7 +21,7 @@ describe('Test Structure Class', () => {
         console.log = function () {}
         // parse maximal gedcom example file
         gedcomString = await readGedFile("test/sampleData/ExampleFamilySearchGEDCOMFiles/maximal70_without_extensions.ged");
-        dataset = nearleyParser.parseString(gedcomString);
+        dataset = gedcomParser.parseString(gedcomString);
     });
 
     // ===============================================================================================================================================
@@ -70,7 +70,7 @@ describe('Test Structure Class', () => {
             console.log = function () {}
             // parse maximal gedcom example file
             gedcomString = await readGedFile("test/sampleData/StructureTest/findStructures.ged");
-            dataset = nearleyParser.parseString(gedcomString);
+            dataset = gedcomParser.parseString(gedcomString);
         });
 
         forEach(searchForTag)
@@ -134,7 +134,7 @@ describe('Test Structure Class', () => {
             console.log = function () {}
             // parse maximal gedcom example file
             gedcomString = await readGedFile("test/sampleData/StructureTest/findStructures.ged");
-            dataset = nearleyParser.parseString(gedcomString);
+            dataset = gedcomParser.parseString(gedcomString);
         });
 
         forEach(searchForLineVal)
