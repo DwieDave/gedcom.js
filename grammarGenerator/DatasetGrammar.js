@@ -1,11 +1,11 @@
 const {lineTypes, dataTypes} = require("../lib/Constants.js");
 
 module.exports = {
-    grammarName: "Gedcom",
+    grammarName: "Dataset",
     rules:[
         {
-            uri: "GEDCOM",
-            lineType: lineTypes.GEDCOM,
+            uri: "DATASET",
+            lineType: lineTypes.DATASET,
             level: [0],
             substructs: {
                 "g7:record-FAM":"0:M", 

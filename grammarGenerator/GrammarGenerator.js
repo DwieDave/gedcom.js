@@ -22,20 +22,20 @@ class GrammarGenerator{
         this.nearleyHeader = nearleyHeader;
 
         // object notation of grammar rules for a whole Gedcom Dataset
-        this.gedcom = require("./Gedcom.js");
+        this.dataset = require("./DatasetGrammar.js");
 
         // object notation of grammar rules for a Gedcom Header Record
-        this.headerRecord = require("./records/HeaderRecord")
+        this.headerRecord = require("./records/HeaderRecordGrammar")
 
         // object notation of grammar rules for all Gedcom Records
         this.records = [
-            require("./records/FamilyRecord.js"),
-            require("./records/IndividualRecord.js"),
-            require("./records/MultimediaRecord.js"),
-            require("./records/RepositoryRecord.js"),
-            require("./records/SharedNoteRecord.js"),
-            require("./records/SourceRecord.js"),
-            require("./records/SubmitterRecord.js")
+            require("./records/FamilyRecordGrammar.js"),
+            require("./records/IndividualRecordGrammar.js"),
+            require("./records/MultimediaRecordGrammar.js"),
+            require("./records/RepositoryRecordGrammar.js"),
+            require("./records/SharedNoteRecordGrammar.js"),
+            require("./records/SourceRecordGrammar.js"),
+            require("./records/SubmitterRecordGrammar.js")
         ]
 
         // object notation of grammar rules for all Gedcom Substructures
@@ -82,7 +82,7 @@ class GrammarGenerator{
         }
 
         // generate nearley-string with all rules for a Gedcom Dataset and save it as .ne-file
-        await fs.writeFile(`${this.path}nearley/${this.gedcom.grammarName}.ne`, this.generateRuleString(this.gedcom.rules))
+        await fs.writeFile(`${this.path}nearley/${this.dataset.grammarName}.ne`, this.generateRuleString(this.dataset.rules))
 
     }
 
@@ -128,7 +128,7 @@ class GrammarGenerator{
             let lineString = `${level}_${uri}${this.ruleArrow} `;
 
             // given struct is a Gedcom Structure for a whole Dataset
-            if(lineType === lineTypes.GEDCOM){
+            if(lineType === lineTypes.DATASET){
                 // top-level input rule for a Gedcom Dataset with Header, Records and Trailer
                 lineString += `%BOM:? ${level}_${this.convertUri(this.headerRecord.rules[0].uri)} RECORDS:* TRLR\n\n`;
 
@@ -267,7 +267,7 @@ class GrammarGenerator{
         }
 
         // build Gedcom Parser for a whole Gedcom Dataset
-        await this.buildParser(this.gedcom.grammarName, gedcomInclude);
+        await this.buildParser(this.dataset.grammarName, gedcomInclude);
         
         // clear dummy.ne file
         await fs.writeFile(this.dummyPath, "");
