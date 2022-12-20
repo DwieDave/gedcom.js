@@ -25,18 +25,12 @@ class GrammarGenerator{
         this.dataset = require("./DatasetGrammar.js");
 
         // object notation of grammar rules for a Gedcom Header Record
-        this.headerRecord = require("./records/HeaderRecordGrammar")
+        this.headerRecord = require("./structures/HeaderRecordGrammar")
 
-        // object notation of grammar rules for all Gedcom Records
-        this.records = [
-            require("./records/FamilyRecordGrammar.js"),
-            require("./records/IndividualRecordGrammar.js"),
-            require("./records/MultimediaRecordGrammar.js"),
-            require("./records/RepositoryRecordGrammar.js"),
-            require("./records/SharedNoteRecordGrammar.js"),
-            require("./records/SourceRecordGrammar.js"),
-            require("./records/SubmitterRecordGrammar.js")
-        ]
+        this.records = [];
+        for(const record of require("./structures/Records.js")){
+            this.records.push(record);
+        }
 
         // object notation of grammar rules for all Gedcom Substructures
         this.substructures = require("./structures/Substructures.js");

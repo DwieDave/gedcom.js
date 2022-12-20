@@ -1,10 +1,12 @@
 const {lineTypes, dataTypes, gedcomEnumTypes} = require("../../lib/Constants");
+
 module.exports = {
     grammarName: "StructureTypes",
     rules:[
         {
             // Test
             uri: "g7:TEST",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.DatePeriod,
@@ -15,6 +17,7 @@ module.exports = {
         {
             // Abbreviation 
             uri: "g7:ABBR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -24,6 +27,7 @@ module.exports = {
         {
             // Address 
             uri: "g7:ADDR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3],
             lineValType: dataTypes.Special,
@@ -41,6 +45,7 @@ module.exports = {
         {
             // Adoption 
             uri: "g7:ADOP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -54,6 +59,7 @@ module.exports = {
         {
             // Adoption 
             uri: "g7:FAMC-ADOP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3],
             lineValType: dataTypes.Enum,
@@ -66,6 +72,7 @@ module.exports = {
         {
             // Address Line 1 
             uri: "g7:ADR1",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -75,6 +82,7 @@ module.exports = {
         {
             // Address Line 2 
             uri: "g7:ADR2",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -84,6 +92,7 @@ module.exports = {
         {
             // Address Line 3 
             uri: "g7:ADR3",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -93,6 +102,7 @@ module.exports = {
         {
             // Age at event 
             uri: "g7:AGE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Age,
@@ -104,6 +114,7 @@ module.exports = {
         {
             // Responsible agency 
             uri: "g7:AGNC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Text,
@@ -113,6 +124,7 @@ module.exports = {
         {
             // Alias 
             uri: "g7:ALIA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -124,6 +136,7 @@ module.exports = {
         {
             // Ancestor interest 
             uri: "g7:ANCI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -133,6 +146,7 @@ module.exports = {
         {
             // Annulment 
             uri: "g7:ANUL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -145,6 +159,7 @@ module.exports = {
         {
             // Associates 
             uri: "g7:ASSO",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2],
             lineValType: dataTypes.Xref,
@@ -159,6 +174,7 @@ module.exports = {
         {
             // Author 
             uri: "g7:AUTH",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -168,6 +184,7 @@ module.exports = {
         {
             // Baptism, Latter-Day Saint 
             uri: "g7:BAPL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "BAPL",
@@ -178,6 +195,7 @@ module.exports = {
         {
             // Baptism 
             uri: "g7:BAPM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -190,6 +208,7 @@ module.exports = {
         {
             // Bar Mitzvah 
             uri: "g7:BARM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -202,6 +221,7 @@ module.exports = {
         {
             // Bas Mitzvah 
             uri: "g7:BASM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -214,6 +234,7 @@ module.exports = {
         {
             // Birth 
             uri: "g7:BIRT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -227,6 +248,7 @@ module.exports = {
         {
             // Blessing 
             uri: "g7:BLES",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -239,6 +261,7 @@ module.exports = {
         {
             // Burial 
             uri: "g7:BURI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -251,6 +274,7 @@ module.exports = {
         {
             // Call number 
             uri: "g7:CALN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Special,
@@ -262,6 +286,7 @@ module.exports = {
         {
             // Caste 
             uri: "g7:CAST",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -274,6 +299,7 @@ module.exports = {
         {
             // Cause 
             uri: "g7:CAUS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Text,
@@ -283,6 +309,7 @@ module.exports = {
         {
             // Census 
             uri: "g7:FAM-CENS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -295,6 +322,7 @@ module.exports = {
         {
             // Census 
             uri: "g7:INDI-CENS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -307,6 +335,7 @@ module.exports = {
         {
             // Change 
             uri: "g7:CHAN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1,2],
             tag: "CHAN",
@@ -318,6 +347,7 @@ module.exports = {
         {
             // Child 
             uri: "g7:CHIL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Xref,
@@ -329,6 +359,7 @@ module.exports = {
         {
             // Christening, adult 
             uri: "g7:CHRA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -341,6 +372,7 @@ module.exports = {
         {
             // Christening 
             uri: "g7:CHR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -354,6 +386,7 @@ module.exports = {
         {
             // City 
             uri: "g7:CITY",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -363,6 +396,7 @@ module.exports = {
         {
             // Confirmation 
             uri: "g7:CONF",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -375,6 +409,7 @@ module.exports = {
         {
             // Confirmation, Latter-Day Saint 
             uri: "g7:CONL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "CONL",
@@ -385,6 +420,7 @@ module.exports = {
         {
             // Copyright 
             uri: "g7:COPR",
+			info: "Structure Info coming soon!",
             level: [1,3],
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
@@ -394,6 +430,7 @@ module.exports = {
         {
             // Corporate name 
             uri: "g7:CORP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2],
             lineValType: dataTypes.Text,
@@ -409,6 +446,7 @@ module.exports = {
         {
             // Creation 
             uri: "g7:CREA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "CREA",
@@ -419,6 +457,7 @@ module.exports = {
         {
             // Cremation 
             uri: "g7:CREM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -431,6 +470,7 @@ module.exports = {
         {
             // Crop 
             uri: "g7:CROP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[2,3,4,5,6,7],
             tag: "CROP",
@@ -444,6 +484,7 @@ module.exports = {
         {
             // Country 
             uri: "g7:CTRY",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -453,6 +494,7 @@ module.exports = {
         {
             // Data 
             uri: "g7:DATA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "DATA",
@@ -465,6 +507,7 @@ module.exports = {
         {
             // Data 
             uri: "g7:SOUR-DATA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[2,3,4,5,6],
             tag: "DATA",
@@ -476,6 +519,7 @@ module.exports = {
         {
             // Data 
             uri: "g7:HEAD-SOUR-DATA",
+			info: "Structure Info coming soon!",
             level: [2],
             lineType: lineTypes.NO_XREF,
             lineValType: dataTypes.Text,
@@ -488,6 +532,7 @@ module.exports = {
         {
             // Date 
             uri: "g7:DATE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6,7],
             lineValType: dataTypes.DateValue,
@@ -500,6 +545,7 @@ module.exports = {
         {
             // Date 
             uri: "g7:DATE-exact",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3],
             lineValType: dataTypes.DateExact,
@@ -511,6 +557,7 @@ module.exports = {
         {
             // Date 
             uri: "g7:HEAD-DATE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.DateExact,
@@ -522,6 +569,7 @@ module.exports = {
         {
             // Date 
             uri: "g7:NO-DATE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.DatePeriod,
@@ -533,6 +581,7 @@ module.exports = {
         {
             // Date 
             uri: "g7:DATA-EVEN-DATE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3],
             lineValType: dataTypes.DatePeriod,
@@ -545,6 +594,7 @@ module.exports = {
         {
             // Death 
             uri: "g7:DEAT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -557,6 +607,7 @@ module.exports = {
         {
             // Descendant Interest 
             uri: "g7:DESI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -566,6 +617,7 @@ module.exports = {
         {
             // Destination 
             uri: "g7:DEST",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Special,
@@ -575,6 +627,7 @@ module.exports = {
         {
             // Divorce filing 
             uri: "g7:DIVF",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -587,6 +640,7 @@ module.exports = {
         {
             // Divorce 
             uri: "g7:DIV",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -599,6 +653,7 @@ module.exports = {
         {
             // Description 
             uri: "g7:DSCR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -611,6 +666,7 @@ module.exports = {
         {
             // Description 
             uri: "g7:EDUC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -623,6 +679,7 @@ module.exports = {
         {
             // Email 
             uri: "g7:EMAIL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3],
             lineValType: dataTypes.Special,
@@ -632,6 +689,7 @@ module.exports = {
         {
             // Description 
             uri: "g7:EMIG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -644,6 +702,7 @@ module.exports = {
         {
             // Endowment, Latter-Day Saint 
             uri: "g7:ENDL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "ENDL",
@@ -654,6 +713,7 @@ module.exports = {
         {
             // Engagement 
             uri: "g7:ENGA",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -666,6 +726,7 @@ module.exports = {
         {
             // Event 
             uri: "g7:FAM-EVEN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -678,6 +739,7 @@ module.exports = {
         {
             // Event 
             uri: "g7:INDI-EVEN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -690,6 +752,7 @@ module.exports = {
         {
             // Event 
             uri: "g7:DATA-EVEN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.ListText,
@@ -703,6 +766,7 @@ module.exports = {
         {
             // Event 
             uri: "g7:SOUR-EVEN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6],
             lineValType: dataTypes.Text,
@@ -716,6 +780,7 @@ module.exports = {
         {
             // External Identifier 
             uri: "g7:EXID",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,3,4],
             lineValType: dataTypes.Special,
@@ -727,6 +792,7 @@ module.exports = {
         {
             // Fact 
             uri: "g7:FAM-FACT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -739,6 +805,7 @@ module.exports = {
         {
             // Fact 
             uri: "g7:INDI-FACT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -751,6 +818,7 @@ module.exports = {
         {
             // Family child 
             uri: "g7:INDI-FAMC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -764,6 +832,7 @@ module.exports = {
         {
             // Family child 
             uri: "g7:FAMC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Xref,
@@ -773,6 +842,7 @@ module.exports = {
         {
             // Family child 
             uri: "g7:ADOP-FAMC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Xref,
@@ -784,6 +854,7 @@ module.exports = {
         {
             // Family spouse 
             uri: "g7:FAMS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -795,6 +866,7 @@ module.exports = {
         {
             // Facsimile 
             uri: "g7:FAX",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3],
             lineValType: dataTypes.Special,
@@ -804,6 +876,7 @@ module.exports = {
         {
             // First communion 
             uri: "g7:FCOM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -816,6 +889,7 @@ module.exports = {
         {
             // File reference 
             uri: "g7:FILE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Special,
@@ -829,6 +903,7 @@ module.exports = {
         {
             // Format 
             uri: "g7:FORM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.MediaType,
@@ -840,6 +915,7 @@ module.exports = {
         {
             // Format 
             uri: "g7:PLAC-FORM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4],
             lineValType: dataTypes.ListText,
@@ -849,6 +925,7 @@ module.exports = {
         {
             // Format 
             uri: "g7:HEAD-PLAC-FORM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2],
             lineValType: dataTypes.ListText,
@@ -858,6 +935,7 @@ module.exports = {
         {
             // GEDCOM 
             uri: "g7:GEDC",
+			info: "Structure Info coming soon!",
             level: [1],
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             tag: "GEDC",
@@ -868,6 +946,7 @@ module.exports = {
         {
             // Given name 
             uri: "g7:GIVN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -877,6 +956,7 @@ module.exports = {
         {
             // Graduation 
             uri: "g7:GRAD",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -889,6 +969,7 @@ module.exports = {
         {
             // Height in pixels 
             uri: "g7:HEIGHT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4,5,6,7,8],
             lineValType: dataTypes.Integer,
@@ -898,6 +979,7 @@ module.exports = {
         {
             // Husband 
             uri: "g7:HUSB",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[2],
             tag: "HUSB",
@@ -908,6 +990,7 @@ module.exports = {
         {
             // Husband 
             uri: "g7:FAM-HUSB",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Xref,
@@ -919,6 +1002,7 @@ module.exports = {
         {
             // Identification number 
             uri: "g7:IDNO",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Special,
@@ -931,6 +1015,7 @@ module.exports = {
         {
             // Immigration 
             uri: "g7:IMMI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -943,6 +1028,7 @@ module.exports = {
         {
             // Initiatory, Latter-Day Saint 
             uri: "g7:INIL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "INIL",
@@ -953,6 +1039,7 @@ module.exports = {
         {
             // Language 
             uri: "g7:LANG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3,4,5,6,7,8],
             lineValType: dataTypes.Language,
@@ -962,6 +1049,7 @@ module.exports = {
         {
             // Language 
             uri: "g7:HEAD-LANG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Language,
@@ -971,6 +1059,7 @@ module.exports = {
         {
             // Language 
             uri: "g7:SUBM-LANG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Language,
@@ -980,6 +1069,7 @@ module.exports = {
         {
             // Latitude 
             uri: "g7:LATI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[4,5],
             lineValType: dataTypes.Special,
@@ -989,6 +1079,7 @@ module.exports = {
         {
             // Left crop width 
             uri: "g7:LEFT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4,5,6,7,8],
             lineValType: dataTypes.Integer,
@@ -998,6 +1089,7 @@ module.exports = {
         {
             // Longitude 
             uri: "g7:LONG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[4,5],
             lineValType: dataTypes.Special,
@@ -1007,6 +1099,7 @@ module.exports = {
         {
             // Map 
             uri: "g7:MAP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[3,4],
             tag: "MAP",
@@ -1018,6 +1111,7 @@ module.exports = {
         {
             // Marriage banns 
             uri: "g7:MARB",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1030,6 +1124,7 @@ module.exports = {
         {
             // Marriage contract 
             uri: "g7:MARC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1042,6 +1137,7 @@ module.exports = {
         {
             // Marriage license 
             uri: "g7:MARL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1054,6 +1150,7 @@ module.exports = {
         {
             // Marriage 
             uri: "g7:MARR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1066,6 +1163,7 @@ module.exports = {
         {
             // Marriage settlement 
             uri: "g7:MARS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1078,6 +1176,7 @@ module.exports = {
         {
             // Medium 
             uri: "g7:MEDI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4],
             lineValType: dataTypes.Enum,
@@ -1090,6 +1189,7 @@ module.exports = {
         {
             // Media type 
             uri: "g7:MIME",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3,4,5,6,7,8],
             lineValType: dataTypes.MediaType,
@@ -1099,6 +1199,7 @@ module.exports = {
         {
             // Name 
             uri: "g7:NAME",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2],
             lineValType: dataTypes.Text,
@@ -1108,6 +1209,7 @@ module.exports = {
         {
             // Name 
             uri: "g7:INDI-NAME",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.PersonalName,
@@ -1123,6 +1225,7 @@ module.exports = {
         {
             // Nationality 
             uri: "g7:NATI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1135,6 +1238,7 @@ module.exports = {
         {
             // Naturalization 
             uri: "g7:NATU",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1147,6 +1251,7 @@ module.exports = {
         {
             // Number of children 
             uri: "g7:FAM-NCHI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Integer,
@@ -1159,6 +1264,7 @@ module.exports = {
         {
             // Number of children 
             uri: "g7:INDI-NCHI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Integer,
@@ -1171,6 +1277,7 @@ module.exports = {
         {
             // Nickname 
             uri: "g7:NICK",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -1180,6 +1287,7 @@ module.exports = {
         {
             // Number of marriages 
             uri: "g7:NMR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Integer,
@@ -1192,6 +1300,7 @@ module.exports = {
         {
             // Did not happen 
             uri: "g7:NO",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1206,6 +1315,7 @@ module.exports = {
         {
             // Note 
             uri: "g7:NOTE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3,4],
             lineValType: dataTypes.Text,
@@ -1220,6 +1330,7 @@ module.exports = {
         {
             // Name prefix 
             uri: "g7:NPFX",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -1229,6 +1340,7 @@ module.exports = {
         {
             // Name suffix 
             uri: "g7:NSFX",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -1238,6 +1350,7 @@ module.exports = {
         {
             // Object 
             uri: "g7:OBJE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2,3,4,5,6],
             lineValType: dataTypes.Xref,
@@ -1250,6 +1363,7 @@ module.exports = {
         {
             // Occupation 
             uri: "g7:OCCU",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1262,6 +1376,7 @@ module.exports = {
         {
             // Ordination 
             uri: "g7:ORDN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1274,6 +1389,7 @@ module.exports = {
         {
             // Page 
             uri: "g7:PAGE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6],
             lineValType: dataTypes.Text,
@@ -1283,6 +1399,7 @@ module.exports = {
         {
             // Pedigree 
             uri: "g7:PEDI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Enum,
@@ -1295,6 +1412,7 @@ module.exports = {
         {
             // Phone 
             uri: "g7:PHON",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3],
             lineValType: dataTypes.Special,
@@ -1304,6 +1422,7 @@ module.exports = {
         {
             // Phrase 
             uri: "g7:PHRASE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4,5,6,7,8],
             lineValType: dataTypes.Text,
@@ -1313,6 +1432,7 @@ module.exports = {
         {
             // Place 
             uri: "g7:PLAC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.ListText,
@@ -1329,6 +1449,7 @@ module.exports = {
         {
             // Place 
             uri: "g7:HEAD-PLAC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level: [1],
             tag: "PLAC",
@@ -1339,6 +1460,7 @@ module.exports = {
         {
             // Postal code 
             uri: "g7:POST",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -1348,6 +1470,7 @@ module.exports = {
         {
             // Probate 
             uri: "g7:PROB",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1360,6 +1483,7 @@ module.exports = {
         {
             // Property 
             uri: "g7:PROP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1372,6 +1496,7 @@ module.exports = {
         {
             // Publication 
             uri: "g7:PUBL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1381,6 +1506,7 @@ module.exports = {
         {
             // Quality of data 
             uri: "g7:QUAY",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6],
             lineValType: dataTypes.Enum,
@@ -1391,6 +1517,7 @@ module.exports = {
         {
             // Reference 
             uri: "g7:REFN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Special,
@@ -1402,6 +1529,7 @@ module.exports = {
         {
             // Religion 
             uri: "g7:RELI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Text,
@@ -1411,6 +1539,7 @@ module.exports = {
         {
             // Religion 
             uri: "g7:INDI-RELI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1423,6 +1552,7 @@ module.exports = {
         {
             // Restriction 
             uri: "g7:RESN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2],
             lineValType: dataTypes.ListEnum,
@@ -1433,6 +1563,7 @@ module.exports = {
         {
             // Repository 
             uri: "g7:REPO",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Xref,
@@ -1445,6 +1576,7 @@ module.exports = {
         {
             // Residence 
             uri: "g7:FAM-RESI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1456,6 +1588,7 @@ module.exports = {
         {
             // Residence 
             uri: "g7:INDI-RESI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1468,6 +1601,7 @@ module.exports = {
         {
             // Retirement 
             uri: "g7:RETI",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1480,6 +1614,7 @@ module.exports = {
         {
             // Role 
             uri: "g7:ROLE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3,4,5,6,7],
             lineValType: dataTypes.Enum,
@@ -1492,6 +1627,7 @@ module.exports = {
         {
             // Extension schema 
             uri: "g7:SCHMA",
+			info: "Structure Info coming soon!",
             level: [1],
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             tag: "SCHMA",
@@ -1502,6 +1638,7 @@ module.exports = {
         {
             // Sort date 
             uri: "g7:SDATE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.DateValue,
@@ -1514,6 +1651,7 @@ module.exports = {
         {
             // Sex 
             uri: "g7:SEX",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Enum,
@@ -1524,6 +1662,7 @@ module.exports = {
         {
             // Sealing, child 
             uri: "g7:SLGC",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "SLGC",
@@ -1535,6 +1674,7 @@ module.exports = {
         {
             // Sealing, spouse 
             uri: "g7:SLGS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[1],
             tag: "SLGS",
@@ -1545,6 +1685,7 @@ module.exports = {
         {
             // Shared note 
             uri: "g7:SNOTE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2,3,4],
             lineValType: dataTypes.Xref,
@@ -1554,6 +1695,7 @@ module.exports = {
         {
             // Source 
             uri: "g7:SOUR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2,3,4,5],
             lineValType: dataTypes.Xref,
@@ -1571,6 +1713,7 @@ module.exports = {
         {
             // Source 
             uri: "g7:HEAD-SOUR",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Special,
@@ -1585,6 +1728,7 @@ module.exports = {
         {
             // Surname prefix 
             uri: "g7:SPFX",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -1594,6 +1738,7 @@ module.exports = {
         {
             // Social security number 
             uri: "g7:SSN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Special,
@@ -1606,6 +1751,7 @@ module.exports = {
         {
             // State 
             uri: "g7:STAE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4],
             lineValType: dataTypes.Special,
@@ -1615,6 +1761,7 @@ module.exports = {
         {
             // Status 
             uri: "g7:ord-STAT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Enum,
@@ -1627,6 +1774,7 @@ module.exports = {
         {
             // Status 
             uri: "g7:FAMC-STAT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Enum,
@@ -1639,6 +1787,7 @@ module.exports = {
         {
             // Submitter 
             uri: "g7:SUBM",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Xref,
@@ -1648,6 +1797,7 @@ module.exports = {
         {
             // Surname 
             uri: "g7:SURN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,3],
             lineValType: dataTypes.Text,
@@ -1657,6 +1807,7 @@ module.exports = {
         {
             // Extension tag 
             uri: "g7:TAG",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2],
             lineValType: dataTypes.Special,
@@ -1666,6 +1817,7 @@ module.exports = {
         {
             // Temple 
             uri: "g7:TEMP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Text,
@@ -1675,6 +1827,7 @@ module.exports = {
         {
             // Text from Source 
             uri: "g7:TEXT",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,3,4,5,6,7],
             lineValType: dataTypes.Text,
@@ -1687,6 +1840,7 @@ module.exports = {
         {
             // Time 
             uri: "g7:TIME",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2,3,4,5,6,7,8],
             lineValType: dataTypes.Time,
@@ -1696,6 +1850,7 @@ module.exports = {
         {
             // Title 
             uri: "g7:TITL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2,3,4,5,6,7],
             lineValType: dataTypes.Text,
@@ -1705,6 +1860,7 @@ module.exports = {
         {
             // Title 
             uri: "g7:INDI-TITL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.Text,
@@ -1717,6 +1873,7 @@ module.exports = {
         {
             // Top crop width 
             uri: "g7:TOP",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4,5,6,7,8],
             lineValType: dataTypes.Integer,
@@ -1726,6 +1883,7 @@ module.exports = {
         {
             // Translation 
             uri: "g7:NAME-TRAN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.PersonalName,
@@ -1738,6 +1896,7 @@ module.exports = {
         {
             // Translation 
             uri: "g7:PLAC-TRAN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4],
             lineValType: dataTypes.ListText,
@@ -1749,6 +1908,7 @@ module.exports = {
         {
             // Translation 
             uri: "g7:NOTE-TRAN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3,4,5],
             lineValType: dataTypes.Text,
@@ -1760,6 +1920,7 @@ module.exports = {
         {
             // Translation 
             uri: "g7:FILE-TRAN",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Special,
@@ -1771,6 +1932,7 @@ module.exports = {
         {
             // Type 
             uri: "g7:TYPE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Text,
@@ -1780,6 +1942,7 @@ module.exports = {
         {
             // Type 
             uri: "g7:NAME-TYPE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2],
             lineValType: dataTypes.Enum,
@@ -1792,6 +1955,7 @@ module.exports = {
         {
             // Type 
             uri: "g7:EXID-TYPE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[2,4,5],
             lineValType: dataTypes.Special,
@@ -1801,6 +1965,7 @@ module.exports = {
         {
             // Unique Identifier 
             uri: "g7:UID",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1,2],
             lineValType: dataTypes.Special,
@@ -1810,6 +1975,7 @@ module.exports = {
         {
             // Version 
             uri: "g7:VERS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2],
             lineValType: dataTypes.Special,
@@ -1819,6 +1985,7 @@ module.exports = {
         {
             // Version 
             uri: "g7:GEDC-VERS",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [2],
             lineValType: dataTypes.Special,
@@ -1828,6 +1995,7 @@ module.exports = {
         {
             // Width in pixels 
             uri: "g7:WIDTH",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[3,4,5,6,7,8],
             lineValType: dataTypes.Integer,
@@ -1837,6 +2005,7 @@ module.exports = {
         {
             // Wife 
             uri: "g7:WIFE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF_NO_LINEVAL,
             level:[2],
             tag: "WIFE",
@@ -1845,6 +2014,7 @@ module.exports = {
         {
             // Wife 
             uri: "g7:FAM-WIFE",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1],
             lineValType: dataTypes.Xref,
@@ -1856,6 +2026,7 @@ module.exports = {
         {
             // Will 
             uri: "g7:WILL",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level:[1],
             lineValType: dataTypes.NullOrY,
@@ -1868,6 +2039,7 @@ module.exports = {
         {
             // Web address 
             uri: "g7:WWW",
+			info: "Structure Info coming soon!",
             lineType: lineTypes.NO_XREF,
             level: [1,2,3],
             lineValType: dataTypes.Special,
@@ -1876,3 +2048,4 @@ module.exports = {
         }
     ]
 }
+

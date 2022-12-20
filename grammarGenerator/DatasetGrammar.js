@@ -6,6 +6,7 @@ module.exports = {
         {
             uri: "DATASET",
             lineType: lineTypes.DATASET,
+            info: "Structure Info coming soon!",
             level: [0],
             substructs: {
                 "g7:record-FAM":"0:M", 
