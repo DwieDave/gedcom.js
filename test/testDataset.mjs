@@ -5,9 +5,9 @@ import { diffChars } from "diff";
 
 import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
-import readGedFile from "../lib/helpers/readGedFile.js";
-import Structure from "../lib/ExportGedcomStructureClasses.js"
-import { DatasetError } from "../lib/Errors.js";
+import readGedFile from "../lib/util/readGedFile.js";
+import Structure from "../lib/util/ExportGedcomStructureClasses.js"
+import { DatasetError } from "../lib/util/Errors.js";
 
 
 describe('Test Dataset Class', () => {

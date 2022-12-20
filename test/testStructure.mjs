@@ -5,10 +5,10 @@ import { diffChars } from "diff";
 
 import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
-import readGedFile from "../lib/helpers/readGedFile.js";
-import Structure from "../lib/ExportGedcomStructureClasses.js"
-import { GedcomSyntaxError } from "../lib/Errors.js";
-import constants from "../lib/Constants.js";
+import readGedFile from "../lib/util/readGedFile.js";
+import Structure from "../lib/util/ExportGedcomStructureClasses.js"
+import { GedcomSyntaxError } from "../lib/util/Errors.js";
+import constants from "../lib/util/Constants.js";
 
 
 describe('Test Structure Class', () => {

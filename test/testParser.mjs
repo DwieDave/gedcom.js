@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
-import readGedFile from "../lib/helpers/readGedFile.js";
-import { ParsingError } from "../lib/Errors.js";
+import readGedFile from "../lib/util/readGedFile.js";
+import { ParsingError } from "../lib/util/Errors.js";
 import forEach from "mocha-each";
 
 // TO-DO: Implement gedcom files with incorrect syntax
