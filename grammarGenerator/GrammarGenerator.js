@@ -139,7 +139,7 @@ class GrammarGenerator{
                 }
 
                 // add rule for Gedcom Trailer
-                lineString += `\n\nTRLR${this.ruleArrow} "0" D "TRLR" EOL${this.postprocessorLine}createStructure({line: d, uri: "${this.convertUri(uri)}",type: lineTypes.NO_XREF_NO_LINEVAL})%}`;
+                lineString += `\n\nTRLR${this.ruleArrow} "0" D "TRLR" EOL${this.postprocessorLine}createStructure({line: d, uri: "0_g7_record_TRLR",type: lineTypes.NO_XREF_NO_LINEVAL})%}`;
             
             // given struct is a Gedcom Substructure
             }else if(lineType === lineTypes.SUBSTRUCTURE){

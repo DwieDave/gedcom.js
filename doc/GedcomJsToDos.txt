@@ -1,0 +1,52 @@
+Gedcom Parser: 
+	* strict-mode: ged file wird auch geparsed wenn xref nicht in file definiert ist usw. 
+
+Grammar.js Files:
+	* so umbauen, dass Einträge nach URI gefiltert werden können 
+
+Structure.js: 
+	* alle Infos mitgeben 
+		* line
+		* dataType
+		* lineType
+		* uri
+		* structure beschreibung (aus Spezifikation)
+		* possible Substructs (mit Kardinalität) 
+			-> mit URI
+	* Methode getPossibleSubstructs() gibt alle Substructs zurück 
+		-> mit Kardinalitätsüberprüfung? flag das angibt, ob Kardinalität geprüft werden soll oder nicht
+	* Methode changeXref() und changeLineVal()
+		-> alten Wert merken
+		-> danach immer checkSyntax aufrufen und auf alten Wert zurücksetzen
+	
+
+
+addSubstructure: 
+	* Parameter: superstruct(also wo einhängen), uri, xref?, lineVal?, substructs?
+		-> auf Basis der URI Tag, lineType und lineValType rausfinden 
+		-> xref bzw. lineVal einsetzen
+		-> level = level(superstruct) + 1
+		
+	* überprüfen ob uri in possibleSubstructs und ob Kardinalität passt (also ob bei cardinality x:1 schon eine Struct mit uri in struct ist) 
+	* struct in Gedcom-Baum einhängen 
+	* checkSyntax aufrufen
+		-> removeStructure aufrufen, wenn Fehler geworfen wird
+
+
+removeStructure: 
+	* warning ausgeben, dass potentielle Substructs mitgelöscht werden 
+	* superstruct von struct wählen und struct aus Liste der Substructs löschen 
+		-> Garbage Collector überprüfen
+		-> wenn das nicht reicht, dann alle Referenzen von Struct und dessen Substructs auf null setzen
+	* removedStruct merken und Dataset überprüfen:
+		-> Pointer auf eine removedStructure sollen mit VOIDPOINTER ersetzt werden 
+		-> wenn superstruct durch removal keinen Payload mehr hat, soll diese auch gelöscht werden 
+		-> checkSyntax aufrufen
+			-> bei Fehler muss Payload auf VOIDPOINTER oder entsprechenden Empty-value gesetzt werden
+
+Dataset write function:
+	* checkRESN-flag mitgeben
+		-> wenn Flag gesetzt ist, überprüfen ob RESN Structure enthalten ist und entsprechend den Output anpassen 
+
+
+
