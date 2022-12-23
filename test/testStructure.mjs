@@ -149,7 +149,153 @@ describe('Test Structure Class', () => {
         
         
     });
-    
 
+    // ===============================================================================================================================================
+    // TEST SETLINEVAL() METHOD
+    describe('Test setLineVal() method', () => {
 
+    })
+
+    // ===============================================================================================================================================
+    // TEST SETXREF() METHOD
+    describe('Test setXref() method', () => {
+        
+    })
+
+    // ===============================================================================================================================================
+    // TEST ADDSUBSTRUCTURE METHOD
+    describe('Test addSubstructure() method', () => {
+        const gedcomParser = new GedcomParser();
+
+        // Add single structure without substructs
+        describe('Add single structure without substructs to Individual I1', () => {
+            it('#g7:SEX added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 SEX M\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                let newStruct = {
+                    uri: "g7:SEX",
+                    lineVal: "M"
+                }
+                indi1.addSubstructure(newStruct)
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+            it('#g7:INDI-NAME added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME Marius Mueller\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                let newStruct = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "Marius Mueller"
+                }
+                indi1.addSubstructure(newStruct)
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+        });
+
+        // Add single structure with one substruct
+        describe('Add single structure with one substruct to Individual I1', () => {
+            it('#g7:INDI-NAME with g7:NAME-TYPE substruct added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME McMarius\n2 TYPE AKA\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPE",
+                    lineVal: "AKA"
+                }
+                let newIndiName = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "McMarius",
+                    substructs: [newIndiNameType]
+                }
+                indi1.addSubstructure(newIndiName)
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+            it('#g7:ADOP with g7:ADOP-FAMC substruct added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 ADOP Y\n2 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                let newAdopFamc = {
+                    uri: "g7:ADOP-FAMC",
+                    lineVal: "@F1@"
+                }
+                let newAdop = {
+                    uri: "g7:ADOP",
+                    lineVal: "Y",
+                    substructs: [newAdopFamc]
+                }
+                indi1.addSubstructure(newAdop)
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+        });
+
+        // Add single structure with multiple substructs
+        describe('Add single structure with one substruct to Individual I1', () => {
+            it('#g7:INDI-NAME with g7:NAME-TYPE (with g7:PHRASE), g7:NAME-TRAN (with g7:LANG) substructs added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME Thoriad\n2 TYPE AKA\n3 PHRASE He is also known as Thoriad\n2 TRAN CoolDude\n3 LANG en-US\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                
+                // third level
+                let newPhrase = {
+                    uri: "g7:PHRASE",
+                    lineVal: "He is also known as Thoriad"
+                }
+                let newLang = {
+                    uri: "g7:LANG",
+                    lineVal: "en-US"
+                }
+
+                // second level
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPE",
+                    lineVal: "AKA",
+                    substructs: [newPhrase]
+                }
+
+                let newIndiNameTran = {
+                    uri: "g7:NAME-TRAN",
+                    lineVal: "CoolDude",
+                    substructs: [newLang]
+                }
+
+                // first level
+                let newIndiName = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "Thoriad",
+                    substructs: [newIndiNameType, newIndiNameTran]
+                }
+                indi1.addSubstructure(newIndiName)
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+        });
+
+        // Add multiple structures without substructs
+        describe('Add multiple structures without substructs to Individual I1', () => {
+            it('#g7:SEX and g7:INDI-NAME added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const indi1 = dataset.getRecordByXref("I1");
+                const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 SEX M\n1 NAME Marius Mueller\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
+                
+                let newSex = {
+                    uri: "g7:SEX",
+                    lineVal: "M"
+                }
+                let newName = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "Marius Mueller"
+                }
+
+                indi1.addSubstructure(newSex);
+                indi1.addSubstructure(newName);
+
+                expect(dataset.toString()).to.equal(newStr);
+            });
+        });
+    });
 });
