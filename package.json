@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./lib/index.js",
-    "generateGrammar": "node ./grammarGenerator/GrammarGenerator.js",
+    "generateGrammar": "node ./lib/grammarGenerator/GrammarGenerator.js",
     "testDataset": "mocha ./test/testDataset.mjs",
     "testParser": "mocha ./test/testParser.mjs",
+    "testStructure": "mocha ./test/testStructure.mjs",
     "testAll": "mocha"
   },
   "repository": {

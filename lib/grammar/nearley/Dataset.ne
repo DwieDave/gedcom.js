@@ -1,7 +1,7 @@
 # call moo-lexer
 @lexer lexer
 
-0_GEDCOM
+0_DATASET
 	-> %BOM:? 0_g7_record_HEAD RECORDS:* TRLR
 
 RECORDS
@@ -22,4 +22,4 @@ RECORDS
 
 TRLR
 	-> "0" D "TRLR" EOL
-		{% (d) => postprocessor.createStructure({line: d, uri: "GEDCOM",type: lineTypes.NO_XREF_NO_LINEVAL})%}
+		{% (d) => postprocessor.createStructure({line: d, uri: "0_g7_record_TRLR",type: lineTypes.NO_XREF_NO_LINEVAL})%}

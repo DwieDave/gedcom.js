@@ -3,15 +3,15 @@ import forEach from "mocha-each";
 import fs from "fs/promises"
 import { diffChars } from "diff";
 
-import { NearleyParser } from "../lib/NearleyParser.js";
+import { GedcomParser } from "../lib/GedcomParser.js";
 import Dataset from "../lib/Dataset.js";
-import readGedFile from "../lib/helpers/readGedFile.js";
-import Structure from "../lib/ExportGedcomStructureClasses.js"
-import { DatasetError } from "../lib/Errors.js";
+import readGedFile from "../lib/util/readGedFile.js";
+import Structure from "../lib/util/ExportGedcomStructureClasses.js"
+import { DatasetError } from "../lib/util/Errors.js";
 
 
 describe('Test Dataset Class', () => {
-    const nearleyParser = new NearleyParser();
+    const gedcomParser = new GedcomParser();
     let gedcomString = "";
     let result = null;
 
@@ -20,7 +20,7 @@ describe('Test Dataset Class', () => {
         console.log = function () {}
         // parse maximal gedcom example file
         gedcomString = await readGedFile("test/sampleData/ExampleFamilySearchGEDCOMFiles/maximal70_without_extensions.ged");
-        result = nearleyParser.parseString(gedcomString);
+        result = gedcomParser.parseString(gedcomString);
     });
 
     // ===============================================================================================================================================
@@ -43,7 +43,7 @@ describe('Test Dataset Class', () => {
             // read Gedcom file as String
             const beforeParsing = await readGedFile(path + fileName);
             // parse Gedcom String and write it to temp.ged
-            const dataset = nearleyParser.parseString(beforeParsing);
+            const dataset = gedcomParser.parseString(beforeParsing);
             await fs.writeFile(path + "temp.ged", "")
             await dataset.write(path + "temp.ged");
             // read temp.ged as String and compare it with original file
@@ -141,7 +141,7 @@ describe('Test Dataset Class', () => {
             // read Gedcom file as String
             const gedcomString = await readGedFile(path + fileName);
             // parse Gedcom String
-            expect(nearleyParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
+            expect(gedcomParser.parseString(gedcomString)).to.be.instanceOf(Dataset)
         });
 
         // Parse Gedcom files with one or more duplicated xrefs
@@ -150,7 +150,7 @@ describe('Test Dataset Class', () => {
             // read Gedcom file as String
             const gedcomString = await readGedFile(path + fileName);
             // parse Gedcom String
-            expect(() => nearleyParser.parseString(gedcomString)).to.throw(DatasetError)
+            expect(() => gedcomParser.parseString(gedcomString)).to.throw(DatasetError)
         });
     });
 
@@ -174,7 +174,7 @@ describe('Test Dataset Class', () => {
             // read Gedcom file as String
             const gedcomString = await readGedFile(path + fileName);
             // parse Gedcom String
-            expect(() => nearleyParser.parseString(gedcomString)).to.throw(DatasetError)
+            expect(() => gedcomParser.parseString(gedcomString)).to.throw(DatasetError)
         });
 
     });
@@ -199,7 +199,7 @@ describe('Test Dataset Class', () => {
             // read Gedcom file as String
             const gedcomString = await readGedFile(path + fileName);
             // parse Gedcom String
-            const dataset = nearleyParser.parseString(gedcomString);
+            const dataset = gedcomParser.parseString(gedcomString);
             expect(dataset.BOMset).to.be.true;
         });
 
@@ -208,7 +208,7 @@ describe('Test Dataset Class', () => {
         .it('#%s -> BOMset should be false', async (fileName) => {
             const gedcomString = await readGedFile(path + fileName);
             // parse Gedcom String
-            const dataset = nearleyParser.parseString(gedcomString);
+            const dataset = gedcomParser.parseString(gedcomString);
             expect(dataset.BOMset).to.be.false
         });
     });
@@ -229,7 +229,7 @@ describe('Test Dataset Class', () => {
         forEach(input)
         .it('%s -> multipleEOLCharacters should be %s', (name, value, str) => {
             // parse Gedcom String
-            const dataset = nearleyParser.parseString(str);
+            const dataset = gedcomParser.parseString(str);
             if(value === "true"){
                 expect(dataset.multipleEOLCharacters).to.be.true;
             }else{
