@@ -297,5 +297,186 @@ describe('Test Structure Class', () => {
                 expect(dataset.toString()).to.equal(newStr);
             });
         });
+
+
+        // ===============================================================================================================================================
+        // UNDEFINED URI
+        // Add structures without substructs, but undefined URI
+        describe('Add structures without substructs, but undefined URI', () => {
+            describe('#g7:SEXY added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                
+                let newSex = {
+                    uri: "g7:SEXY",
+                    lineVal: "M"
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newSex)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newSex);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+        
+            describe('#g7:INDI-NAMES with Substruct g7:NAME-TYPE added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPE",
+                    lineVal: "AKA"
+                }
+                let newIndiName = {
+                    uri: "g7:INDI-NAMES",
+                    lineVal: "McMarius",
+                    substructs: [newIndiNameType]
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newIndiName)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newIndiName);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+
+            describe('#g7:INDI-NAME with Substruct g7:NAME-TYPES added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPES",
+                    lineVal: "AKA"
+                }
+                let newIndiName = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "McMarius",
+                    substructs: [newIndiNameType]
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newIndiName)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newIndiName);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+
+            describe('#g7:INDI-NAMES with Substruct g7:NAME-TYPES added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPES",
+                    lineVal: "AKA"
+                }
+                let newIndiName = {
+                    uri: "g7:INDI-NAMES",
+                    lineVal: "McMarius",
+                    substructs: [newIndiNameType]
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newIndiName)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newIndiName);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+        });
+
+        // ===============================================================================================================================================
+        // ADD STRUCTURE THAT IS NOT A VALID SUBSTRUCTURE
+        describe('Add structures that is not a valid substructure without substructs', () => {
+            describe('#g7:SEX added to Family F1', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const fam1 = dataset.getRecordByXref("F1");
+                
+                let newSex = {
+                    uri: "g7:SEX",
+                    lineVal: "M"
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => fam1.addSubstructure(newSex)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        fam1.addSubstructure(newSex);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+        });
+
+
+        // ===============================================================================================================================================
+        // SYNTAX ERROR IN LINEVAL
+        describe('Add structures without substructs, but syntax error in lineVal', () => {
+            describe('#g7:SEX with wrong Enum-Value (Male) added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                
+                let newSex = {
+                    uri: "g7:SEX",
+                    lineVal: "Male"
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newSex)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newSex);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+        });
+
+        describe('Add structures with substructs, but syntax error in lineVal', () => {
+            describe('#g7:INDI-NAME with substruct g7:NAME-TYPE with wrong Enum-Value (AKAxx) added', () => {
+                const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
+                const strVal = dataset.toString();
+                const indi1 = dataset.getRecordByXref("I1");
+                
+                let newIndiNameType = {
+                    uri: "g7:NAME-TYPE",
+                    lineVal: "AKAxx"
+                }
+                let newIndiName = {
+                    uri: "g7:INDI-NAME",
+                    lineVal: "McMarius",
+                    substructs: [newIndiNameType]
+                }
+
+                it('expect to throw Error', () => {
+                    expect(() => indi1.addSubstructure(newIndiName)).to.throw(GedcomSyntaxError);
+                });
+                it('expect that dataset did NOT change', () => {
+                    try{
+                        indi1.addSubstructure(newIndiName);
+                    }catch(e){}
+                    expect(dataset.toString()).to.equal(strVal);
+                });
+            });
+        });
     });
 });
