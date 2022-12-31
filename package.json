@@ -4,10 +4,12 @@
   "description": "Client for the use of the Gedcom File Format v7 with node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/gedcomMochaTest.js",
-    "run": "node ./lib/index.mjs",
-    "generateFamilyParser": "npx nearleyc ./lib/grammar/Family.ne -o ./lib/grammar/parser/FamilyParser.js",
-    "generateIndividualParser": "npx nearleyc ./lib/grammar/Individual.ne -o ./lib/grammar/parser/IndividualParser.js"
+    "start": "node ./lib/index.js",
+    "generateGrammar": "node ./lib/grammarGenerator/GrammarGenerator.js",
+    "testDataset": "mocha ./test/testDataset.mjs",
+    "testParser": "mocha ./test/testParser.mjs",
+    "testStructure": "mocha ./test/testStructure.mjs",
+    "testAll": "mocha"
   },
   "repository": {
     "type": "git",
@@ -31,10 +33,16 @@
   },
   "homepage": "https://github.com/DwieDave/gedcom.js#readme",
   "devDependencies": {
-    "mocha": "^10.0.0"
+    "chai": "^4.3.7",
+    "diff": "^5.1.0",
+    "mocha": "^10.0.0",
+    "mocha-each": "^2.0.1",
+    "mocha-suppress-logs": "^0.3.1"
   },
   "dependencies": {
+    "fs.promises.exists": "^1.1.3",
     "moo": "^0.5.2",
+    "moo-ignore": "^2.5.1",
     "nearley": "^2.20.1"
   }
 }
