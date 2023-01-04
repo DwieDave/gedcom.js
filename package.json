@@ -47,5 +47,10 @@
     "moo": "^0.5.2",
     "moo-ignore": "^2.5.1",
     "nearley": "^2.20.1"
+  },
+  "semistandard": {
+    "ignore": [
+      "test/"
+    ]
   }
 }
