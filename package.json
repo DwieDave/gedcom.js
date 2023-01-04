@@ -9,7 +9,9 @@
     "testDataset": "mocha ./test/testDataset.mjs",
     "testParser": "mocha ./test/testParser.mjs",
     "testStructure": "mocha ./test/testStructure.mjs",
-    "testAll": "mocha"
+    "testAll": "mocha",
+    "lint": "semistandard",
+    "lintFix": "semistandard --fix"
   },
   "repository": {
     "type": "git",
@@ -37,7 +39,8 @@
     "diff": "^5.1.0",
     "mocha": "^10.0.0",
     "mocha-each": "^2.0.1",
-    "mocha-suppress-logs": "^0.3.1"
+    "mocha-suppress-logs": "^0.3.1",
+    "semistandard": "^16.0.1"
   },
   "dependencies": {
     "fs.promises.exists": "^1.1.3",
