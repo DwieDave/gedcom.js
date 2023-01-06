@@ -1,68 +1,256 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>222</x><y>138</y><w>174</w><h>90</h></coordinates><panel_attributes>Parser
+<diagram program="umletino" version="15.0.0"><zoom_level>2</zoom_level><element><id>UMLClass</id><coordinates><x>473</x><y>112</y><w>58</w><h>28</h></coordinates><panel_attributes>GedcomParser
 --
-- gedcomLineRegex: RegExp
-- dataset: Structures[]
---
-+ Parser()
-+ parseString(gedcomString: String): Structures[]
-+ parseLine()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>312</y><w>150</w><h>132</h></coordinates><panel_attributes>Structure
+- grammar: nearleyParser
+
 --
-&lt;&lt;get/set&gt;&gt; -level: String
-&lt;&lt;get/set&gt;&gt; -xref: String
-&lt;&lt;get/set&gt;&gt; -tag: String
-&lt;&lt;get/set&gt;&gt; -lineValue: LineVal
++ GedcomParser ()
++ parseGedFile (String): Dataset
++ parseString (String): Dataset
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>451</x><y>258</y><w>102</w><h>126</h></coordinates><panel_attributes>Structure
+--
+
+- uri: String
+- level: String
+- tag: String
+- xref: String
+- lineVal: String
+- lineValType: String
+- EOL: String
+
+--
+
 - substructures: Structure[]
 - superstructure: Structure
+- associatedRecord: Structure
+- datasetReference: Dataset
+
 --
-+ Structure(line: LineRegexMatch)
-+ print()
-+ getSubstructures()
-+ addSubstructure(structure: Structure)
-+ getSuperstructure()
-+ setSuperstructure(structure: Structure)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>396</x><y>504</y><w>132</w><h>114</h></coordinates><panel_attributes>Individual
+
++ Structure (String, String, String, String, String, String, String, Structure[], Dataset)
++ equals (Structure): boolean
+
++ getSubstructures (): Structure[]
++ getPossibleSubstructs (boolean?): Structure[]
++ getSubstructuresBy (): Structure[]
++ getSubstructuresByUri (): Structure[]
++ getSubstructuresByTag (): Structure[]
++ getSubstructuresByLineVal (): Structure[]
+
++ addSubstructure (Object)
++ removeSubstructure (Structure)
++ getSuperstructure (): Structure
++ getAssociatedRecord (): Structure
+
++ setXref (String)
++ setLineVal (String)
++ checkSyntax (nearleyParser, String, String)
+
++ print ()
++ toString (): String
++ toLine (boolean?): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>303</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Individual
 --
 
 --
-+ Individual()
-+ getName(): String
-+ getSex(): String
-+ getBirthDate(): String
-+ getDeathDate(): String
-+ getResidenceInformation(): String
-+ getFamiliesXref(): [String]
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>504</y><w>162</w><h>138</h></coordinates><panel_attributes>Family
++ Individual (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ getName (): String
++ getSex (): String
++ getBirthDate (): String
++ getDeathDate (): String
++ getResidenceInformation (): String
++ getFamiliesXref (): String[]
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>91</x><y>464</y><w>94</w><h>56</h></coordinates><panel_attributes>Family
 --
 
 --
-+ Family(line: LineRegexMatch)
-+ getHusband(): Structure
-+ getHusbandXref(): String
-+ getWife(): Structure
-+ getWifeXref(): String
-+ getChildren(): Structure[]
-+ getChildrenXref(): String
-+ getFamilyAttributeStructures: Structure[]
-+ getNumbersOfChildren(): Structure[]
-+ getResidenceInformation(): Structure[]
-+ getFamilyFacts(): Structure[]
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>438</y><w>84</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>438</y><w>78</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>120</y><w>150</w><h>126</h></coordinates><panel_attributes>Dataset
++ Family (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ getHusband (): Structure
++ getHusbandXref (): String
++ getWife (): Structure
++ getWifeXref (): String
++ getChildren (): Structure[]
++ getChildrenXref (): String
++ getFamilyAttributeStructures (): Structure[]
++ getNumbersOfChildren (): Structure[]
++ getResidenceInformation (): Structure[]
++ getFamilyFacts (): Structure[]
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>589</x><y>112</y><w>84</w><h>160</h></coordinates><panel_attributes>Dataset
 --
-- header: Structure
-- trlr: Structure
-- records: Structure[]
-- lastStructure: Structure
+
+- header: Object
+- trlr: Object
+- records: Object[]
+
+- xrefMap: Object
+- substructsWithXrefDatatype: Object
+
+- BOM: String
+- BOMset: boolean
+- EOL: Object
+- multipleEOLCharacters: boolean
+
 --
-+ Dataset()
-+ printRecords()
-+ addStructure(structure: Structure)
-+ getAllIndividuals(): Structure[]
-+ getIndividual(xref: String): Structure
-+ getAllFamilies(): Structure[]
-+ getFamily(xref: String): Structure
+
++ Dataset (Structure, Structure[], Structure, boolean)
++ createEmptyDataset (String): Dataset
+
++ createStructure (Object, Structure, Structure, boolean): Structure
++ createStructureFromStructureParameter (Object, String): Structure
+
++ addRecord (Object): Structure
++ removeRecord (Structure, boolean?)
++ addStructure (Structure, Structure, Structure)
++ removeStructure (Structure, bolean?)
+
++ searchAndRemoveEmptyStructure (Structure)
++ checkSyntax ()
++ getEOL ()
++ convertUri (String): String
++ addXrefToXrefMap (Structure)
++ addSubstructWithXrefDatatype (Structure)
++ removeSubstructWithXrefDatatype (Structure)
++ checkForNotDefinedXrefs ()
++ isXrefDefined (String, Structure)
+
++ getRecordByXref (String)
++ getRecrodsByConstructor (Object)
+
++ getHeaderRecord (): Structure
++ getFamilyRecords (): Structure
++ getIndividualRecords (): Structure
++ getMultimediaRecords (): Structure
++ getRepositoryRecords (): Structure
++ getSharedNoteRecords (): Structure
++ getSourceRecords (): Structure
++ getSubmitterRecords (): Structure
+
++ toString ()
++ printRecords ()
++ write (String)
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>174</y><w>102</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>546</x><y>240</y><w>18</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element></diagram>
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>529</x><y>124</y><w>64</w><h>58</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>300;270;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>206</y><w>42</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;380;190;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>473</x><y>170</y><w>58</w><h>30</h></coordinates><panel_attributes>Parser
+--
+
+- grammar: nearleyParser
+- parser: nearleyObject
+
+--
+
++ Parser (nearleyParser)
++ parseString (String, Integer[]): Dataset
++ checkCardinality (Object)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>499</x><y>138</y><w>6</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;160;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>499</x><y>198</y><w>6</w><h>64</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;300</additional_attributes></element><element><id>UMLClass</id><coordinates><x>361</x><y>178</y><w>58</w><h>42</h></coordinates><panel_attributes>NearleyParser
+--
+
++ DatasetParser
++ HeaderParser
+
++ FamilyParser
++ IndividualParser
++ MultimediaParser
++ RepositoryParser
++ SharedNoteParser
++ SourceParser
++ SubmitterParser
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>417</x><y>218</y><w>38</w><h>68</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;170;320</additional_attributes></element><element><id>Relation</id><coordinates><x>417</x><y>124</y><w>60</w><h>58</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;270;280;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>229</x><y>142</y><w>62</w><h>102</h></coordinates><panel_attributes>GrammarGenerator
+--
+
+- path: String
+- dummyPath: String
+- nearleyHeader: String
+
+- dataset: Object
+- headerRecord: Object
+- records: Object[]
+- substructures: Object
+- structureTypes: Object
+
+- ruleArrow: String
+- rulePipe: String
+- postprocessorLine: String
+- idPostprocessor: String
+- callLexer: String
+
+--
+
++ GrammarGenerator (String, String)
++ build (String): GrammarGenerator 
+
++ buildGrammar ()
++ generateRuleString (Object[]): String
++ generateRule (Object): String
++ generateParser ()
++ buildParser ()
+
++ convertUri (String): String
++ convertCheckCardinalityOf (String): String
++ generateStructureInfo
+
+
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>289</x><y>194</y><w>76</w><h>8</h></coordinates><panel_attributes>lt=&lt;.
+CREATE</panel_attributes><additional_attributes>360;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>515</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Repository
+--
+
+--
++ Repository (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>195</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Header
+--
+
+--
++ Header (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>409</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Multimedia
+--
+
+--
++ Multimedia (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>621</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>SharedNote
+--
+
+--
++ SharedNote (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>727</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Source
+--
+
+--
++ Source (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>833</x><y>464</y><w>98</w><h>56</h></coordinates><panel_attributes>Submitter
+--
+
+--
++ Submitter (String, String, String, String, String, String, String, Structure[], Dataset)
+
++ checkSyntax ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>455</x><y>430</y><w>52</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>10;170;10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>499</x><y>430</y><w>68</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>320;170;320;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>557</x><y>430</y><w>116</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>560;170;560;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>665</x><y>430</y><w>114</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>550;170;550;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>771</x><y>430</y><w>114</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>550;170;550;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>349</x><y>430</y><w>112</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>10;170;10;20;540;20</additional_attributes></element><element><id>Relation</id><coordinates><x>243</x><y>430</y><w>112</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>10;170;10;20;540;20</additional_attributes></element><element><id>Relation</id><coordinates><x>137</x><y>430</y><w>112</w><h>38</h></coordinates><panel_attributes>lt=-
+ </panel_attributes><additional_attributes>10;170;10;20;540;20</additional_attributes></element><element><id>Relation</id><coordinates><x>501</x><y>382</y><w>6</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;260</additional_attributes></element></diagram>
