@@ -95,16 +95,16 @@ describe('Test Dataset Class', () => {
     // TEST GetRecordsByXref()
     describe('Test "getRecordByXref()" with maximal FamilySearch GEDCOM 7.0 File', () => {
         const shouldContain = [
-            ["F1", Structure.Family],
-            ["I1", Structure.Individual],
-            ["O1", Structure.Multimedia],
-            ["R1", Structure.Repository],
-            ["N1", Structure.SharedNote],
-            ["S1", Structure.Source],
-            ["U1", Structure.Submitter]
+            ["@F1@", Structure.Family],
+            ["@I1@", Structure.Individual],
+            ["@O1@", Structure.Multimedia],
+            ["@R1@", Structure.Repository],
+            ["@N1@", Structure.SharedNote],
+            ["@S1@", Structure.Source],
+            ["@U1@", Structure.Submitter]
         ];
         const shouldNotContain = [
-            "F3","I5","O4","R6","N7","S8","U9"
+            "@F3@","@I5@","@O4@","@R6@","@N7@","@S8@","@U9@"
         ];
 
         // Dataset should contain records with given Xrefs

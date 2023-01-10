@@ -28,13 +28,13 @@ describe('Test Structure Class', () => {
     // checkSyntax() method 
     describe('Test checkSyntax() method of record Structure-Classes with Maximal-Gedcom-File', () => {
         const records = [
-            ["Family", ["F1", "F2"]], 
-            ["Individual", ["I1", "I2", "I3", "I4"]], 
-            ["Multimedia", ["O1", "O2"]], 
-            ["Repository", ["R1", "R2"]], 
-            ["SharedNote", ["N1", "N2"]], 
-            ["Source", ["S1", "S2"]],
-            ["Submitter", ["U1", "U2"]]
+            ["Family", ["@F1@", "@F2@"]], 
+            ["Individual", ["@I1@", "@I2@", "@I3@", "@I4@"]], 
+            ["Multimedia", ["@O1@", "@O2@"]], 
+            ["Repository", ["@R1@", "@R2@"]], 
+            ["SharedNote", ["@N1@", "@N2@"]], 
+            ["Source", ["@S1@", "@S2@"]],
+            ["Submitter", ["@U1@", "@U2@"]]
         ]
         
         forEach(records)
@@ -54,14 +54,14 @@ describe('Test Structure Class', () => {
 
         const searchForTag = [
             ["Individual", [
-                ["NAME", "I1", true, 4],
-                ["NAME", "I1", false, 4],
-                ["TYPE", "I1", true, 2],
-                ["TYPE", "I1", false, 0],
-                ["PHRASE", "I1", true, 2],
-                ["PHRASE", "I1", false, 0],
-                ["SEX", "I1", true, 1],
-                ["SEX", "I1", false, 1]
+                ["NAME", "@I1@", true, 4],
+                ["NAME", "@I1@", false, 4],
+                ["TYPE", "@I1@", true, 2],
+                ["TYPE", "@I1@", false, 0],
+                ["PHRASE", "@I1@", true, 2],
+                ["PHRASE", "@I1@", false, 0],
+                ["SEX", "@I1@", true, 1],
+                ["SEX", "@I1@", false, 1]
             ]],
         ]
 
@@ -94,36 +94,36 @@ describe('Test Structure Class', () => {
 
         const searchForLineVal = [
             ["LineVal doesn't occur", [
-                ["Marius Mueller ", "I1", true, false, 0],
-                ["Marius Mueller ", "I1", false, false, 0],
-                ["Marius Mueller ", "I1", true, constants.dataTypes.PersonalName, 0],
-                ["Marius Mueller ", "I1", false, constants.dataTypes.PersonalName, 0],
+                ["Marius Mueller ", "@I1@", true, false, 0],
+                ["Marius Mueller ", "@I1@", false, false, 0],
+                ["Marius Mueller ", "@I1@", true, constants.dataTypes.PersonalName, 0],
+                ["Marius Mueller ", "@I1@", false, constants.dataTypes.PersonalName, 0],
             ]],
             ["LineVal occurs one time", [
-                ["Marius Mueller", "I1", true, false, 1],
-                ["Marius Mueller", "I1", false, false, 1],
-                ["Marius Mueller", "I1", true, constants.dataTypes.PersonalName, 1],
-                ["Marius Mueller", "I1", false, constants.dataTypes.PersonalName, 1],
+                ["Marius Mueller", "@I1@", true, false, 1],
+                ["Marius Mueller", "@I1@", false, false, 1],
+                ["Marius Mueller", "@I1@", true, constants.dataTypes.PersonalName, 1],
+                ["Marius Mueller", "@I1@", false, constants.dataTypes.PersonalName, 1],
             ]],
             ["LineVal occurs multiple times", [
-                ["Jule Mueller", "I1", true, false, 2],
-                ["Jule Mueller", "I1", false, false, 2],
-                ["Jule Mueller", "I1", true, constants.dataTypes.PersonalName, 2],
-                ["Jule Mueller", "I1", false, constants.dataTypes.PersonalName, 2],
+                ["Jule Mueller", "@I1@", true, false, 2],
+                ["Jule Mueller", "@I1@", false, false, 2],
+                ["Jule Mueller", "@I1@", true, constants.dataTypes.PersonalName, 2],
+                ["Jule Mueller", "@I1@", false, constants.dataTypes.PersonalName, 2],
             ]],
             ["LineVal occurs on higher level", [
-                ["Hallo Welt", "I1", true, false, 1],
-                ["Hallo Welt", "I1", false, false, 0],
-                ["Hallo Welt", "I1", true, constants.dataTypes.Text, 1],
-                ["Hallo Welt", "I1", false, constants.dataTypes.Text, 0],
+                ["Hallo Welt", "@I1@", true, false, 1],
+                ["Hallo Welt", "@I1@", false, false, 0],
+                ["Hallo Welt", "@I1@", true, constants.dataTypes.Text, 1],
+                ["Hallo Welt", "@I1@", false, constants.dataTypes.Text, 0],
             ]],
             ["LineVal occurs multiple times, but with differen Datatypes", [
-                ["M", "I1", true, false, 2],
-                ["M", "I1", false, false, 1],
-                ["M", "I1", true, constants.dataTypes.Text, 1],
-                ["M", "I1", false, constants.dataTypes.Text, 0],
-                ["M", "I1", true, constants.dataTypes.Enum, 1],
-                ["M", "I1", false, constants.dataTypes.Enum, 1],
+                ["M", "@I1@", true, false, 2],
+                ["M", "@I1@", false, false, 1],
+                ["M", "@I1@", true, constants.dataTypes.Text, 1],
+                ["M", "@I1@", false, constants.dataTypes.Text, 0],
+                ["M", "@I1@", true, constants.dataTypes.Enum, 1],
+                ["M", "@I1@", false, constants.dataTypes.Enum, 1],
             ]],
             
            
@@ -171,7 +171,7 @@ describe('Test Structure Class', () => {
         describe('Add single structure without substructs to Individual I1', () => {
             it('#g7:SEX added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 SEX M\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 let newStruct = {
                     uri: "g7:SEX",
@@ -183,7 +183,7 @@ describe('Test Structure Class', () => {
             });
             it('#g7:INDI-NAME added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME Marius Mueller\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 let newStruct = {
                     uri: "g7:INDI-NAME",
@@ -199,7 +199,7 @@ describe('Test Structure Class', () => {
         describe('Add single structure with one substruct to Individual I1', () => {
             it('#g7:INDI-NAME with g7:NAME-TYPE substruct added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME McMarius\n2 TYPE AKA\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 let newIndiNameType = {
                     uri: "g7:NAME-TYPE",
@@ -216,7 +216,7 @@ describe('Test Structure Class', () => {
             });
             it('#g7:ADOP with g7:ADOP-FAMC substruct added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 ADOP Y\n2 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 let newAdopFamc = {
                     uri: "g7:ADOP-FAMC",
@@ -237,7 +237,7 @@ describe('Test Structure Class', () => {
         describe('Add single structure with one substruct to Individual I1', () => {
             it('#g7:INDI-NAME with g7:NAME-TYPE (with g7:PHRASE), g7:NAME-TRAN (with g7:LANG) substructs added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 NAME Thoriad\n2 TYPE AKA\n3 PHRASE He is also known as Thoriad\n2 TRAN CoolDude\n3 LANG en-US\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 
                 // third level
@@ -279,7 +279,7 @@ describe('Test Structure Class', () => {
         describe('Add multiple structures without substructs to Individual I1', () => {
             it('#g7:SEX and g7:INDI-NAME added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 const newStr = "0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n1 SEX M\n1 NAME Marius Mueller\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n"
                 
                 let newSex = {
@@ -306,7 +306,7 @@ describe('Test Structure Class', () => {
             describe('#g7:SEXY added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 
                 let newSex = {
                     uri: "g7:SEXY",
@@ -327,7 +327,7 @@ describe('Test Structure Class', () => {
             describe('#g7:INDI-NAMES with Substruct g7:NAME-TYPE added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 let newIndiNameType = {
                     uri: "g7:NAME-TYPE",
                     lineVal: "AKA"
@@ -352,7 +352,7 @@ describe('Test Structure Class', () => {
             describe('#g7:INDI-NAME with Substruct g7:NAME-TYPES added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 let newIndiNameType = {
                     uri: "g7:NAME-TYPES",
                     lineVal: "AKA"
@@ -377,7 +377,7 @@ describe('Test Structure Class', () => {
             describe('#g7:INDI-NAMES with Substruct g7:NAME-TYPES added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 let newIndiNameType = {
                     uri: "g7:NAME-TYPES",
                     lineVal: "AKA"
@@ -406,7 +406,7 @@ describe('Test Structure Class', () => {
             describe('#g7:SEX added to Family F1', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const fam1 = dataset.getRecordByXref("F1");
+                const fam1 = dataset.getRecordByXref("@F1@");
                 
                 let newSex = {
                     uri: "g7:SEX",
@@ -432,7 +432,7 @@ describe('Test Structure Class', () => {
             describe('#g7:SEX with wrong Enum-Value (Male) added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 
                 let newSex = {
                     uri: "g7:SEX",
@@ -455,7 +455,7 @@ describe('Test Structure Class', () => {
             describe('#g7:INDI-NAME with substruct g7:NAME-TYPE with wrong Enum-Value (AKAxx) added', () => {
                 const dataset = gedcomParser.parseString("0 HEAD\n1 GEDC\n2 VERS 7.0\n0 @F1@ FAM\n1 HUSB @I1@\n1 CHIL @I1@\n0 @I1@ INDI\n1 FAMC @F1@\n0 @I2@ INDI\n1 SEX M\n1 FAMC @F1@\n0 TRLR\n");
                 const strVal = dataset.toString();
-                const indi1 = dataset.getRecordByXref("I1");
+                const indi1 = dataset.getRecordByXref("@I1@");
                 
                 let newIndiNameType = {
                     uri: "g7:NAME-TYPE",
