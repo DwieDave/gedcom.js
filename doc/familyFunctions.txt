@@ -1,0 +1,37 @@
+FAMILY: 
+
+* getHusband(): {
+	Husband: Individual,
+	Phrase: String
+  }
+
+
+* getWife(): {
+	Wife: Individual,
+	Phrase: String
+  }
+
+
+* getChildren(): {
+	Children: Individual[],
+	Phrase: String
+  }
+
+
+* getAssociatedIndividuals(): {
+	associatedIndividuals: [
+		{
+			Indidivdual: Individual,
+			Phrase: String,
+			Role: String
+			Note: 
+			Source: 
+		},
+		...
+	]
+  }
+
+
+* getSubmitter(): {
+  	Submitter: Submitter
+  }

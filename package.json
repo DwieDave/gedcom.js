@@ -9,6 +9,7 @@
     "testDataset": "mocha ./test/testDataset.mjs",
     "testParser": "mocha ./test/testParser.mjs",
     "testStructure": "mocha ./test/testStructure.mjs",
+    "testFamily": "mocha ./test/testFamily.mjs",
     "testAll": "mocha"
   },
   "repository": {
