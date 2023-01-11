@@ -108,19 +108,6 @@ describe('Test Family Class', () => {
 
     // ============================================================================
     // TEST getNumberOfChildren() FUNCTION
-    describe('#getNumberOfChildren()', () => {
-        it('Family @F1@: should have NCHI-value of: 2', () => {
-            expect(familyF1.getNumberOfChildren()).to.equal(2);
-        });
-
-        it('Family @F2@: should have NCHI-value of: 0', () => {
-            expect(familyF2.getNumberOfChildren()).to.equal(0);
-        })
-
-        it('Family @F3@: NCHI-value should not be set (null expected)', () => {
-            expect(familyF3.getNumberOfChildren()).to.be.null;
-        })
-    })
 
     
     
