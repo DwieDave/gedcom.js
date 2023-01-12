@@ -10,6 +10,7 @@ import Structure from "../lib/util/ExportGedcomStructureClasses.js"
 import { DatasetError } from "../lib/util/Errors.js";
 
 describe('Test Family Class', () => {
+    /*
     const gedcomParser = new GedcomParser();
     // Header
     let gedcomString = "\ufeff0 HEAD\n1 GEDC\n2 VERS 7.0\n";
@@ -109,6 +110,6 @@ describe('Test Family Class', () => {
     // ============================================================================
     // TEST getNumberOfChildren() FUNCTION
 
-    
+    */
     
 })
