@@ -1,0 +1,27 @@
+Ausarbeitung: 
+
+* An Beispielen zeigen wie Bibliothek und generischen Funktionen verwendet werden können 
+* Klar darstellen, dass nicht Ziel ist alles vollständig zu haben sondern eine Basis zu schaffen
+
+* Auf website von Prof. Oechsle -> Projekt und Abschlussarbeiten -> Hinweise auf Projekt und Abschlussarbeiten
+	-> zweiter Teil wie Ausarbeitung aussehen sollte 
+	-> Empfehlungen gelten hier genauso
+* E-Mail mit Downloadlink in der mehrerer Abschlussarbeiten drin sind, die sehr gut sind als Inspirationsquelle
+	-> da sind auch Präsentation drin 
+	-> hängt aber viel von Stil ab
+* Grob:
+	-> Dokument sollte Softareentwicklungsphasen abdecken 
+
+
+Vortrag:
+
+* Sollte inhaltlich die Arbeit abdecken 
+	-> alle zentralen Aspekte der Entwicklung darstellen 
+* Sparsam mit Code umgehen 
+	-> mal einen Nearley-Code zeigen
+	-> aber nicht zu viel 
+* Dauer: 20 Minuten Präsentation + Fragerunde
+* Vorlage für Präsentation und Ausarbeitung im Intranet
+
+
+TO-DO: Titel der Arbeit auf Deutsch und Englisch schicken per Mail
