@@ -20,12 +20,15 @@
     * aufzeigen warum unsere viel geiler ist 
 
 4. Konzept 
+    * 1 reduziertes UML mit gesamter Übersicht
+      -> einzelne Teile detailliert darstellen in Unterkapiteln
     * GrammarGenerator und NearleyParser
     * Zentraler Gedcom-Parser
     * Dataset und Structure-Klassen 
 
 5. Implementierung
     * Wie wurde Konzept umgesetzt
+      -> gleiche Kapitel wie bei Konzept
     * Wie wurde Implementierung getestet?
 
 6. Beispiel Ablauf?
