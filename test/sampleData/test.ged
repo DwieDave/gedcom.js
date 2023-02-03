@@ -1,0 +1,107 @@
+﻿0 HEAD
+1 GEDC
+2 VERS 7.0
+0 @I1@ INDI
+1 NAME John Q /Public/
+1 SEX M
+1 FAMS @F1@
+1 FAMS @F2@
+0 @I2@ INDI
+1 NAME Jane /Doe/
+1 SEX F
+1 FAMS @F1@
+0 @I3@ INDI
+1 NAME Mary /Roe/
+1 DEAT
+2 DATE 1 MAR 1914
+1 FAMS @F2@
+0 @F1@ FAM
+1 RESN CONFIDENTIAL, LOCKED
+1 HUSB @I1@
+2 PHRASE TestPhrase
+1 WIFE @I2@
+1 CHIL @I2@
+2 PHRASE TestPhrase1
+1 CHIL @I3@
+2 PHRASE TestPhrase2
+1 NCHI 2
+2 TYPE legitimate children
+1 FACT Fact
+2 TYPE Type of fact
+2 HUSB
+3 AGE 25y
+4 PHRASE Adult
+2 WIFE
+3 AGE 25y
+4 PHRASE Adult
+2 HUSB
+3 AGE 25y
+4 PHRASE Adult
+2 WIFE
+3 AGE 25y
+4 PHRASE Adult
+1 RESI resi
+2 TYPE resi type
+2 PLAC Some City, Some County, Some State, Some Country
+3 FORM City, County, State, Country
+3 LANG en-US
+3 TRAN Some City, Some County, Some State, Some Country
+4 LANG en-GB
+3 TRAN Some City, Some County, Some State, Some Country
+4 LANG en
+3 MAP
+4 LATI N18.150944
+4 LONG E168.150944
+3 EXID 123
+4 TYPE http://example.com
+3 EXID 456
+4 TYPE http://example.com
+3 NOTE American English
+4 MIME text/plain
+4 LANG en-GB
+4 TRAN British English
+1 FACT Fact
+2 TYPE Type of fact
+2 HUSB
+3 AGE 25y
+4 PHRASE Adult
+2 WIFE
+3 AGE 25y
+4 PHRASE Adult
+1 MARR
+2 DATE 1 APR 1911
+1 DIV
+2 DATE 2 MAY 1912
+1 MARR
+2 DATE 4 JUL 1914
+1 MARR Y
+1 EVEN Event
+1 ASSO @I3@
+2 PHRASE Association text
+2 ROLE OTHER
+3 PHRASE Role text
+2 NOTE Note text
+1 ASSO @VOID@
+2 ROLE CLERGY
+1 REFN 1
+2 TYPE User-generated identifier
+1 REFN 10
+2 TYPE User-generated identifier
+1 UID bbcc0025-34cb-4542-8cfb-45ba201c9c2c
+1 UID 9ead4205-5bad-4c05-91c1-0aecd3f5127d
+1 EXID 123
+2 TYPE http://example.com
+1 CREA
+2 DATE 27 MAR 2022
+3 TIME 08:55
+1 CHAN
+2 DATE 27 MAR 2022
+3 TIME 08:56
+2 NOTE Change date note 1
+2 NOTE Change date note 2
+0 @F2@ FAM
+1 HUSB @I1@
+1 WIFE @I3@
+1 MARR
+2 DATE 3 JUN 1913
+0 TRLR
