@@ -20,4 +20,20 @@
     * aufzeigen warum unsere viel geiler ist 
 
 4. Konzept 
-    * 
+    * GrammarGenerator und NearleyParser
+    * Zentraler Gedcom-Parser
+    * Dataset und Structure-Klassen 
+
+5. Implementierung
+    * Wie wurde Konzept umgesetzt
+    * Wie wurde Implementierung getestet?
+
+6. Beispiel Ablauf?
+    * Wie kann Bibliothek installiert werden?
+    * Wie verwende ich Bibliothek?
+    * Wie können .ged-Files eingelesen/geschrieben werden?
+
+7. Zusammenfassung
+    * Hier drauf eingehen was alles gemacht wurde
+    * nochmal hervorheben, dass kein fertiges Produkt erstellt werden sollte
+    * nochmal genauer drauf eingehen, wie Bibliothek erweitert werden kann 

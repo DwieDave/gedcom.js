@@ -14,10 +14,6 @@
 
 \usepackage{titlesec}
 
-
-
-
-
 \usepackage[utf8]{inputenc}
 
 \usepackage[a4paper]{geometry}
@@ -109,23 +105,24 @@ frametitlebackgroundcolor=darkgray
 %------------------ Titelseite -------------------------------------------------
 \begin{document}
 
-\title{Latex Template}
-%\subtitle{English Title of the Thesis}
-\subtitle{Hochschule Trier}
+\title{\textbf{gedcom7.js}}
+\subtitle{Realization of a JavaScript Library for the Genealogical Exchange Format FamilySearch GEDCOM Version 7}
+\subtitle{Realisierung einer JavaScript-Bibliothek für das genealogische Austauschformat FamilySearch GEDCOM Version 7}
 
-\author{Marius Müller}
 
-\supervisor{Titel Vorname Name}
+\author{Marius Müller \& David Gruber}
+
+\supervisor{Christian Bettinger}
 
 \address{Trier}
-\submitdate{01.01.2023}
+\submitdate{28.02.2023}
 
 %------------------ Projektart -------------------------------------------------
-%\project{Bachelor-Projektarbeit}
+\project{Bachelor-Projektarbeit}
 %\project{Bachelor-Abschlussarbeit}
 %\project{Master-Projektstudium}
 %\project{Master-Abschlussarbeit}
-\project{Seminararbeit}
+%\project{Seminararbeit}
 %\project{Hausarbeit}
 
 \mytitlepage
@@ -135,11 +132,9 @@ frametitlebackgroundcolor=darkgray
 %\input{chapters/Vorwort}								% Vorwort (optional)
 \input{chapters/Kurzfassung}							% Kurzfassung/Abstract
 \tableofcontents										% Inhaltsverzeichnis
-% spacing of caption
-\addtocontents{toc}{\protect\vspace{\sectionSpace}}
-%\listoffigures											% Abbildungsverzeichnis (optional)
+\listoffigures											% Abbildungsverzeichnis (optional)
 %\listoftables											% Tabellenverzeichnis (optional)
-%<\lstlistoflistings										% Listings (optional)
+%\lstlistoflistings										% Listings (optional)
 
 
 %------------------ Kapitel ----------------------------------------------------
@@ -152,8 +147,6 @@ frametitlebackgroundcolor=darkgray
 %------------------ Literaturverzeichnis & Index -------------------------------
 \backmatter
 \bibliography{literatur}								% Literaturverzeichnis (literatur.bib)
-% spacing of caption
-\addtocontents{bib}{\protect\vspace{-1em}}
 
 
 \printindex												% Index (optional)
@@ -161,6 +154,7 @@ frametitlebackgroundcolor=darkgray
 
 %------------------ Anhänge ----------------------------------------------------
 \begin{appendix}
+	\include{chapters/Glossar}
 	\include{chapters/Selbststaendigkeitserklaerung}	% Selbstständigkeitserklärung
 \end{appendix}
 
