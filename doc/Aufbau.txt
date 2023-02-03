@@ -3,9 +3,9 @@
     * Ziele
     * Struktur der Arbeit 
 
-2. Grundlagen
+2. Grundlagen: 2-3 Seiten
     * Was ist Genealogie?
-    * Was ist diese Church of God? 
+    * Was ist diese Church of God? FamilySearch?
     * Was ist Gedcom? Wie funktioniert Gedcom? 
         -> welche Versionen gab es, wie unterscheiden sie sich 
         -> wie funktioniert die Syntax?
@@ -14,7 +14,7 @@
     * Was ist Nearley? Was ist Moo? Wie funktionieren Lexer?
     * Mocha vorstellen mit dazuverwendeten Add-Ons
 
-3. Related Work 
+3. Related Work 2 Seiten
     * Andere Bibliotheken vorstellen 
     * zeigen was die können
     * aufzeigen warum unsere viel geiler ist 
