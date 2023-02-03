@@ -1,0 +1,55 @@
+=============================================
+AUFBAU DER AUSARBEITUNG
+-> Orientiert an Vorlage von Prof. Oechsle 
+=============================================
+
+KURZFASSUNG:
+-> Am Ende der Arbeit schreiben 
+* wesentlicher Inhalt der Arbeit in kurzer u. prägnanter wesentlicher
+* kurze Aufgabenbeschreibung, Lösungsansatz, wesentliche Ergebnisse der Arbeit 
+* 1/2 bis 1 Seite
+
+
+PROBLEMSTELLUNG UND ANFORDERUNGSSPEZIFIKATION:
+* Beschreibung der Aufgabe genügend detailliert 
+* Noch nicht zu sehr ins Detail gehen, da Kapitel mit Grundlagen erst noch kommt und Arbeit 
+  sequenziell lesbar sein soll
+* Hier noch keine Probleme beschreiben, die erst bei Entwurf, bzw. Implementierung aufgetreten sind
+* Ist das eigentliche erste Kapitel -> schließt also nicht an Kurzfassung an 
+
+
+NÖTIGE VORKENNTNISSE:
+* nur dann nötig, falls Kenntnisse für Verständinis der Arbeit notwendig, die man aus Studieninhalten
+  nicht voraussetzen kann
+* Wenn nur ein Sachverhalt erklärt wird, dann danach benennen, ansonsten allgemeiner titletoc
+
+
+VERWANDTE ARBEITEN: 
+* vergleichbare Arbeiten darstellen 
+
+
+BENUTZUNG: 
+* Nutzungsmöglichkeiten beschreiben 
+* Hier weicht Reihenfolge der schriftlichen Ausarbeitung von Bearbeitungsreihenfolge ab 
+  -> hilft aber dem Verständinis
+
+
+ENTWURF: 
+* Beschreibung der Architektur des entwickelten Systems 
+* Hier zeigen, dass man abstrahieren kann und Wesentliches vom Unwesentlichen unterscheiden kann 
+* Hier Diagramme, UML-Diagramme, o.ä. zeigen 
+  -> in übersichtlicher Form 
+
+
+IMPLEMENTIERUNG UND TEST:
+* Implementierung und Testen beschreiben
+* kein Kommentar zum Quellcode, sondern Eingehen auf Besonderheiten der Implementierung, Nutzung 
+  bereits vorhandener Systeme, Bibliotheken, usw. 
+* Außerdem zeigen wie System systematisch getestet wurde / wie man es testen würde
+
+
+ZUSAMMENFASSUNG UND AUSBLICK:
+* Arbeit nochmal kurz zusammenfassen und wesentliche Ergebnisse vorstellen 
+* Zeigen wie man Software verbesser, vereinfachen oder erweitern kann
+
+

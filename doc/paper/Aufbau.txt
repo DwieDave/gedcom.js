@@ -1,0 +1,23 @@
+1. Einleitung und Problemstellung
+    * Motivation
+    * Ziele
+    * Struktur der Arbeit 
+
+2. Grundlagen
+    * Was ist Genealogie?
+    * Was ist diese Church of God? 
+    * Was ist Gedcom? Wie funktioniert Gedcom? 
+        -> welche Versionen gab es, wie unterscheiden sie sich 
+        -> wie funktioniert die Syntax?
+        -> hier ein Beispiel präsentieren von Aufbau eines Gedcom-Files 
+        -> dieses Beispiel durch ganze Arbeit ziehen und immer daran Dinge erklären
+    * Was ist Nearley? Was ist Moo? Wie funktionieren Lexer?
+    * Mocha vorstellen mit dazuverwendeten Add-Ons
+
+3. Related Work 
+    * Andere Bibliotheken vorstellen 
+    * zeigen was die können
+    * aufzeigen warum unsere viel geiler ist 
+
+4. Konzept 
+    * 
