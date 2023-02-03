@@ -1,0 +1,42 @@
+1. Einleitung und Problemstellung
+    * Motivation
+    * Ziele
+    * Struktur der Arbeit 
+
+2. Grundlagen: 2-3 Seiten
+    * Was ist Genealogie?
+    * Was ist diese Church of God? FamilySearch?
+    * Was ist Gedcom? Wie funktioniert Gedcom? 
+        -> welche Versionen gab es, wie unterscheiden sie sich 
+        -> wie funktioniert die Syntax?
+        -> hier ein Beispiel präsentieren von Aufbau eines Gedcom-Files 
+        -> dieses Beispiel durch ganze Arbeit ziehen und immer daran Dinge erklären
+    * Was ist Nearley? Was ist Moo? Wie funktionieren Lexer?
+    * Mocha vorstellen mit dazuverwendeten Add-Ons
+
+3. Related Work 2 Seiten
+    * Andere Bibliotheken vorstellen 
+    * zeigen was die können
+    * aufzeigen warum unsere viel geiler ist 
+
+4. Konzept 
+    * 1 reduziertes UML mit gesamter Übersicht
+      -> einzelne Teile detailliert darstellen in Unterkapiteln
+    * GrammarGenerator und NearleyParser
+    * Zentraler Gedcom-Parser
+    * Dataset und Structure-Klassen 
+
+5. Implementierung
+    * Wie wurde Konzept umgesetzt
+      -> gleiche Kapitel wie bei Konzept
+    * Wie wurde Implementierung getestet?
+
+6. Beispiel Ablauf?
+    * Wie kann Bibliothek installiert werden?
+    * Wie verwende ich Bibliothek?
+    * Wie können .ged-Files eingelesen/geschrieben werden?
+
+7. Zusammenfassung
+    * Hier drauf eingehen was alles gemacht wurde
+    * nochmal hervorheben, dass kein fertiges Produkt erstellt werden sollte
+    * nochmal genauer drauf eingehen, wie Bibliothek erweitert werden kann 
