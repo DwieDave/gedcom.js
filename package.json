@@ -51,7 +51,7 @@
   },
   "semistandard": {
     "ignore": [
-      "test/",
+      "test/testDataset.mjs",
       "lib/index.js",
       "lib/grammar/parser/",
       "lib/grammar/nearley/"

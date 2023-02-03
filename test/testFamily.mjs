@@ -1,16 +1,17 @@
-import { expect } from "chai";
-import forEach from "mocha-each";
-import fs from "fs/promises"
-import { diffChars } from "diff";
+/*
+import { expect } from 'chai';
+import forEach from 'mocha-each';
+import fs from 'fs/promises';
+import { diffChars } from 'diff';
 
-import { GedcomParser } from "../lib/GedcomParser.js";
-import Dataset from "../lib/Dataset.js";
-import readGedFile from "../lib/util/readGedFile.js";
-import Structure from "../lib/util/ExportGedcomStructureClasses.js"
-import { DatasetError } from "../lib/util/Errors.js";
+import { GedcomParser } from '../lib/GedcomParser.js';
+import Dataset from '../lib/Dataset.js';
+import readGedFile from '../lib/util/readGedFile.js';
+import Structure from '../lib/util/ExportGedcomStructureClasses.js';
+import { DatasetError } from '../lib/util/Errors.js';
 
 describe('Test Family Class', () => {
-    /*
+
     const gedcomParser = new GedcomParser();
     // Header
     let gedcomString = "\ufeff0 HEAD\n1 GEDC\n2 VERS 7.0\n";
@@ -77,7 +78,6 @@ describe('Test Family Class', () => {
             expect(result.Phrase).to.equal("This is a TestPhrase");
         });
 
-        
     })
 
     // ============================================================================
@@ -110,6 +110,5 @@ describe('Test Family Class', () => {
     // ============================================================================
     // TEST getNumberOfChildren() FUNCTION
 
-    */
-    
-})
+});
+*/
