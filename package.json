@@ -10,7 +10,9 @@
     "testParser": "mocha ./test/testParser.mjs",
     "testStructure": "mocha ./test/testStructure.mjs",
     "testFamily": "mocha ./test/testFamily.mjs",
-    "testAll": "mocha"
+    "testAll": "mocha",
+    "lint": "semistandard --verbose | snazzy",
+    "lintFix": "semistandard --fix"
   },
   "repository": {
     "type": "git",
@@ -49,7 +51,10 @@
   },
   "semistandard": {
     "ignore": [
-      "test/"
+      "test/",
+      "lib/index.js",
+      "lib/grammar/parser/",
+      "lib/grammar/nearley/"
     ]
   }
 }
