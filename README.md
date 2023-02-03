@@ -1,6 +1,6 @@
 # gedcom.js
 
-Library for the use of the Gedcom-File-Format v7 with node.js
+Library for the use of the GEDCOM 7.0 file format with node.js. FamilySearch GEDCOM 7.0 was released in 2021 as the latest version of the GEDCOM format for the transmission and storage of genealogical information
 
 ## Useful links
 
