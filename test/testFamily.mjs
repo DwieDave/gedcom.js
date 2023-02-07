@@ -5,7 +5,7 @@ import fs from 'fs/promises';
 import { diffChars } from 'diff';
 
 import { GedcomParser } from '../lib/GedcomParser.js';
-import Dataset from '../lib/Dataset.js';
+import Dataset from '../lib/structure/Dataset.js';
 import readGedFile from '../lib/util/readGedFile.js';
 import Structure from '../lib/util/ExportGedcomStructureClasses.js';
 import { DatasetError } from '../lib/util/Errors.js';

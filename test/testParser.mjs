@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 import { GedcomParser } from '../lib/GedcomParser.js';
-import Dataset from '../lib/Dataset.js';
+import Dataset from '../lib/structure/Dataset.js';
 import readGedFile from '../lib/util/readGedFile.js';
 import { ParsingError } from '../lib/util/Errors.js';
 import forEach from 'mocha-each';
