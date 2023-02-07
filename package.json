@@ -44,6 +44,7 @@
     "semistandard": "^16.0.1"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "fs.promises.exists": "^1.1.3",
     "moo": "^0.5.2",
     "moo-ignore": "^2.5.1",
