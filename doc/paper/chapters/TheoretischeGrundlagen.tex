@@ -3,18 +3,45 @@
 In diesem Kapitel...
 
 \section{Genealogie und FamilySearch}
-\label{Genealogie und FamilySearch}
+\label{sec: Genealogie und FamilySearch}
 Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von besonderer Bedeutung, die anhand von Beiweisen aus validen Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}.
 
 Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. 
 
-\section{GEDCOM}
-\label{GEDCOM}
+\section{GEDCOM Version 7}
+\label{sec: GEDCOM Version 7}
+Das Datenformat FamilySearch GEDCOM 7.0 wurde 2021 von der Kirche Jesu Christi der Heiligen der Letzten Tage entwickelt und stellt ein einheitliches, flexibles Format für den Austausch von genealogischen Daten bereit. Das Ziel besteht darin, eine langfristige Speicherung von genealogischen Informationen zu ermöglichen, die für zukünftige Genealogen und die von ihnen verwendeten System zugänglich und verständlich ist \cite{GEDCOM}. Die im Rahmen dieser Arbeit verwendete Version 7.0.11 wurde am 01.11.2022 veröffentlicht und stellt die aktuelleste\footnote{Stand 31.01.2023} Version des Standards dar. 
 
+GEDCOM ist ein UTF-8 kodiertes hierarchisches Containerformat, das die Dateinamenserweiterung \textit{.ged} verwendet. Der erste Character einer GEDCOM-Datei sollte das Byte-Order-Mark (U+FEFF) sein. Der Inhalt einer GEDCOM-Datei ist in sog. \textit{Structures} unterteilt, die aus einem \textit{Structure Type} und einem optionalen \textit{Payload} bestehen und mehrere Substrukturen besitzen können. Hat eine \textit{Structure} eine \textit{Substructure}, dann ist die \textit{Structure} die \textit{Superstructure} der \textit{Structure}. Jede \textit{Substructure} hat genau eine \textit{Superstructure} und ist so in der Gesamtstruktur eindeutig zugeordnet. Eine \textit{Structure}, die keine \textit{Supertructure} besitzt, heißt \textit{Record}. Alle Records zusammen mit einer \textit{Header}- und einer \textit{Trailer}-Struktur bilden ein \textit{Dataset}, das den Inhalt einer GEDCOM-Datei darstellt. \cite{GEDCOM} 
+
+Der \textit{Payload} einer \textit{Structure} ist eine Zeichenkette eines bestimmten Datentyps, die entweder Informationen für die \textit{Supertructure} bereithält, oder einen Zeiger auf eine andere \textit{Structure} repräsentiert und somit auf diese verweist. GEDCOM v7 definiert 11 verschiedene Datentypen in \cite{GEDCOM} mit denen Namen, Daten, Uhrzeiten, Texte und vieles mehr dargestellt werden können. Der \textit{Structure Type} ist eindeutig definiert durch eine URI und gibt an, welche Bedeutung und welchen Datentyp die \textit{Structure} besitzt, welche \textit{Substructures} enthalten sein können und mit welcher Kardinalität diese auftreten können. \cite{GEDCOM} 
+
+Kodiert wird der Inhalt einer GEDCOM-Datei in sog. \textit{Lines}, die eine Zeichenkettenrepräsentation einer Struktur (bzw. eines Teils einer Struktur) darstellen und wie folgt aufgebaut sind (eckige Klammern repräsentieren optionale Inhalte):
+\begin{center}
+	Level  D  [Xref  D]  Tag  [D  LineVal]  EOL
+\end{center}
+\begin{itemize}
+	\item Level: Eine Line beginnt mit einem Level, das die Verhältnisse der \textit{Structures} untereinander beschreibt. Alle \textit{Structures} mit dem kleinstmöglichen Level $0$ sind Records - Level $\ge1$ repräsentieren \textit{Substructures}. Eine \textit{Structure} mit dem Level $x$ ist also die \textit{Superstructure} aller folgenden \textit{Structures} mit dem Level $x+1$.
+	\item D: \textit{D} steht für \textit{Delimiter}, was englisch für Trennzeichen ist und repräsentiert in diesem Fall das Leerzeichen mit dem Unicode $u+0020$.
+	\item Xref: Xref ist die Abkürzung für \textit{Cross-Reference Identifier} und fungiert als Adresse für eine \textit{Structure}. Möchte man von einer \textit{Structure} auf eine andere \textit{Structure} verweisen, kann dies über einen Zeiger-Payload auf die entsprechende \textit{Structure} realisiert werden.
+	\item Tag: Der \textit{Tag} kodiert den \textit{Structure Type} einer \textit{Structure}.
+	\item LineVal: Im \textit{LineVal} einer Struktur ist der Payload kodiert.
+	\item EOL: EOL steht für End-Of-Line und kodiert das Ende einer Line. Im Format GEDCOM v7 kann dies entweder durch einen Carriage-Return (Unicode U+000D), Line-Feed(Unicode U+000A) oder einen Carriage-Return gefolgt von einem Line-Feed repräsentiert werden.
+\end{itemize}
+Ein Ausschnitt aus einer GEDCOM-Datei ist in \textbf{Abbildung XY} dargestellt. Dieser Ausschnitt zeigt einen \textit{Record} vom Typ \textit{Individual}, in dem Informationen über ein Individuum gespeichert werden können. Dem Individuum Cross-Reference Identifier \textit{@I1@} zugewiesen, sodass im Dokument auf dieses verwiesen werden kann. In diesem Fall handelt es sich um ein männliches Individuum mit dem Namen John Doe. Über die \textit{Structure} mit dem \textit{Tag BIRT} kann das Geburtsdatum (Birthdate) angegeben werden, das in diesem Fall auf den 1.März 1951 datiert ist. Mit der \textit{Structure FAMS} wird eine Zugehörigkeit zur Family mit dem Cross-Reference Identifier \textit{@F2@} ausgedrückt.
+\begin{center}
+	0 @I1@ INDI
+	1 NAME John Doe
+	1 SEX M
+	1 BIRT
+	2 DATE 1 MAR 1951
+	1 FAMS @F2@
+\end{center}
+Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Datentypen, usw. und viele weitere Beispiele können in \cite{GEDCOM} nachgelesen werden.
 
 \section{Nearley}
-\label{Nearley}
+\label{sec: Nearley}
 
 
 \section{Mocha}
-\label{Mocha}
+\label{sec: Mocha}
