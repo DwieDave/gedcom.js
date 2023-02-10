@@ -1,3 +1,53 @@
-\chapter{Implementierung und Test}
+\chapter{Implementierung \& Test}
 \label{chap: Implementierung und Test}
 In diesem Kapitel...
+
+% Reihenfolge Grammatik & Grammatik Generator??
+\section{Gedcom Grammatik}
+\label{sec: Implementierung - Gedcom Grammatik}
+% zeigen wie eine Grammatik aussieht
+% Zeigen wie der Postprocessor funktioniert (auch Ausschnitt von Lexer möglich)
+% Problem mit Ambigious Grammar -> erklären was das Problem ist und wie gelöst wurde
+\subsection{Gedcom7 Syntax in Nearley}
+\label{subsec: Gedcom7 Syntax in Nearley}
+Da die Gedcom7- sowie die Nearley Syntax beide auf EBNF-Sprachkonzepten basieren, lässt sich die Gedcom7 Spezifikation ohne weiteres in eine Nearley Grammatik übersetzten. Um Nearley Regeln für eine \textit{Gedcom Line}\footnote{siehe \hyperref[sec: GEDCOM Version 7]{Kapitel GEDCOM Version 7}} zu definieren, können die folgenden Tokens für das Leerzeichen, den \textit{Cross-Reference Identifier} und die End-Of-Line Zeichenfolge in Form von regulären Ausdrücken definiert werden:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		D    : /[ ]/
+		Xref : /\@[A-Z0-9\_]+\@/	
+		EOL  : /(?:\r\n?|\n)/
+	\end{lstlisting}
+	\captionof{lstlisting}{Tokens für eine Gedcom Line, definiert als regulärer Ausdruck }
+	\label{lst: tokens gedcom line}
+\end{minipage}
+\\ \\
+Diese regulären Ausdrücke werden in der Vorverarbeitungsphase vom Moo-Lexer verwendet, um zusammenhängende Zeichen zu Tokens zu gruppieren, die dann in der Nearley Grammatik über den Tokennamen mit einem vorangestellten \%-Zeichen angesprochen werden können. Soll nun die erste Line eines Individual-Records geparsed werden, könnte dies mit der folgenden Nearley-Regel umgesetzt werden:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		record_Indi -> "0"  %D  %Xref  %D  "INDI"  %EOL 
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Regel zum parsen eines Individual Records}
+	\label{lst: nearley regel individual record}
+\end{minipage}
+\\ \\
+Diese Regel würde die erste Line des in \hyperref[lst: individual record example]{Listing XY} vorgestellten Individual-Records als Eingabe akzeptieren.
+
+
+\section{Grammatik Generator}
+\label{sec: Implementierung - Grammatik Generator}
+% Klassendiagramm mit Ablauf 
+
+
+\section{Gedcom Struktur}
+\label{sec: Implementierung - Gedcom Struktur}
+% Klassendiagramm 
+
+
+\section{Gedcom Parser}
+\label{sec: Implementierung - Gedcom Parser}
+% Kurze Beschreibung wie alles zusammengefügt wird
+% Beispielhafter Ablauf
+
+
