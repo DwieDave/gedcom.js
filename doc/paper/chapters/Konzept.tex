@@ -50,7 +50,7 @@ Eine weiterer Aufgabe des Nearley-Parsers ist es, die Strukturinformationen des 
 % Warum Grammatik Generator -> Anforderung erweiterbar
 % Wie umgesetzt? -> JS-Definitionsdateien einlesen 
 % Ablauf -> einlesen, grammatik erstellen, kompilieren,
-In der Gedcom7 Spezifikation werden 181 Structuretypes verteilt auf 8 Records definiert, die alle in einer Line der Form
+In der Gedcom7 Spezifikation werden 181 Structuretypes verteilt auf 7 Records definiert, die alle in einer Line der Form
 \begin{center}
 	Level  D  [Xref  D]  Tag  [D  LineVal]  EOL
 \end{center}
@@ -61,7 +61,7 @@ dargestellt werden. Sollen diese Structuretypes in eine Nearley Grammatik überf
 	\item \textbf{Datatype}: Sofern ein Payload in der Line vorhanden ist, kann über den Datatype die Syntax des Payloads ermittelt werden
 	\item \textbf{Tag}: Der Tag wird benötigt, damit die Nearley Regeln eindeutig sind
 	\item \textbf{Substructures}: In der Gedcom7 Spezifikation sind für alle Structuretypes alle möglichen Substructures definiert. Mit dieser Information können alle korrekten Fälle in Nearley Regeln abgebildet werden
-	\item \textbf{Level}: Um eine eindeutige Grammatik zu generieren, müssen die Level mit denen ein jeweiliger Structuretype auftreten kann, zwingend mit angegeben werden. Da in der gedcom7 Spezifikation TAGs mehrfach für verschiedene Typen verwendet werden, kann nicht einfach ein generisches Level für die Regeln verwendet werden, das ganzzahlige Werte akzeptiert, da die entstehende Grammatik damit mehrdeutig wäre. Ein Beispiel hierfür sind die Structures \textit{g7:HEAD-DATE} und \textit{g7:DATE-exact} im Header Record. Mit einem generischen Level wären die Regeln für beide Structuretypes identisch mit 
+	\item \textbf{Level}: Um eine eindeutige Grammatik zu generieren, müssen die Level mit denen ein jeweiliger Structuretype auftreten kann, zwingend mit angegeben werden. Da in der gedcom7 Spezifikation TAGs mehrfach für verschiedene Typen verwendet werden, kann nicht einfach ein generisches Level für die Regeln verwendet werden, das ganzzahlige Werte akzeptiert, da die entstehende Grammatik damit mehrdeutig wäre. Ein Beispiel hierfür sind die Structures \textit{g7:HEAD-DATE} und \textit{g7:DATE-exact} im Gedcom Header. Mit einem generischen Level wären die Regeln für beide Structuretypes identisch mit 
 	\begin{center}
 		Level  D  "DATE"  D  DateExact  EOL
 	\end{center}
@@ -76,8 +76,37 @@ Ein weitere großer Vorteil an dieser Automatisierung ist, dass zur Erfüllung d
 %========================================================================================
 \section{Gedcom Strukturen}
 \label{sec: Konzept - Gedcom Strukturen}
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=1\textwidth]{images/konzept_structure.png}
+	\caption{Gedcom Strukturen}
+	\label{fig: Gedcom Strukturen}
+\end{figure}
 % Hier auf Gedcom eingehen, welche Records es gibt 
 % Vererbungsbaum mit Structures, Records, Dataset usw. 
+Die zentrale Struktur in einer Gedcom7 Datei ist das sog. \textit{Dataset}. Jedes Dataset muss mit einem Header Structure beginnen, der Metadaten über das gesamte Dataset beinhaltet und dabei u.a. Aussagen über den Ort und Zeitpunkt der Erstellung und den Ersteller des Datasets selbst machen kann. Die Mindestanforderung an den Header ist, dass die verwendete Gedcom Version in einer dafür vorgesehenen Structure spezifiziert ist. Abgeschlossen wird jedes Dataset mit einer Trailer Line, die das Ende des Datasets repräsentiert. Eine minimales Gedcom7 Dataset sieht also wie folgt aus:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		0 HEAD
+		1 GEDC
+		2 VERS 7.0
+		0 TRLR
+	\end{lstlisting}
+	\captionof{lstlisting}{Minimales Gedcom7 Dataset}
+	\label{lst: minimales dataset}
+\end{minipage}
+\\ \\
+Alle weiteren genealogischen Informationen können in einem oder mehreren Records festgehalten werden. Folgende Records sind in der Gedcom7 Spezifikation definiert:
+\begin{itemize}
+	\item \textbf{Family (FAM)}: Der Family Record wurde ursprünglich so strukturiert, dass er eine Familie mit einem männlichen Ehemann und einer weiblichen Ehefrau repräsentiert. Um die Migration von bestehenden Gedcom-Dateien auf Gedcom7 zu erleichtern, wurde die Benamung der Strukturen beibehalten. Trotzdem sollen in Gedcom7 Familien, Heirat, Zusammenleben und Adoption unabhängig vom Geschlecht der Partner angegeben werden können und daher das Geschlecht und die Rollen von Partnern nicht aus der Husband- bzw. Wife Struktur abgeleitet werden.
+	\item \textbf{Individual (INDI)}: Zusammenstellung von Fakten und Hypothesen über eine Person. Diese können aus verschiedenen Quellen stammen, die durch Quellenangaben dokumentiert werden können.
+	\item \textbf{Multimedia (OBJE)}: Eine Referenz zu einer oder mehrerer digitaler Dateien, angereichert mit Informationen über den Inhalt und den Typ der Datei.
+	\item \textbf{Repository (REPO)}: Beinhaltet Informationen über Personen oder Institutionen, die eine Sammlung von Quellen besitzen.
+	\item \textbf{Shared Note (SNOTE)}: Eine Sammlung von Informationen, die nicht vollständig in andere Strukturen passen. Beispiele wären Forschungsnotizen, alternative Interpretationen oder Argumentationen
+	\item \textbf{Source (SOUR)}: Beschreibt eine Quelle, indem auf bestimmte Dokumente oder Verzeichnisse verwiesen wird.
+	\item \textbf{Submitter (SUBM)}: Beschreibt eine Person oder eine Institution, die im Dataset enthaltene Informationen begesteuert hat.
+\end{itemize}
 
 
 %========================================================================================
@@ -86,4 +115,9 @@ Ein weitere großer Vorteil an dieser Automatisierung ist, dass zur Erfüllung d
 \section{Gedcom Parser}
 \label{sec: Konzept - Gedcom Parser}
 % Hier ein Sequenzdiagramm mit dem generellen Ablauf
-
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=1\textwidth]{images/konzept_sequenz.png}
+	\caption{Ablauf Gedcom Parser}
+	\label{fig: Sequenz Gedcom Parser}
+\end{figure}
