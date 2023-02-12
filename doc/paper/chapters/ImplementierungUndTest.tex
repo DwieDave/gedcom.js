@@ -1,6 +1,6 @@
 \chapter{Implementierung \& Test}
 \label{chap: Implementierung und Test}
-In diesem Kapitel...
+In diesem Kapitel wird beschrieben wie das im Kapitel \ref{chap: Konzept} vorgestellte Konzept in der Bibliothek \textit{gedcom7.js} implementiert wird. 
 
 % Reihenfolge Grammatik & Grammatik Generator??
 \section{Gedcom Grammatik}
@@ -22,19 +22,103 @@ Da die Gedcom7- sowie die Nearley Syntax beide auf EBNF-Sprachkonzepten basieren
 	\label{lst: tokens gedcom line}
 \end{minipage}
 \\ \\
-Diese regulären Ausdrücke werden in der Vorverarbeitungsphase vom Moo-Lexer verwendet, um zusammenhängende Zeichen zu Tokens zu gruppieren, die dann in der Nearley Grammatik über den Tokennamen mit einem vorangestellten \%-Zeichen angesprochen werden können. Soll nun die erste Line eines Individual-Records geparsed werden, könnte dies mit der folgenden Nearley-Regel umgesetzt werden:
+Diese regulären Ausdrücke werden in der Vorverarbeitungsphase vom Moo-Lexer verwendet, um zusammenhängende Zeichen zu Tokens zu gruppieren, die dann in der Nearley Grammatik über den Tokennamen mit einem vorangestellten \%-Zeichen angesprochen werden können. Soll nun die erste Line eines Family-Records geparsed werden, könnte dies mit der folgenden Nearley-Regel umgesetzt werden:
 \\ \\
 \begin{minipage}{1.0\textwidth} \small
 	\begin{lstlisting}
-		record_Indi -> "0"  %D  %Xref  %D  "INDI"  %EOL 
+		record_FAM -> "0"  %D  %Xref  %D  "FAM"  %EOL 
 	\end{lstlisting}
-	\captionof{lstlisting}{Nearley Regel zum parsen eines Individual Records}
-	\label{lst: nearley regel individual record}
+	\captionof{lstlisting}{Nearley Regel zum parsen eines Family Records}
+	\label{lst: nearley regel family record first line}
 \end{minipage}
 \\ \\
-Diese Regel würde die erste Line des in \hyperref[lst: individual record example]{Listing XY} vorgestellten Individual-Records als Eingabe akzeptieren.
-
-
+Diese Regel würde die erste Line des in Listing \ref{lst: family record example} vorgestellten Family-Records als Eingabe akzeptieren. Sollen nun ebenfalls HUSB- und WIFE Structures als Substructures des Family Records akzeptiert werden, könnte die Nearley Grammatik wie folgt erweitert werden:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		record_FAM_Substructs
+			-> "0"  %D  %Xref  %D  "FAM"  %EOL 
+			|  record_FAM  record_FAM_Substructs:+
+		
+		record_FAM_Substructs 
+			-> "1"  %D  "HUSB"  %D  %Xref  %EOL
+			|  "1"  %D  "WIFE"  %D  %Xref  %EOL 
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Regel zum parsen eines Family Records mit HUSB- und WIFE Substructures}
+	\label{lst: nearley regel family record with husb and wife}
+\end{minipage}
+\\ \\
+Auf diese Weise nimmt würde der Nearley Parser einen Family Record ohne Substructures und einen Family Record mit beliebig vielen Substructures (in diesem Fall HUSB- und WIFE Structures) als Eingabe akzeptieren. Sollen nun die weiteren Lines aus Listing \ref{lst: family record example} ebenfalls in die Grammatik aufgenommen werden, müssen Regeln für die Datentypen der Payloads des MARR-Events und der NCHI-Structure definiert werden. Die Anzahl der Kinder wird als  \textit{Integer} Datentyp kodiert, also ein Folge von Dezimalziffern. Nach der Gedcom7 Spezifikation dürfen \textit{Integer} Werte nicht leer sein und führende Nullen sind erlaubt, sollten aber vermieden werden. Eine Regel für den Datentyp \textit{Integer} kann also dargestellt werden als
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		digit    ->  [0-9]
+		Integer  ->  digit:+
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Regel für den Datentyp \textit{Integer}}
+	\label{lst: nearley regel integer}
+\end{minipage}
+\\ \\ 
+Für das MARR-Event, also die Hochzeit der Ehepartner der Familie, ist eine \textit{Date Structure} zum Festhalten des Datums der Hochzeit hinterlegt. Dieses Datum wird mit dem Datentyp \textit{DateValue} kodiert, der im Gegensatz zum \textit{Integer} wesentlich mehr Regeln umfasst. Ein \textit{DateValue} kann auf vier verschiedene Weisen dargestellt sein:
+\begin{enumerate}
+	\item \textit{date}: Ein mehr oder weniger genau spezifiziertes Datum, z.B. ``AFT JULIAN 13 MAR 1998 BCE''
+	\item \textit{datePeriod}: Ein Zeitintervall, dass von einem Startdatum bis zu einem Enddatum angegeben wird, z.B. ``FROM 15 FEB 2001 TO 23 MAR 2001''
+	\item \textit{dateRange}: Ein ungenaueres Zeitintervall, bei dem nur Grenzen angegeben werden, z.B. ``BET 15 FEB 2001 AND 23 MAR 2001''
+	\item \textit{dateApprox}: Eine Schätzung des Datums (ABT x: genaues Datum unbekannt, aber nahe x), z.B. ``ABT 15 FEB 2001''
+\end{enumerate}
+Diese Zusammenhänge ergeben die folgenden Nearley Regeln für die Definition des Datentyps \textit{DateValue}:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		DateValue   ->  (date | DatePeriod | dateRange | dateApprox):?
+		
+		date        ->  (calendar  D):?  
+						((day  D):?  month  D):?  
+						year  
+						(D  epoch):?
+		datePeriod  ->  ("FROM"  D  date  D):?  "TO"  D  date
+		dateApprox  ->  ("ABT" | "CAL" | "EST")  D  date 
+		dateRange   ->  "BET"  D  date  D  "AND"  D  date  
+					|   "AFT"  D  date  
+					|   "BEF"  D  date 
+		
+		calendar ->  "GREGORIAN" | "JULIAN" | "FRENCH_R" | "HEBREW"
+		day      ->  Integer  
+		year 	 ->  Integer
+		month    ->  Tag
+		epoch    ->  "BCE" | Tag
+		
+		Tag 	 ->  upperCaseLetter  |  digit  |  underscore 
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Regel für den Datentyp \textit{DateValue}}
+	\label{lst: nearley regel date}
+\end{minipage}
+\\ \\ 
+Werden all diese Regeln zusammengefasst lässt sich die folgende Grammatik definieren, die den Family Record aus Listing \ref{lst: family record example} als Eingabe akzeptiert:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		record_FAM_Substructs
+			-> "0"  %D  %Xref  %D  "FAM"  %EOL 
+			|  record_FAM  record_FAM_Substructs:+
+		
+		record_FAM_Substructs 
+			-> "1"  %D  "HUSB"  %D  %Xref  %EOL
+			|  "1"  %D  "WIFE"  %D  %Xref  %EOL 
+			|  "1"  %D  "NCHI"  %D  Integer  %EOL 
+			|  structure_MARR 
+		
+		structure_MARR
+			-> "1"  %D  "MARR" %EOL
+			|  structure_MARR  
+		
+		structure_DATE
+			-> "2" %D  "DATE"  %D  DateValue  %EOL
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Grammatik für den Family Record aus Listing \ref{lst: family record example}}
+	\label{lst: vollständige nearley grammatik family record}
+\end{minipage}
+\\ \\ 
 \section{Grammatik Generator}
 \label{sec: Implementierung - Grammatik Generator}
 % Klassendiagramm mit Ablauf 

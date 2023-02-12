@@ -28,19 +28,19 @@ Kodiert wird der Inhalt einer GEDCOM-Datei in sog. \textit{Lines}, die eine Zeic
 	\item LineVal: Im \textit{LineVal} einer Struktur ist der Payload kodiert.
 	\item EOL: EOL steht für End-Of-Line und kodiert das Ende einer Line. Im Format GEDCOM v7 kann dies entweder durch einen Carriage-Return (Unicode U+000D), Line-Feed(Unicode U+000A) oder einen Carriage-Return gefolgt von einem Line-Feed repräsentiert werden.
 \end{itemize}
-Ein Ausschnitt aus einer GEDCOM-Datei ist in \hyperref[lst: individual record example]{Listing 2.1} dargestellt. Dieser Ausschnitt zeigt einen \textit{Record} vom Typ \textit{Individual}, in dem Informationen über ein Individuum gespeichert werden können. Dem Individuum Cross-Reference Identifier \textit{@I1@} zugewiesen, sodass im Dokument auf dieses verwiesen werden kann. In diesem Fall handelt es sich um ein männliches Individuum mit dem Namen John Doe. Über die \textit{Structure} mit dem \textit{Tag BIRT} kann das Geburtsdatum (Birthdate) angegeben werden, das in diesem Fall auf den 1.März 1951 datiert ist. Mit der \textit{Structure FAMS} wird eine Zugehörigkeit zur Family mit dem Cross-Reference Identifier \textit{@F2@} ausgedrückt.
+Ein Ausschnitt aus einer GEDCOM-Datei ist in \ref{lst: family record example} dargestellt. Dieser Ausschnitt zeigt einen \textit{Record} vom Typ \textit{Family}, in dem Informationen über eine Familie gespeichert werden können. Der Familie wurde der Cross-Reference Identifier \textit{@F1@} zugewiesen, sodass im Dokument auf dieses verwiesen werden kann. Der Ehemann und die Ehefrau der Familie (engl. Husband und Wife) sind die Individuen \textit{I1} und \textit{I2}, die ebenfalls in der Gedcom7-Datei definiert sind. Dieser Zusammenhang wird über die Cross-Reference Identifier \textit{@I1@} und \textit{@I2@} ausgedrückt. Außerdem wird ein Family-Event, nämlich die Hochzeit der beiden Ehepartner aufgeführt und auf den 1.März 1951 datiert. Als letzte Information ist die Anzahl der Kinder (NCHI: Number of Children) mit 2 spezifiziert.
 \\ \\
 \begin{minipage}{1.0\textwidth} \small
 	\begin{lstlisting}
-		0 @I1@ INDI
-		1 NAME John Doe
-		1 SEX M
-		1 BIRT
+		0 @F1@ FAM
+		1 HUSB @I1@
+		1 WIFE @I2@
+		1 MARR
 		2 DATE 1 MAR 1951
-		1 FAMS @F2@
+		1 NCHI 2
 	\end{lstlisting}
 	\captionof{lstlisting}{Beispiel für einen Individual Record}
-	\label{lst: individual record example}
+	\label{lst: family record example}
 \end{minipage}
 \\ \\
 Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Datentypen, usw. und viele weitere Beispiele können in \cite{GEDCOM} nachgelesen werden.
