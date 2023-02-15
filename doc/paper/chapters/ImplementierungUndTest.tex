@@ -2,6 +2,9 @@
 \label{chap: Implementierung und Test}
 In diesem Kapitel wird beschrieben wie das im Kapitel \ref{chap: Konzept} vorgestellte Konzept in der Bibliothek \textit{gedcom7.js} implementiert wird. 
 
+%========================================================================================
+% SECTION: GEDCOM GRAMMATIK
+%========================================================================================
 % Reihenfolge Grammatik & Grammatik Generator??
 \section{Gedcom Grammatik}
 \label{sec: Implementierung - Gedcom Grammatik}
@@ -9,7 +12,7 @@ In diesem Kapitel wird beschrieben wie das im Kapitel \ref{chap: Konzept} vorges
 % Zeigen wie der Postprocessor funktioniert (auch Ausschnitt von Lexer möglich)
 % Problem mit Ambigious Grammar -> erklären was das Problem ist und wie gelöst wurde
 \subsection{Gedcom7 Syntax in Nearley}
-\label{subsec: Gedcom7 Syntax in Nearley}
+\label{subsec: Implementierung - Gedcom Grammatik - Gedcom7 Syntax in Nearley}
 Da die Gedcom7- sowie die Nearley Syntax beide auf EBNF-Sprachkonzepten basieren, lässt sich die Gedcom7 Spezifikation ohne weiteres in eine Nearley Grammatik übersetzten. Um Nearley Regeln für eine \textit{Gedcom Line}\footnote{siehe \hyperref[sec: GEDCOM Version 7]{Kapitel GEDCOM Version 7}} zu definieren, können die folgenden Tokens für das Leerzeichen, den \textit{Cross-Reference Identifier} und die End-Of-Line Zeichenfolge in Form von regulären Ausdrücken definiert werden:
 \\ \\
 \begin{minipage}{1.0\textwidth} \small
@@ -32,11 +35,14 @@ Diese regulären Ausdrücke werden in der Vorverarbeitungsphase vom Moo-Lexer ve
 	\label{lst: nearley regel family record first line}
 \end{minipage}
 \\ \\
-Diese Regel würde die erste Line des in Listing \ref{lst: family record example} vorgestellten Family-Records als Eingabe akzeptieren. Sollen nun ebenfalls HUSB- und WIFE Structures als Substructures des Family Records akzeptiert werden, könnte die Nearley Grammatik wie folgt erweitert werden:
+Diese Regel akzeptiert eine Line mit dem Level 0, einem syntaktisch korrekten Cross-Reference-Identifier, dem Tag \textit{FAM} gefolgt von einem EOL-Token. Getrennt werden die Bestandteile durch ein Leerzeichen. 
+
+
+Sollen nun ebenfalls HUSB- und WIFE Structures als Substructures des Family Records akzeptiert werden, könnte die Nearley Grammatik wie folgt erweitert werden:
 \\ \\
 \begin{minipage}{1.0\textwidth} \small
 	\begin{lstlisting}
-		record_FAM_Substructs
+		record_FAM
 			-> "0"  %D  %Xref  %D  "FAM"  %EOL 
 			|  record_FAM  record_FAM_Substructs:+
 		
@@ -59,9 +65,9 @@ Auf diese Weise nimmt würde der Nearley Parser einen Family Record ohne Substru
 	\label{lst: nearley regel integer}
 \end{minipage}
 \\ \\ 
-Für das MARR-Event, also die Hochzeit der Ehepartner der Familie, ist eine \textit{Date Structure} zum Festhalten des Datums der Hochzeit hinterlegt. Dieses Datum wird mit dem Datentyp \textit{DateValue} kodiert, der im Gegensatz zum \textit{Integer} wesentlich mehr Regeln umfasst. Ein \textit{DateValue} kann auf vier verschiedene Weisen dargestellt sein:
+Für das MARR-Event, also die Hochzeit der Ehepartner der Familie, ist eine \textit{DATE Structure} zum Festhalten des Datums der Hochzeit hinterlegt. Dieses Datum wird mit dem Datentyp \textit{DateValue} kodiert, der im Gegensatz zum \textit{Integer} wesentlich mehr Regeln umfasst. Ein \textit{DateValue} kann auf vier verschiedene Weisen dargestellt sein:
 \begin{enumerate}
-	\item \textit{date}: Ein mehr oder weniger genau spezifiziertes Datum, z.B. ``AFT JULIAN 13 MAR 1998 BCE''
+	\item \textit{date}: Ein mehr oder weniger genau spezifiziertes Datum, z.B. ``JULIAN 13 MAR 1998 BCE''
 	\item \textit{datePeriod}: Ein Zeitintervall, dass von einem Startdatum bis zu einem Enddatum angegeben wird, z.B. ``FROM 15 FEB 2001 TO 23 MAR 2001''
 	\item \textit{dateRange}: Ein ungenaueres Zeitintervall, bei dem nur Grenzen angegeben werden, z.B. ``BET 15 FEB 2001 AND 23 MAR 2001''
 	\item \textit{dateApprox}: Eine Schätzung des Datums (ABT x: genaues Datum unbekannt, aber nahe x), z.B. ``ABT 15 FEB 2001''
@@ -119,16 +125,178 @@ Werden all diese Regeln zusammengefasst lässt sich die folgende Grammatik defin
 	\label{lst: vollständige nearley grammatik family record}
 \end{minipage}
 \\ \\ 
+Mit diesem Vorgehen können Nearley Regeln für alle Datentypen, Structures und Records definiert werden, die zu einer Grammatik für die Syntaxüberprüfung von Gedcom7 Dateinen zusammengesetzt werden können.
+
+
+\subsection{Nearley Postprozessor}
+\label{subsec: Implementierung - Gedcom Grammatik - Nearley Postprozessoren}
+Der Nearley Postprozessor für die Bibliothek \textit{gedcom7.js} enthält 3 Funktionen: 
+
+\vspace{1em}
+\textsc{\textbf{joinAndUnpackAll()}:} \vspace{0.5em} \\
+Wie in Abschnitt \ref{subsec: Konzept - Gedcom Grammatik - Pre- und Postprozessor} beschrieben, überführt ein \textit{Nearley-Parser} jedes Zeichen, das mit einer Regel übereinstimmt, in ein Array. Bei komplexeren Grammatiken wie der Gedcom7 Spezifikation führt dies dazu, dass sehr viele Arrays innereinander verschachtelt werden, sodass schnell hohe Verschatlungsgrade erreicht werden. Ein Beispiel hierfür wäre der in Abschnitt \ref{subsec: Implementierung - Gedcom Grammatik - Gedcom7 Syntax in Nearley} definierte Datentyp \textit{DateValue}. Hier würde jeder Bestandteil eines DateValues in ein eigenes Array verschachtelt werden. Wird beispielsweise das Datum 
+\begin{center}
+	13 MAR 1998 BCE
+\end{center}
+ohne Postprozessoren verarbeitet, wird das Array
+\begin{center}
+	[13, , [MAR, , [1998, , [BCE, , ]]]]
+\end{center}
+zurückgegeben, dass eine Weiterverarbeitung sehr umständlich macht. Daher wird der Postprozessor \textsc{joinAndUnpackAll()} implementiert, der über die JavaScript Funktion \textit{flat()} alle Elemente des Arrays rekursiv verkettet und anschließend über die Funktion \textit{join()} zu einer Zeichenkette zusammenfügt. Wird dieser Postprozessor einem Datentyp wie \textit{DateValue} zugewiesen, wird jedes syntaktisch korrekte Datum als Zeichenkette zurückgegeben und kann so direkt als LineValue für die weitere Verarbeitung verwendet werden. Die in Listing \ref{lst: nearley regel date} definierte Regel würde sich ergeben zu
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		DateValue   
+			->  (date | DatePeriod | dateRange | dateApprox):?
+				{% postprocessor.joinAndUnpackAll %}
+	\end{lstlisting}
+	\captionof{lstlisting}{Erweiterung der Nearley Regel für den Datentyp \textit{DateValue}}
+	\label{lst: nearley regel date mit postprozessor}
+\end{minipage}
+\\ \\
+
+\vspace{1em}
+\textsc{\textbf{createStructure()}:} \vspace{0.5em} \\
+Der Postprozessor \textsc{createStructure()} wird verwendet, um die gelesene Line mit Structure Informationen anzureichern. In der Nearley Regel wird die Line selbst, der Typ und die in der Gedcom7 Spezifikation definierte URI der Line und die Structures bei denen eine Kardinalitätsüberprüfung notwendig ist an den Postprozessor übergeben. Für den in Listing \ref{lst: vollständige nearley grammatik family record} Family Record ergibt sich der Postprozessoraufruf wie folgt:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		record_FAM
+			-> "0"  %D  %Xref  %D  "FAM"  %EOL
+			{% (line) => postprocessor.createStructure({
+				line: line,
+				uri: "g7_record_FAM", 
+				type: "FAM_RECORD", 
+				checkCardinalityOf: {
+					"1_g7_FAM_HUSB":"0:1", 
+					"1_g7_FAM_WIFE":"0:1",
+				}
+			}) %}
+	\end{lstlisting}
+	\captionof{lstlisting}{Nearley Regel zum parsen eines Family Records mit Postprozessor}
+	\label{lst: nearley regel family record mit postprozessor}
+\end{minipage}
+\\ \\
+Im Parameter \textit{checkCardinalityOf} werden die URIs alle Structures angegeben, bei denen eine Kardinalitätsüberprüfung notwendig ist und die in der Gedcom7 Spezifikation definierte Kardinalität als Wert zugewiesen. Kardinalitätsüberprüfungen sind bei allen Substructures erforderlich, die für die SUperstructure als notwendig definiert wurden (1:1 und 1:M) oder für die eine Maximale Anzahl festgelegt ist (also 0:1 und 1:1). In der Funktion \textsc{createStructure()} werden alle Informationen abhängig vom übergebenen Type zusammengefasst und als JavaScript Objekt an den Parser zurückgegeben. Für einen Family Record ergibt sich die Funktion zu:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+	createStructure: (params) => {
+		// create line object depending on type of line
+		let lineObject = {};
+		lineObject = { 
+			level: line[0], 
+			xref: line[2], 
+			tag: line[4], 
+			lineVal: '', 
+			EOL: line[5] 
+		};
+		
+		// return data object with structure information
+		return {
+			uri: params.uri,
+			line: lineObject,
+			type: params.type,
+			lineValType: params.lineValType || null,
+			superstructFound: false,
+			substructs: [],
+			checkCardinalityOf: params.checkCardinalityOf
+		};
+	}
+	\end{lstlisting}
+	\captionof{lstlisting}{Funktion \textsc{createStructure()} für einen Family Record}
+	\label{lst: createStructure für Family Record}
+\end{minipage}
+\\ \\
+
+\vspace{1em}
+\textsc{\textbf{addSubstructure()}:} \vspace{0.5em} \\
+Die zusammengesetzte Regel ergibt sich zu 
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		record_FAM
+			-> "0"  %D  %Xref  %D  "FAM"  %EOL
+			{% (line) => postprocessor.createStructure({
+				line: line,
+				uri: "g7_record_FAM", 
+				type: "FAM_RECORD", 
+				checkCardinalityOf: {
+					"1_g7_FAM_HUSB":"0:1", 
+					"1_g7_FAM_WIFE":"0:1",
+				}
+			}) %}
+	\end{lstlisting}
+	\captionof{lstlisting}{Vollständige Nearley Regel zum parsen eines Family Records mit Substructures}
+	\label{lst: nearley regel family record mit postprozessor und substructs}
+\end{minipage}
+\\ \\
+
+%========================================================================================
+% SECTION: GRAMMATIK GENERATOR
+%========================================================================================
 \section{Grammatik Generator}
 \label{sec: Implementierung - Grammatik Generator}
-% Klassendiagramm mit Ablauf 
+%
+\subsection{Definition der Grammatik}
+\label{subsec: Implementierung - Grammatik Generator - Definition der Grammatik}
+
+\subsection{Grammatikgenerierung mit generateGrammar()}
+\label{subsec: Implementierung - Grammatik Generator - generateGrammar}
+
+\subsection{Parsergenerierung mit generateParser()}
+\label{subsec: Implementierung - Grammatik Generator - generateParser}
+
+\subsection{Structure Infromationen}
+\label{subsec: Implementierung - Grammatik Generator - Structure Infromationen}
 
 
+%========================================================================================
+% SECTION: GEDCOM STRUKTUR
+%========================================================================================
 \section{Gedcom Struktur}
 \label{sec: Implementierung - Gedcom Struktur}
 % Klassendiagramm 
+\subsection{Klasse \textit{Structure}}
+\label{subsec: Implementierung - Gedcom Struktur - Klasse Structure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{images/UML_Class_Structure.png}
+	\caption{UML Klassendiagramm Structure}
+	\label{fig: UML Klassendiagramm Structure}
+\end{figure}
+
+\subsection{Klasse \textit{Record}}
+\label{subsec: Implementierung - Gedcom Struktur - Klasse Record}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{images/UML_Class_Record.png}
+	\caption{UML Klassendiagramm Record}
+	\label{fig: UML Klassendiagramm Record}
+\end{figure}
+
+\subsection{Klasse \textit{Family}}
+\label{subsec: Implementierung - Gedcom Struktur - Klasse Family}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{images/UML_Class_Family.png}
+	\caption{UML Klassendiagramm Family}
+	\label{fig: UML Klassendiagramm Family}
+\end{figure}
+
+\subsection{Klasse \textit{Dataset}}
+\label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{images/UML_Class_Dataset.png}
+	\caption{UML Klassendiagramm Dataset}
+	\label{fig: UML Klassendiagramm Dataset}
+\end{figure}
 
 
+%========================================================================================
+% SECTION: GEDCOM Parser
+%========================================================================================
 \section{Gedcom Parser}
 \label{sec: Implementierung - Gedcom Parser}
 % Kurze Beschreibung wie alles zusammengefügt wird
