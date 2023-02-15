@@ -1,0 +1,48 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>72</x><y>0</y><w>378</w><h>459</h></coordinates><panel_attributes>GrammarGenerator
+--
+
+- path: String
+- nearleyContainerPath: String
+- nearleyHeader: String
+
+- datasetDefinition: Object
+- headerDefinition: Object
+- recordDefinitions: Object[7]
+- substructureDefinitions: Object
+- structureTypesDefinitions: Object
+
+- ruleArrow: String
+- rulePipe: String
+- postprocessorLine: String
+- idPostprocessor: String
+- callLexer: String
+--
+
++ Dataset (path: String, nearleyHeader: String)
+_+ build (path: String): GrammarGenerator_
+
++ generateGrammar()
++ buildRule(Object): String
++ buildRuleString(Object): String
+
++ generateParser()
++ buildParser(fileName: String, include: String[*]
+
++ generateStructureInfo()
+
++ convertUri(uri: String): String
++ convertCheckCardinalityOf(checkCardinalityOf: Object): String
+
++ generate()
+
+
+
+
+
+
+
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
