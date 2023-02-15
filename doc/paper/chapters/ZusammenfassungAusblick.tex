@@ -1,4 +1,27 @@
 \chapter{Zusammenfassung und Ausblick}
 \label{chap: Zusammenfassung und Ausblick}
-In dieser Arbeit wurde ...
 
+In dieser Abhandlung wird unsere Bibliothek gedcom7.js als Hauptthema präsentiert. Diese Bibliothek enthält 
+als Hauptkomponenten einen Parser, Grammatiken, einen Grammatik-Generator und die Structure-Klassen und Methoden. 
+Diese können verwendet werden, um Gedcom7-Dateien unter Verwendung von node.js zu 
+lesen, zu verarbeiten, zu manipulieren, zu erstellen und zu schreiben.
+\\\\
+Bei der Ausarbeitung und Implementierung wurde ein besonderer Fokus auf die konforme Handhabung von 
+Gedcom7-Dateien gelegt. Durch die Grammatikprüfung beim Einlesen eines Datasets wird sichergestellt, 
+dass die Datei den Gedcom7-Spezifikationen entspricht. Die Grammatikprüfung wird auch nach\\Änderungen 
+durch die Structure-Klassen-Methoden durchgeführt, um sicherzustellen, dass die Daten nach der 
+Manipulation noch den Spezifikationen entsprechen.
+\\\\
+Das Kernmodul der Grammatikprüfung ist der GrammarGenerator. Mit seinem spezifikationsnahen Interface
+kann der GrammarGenerator redundante Strukturen kompakt abbilden und daraus effizient Nearley-Grammatiken
+erstellen, aus denen JavaScript-Parser generiert werden. Der GrammarGenerator greift hierbei auf die 
+URI-Bezeichner der Gedcom-Spezifikation zurück.
+
+Dank des modularen Aufbaus des GrammarGenerators können auch Features wie Gedcom-Extensions implementiert
+werden, bei denen eigene "Tags" definiert werden können. Nach der Erweiterung des GrammarGenerators 
+können neue grammatikbasierte Parser erzeugt werden.
+\\\\  
+Insgesamt bietet die Bibliothek gedcom7.js eine robuste und spezifikationskonforme Möglichkeit, 
+Gedcom7-Dateien in JavaScript zu verarbeiten. Die Grammatikprüfung und der GrammarGenerator sind 
+besonders nützliche Features, die die Erstellung und Manipulation von Gedcom7-Dateien erleichtern
+und für eine Weiterentwicklung des Projekts eine sehr solide Grundlage bietet.
