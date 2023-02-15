@@ -1,15 +1,15 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>72</x><y>18</y><w>378</w><h>459</h></coordinates><panel_attributes>GrammarGenerator
+<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>72</x><y>0</y><w>378</w><h>459</h></coordinates><panel_attributes>GrammarGenerator
 --
 
 - path: String
-- dummyPath: String
-
+- nearleyContainerPath: String
 - nearleyHeader: String
+
 - datasetDefinition: Object
 - headerDefinition: Object
-- records: Object[7]
-- Substructures: Object
-- StructureTypes: Object
+- recordDefinitions: Object[7]
+- substructureDefinitions: Object
+- structureTypesDefinitions: Object
 
 - ruleArrow: String
 - rulePipe: String
@@ -22,8 +22,8 @@
 _+ build (path: String): GrammarGenerator_
 
 + generateGrammar()
-+ generateRuleString(Object): String
-+ generateRule(Object): String
++ buildRule(Object): String
++ buildRuleString(Object): String
 
 + generateParser()
 + buildParser(fileName: String, include: String[*]
@@ -32,6 +32,10 @@ _+ build (path: String): GrammarGenerator_
 
 + convertUri(uri: String): String
 + convertCheckCardinalityOf(checkCardinalityOf: Object): String
+
++ generate()
+
+
 
 
 
