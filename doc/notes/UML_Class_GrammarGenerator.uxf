@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>72</x><y>0</y><w>378</w><h>459</h></coordinates><panel_attributes>GrammarGenerator
+<diagram program="umletino" version="15.0.0"><zoom_level>9</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>72</x><y>0</y><w>378</w><h>468</h></coordinates><panel_attributes>GrammarGenerator
 --
 
 - path: String
@@ -18,7 +18,7 @@
 - callLexer: String
 --
 
-+ Dataset (path: String, nearleyHeader: String)
++ GrammarGenerator (path: String, nearleyHeader: String)
 _+ build (path: String): GrammarGenerator_
 
 + generateGrammar()
@@ -33,7 +33,6 @@ _+ build (path: String): GrammarGenerator_
 + convertUri(uri: String): String
 + convertCheckCardinalityOf(checkCardinalityOf: Object): String
 
-+ generate()
 
 
 

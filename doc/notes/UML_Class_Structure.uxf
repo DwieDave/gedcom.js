@@ -15,12 +15,21 @@
 - datasetReference: Dataset
 
 --
-
-+ Structure (String, String, String, String, String, String, String, Structure[], Dataset)
++ Structure (
+        uri: String,
+        level: String,
+        xref: String,
+        tag: String,
+        lineVal: String,
+        lineValType: String,
+        EOL: String,
+        Substructures: Structure[*],
+        datasetRef: Dataset
+)
 + equals (Structure): boolean
 
 + getSubstructures (): Structure[]
-+ getPossibleSubstructs (boolean?): Structure[]
++ getPossibleSubstructs (checkCardinalityFlag: boolean): Structure[]
 + getSubstructuresBy (): Structure[]
 + getSubstructuresByUri (): Structure[]
 + getSubstructuresByTag (): Structure[]
