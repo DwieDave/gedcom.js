@@ -53,3 +53,43 @@ Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Daten
 
 \section{Mocha}
 \label{sec: Mocha}
+
+Da uns das Testen unserer Bibliothek wichtig war haben wir uns nach Beginn der ersten Implementierung
+auf die Suche nach einem Testframework für JavaScript gemacht. Dabei sind wir auf Mocha gestoßen, welches
+eine einfach API zum Erstellen von Tests bietet. Die Tests können dabei entweder synchron oder asynchron
+sein und können, wie bei den meisten Testframeworks, mit Hilfe von Assertion-Funktionen überprüft werden.
+
+\newpage
+
+\begin{javascript}
+  // ===========================================================
+  // GEDCOM READING AND WRITING
+  describe('test if gedcom file is equivalent before and after parsing', () => {
+  	const path = 'test/sampleData/ExampleFamilySearchGEDCOMFiles/';
+  	//correct files
+  	const gedFiles = [
+		'escapes.ged',
+		'long-url.ged',
+		'maximal70_without_extensions.ged',
+		'minimal70.ged',
+		'remarriage1.ged',
+		'same-sex-marriage.ged',
+		'voidptr.ged'
+  	];
+
+  	forEach(gedFiles)
+		.it('#%s', async (fileName) => {
+	  	// read Gedcom file as String
+	  	const beforeParsing = await readGedFile(path + fileName);
+	  	// parse Gedcom String and write it to temp.ged
+	  	const dataset = gedcomParser.parseString(beforeParsing);
+	  	await fs.writeFile(path + 'temp.ged', '');
+	  	await dataset.write(path + 'temp.ged');
+	  	// read temp.ged as String and compare it with original file
+	  	const afterParsing = await readGedFile(path + 'temp.ged');
+
+	  	// expect files to be equal
+	  	expect(diffChars(beforeParsing, afterParsing)).to.have.lengthOf(1);
+	});
+  });
+\end{javascript}
