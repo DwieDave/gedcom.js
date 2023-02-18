@@ -366,6 +366,7 @@ Eine Instanz der Klasse \textsc{Structure} hält alle Informationen über eine L
 \vspace{1em}
 \textbf{1. Finden von Substructures} \vspace{0.5em} \\
 Eine der wichtigsten Aufgaben der Klasse \textsc{Structure} ist es, eigene Substructures zu suchen und zu finden. Dazu werden die Methoden \textit{getSubstructuresByUri}, \textit{getSubstructuresByTag} und \textit{getSubstructuresByLineVal} bereitgestellt, die alle Sbstructures zurückgeben, die einem Suchkriterium genügen, das abhängig von der Methode eine Gedcom7 URI, ein Gedcom7 Tag oder einen LineValue darstellen. Über den Parameter \textit{recursive} kann spezifiziert werden, ob nur direkte Substructures (also mit einem um $1$ inkrementierten Level) gesucht werden sollen oder ob ebenfalls alle Substructures von Substructures rekursiv durchsucht werden sollen. Sollen einfach alle Substructures einer Structure ohne Suchkriterium zurückgegeben werden, kann die Methode \textit{getSubstructures} verwendet werden.
+In vielen Anwendungsfällen kann es zudem von Interesse sein, welche Structures als Substructure 
 
 \vspace{1em}
 \textbf{2. Hinzufügen von Substructures} \vspace{0.5em} \\
