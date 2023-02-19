@@ -2,17 +2,11 @@
 --
 
 --
-
-+ getHusband (): Structure
-+ getHusbandXref (): String
-+ getWife (): Structure
-+ getWifeXref (): String
-+ getChildren (): Structure[]
-+ getChildrenXref (): String
-+ getFamilyAttributeStructures (): Structure[]
-+ getNumbersOfChildren (): Structure[]
-+ getResidenceInformation (): Structure[]
-+ getFamilyFacts (): Structure[]
-
 + checkSyntax ()
-</panel_attributes><additional_attributes></additional_attributes></element></diagram>
++ getRestriction(): Object
+
++ extractEventDetail (struct: Structure) : Object
++ extractPlaceStructure (struct: Structure) : Object
++ extractNoteStructures (struct: Structure) : Object
++ extractIdentifierStructures () : Object
++ extractAssociationStructure (struct: Structure) : Object</panel_attributes><additional_attributes></additional_attributes></element></diagram>

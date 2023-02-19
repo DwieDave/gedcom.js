@@ -357,29 +357,9 @@ Im ersten Schritt der Funktion \textit{generateParser()} werden die Include-Stat
 \label{sec: Implementierung - Gedcom Struktur}
 Die Struktur einer Gedcom7 Datei wird in der Bibliothek \textit{gedcom7.js} mit Hilfe der Klasse \textsc{Dataset} abgebildet, die alle Gedcom Structures verwaltet, die in Form der gleichnamigen Klasse \textsc{Structure} verwaltet werden. Structures werden in \textit{gedcom7.js} entweder als allgemeine Instanz der Klasse \textsc{Structure} (z.B. eine HUSB-Structure), als \textsc{Record} (z.B. ein Family Record) oder als \textsc{Datatype Structure} (z.B. eine DATE-Structure) repräsentiert. 
 
-\subsection{Klasse \textit{Structure}}
+\subsection{Klasse \textsc{Structure}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Structure}
 Die Klasse \textsc{Structure} ist die Überklasse aller Klassen zur Structure-Verwaltung, d.h. Records und Datatyp Structures erben alle Methoden und Eigenschaften von \textsc{Structure}. Diese Methoden und Eigenschaften sind in Abbildung \ref{fig: UML Klassendiagramm Structure} abgebildet. 
-
-Eine Instanz der Klasse \textsc{Structure} hält alle Informationen über eine Line bereit (URI, Level, Tag, Xref, lineValue, Typ des LineValues, EOL-Zeichen). Außerdem werden Referenzen zu allen Substructures, der Superstructure, dem Record mit dem die Structure assoziiert wird, sowie zum Dataset in dem die Structure enthalten ist bereitgestellt. Außerdem übernimmt die Klasse \textsc{Structure} vier zentrale Aufgaben zur Verwaltung von Gedcom7 Informationen, die von der Klasse \textsc{Dataset} angestoßen werden können:
-
-\vspace{1em}
-\textbf{1. Finden von Substructures} \vspace{0.5em} \\
-Eine der wichtigsten Aufgaben der Klasse \textsc{Structure} ist es, eigene Substructures zu suchen und zu finden. Dazu werden die Methoden \textit{getSubstructuresByUri}, \textit{getSubstructuresByTag} und \textit{getSubstructuresByLineVal} bereitgestellt, die alle Sbstructures zurückgeben, die einem Suchkriterium genügen, das abhängig von der Methode eine Gedcom7 URI, ein Gedcom7 Tag oder einen LineValue darstellen. Über den Parameter \textit{recursive} kann spezifiziert werden, ob nur direkte Substructures (also mit einem um $1$ inkrementierten Level) gesucht werden sollen oder ob ebenfalls alle Substructures von Substructures rekursiv durchsucht werden sollen. Sollen einfach alle Substructures einer Structure ohne Suchkriterium zurückgegeben werden, kann die Methode \textit{getSubstructures} verwendet werden.
-In vielen Anwendungsfällen kann es zudem von Interesse sein, welche Structures als Substructure 
-
-\vspace{1em}
-\textbf{2. Hinzufügen von Substructures} \vspace{0.5em} \\
-asd
-
-\vspace{1em}
-\textbf{3. Entfernen von Substructures} \vspace{0.5em} \\
-asd
-
-\vspace{1em}
-\textbf{4. Ändern des Payloads} \vspace{0.5em} \\
-asd
-
 
 \begin{figure}[h]
 	\centering
@@ -388,8 +368,96 @@ asd
 	\label{fig: UML Klassendiagramm Structure}
 \end{figure}
 
-\subsection{Klasse \textit{Record}}
+Eine Instanz der Klasse \textsc{Structure} hält alle Informationen über eine Line bereit (URI, Level, Tag, Xref, lineValue, Typ des LineValues, EOL-Zeichen). Außerdem werden Referenzen zu allen Substructures, der Superstructure, dem Record mit dem die Structure assoziiert wird, sowie zum Dataset in dem die Structure enthalten ist bereitgestellt. Außerdem übernimmt die Klasse \textsc{Structure} vier zentrale Aufgaben zur Verwaltung von Gedcom7 Informationen, die von der Klasse \textsc{Dataset} angestoßen werden können:
+
+\vspace{1em}
+\textbf{1. Finden von Substructures} \vspace{0.5em} \\
+Eine der wichtigsten Aufgaben der Klasse \textsc{Structure} ist es, eigene Substructures zu suchen und zu finden. Dazu werden die Methoden \textit{getSubstructuresByUri}, \textit{getSubstructuresByTag} und \textit{getSubstructuresByLineVal} bereitgestellt, die alle Substructures zurückgeben, die einem Suchkriterium genügen, das abhängig von der Methode eine Gedcom7 URI, ein Gedcom7 Tag oder einen LineValue darstellen. Über den Parameter \textit{recursive} kann spezifiziert werden, ob nur direkte Substructures (also mit einem um $1$ inkrementierten Level) gesucht werden sollen oder ob ebenfalls alle Substructures von Substructures rekursiv durchsucht werden sollen. Sollen einfach alle Substructures einer Structure ohne Suchkriterium zurückgegeben werden, kann die Methode \textit{getSubstructures} verwendet werden.
+
+
+In vielen Anwendungsfällen kann es zudem von Interesse sein, welche Structures als Substructure in Frage kommen (also welche Structures in der Gedcom7 Spezifikation als potentitelle Substructures definiert sind). Ein Beispiel hierfür wäre ein Benutzer, der einen Family Record verwaltet und herausfinden möchte, welche weiteren Informationen angegeben werden können. FÜr diesen Fall wird die Methode \textit{getPossibleSubstructs} bereitgestellt, die die Gedcom7 URIs aller Structures zurückgibt, die als Substructure auftreten können. Über den boolschen Parameter \textit{checkCardinalityFlag} kann spezifiziert werden, ob die Kardinalität überprüft werden soll, d.h. ob nur diejenigen URIs bereitgestellt werden sollen, die beim Hinzufügen nicht zu einem CardinalityError führen. 
+
+\vspace{1em}
+\textbf{2. Hinzufügen und Entfernen von Substructures} \vspace{0.5em} \\
+Die Klasse \textsc{Structure} stellt die Methode \textit{addSubstructure} zur Verfügung, um einer Instanz der Klasse eine Substructure hinzuzufügen (siehe Abbildung \ref{fig: UML Aktivität addSubstructure}). Dazu werden alle nötigen Informationen über die Substructure als Parameter \textit{StructureParameter} übergeben. In der Methode werden diese Informationen extrahiert und auf Basis dessen eine neue Instanz der Klasse \textsc{Structure} erstellt. Dieses Object wird in das Dataset eingefügt indem alle nötigen Referenzen angepasst werden und das Object Teil der Gedcom Struktur wird. Anschließend wird die Syntax des Records überprüft, in den die neue Structure eingefügt wurde um zu überprüfen, ob immernoch ein Gedcom7 konformes Dataset vorliegt. Ist dies der Fall wird im Dataset überprüft, ob undefinierte Cross-Reference-Identifier vorliegen. 
+
+
+Falls eine dieser Überprüfungen fehlschlägt, wird die Substructure über die Methode \textit{removeSubstructure} aus dem Dataset entfernt, indem die gleichnamige Methode der Klasse \textsc{Dataset} aufgerufen wird (siehe Abschnitt \ref{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/UML_Activity_AddSubstruct.png}
+	\caption{UML Aktivitätsdiagramm der Methode \textit{addSubstructure}}
+	\label{fig: UML Aktivität addSubstructure}
+\end{figure}
+
+\vspace{1em}
+\textbf{3. Ändern des LineValues} \vspace{0.5em} \\
+Der LineValue einer Instanz der Klasse \textsc{Structure} kann über die Methode \textit{setLineVal} verändert werden (siehe Abbildung \ref{fig: UML Aktivität setLineVal}). Die Eigenschaft \textit{lineVal} des \textsc{Structure} Objekts wird auf den als Parameter übergebenen Wert gesetzt und anschließend wird die Syntax des entsprechenden Records überprüft, um zu kontrollieren, dass der neue LineValue syntaktisch korrekt ist.
+Handelt es sich um eine Structure, die einen LineValue des Typs \textit{Xref}\footnote{Ein Beispiel hierfür wäre die HUSB-Structure, die auf einen Individual Record verweist.} besitzt, also auf eine andere Structure verweist, muss ebenfalls \textit{Xref-Map} des Datasets aktualisiert werden. In dieser Map werden alle Verweise über Cross-Reference-Identifier, die im Dataset vorkommen, verwaltet. Werden nach der Veränderung des LineValues ein Syntaxfehler oder undefinierte Cross-Reference-Identifier gefunden, muss der LineValue auf den Ursprungswert zurückgesetzt werden. 
+
+Da auch ein leerer LineValue syntaktisch korrekt sein kann, wird im letzten Schritt das Dataset nach leeren Structures durchsucht, die dann entfernt werden. Ein Beispiel hierfür wäre die MARR-Structure aus dem Family Record in Listing \ref{lst: family record example}. Würde hier der DATE-Structure ein leerer Wert zugewiesen werden, würde dies in der Structure
+\begin{center}
+	1 MARR\\
+	2 DATE
+\end{center}
+resultieren. Diese Structure enthält keinerlei Informationen und kann daher entfernt werden.
+ 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/UML_Activity_SetLineVal.png}
+	\caption{UML Aktivitätsdiagramm der Methode \textit{setLineVal}}
+	\label{fig: UML Aktivität setLineVal}
+\end{figure}
+
+
+\subsection{Klasse \textsc{Record}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Record}
+Die Klasse \textsc{Record} ist die Vaterklasse für Family, Individual, Header, Multimedia, Repository, SharedNote, Source und Submitter und definiert eine Methode zur Syntaxüberprüfung eines Records. Dazu wird der entsprechende Nearley-Parser, der mit dem in Abschnitt \ref{sec: Implementierung - Grammatik Generator} beschriebenen \textsc{GrammarGenerator} erstellt wurde, eingebunden. Dieser bekommt alle Lines des Records kodiert als Zeichenkette als Eingabe und überprüft ob alle Structures syntaktisch korrekt sind.
+
+
+Des Weiteren stellt die Klasse \textsc{Record} Methoden zur Verfügung, um Informationen aus Structures, die von mehreren Records geteilt werden, zu extrahieren und in gebündelter Form auszugeben. Ein Beispiel hierfür sind die Identifier-Structures, die genutzt werden um Structures oder ihre Inhalte eindeutig zu identifizieren. Die Klasse \textsc{Record} stellt dafür die Mehtode \textit{extractIdentifierStructures} zur Verfügung, mit der alle Identifier-Structures eines Records gesucht und in gebündelt zurückgegeben werden. Wie in Listing \ref{lst: extractIdentifier Funktion} dargestellt, wird die Methode \textit{getSubstructuresByUri} (siehe Abschnitt \ref{subsec: Implementierung - Gedcom Struktur - Klasse Structure}) verwendet, um alle Identifier-Structures des Records zu finden. Anschließend werden alle Informationen extrahiert und im JSON-Format zurückgegeben. 
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		  // extracts content of IDENTIFIER_STRUCTURE
+		//  -> Each value provides an identifier for a structure or its subject, and each is different in purpose
+		extractIdentifierStructures () {
+			// REFN (Reference) is user-defined number or text that the submitter uses to identify the superstructure
+			const references = this.getSubstructuresByUri('g7:REFN', false);
+			
+			// UID is a globally-unique identifier of the superstructure, to be preserved across edits
+			const UIDs = this.getSubstructuresByUri('g7:UID', false);
+			
+			// EXID is an identifier maintained by an external authority that applies to the subject of the structure.
+			const externalIdentifier = this.getSubstructuresByUri('g7:EXID', false);
+			
+			if (references || UIDs || externalIdentifier) {
+				return {
+					references: references?.map((ref) => {
+						return {
+							reference: ref.lineVal || null,
+							type: ref.getSubstructuresByUri('g7:TYPE', false)[0]?.lineVal || null
+						};
+					}) || null,
+					uniqueIdentifier: UIDs?.map((uid) => uid.lineVal),
+					externalIdentifier: externalIdentifier?.map((exid) => {
+						return {
+							id: exid.lineVal || null,
+							type: exid.getSubstructuresByUri('g7:EXID-TYPE', false)[0]?.lineVal || null
+						};
+					}) || null
+				};
+			}
+			
+			return null;
+		}
+	\end{lstlisting}
+	\captionof{lstlisting}{Methode \textit{extractIdentifierStructures} der Klasse \textsc{Record}}
+	\label{lst: extractIdentifier Funktion}
+\end{minipage}
+\\ \\
+
+Alle Eigenschaften und Methoden der Klasse \textsc{Record} sind in Abbildung \ref{fig: UML Klassendiagramm Record} dargestellt.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{images/UML_Class_Record.png}
@@ -397,7 +465,37 @@ asd
 	\label{fig: UML Klassendiagramm Record}
 \end{figure}
 
-\subsection{Klasse \textit{Family}}
+\subsection{Klasse \textsc{Family}}
+Die Ziel bei der Erstellung der Bibliothek \textit{gedcom7.js} war es, eine Grundlage für die Verarbeitung von Gedcom7 Dateien zu kreieren, die in zukünftigen Arbeiten erweitert werden kann. Daher wurde für diese Arbeit nur die Klasse \textsc{Family} für den Family Record vollständig implementiert. Die Klassen für alle weiteren Records können analog zu dem hier beschrieben Vorgehen erstellt werden, um die Gedcom7 Spezifikation komplett abzubilden. 
+
+
+Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax} der Vaterklasse \textsc{Record} mit der Family Grammatik auf. Des Weiteren werden Methoden zur einfachen Verarbeitung von Informationen aus einem Family Record bereitgestellt. Ist ein Anwender beispielsweise an Informationen über die Kinder einer Familie interessiert, müsste er die Gedcom7 Spezifikation studieren, alle Structures die Informationen über ein Kind bereithalten können nacheinander suchen und dann alle Informationen zusammenfügen. Um diese Arbeit zu erleichtern, werden in der Bibliothek \textit{gedcom7.js} die in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführten Convenience-Methoden bereitgestellt. Ein Beispiel hierfür ist die Methode \textit{getChildrenInformation}, mit der alle Informationen über die Kinder einer Familie extrahiert werden können:
+\\ \\
+\begin{minipage}{1.0\textwidth} \small
+	\begin{lstlisting}
+		 // returns information about the children of this family
+		getChildrenInformation () {
+			const famNCHI = this.getSubstructuresByUri('g7:FAM-NCHI', false)[0];
+			const famEventDetail = this.extractFamilyEventDetail(famNCHI);
+			
+			if (famNCHI) {
+				return {
+					numberOfChildren: Number.parseInt(famNCHI.lineVal) || null,
+					type: famNCHI.getSubstructuresByUri('g7:TYPE', false)[0]?.lineVal || null,
+					parentInformation: famEventDetail?.parentInformation || null,
+					eventDetails: famEventDetail?.eventDetails || null
+				};
+			}
+			
+			return null;
+		}
+	\end{lstlisting}
+	\captionof{lstlisting}{Methode \textit{extractIdentifierStructures} der Klasse \textsc{Record}}
+	\label{lst: extractIdentifier Funktion}
+\end{minipage}
+\\ \\
+Dazu werden die entsprechenden Strukturen über die Methode \textit{getSubstructuresByUri} gesucht und im JSON-Format zurückgegeben. Alle Methoden und Eigenschaften der Klasse \textsc{Family} sind in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführt.
+
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Family}
 \begin{figure}[h]
 	\centering
@@ -406,11 +504,41 @@ asd
 	\label{fig: UML Klassendiagramm Family}
 \end{figure}
 
-\subsection{Klasse \textit{Dataset}}
+\subsection{Klasse \textsc{Dataset}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
+Die Hauptaufgabe der Klasse \textsc{Dataset} besteht darin, Structures zu erstellen und zu verwalten. Dazu werden die in Abbildung \ref{fig: UML Klassendiagramm Dataset} dargestellten Eigenschaften und Methoden verwendet. In den Eigenschaften jeder Instanz der Klasse \textsc{Dataset} werden Header und Trailer, alle Records die enthalten sind, Datenstrukturen zur Verwaltung von Cross-Reference-Identifiern, sowie Informationen über die Verwendung des Byte-Order-Mark und End-Of-Line Characters gespeichert. Bei der Erstellung einer Instanzt der Klasse \textsc{Dataset} über den Konstruktor können Header-, Trailer- und Record Informationen übergeben werden, aus denen Instanzen der Klasse \textsc{Structure}, bzw. \textsc{Record} generiert werden. Zudem kann ein leeres Dataset über die Methode \textit{createEmptyDataset} erstellt werden.\\
+Die Klasse \textsc{Dataset} übernimmt vier Aufgaben: 
+
+\vspace{1em}
+\textbf{1. Erstellen von Structures} \vspace{0.5em} \\
+Mit Hilfe der Methode \textit{createStructure} können Structures auf Basis von Informationen, die vom Nearley Parser zurückgegeben wurden, erstellt werden. Zusätzlich werden Informationen zur Superstructure und dem Record zu dem die Structure gehört, benötigt. Auf Basis dieser Informationen kann die passende Structure erstellt werden, Referenzen andere Structures angepasst und bei Bedarf Einträge in die Xref-Map erstellt werden. 
+
+\vspace{1em}
+\textbf{2. Hinzufügen/Entfernen von Records} \vspace{0.5em} \\
+Die Methoden \textit{addRecord} kann verwendet werden um neue Records auf Basis von übergebenen Structure Informationen zu erstellen und ins Dataset einzugliedern. Benötigt werden dazu die Gedcom7 URI, der LineValue (sofern dieser vorhanden ist) und die Substructures, die enthalten sein sollen. Anschließend werden die Referenzen im Dataset so angepasst, dass der Record an der richtigen Stelle eingeliedert wird.
+
+
+Mit \textit{removeRecord} kann ein Record mit der gegebenen Referenz aus dem Dataset entfernt werden. Dabei wird der Eintrag aus der Xref-Map entfernt. Außerdem wird überprüft, ob eine Structure im Dataset über einen Cross-Reference-Identifier auf den entfernten Record verweist. Wenn dies der Fall ist, muss die entsprechende Referenz zu einem @VOID@-Pointer geändert werden, da nicht auf nicht-definierte Xrefs verwiesen werden darf \cite{GEDCOM}. Zusätzlich wird eine Warnung für den Benutzer ausgegeben um darauf hinzuweisen, dass das Entfernen eines Records dazu führt, dass ebenfalls alle Substructures entfernt werden. 
+
+
+\vspace{1em}
+\textbf{3. Hinzufügen/Entfernen von Structures} \vspace{0.5em} \\
+Mit den gleichen Informationen wie beim Hinzufügen von Records, können auch Structures zum Dataset hinzugefügt werden. Zusätzlich werden die Superstructure und der Record benötigt, in den die Structure eingefügt werden soll, um ein richtiges Eingliedern ins Dataset zu ermöglichen. 
+
+
+Die Methode \textit{removeStructure} kann verwendet werden, um Structures aus dem Dataset zu entfernen. Hierbei sind im Gegensatz zum Entfernen von Records weitere Überprüfungen notwendig. Wenn das Entfernen einer Structure dazu führt, dass die Superstructure weder einen LineValue, noch Substructures hat, sollte die Superstructure ebenfalls entfernt werden \cite{GEDCOM}. Außerdem kann das Entfernen einer Structure dazu führen, dass die Syntax der Superstructure nicht mehr korrekt ist, z.B. weil die Structure in der Gedcom7 Spezifikation als erforderlich (Kardinalität 1:1 oder 1:M) definiert wurde. In diesem Fall wird die Structure beibehalten und ein dem Datentyp entsprechender Leerer Wert wird als LineValue eingetragen \cite{GEDCOM}. Auch hier wird eine Warnung für den Benutzer ausgegeben um darauf hinzuweisen, dass das Entfernen eines Records dazu führt, dass ebenfalls alle Substructures entfernt werden. 
+
+\vspace{1em}
+\textbf{4. Suchen von Record} \vspace{0.5em} \\
+Die Klasse \textsc{Dataset} implementiert verschieden Methoden um Records im Dataset zu suchen. Beispielsweise können über die Methode \textit{getFamilyRecords} alle Family Records des Datasets zurückgegeben werden. Sucht man einen bestimmten Record, kann dieser über \textit{getRecordByXref} über den Cross-Reference-Identifier gefunden werden. 
+
+\vspace{1em}
+\textbf{5. Ausgabe als Gedcom7 konformer String} \vspace{0.5em} \\
+Eine wichtige Anforderung für die Bibliothek \textit{gedcom7.js} war es, dass die eingelesenen Gedcom7 Dateien wiederausgegeben werden können. Dazu implementiert die Klasse \textsc{Dataset} die Methode \textit{toString}. In dieser Methode werden für alle Records, Header und Trailer die \textit{toString} Methode aufgerufen, die in der Klasse Structure so definiert ist, dass alle Structure-Informationen in Form einer Gedcom7-konforme Line zurückgegeben werden. Diese Lines werden in der richtigen Reihenfolge zusammengehangen und ergeben so eine Zeichenkette, die mit Hilfe der asynchronen Methode \textit{write} am spezifizierten Pfad in Form einer Gedcom7 Datei gespeichert werden kann.
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\textwidth]{images/UML_Class_Dataset.png}
+	\includegraphics[width=0.65\textwidth]{images/UML_Class_Dataset.png}
 	\caption{UML Klassendiagramm Dataset}
 	\label{fig: UML Klassendiagramm Dataset}
 \end{figure}
@@ -421,7 +549,63 @@ asd
 %========================================================================================
 \section{Gedcom Parser}
 \label{sec: Implementierung - Gedcom Parser}
-% Kurze Beschreibung wie alles zusammengefügt wird
-% Beispielhafter Ablauf
-
-
+Alle in dieser Arbeit vorgestellten Konzepte und Implementierungen werden im \textsc{Gedcom Parser} vereinigt, der die zentrale Klasse der Bibliothek \textit{gedcom7.js} darstellt. Die Klasse \textsc{GedcomParser} verfügt über die Methode \textit{parseGedFile} mit der Gedcom7 Dateien mit Hilfe der Node.js FileSystem Bibliothek als UTF-8 kodierte Zeichenkette eingelesen und anschließend mit der Methode \textit{parseString} geparsed werden kann. Wie im Konzept in Abschnitt \ref{sec: Konzept - Gedcom Parser} dargestellt, wird ein Nearley Parser erstellt für ein Dataset erstellt, der String geparsed und anschließend aus den extrahierten Informationen eine Instanz der Klasse \textsc{Dataset} erzeugt die zurückgegeben wird. Das Sequenzdiagramm dieser Methode ist in Abbildung \ref{fig: Sequenz Gedcom Parser} dargestellt. \\
+Im folgenden wird ein beispielhafter Ablauf für die Verwendung der Bibliothek \textit{gedcom7.js} dargestellt. Dazu wird eine Gedcom7 Datei eingelesen, die den FamilyRecord aus Listing \ref{lst: family record example} enthält:\\
+Im ersten Schritt wird die Gedcom7 Datei eingelesen, geparsed und in ein Dataset überführt. Dazu wird eine Instanz der Klasse \textsc{GedcomParser} erzeugt.
+\begin{center}
+	gedcomParser = new GedcomParser();
+\end{center}
+Anschließend wird der Pfad zur Gedcom7 Datei an die Methode \textit{parseGedFile} übergeben. In diesem Beispiel liegt die Datei im selben Verzeichnis, wie die ausgeführte JavaScript-Datei unter dem Namen ''FamilyExample.ged``. 
+\begin{center}
+	const dataset = await gedcomParser.parseGedFile('./FamilyExample.ged');
+\end{center}
+Dann kann die Family aus Listing \ref{lst: family record example} über den Cross-Reference-Identifier gesucht werden.
+\begin{center}
+	const famF1 = dataset.getRecordByXref('@F1@');
+\end{center}
+Sollen Informationen über die Kinder der Family ausgegeben werden, kann dies über 
+\begin{center}
+	const nchi = famF1.getChildrenInformation();
+	console.log(nchi);
+	// Ausgabe: 
+	// {
+	//    numberOfChildren: 2,
+	//	  type: null,
+	//    parentInformation: null,
+	//    eventDetails: null
+	// }
+\end{center}
+realisiert werden. Außerdem kann Datum der Hochzeit herausgefunden werden, kann dies folgendermaßen aussehen:
+\begin{center}
+	const marrInfo = famF1.getMarriageInformation();
+	console.log(marrInfo.marriages[0].eventDetails.date);
+	// Ausgabe: 
+	// {
+	//    type: "DateValue"
+	//    date: 1951-03-01T00:00:00.000TZ
+	// }
+\end{center}
+Soll nun die Information zum Family Record hinzugefügt werden, dass die Ehe wieder geschieden wurde, kann dies über die DIV-Structure ausgedrückt werden. Mit Hilfe der Methode \textit{addSubstructure} kann eine DIV-Structure zum Family Record hinzugefügt werden:
+\begin{center}
+	const div = {
+		uri: 'g7:DIV',
+		substructs: [{
+			uri: 'g7:DATE',
+			lineVal: '28 DEC 1963',
+		}]
+	};
+	famF1.addSubstructure(div);
+\end{center}
+Wird der Family Record nun ausgegeben, ist die neue DIV-Structure in der Ausgabe mit korrekter Gedcom7 Line-Syntax enthalten:
+\begin{center}
+	console.log(famF1.toString());
+	// Ausgabe: 
+	// 0 @F1@ FAM
+	// 1 HUSB @I1@
+	// 1 WIFE @I2@
+	// 1 MARR
+	// 2 DATE 1 MAR 1951
+	// 1 NCHI 2
+	// 1 DIV
+	// 2 DATE 28 DEC 1963
+\end{center}
