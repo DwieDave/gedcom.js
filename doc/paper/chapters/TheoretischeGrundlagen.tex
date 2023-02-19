@@ -50,20 +50,59 @@ Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Daten
 \section{Nearley}
 \label{sec: Nearley}
 % TO-DO: EBNF erklären bzw. einmal ansprechen -> vielleicht schon im Gedcom-Kapitel?
+\subsection*{Allgemeines}
+Nearley.js ist eine JavaScript-Bibliothek zum Parsen kontextfreier Grammatiken (CFGs). Sie bietet einen vielseitigen und effizienten Parsing-Algorithmus, 
+der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken mit Leichtigkeit zu behandeln. Die Bibliothek ist 
+modular aufgebaut, so dass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus externen Quellen wie BNF- und EBNF-Grammatiken erzeugen können. 
+Nearley.js ist in reinem JavaScript implementiert und kann in jeder Umgebung ausgeführt werden, die JavaScript unterstützt, einschließlich Webbrowsern und 
+serverseitigen Umgebungen.
+
+Nearley.js bietet eine Reihe nützlicher Funktionen, darunter JavaScript-Aktionen, genannt \textit{Postprocessor}, bei denen Benutzer Code angeben können, 
+der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden. Nearley.js ist Open-Source und hat eine lebendige Gemeinschaft von Nutzern und 
+Mitwirkenden, was es zu einem zuverlässigen und gut unterstützten Werkzeug für das Parsen komplexer Texte macht.
+
+\subsection*{Grammatik}
+Im Laufe der Implementierung haben wir uns dazu entschieden, die komplette GEDCOM-Grammatik mittels Nearley abzubilden. Dies hat den Vorteil, dass wir 
+alle Regeln der GEDCOM-Spezifikation in einer Prüfung abdecken können. Außerdem bietet Nearley die Möglichkeit Teile der Grammatik in einzelnen Dateien
+auszulagern und nur für Teile der Grammatik Parser zu erstellen. Dies ermöglicht es uns eine Teilprüfung von nur einer GEDCOM-Struktur einer
+ganzen Datei durchzuführen. Dies ist insbesondere bei Manipulationen von einzelnen Strukturen innerhalb einer Datei von Vorteil, da anschließend
+nur die betroffene Struktur neu geprüft werden muss.
+
+\subsection*{Beispiel}
+
+% TO-DO: Beispiel einer Nearley Grammatik einfügen und erklären
 
 \section{Mocha}
 \label{sec: Mocha}
 
-Da uns das Testen unserer Bibliothek wichtig war haben wir uns nach Beginn der ersten Implementierung
-auf die Suche nach einem Testframework für JavaScript gemacht. Dabei sind wir auf Mocha gestoßen, welches
-eine einfach API zum Erstellen von Tests bietet. Die Tests können dabei entweder synchron oder asynchron
-sein und können, wie bei den meisten Testframeworks, mit Hilfe von Assertion-Funktionen überprüft werden.
+Im Rahmen der Implementierung unserer Bibliothek, war es uns ein zentrales Anliegen, das Testen dieser zu gewährleisten. Zu diesem Zweck haben wir uns 
+auf die Suche nach einem geeigneten Testframework für JavaScript begeben. In diesem Kontext stießen wir auf Mocha, welches eine API bereitstellt, die
+ das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen.
+\\\\
+Wie im Beispiel-Test in Listing \ref{lst: mocha example} veranschaulicht wird, wird zunächst ein aussagekräftiger Name für den Test als erster Parameter
+ der Mocha-Funktion \textit{describe} übergeben. Im zweiten Parameter wird eine Callback-Funktion übergeben, die den Code für den Test enthält, beginnend
+  mit dem Setup-Code. Hierbei wird in unserem Fall ein Array mit mehreren Gedcom-Dateinamen erstellt, die sich im angegebenen \textit{path} befinden.
 
-\newpage
+Durch die Verwendung der Funktion \textit{forEach}, welche aus einem Mocha-Plugin namens \textit{mocha-each} stammt, wird über alle Dateinamen iteriert. 
+Für jeden Dateinamen wird ein neuer Test erstellt und der Code in der anonymen Callback-Funktion für jeden \textit{fileName} im Array \textit{gedFiles} 
+ausgeführt.
 
-\begin{javascript}
-  // ===========================================================
-  // GEDCOM READING AND WRITING
+Der Ablauf für eine Datei im Listing \ref{lst: mocha example} ist wie folgt: Zunächst wird die Datei mithilfe der asynchronen Helper-Funktion 
+\textit{readGedFile} eingelesen und in der Variable \textit{beforeParsing} gespeichert. Anschließend wird die Datei mit der Funktion 
+\textit{parseString} des Moduls \textit{gedcomParser} als Dataset geparst. Hierbei wird eine Grammatikprüfung durchgeführt und alle Daten aus der Datei sind
+nach erfolgreicher Prüfung über die Dataset Klasse und deren Methoden zugänglich.
+
+Im nächsten Schritt wird im aktuellen Verzeichnis eine temporäre Datei namens \textit{temp.ged} erstellt und anschließend mit der Funktion 
+\textit{dataset.write} mit den eingelesenen Daten des Datasets beschrieben.
+
+Schließlich wird mithilfe der Funktion \textit{expect}, welche aus dem Mocha-Plugin \textit{chai} stammt, überprüft, ob die eingelesene 
+Datei und das geschriebene Dataset in der \textit{temp.ged} Datei identisch sind.
+\\\\
+Der beschriebene Testmechanismus gewährleistet, dass die Daten, die aus einer GEDCOM-Datei gelesen werden, bei erfolgreichem Parsen nach 
+Schreiben ohne Manipulation am Dataset weiterhin identisch und konsistent sind.
+\\\\
+\begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
+  // GEDCOM READING AND WRITING TEST
   describe('test if gedcom file is equivalent before and after parsing', () => {
   	const path = 'test/sampleData/ExampleFamilySearchGEDCOMFiles/';
   	//correct files
@@ -87,7 +126,6 @@ sein und können, wie bei den meisten Testframeworks, mit Hilfe von Assertion-Fu
 	  	await dataset.write(path + 'temp.ged');
 	  	// read temp.ged as String and compare it with original file
 	  	const afterParsing = await readGedFile(path + 'temp.ged');
-
 	  	// expect files to be equal
 	  	expect(diffChars(beforeParsing, afterParsing)).to.have.lengthOf(1);
 	});
