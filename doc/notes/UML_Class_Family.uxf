@@ -2,7 +2,7 @@
 --
 
 --
-+ Family (String, String, String, String, String, String, String, Structure[], Dataset)
++ checkSyntax ()
 
 + getHusband (): Structure
 + getHusbandXref (): String
@@ -14,6 +14,4 @@
 + getNumbersOfChildren (): Structure[]
 + getResidenceInformation (): Structure[]
 + getFamilyFacts (): Structure[]
-
-+ checkSyntax ()
 </panel_attributes><additional_attributes></additional_attributes></element></diagram>
