@@ -1,3 +1,32 @@
 \chapter{Related Work}
 \label{chap: Related Work}
-In diesem Kapitel...
+Vor Beginn der theoretischen Ausarbeitung der Gedcom7-Bibliothek haben wir eine umfassende Untersuchung der bestehenden 
+Gedcom-Bibliotheken durchgeführt, darunter auch einige der beliebtesten Bibliotheken, die in Python oder Java entwickelt wurden. 
+Wir haben uns dabei auf zwei Bibliotheken fokussiert und diese als Orientierung für unsere Arbeit herangezogen.
+
+\section{gedcom7code/js-parser}
+
+Die erste Bibliothek ist der js-parser, welcher von Luther Tychonievich, einem Managing Editor von FamilySearch Gedcom,
+entwickelt wurde und als minimaler Parser für Gedcom7-Zeilen dient. Dieser Parser, der in JavaScript geschrieben wurde,
+basiert auf einer Regular Expression und liefert die einzelnen Bestandteile der Zeile zurück. Die grundlegende Struktur einer 
+Gedcom-Zeile kann damit ermittelt werden.
+
+Die vorliegenden Bestandteile dienen als rudimentäre Basis für die Properties unserer Structure-Klasse, von welcher alle 
+\emph{Record}-Klassen erben. Dennoch handelt es sich hierbei lediglich um eine Demonstration eines minimalen Parsers und nicht um eine vollständige Bibliothek. Infolgedessen führten wir weitere Recherchen durch.
+
+\section{python-gedcom}
+
+Die zweite Bibliothek, die uns besonders gefallen hat, ist die python-gedcom-Bibliothek. Hier hat uns vor allem die an die 
+Spezifikation angelehnte Klassenhierarchie beeindruckt. Für unsere Zwecke der Gedcom7-Bibliothek bot diese eine ideale Vorlage.
+Auffällig ist hierbei, dass jeder Gedcom-Record eine eigene Klasse besitzt, die von einer Elternklasse Structure erbt.
+
+Ein weiterer Aspekt, der uns an dieser Bibliothek gefiel, ist der Ansatz, die einzelnen Felder, die eine Zeile eines \emph{Record}s 
+oder \emph{Subrecord}s ausmachen, zu speichern. Dieser Ansatz ermöglicht es uns, Gedcom-Dateien konsistent zu lesen, interpretieren,
+manipulieren und schreiben.
+
+Allerdings wurde bei der python-gedcom-Bibliothek unserer Meinung nach kaum Wert auf die Prüfung der genauen Spezifikationsvorgaben
+gelegt. Records können beliebig hinzugefügt werden und nicht spezifikationskonforme Records können erstellt werden.
+
+Da uns die Einhaltung der Spezifikation sehr wichtig ist, haben wir uns entschieden, in Gedcom7.js eine sehr detaillierte Grammatik
+mittels Nearley.js zu erstellen. Diese Grammatik wird beim Parsen der Gedcom-Datei und nach jeder Operation an einem Dataset 
+verwendet, um das Dataset auf Korrektheit zu prüfen und somit auch eine korrekte Gedcom-Datei zu gewährleisten.
