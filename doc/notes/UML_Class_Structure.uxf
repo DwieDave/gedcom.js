@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>30</x><y>10</y><w>510</w><h>630</h></coordinates><panel_attributes>Structure
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>50</x><y>0</y><w>510</w><h>750</h></coordinates><panel_attributes>Structure
 --
 
 - uri: String
@@ -15,6 +15,7 @@
 - datasetReference: Dataset
 
 --
+
 + Structure (
         uri: String,
         level: String,

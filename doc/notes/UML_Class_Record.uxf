@@ -1,7 +1,8 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>10</x><y>10</y><w>470</w><h>280</h></coordinates><panel_attributes>Record
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>10</x><y>10</y><w>470</w><h>200</h></coordinates><panel_attributes>Record
 --
 
 --
+
 + checkSyntax ()
 + getRestriction(): Object
 

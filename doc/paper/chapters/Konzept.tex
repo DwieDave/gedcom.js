@@ -79,11 +79,9 @@ Desweiteren bildet der Grammatik Generator ein Fundament für einen wichtigen Us
 %========================================================================================
 \section{Gedcom Datentrukturen}
 \label{sec: Konzept - Gedcom Strukturen}
-
-% Hier auf Gedcom eingehen, welche Records es gibt 
-% Vererbungsbaum mit Structures, Records, Dataset usw. 
 Die zentrale Struktur in einer Gedcom7 Datei ist das sog. \textit{Dataset}. Jedes Dataset muss mit einem Header Structure beginnen, der Metadaten über das gesamte Dataset beinhaltet und dabei u.a. Aussagen über den Ort und Zeitpunkt der Erstellung und den Ersteller des Datasets selbst machen kann. Die Mindestanforderung an den Header ist, dass die verwendete Gedcom Version in einer dafür vorgesehenen Structure spezifiziert ist. Abgeschlossen wird jedes Dataset mit einer Trailer Line, die das Ende des Datasets repräsentiert. Eine minimales Gedcom7 Dataset sieht also wie folgt aus:
 \newpage
+{
 \begin{lstlisting}
 	0 HEAD
 	1 GEDC
@@ -92,6 +90,7 @@ Die zentrale Struktur in einer Gedcom7 Datei ist das sog. \textit{Dataset}. Jede
 \end{lstlisting}
 \captionof{lstlisting}{Minimales Gedcom7 Dataset}
 \label{lst: minimales dataset}
+}
 \vspace{1em}
 Alle genealogischen Informationen können in einem oder mehreren Records festgehalten werden. Folgende Records sind in der Gedcom7 Spezifikation definiert:
 \begin{itemize}
