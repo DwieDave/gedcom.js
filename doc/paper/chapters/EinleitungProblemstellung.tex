@@ -1,15 +1,33 @@
 \chapter{Einleitung und Problemstellung}
 \label{chap: Einleitung und Problemstellung}
-In dieser Ausarbeitung ...
+\begin{center}
+	\textit{Jeder Zweite würde gerne mehr über seine Vorfahren wissen} \cite{DemoskopieAllensbach2007}
+\end{center}
+Diese Erkenntnis geht aus einer Umfrage des Instituts für Demoskopie Allensbach hervor. Das Sammeln von Informationen über Vorfahren und das Erkunden der eigenen Wurzeln stellt für viele Menschen eine Faszination dar. Anhand von verschiedenen Quellen, können neben dem Wohnort und der Lebensspanne von Ahnen auch Berufe, Lebensweisen und Familienverhältnisse gefunden werden. Außerdem bietet die Familienforschung die Möglichkeit bisher unbekannt Verwandte zu finden. \cite{Malteser}
+
+Besonders das Aufkommen des Internets stellte einen Aufschwung für die Familienforschung dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um diese Kommunikation zu ermöglichen, werden Datenformate und Standards benötigt. Eines dieser Datenaustauschformate ist  FamilySearch GEDCOM Version 7, das 2021 von der Kirche Jesu Christi der Heiligen der Letzten Tage entwickelt wurde. Im Rahmen dieser Arbeit wird die JavaScript-Bibliothek \textit{gedcom7.js} entwickelt, mit der Dateien im Datenformat Gedcom7 gelesen, verändert und geschrieben werden können. 
 
 \section{Anforderungsanalyse \& Ziele}
-\label{Anforderungsanalyse und Ziele}
-Folgende Anforderungen werden an die Bibliothek gestellt: 
+\label{sec: Anforderungsanalyse und Ziele}
+Das Ziel dieser Arbeit ist es die grundlegenden Komponenten einer Bibliothek für die Verarbeitung von Dateien im genealogische Austauschformat FamilySearch GEDCOM Version 7 zu entwickeln. Da es sich dabei um einen komplexen Datenstandard handelt, liegt der Fokus \underline{nicht} auf Vollständigkeit, sondern darauf eine Grundlage für weiterführende Arbeiten zu schaffen. Wichtig ist, dass die fundamentalen Funktionalitäten für die Arbeit mit Gedcom7 Dateien bereitgestellt werden und dass diese in einer solchen Form vorliegen, dass einfache Erweiterungen und Vervollständigungen möglich sind. 
+\newpage
+{\noindent Folgende Anforderungen werden an die Implementierung gestellt:}
 \begin{itemize}
-	\item AF01: Dateien oder Strings im Format Gedcom7 sollen eingelesen werden können
-	\item AF02: Dateien sollen im Gedcom7 Format ausgegeben werden können 
-	\item AF03: Die Syntax von Dateien oder Strings soll gemäß der Gedcom7-Spezifikation überprüfbar sein 
-	\item AF04: Die in der Gedcom7-Spezifikation definierten Datentypen sollen unterstützt werden 
-	\item AF05: Eingelesene Dateien sollen gemäß der Gedcom7-Spezifikation verändert und erweitert werden können
-	\item AF06: Die Bibliothek soll erweiterbar sein  
+	\item AF01: Dateien im Format Gedcom7 sollen eingelesen werden können
+	\item AF02: Eingelesene Dateien im  Format Gedcom7 sollen ausgegeben werden können
+	\item AF03: Eingelesene Dateien sollen gemäß der Gedcom7-Spezifikation verändert und erweitert werden können
+	\item AF04: Neue Dateien im Format Gedcom7 sollen erstellt werden können
+	\item AF05: Die Syntax von Dateien oder Strings soll gemäß der Gedcom7-Spezifikation überprüfbar sein 
+	\item AF06: Die in der Gedcom7-Spezifikation definierten Datentypen sollen unterstützt werden 
+	\item AF07: Die Bibliothek soll so implementiert und dokumentiert werden, dass sie in weiterführenden Arbeiten erweitert werden kann
 \end{itemize}
+
+\section{Struktur der Arbeit}
+\label{sec: Struktur der Arbeit}
+Diese Arbeit ist in sechs Kapitel unterteilt. Nach der Einleitung wird der Leser in Kapitel \ref{chap: Theoretische Grundlagen} in die Thematik eingeführt und die theoretischen Grundlagen, die für das Verständnis der Arbeit notwendig sind, werden erklärt. Anschließend werden verwandte Implementierungen von Bibliotheken für das Format Gedcom7 vorgestellt, um die Arbeit in den Kontext des aktuellen Entwicklungsstandes zu setzen. 
+
+
+In den folgenden Hauptkapiteln wird das \hyperref[chap: Konzept]{Konzept} beschrieben, das im Rahmen dieser Arbeit umgesetzt wurde. Dazu werden die Hauptkomponenten der Bibliothek vorgestellt und die Architektur des entwickelten Systems erklärt. Anschließend wird im Kapitel \hyperref[chap: Implementierung und Test]{Implementierung} aufgezeigt, wie das zuvor beschriebene Konzpet konkret umgesetzt wurde und wie die fertige Implementierung getestet wurde, um eine korrekte Funktionsweise zu garantieren.
+
+
+Zum Schluss wird die Ausarbeitung in Kapitel \ref{chap: Zusammenfassung und Ausblick} kurz zusammengefasst, indem die wichtigsten Ergebnisse aufgeführt werden und es wird ein Ausblick für zukünftige Arbeiten gegeben.  

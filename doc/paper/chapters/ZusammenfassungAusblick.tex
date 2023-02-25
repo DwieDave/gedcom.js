@@ -1,27 +1,17 @@
 \chapter{Zusammenfassung und Ausblick}
 \label{chap: Zusammenfassung und Ausblick}
+In dieser Arbeit wurde die JavaScript-Bibliothek \textit{gedcom7.js} für das genealogische Austauschformat FamilySearch GEDCOM Version 7 entwickelt und getestet. Dabei wurden dem Leser alle für das Verständnis benötigten theoretischen Grundlagen an die Hand gegeben und anschließend dem Entwicklungsprozess entsprechend zuerst die Konzeption und danach die konkrete Implementierung präsentiert. 
+\\ \\
+Die Bibliothek setzt sich aus vier Hauptkomponenten zusammen. Das zentrale Element ist der \textsc{Gedcom Parser}, mit dem Dateien im Format Gedcom7 eingelesen werden und in ein \textsc{Dataset} überführt werden können.
+Dabei wurde ein besonderer Fokus auf die spezifikationskonforme Handhabung von Gedcom7-Dateien gelegt. Die Syntaxüberprüfung wurde mit Hilfe der JavaScript-Bibliothek \textit{Nearley} umgesetzt, die auf Grund der vielen nützlichen Features wie z.B. die Möglichkeit Postprozessoren für Regeln anzugeben, eine perfekte Wahl für diese Aufgabe darstellt. Die für die Überprüfung zugrundeliegende Grammatik wird mit Hilfe eines \textit{Grammatik Generators} generiert, der die Gedcom7 Spezifikation in eine nearley-konforme Syntax überführt. Dies bietet neben der Arbeitserleichterung den großen Vorteil, dass in so eine unkomplizierte Erweiterbarkeit der Bibliothek garantiert wird und in zukünftigen Arbeiten Features wie Gedcom Extensions auf einfache Weise implementiert werden können. 
 
-In dieser Abhandlung wird unsere Bibliothek gedcom7.js als Hauptthema präsentiert. Diese Bibliothek enthält 
-als Hauptkomponenten einen Parser, Grammatiken, einen Grammatik-Generator und die Structure-Klassen und Methoden. 
-Diese können verwendet werden, um Gedcom7-Dateien unter Verwendung von node.js zu 
-lesen, zu verarbeiten, zu manipulieren, zu erstellen und zu schreiben.
-\\\\
-Bei der Ausarbeitung und Implementierung wurde ein besonderer Fokus auf die konforme Handhabung von 
-Gedcom7-Dateien gelegt. Durch die Grammatikprüfung beim Einlesen eines Datasets wird sichergestellt, 
-dass die Datei den Gedcom7-Spezifikationen entspricht. Die Grammatikprüfung wird auch nach\\Änderungen 
-durch die Structure-Klassen-Methoden durchgeführt, um sicherzustellen, dass die Daten nach der 
-Manipulation noch den Spezifikationen entsprechen.
-\\\\
-Das Kernmodul der Grammatikprüfung ist der GrammarGenerator. Mit seinem spezifikationsnahen Interface
-kann der GrammarGenerator redundante Strukturen kompakt abbilden und daraus effizient Nearley-Grammatiken
-erstellen, aus denen JavaScript-Parser generiert werden. Der GrammarGenerator greift hierbei auf die 
-URI-Bezeichner der Gedcom-Spezifikation zurück.
 
-Dank des modularen Aufbaus des GrammarGenerators können auch Features wie Gedcom-Extensions implementiert
-werden, bei denen eigene "Tags" definiert werden können. Nach der Erweiterung des GrammarGenerators 
-können neue grammatikbasierte Parser erzeugt werden.
-\\\\  
-Insgesamt bietet die Bibliothek gedcom7.js eine robuste und spezifikationskonforme Möglichkeit, 
-Gedcom7-Dateien in JavaScript zu verarbeiten. Die Grammatikprüfung und der GrammarGenerator sind 
-besonders nützliche Features, die die Erstellung und Manipulation von Gedcom7-Dateien erleichtern
-und für eine Weiterentwicklung des Projekts eine sehr solide Grundlage bietet.
+Die Datenstrukturen \textsc{Dataset} und \textsc{Structure} stellen die grundlegenden Datenstrukturen für die Verwaltung von eingelesene Gedcom7 Dateien in der Bibliothek \textit{gedcom7.js} dar. Die Klassen implementieren die grundlegenden Methoden zur Adminsitration von Gedcom7 Dateien und können in zukünftigen Arbeiten einfach erweitert werden, da alle grundlegenden Strukturen bereits implementiert sind. Außerdem wurden Klassen für Records und spezielle Datentypen bereitgestellt. Anhand der Klassen \textsc{Gedcom Date} und \textsc{Family} wurde gezeigt, wie tiefergehende Funktionalitäten und Convinience-Funktionen zur einfachen Handhabung für den Benutzer der Bibliothekt implementiert werden können. 
+
+
+Vergleicht man die Bibliothek \textit{gedcom7.js} mit den verwandten Arbeiten, die in Kapitel \ref{chap: Related Work} vorgestellt wurden, wird deutlich, dass \textit{gedcom7.js} in allen Belangen überlegen ist. Besonders mit der vollständigen Syntaxüberprüfung und die einfache Erweiterbarkeit hebt die Implementierung von anderen Arbeiten ab. 
+\newpage
+{
+\noindent
+Abschließend lässt sich festhalten, dass die Bibliothek gedcom7.js eine robuste und spezifikationskonforme Möglichkeit bietet, Gedcom7 Dateien in JavaScript zu lesen, zu verarbeiten und zu schreiben. Die Syntaxprüfung und die automatisierte Grammatikerstellung durch den \textsc{Grammar Generator} sind besonders nützliche Features, die die Erstellung und Manipulation von Gedcom7-Dateien erleichtern und eine solide Grundlage bietet für die Weiterentwicklung des Projekts darstellen.
+}

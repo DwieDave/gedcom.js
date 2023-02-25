@@ -28,12 +28,13 @@
   basicstyle=\ttfamily,
   columns=fullflexible,
   gobble=2,
-  xleftmargin=.1in,
-  framexleftmargin=.05in,
+  framexleftmargin=7mm,
+  xleftmargin=10mm,
   xrightmargin=.12in,
   framextopmargin=.05in,
   framexbottommargin=.04in,
-  escapechar=~
+  escapechar=~,
+  captionpos=t,
 }
 
 \lstnewenvironment{basiccode}
@@ -43,24 +44,50 @@
 \lstnewenvironment{javascript}[2]
 {\lstset{
   style=basiccode,
-  frame=tblr,
+  frame=tb,
   language=JavaScript,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
   columns=flexible,
+  %basicstyle={\fontsize{11}{13}\selectfont\ttfamily},
   basicstyle={\small\ttfamily},
   numbers=none,
   numberstyle=\tiny\color{gray},
 %   keywordstyle=\color{blue},
 %   commentstyle=\color{dkgreen},
 %   stringstyle=\color{mauve},
+  captionpos=t,
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=3,
+  tabsize=4,
   escapechar=~,}
 }
 {%
     \captionof{lstlisting}{#1}
     \label{#2}
 }
+
+\lstnewenvironment{javascriptNoCaption}
+{\lstset{
+		style=basiccode,
+		frame=tb,
+		language=JavaScript,
+		aboveskip=5mm,
+		belowskip=5mm,
+		framesep=4pt,
+		showstringspaces=false,
+		columns=flexible,
+		%basicstyle={\fontsize{11}{13}\selectfont\ttfamily},
+		basicstyle={\small\ttfamily},
+		numbers=none,
+		numberstyle=\tiny\color{gray},
+		%   keywordstyle=\color{blue},
+		%   commentstyle=\color{dkgreen},
+		%   stringstyle=\color{mauve},
+		captionpos=t,
+		breaklines=true,
+		breakatwhitespace=true,
+		tabsize=4,
+		escapechar=~,}
+}{}
