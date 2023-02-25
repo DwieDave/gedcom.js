@@ -67,14 +67,46 @@ Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Daten
 % TO-DO: EBNF erklären bzw. einmal ansprechen -> vielleicht schon im Gedcom-Kapitel?
 Nearley.js ist eine JavaScript-Bibliothek zum Parsen kontextfreier Grammatiken (CFGs). Sie bietet einen vielseitigen und effizienten Parsing-Algorithmus, 
 der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken mit Leichtigkeit zu behandeln. Die Bibliothek ist 
-modular aufgebaut, so dass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus externen Quellen wie BNF- und EBNF-Grammatiken erzeugen können. 
+modular aufgebaut, so dass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus BNF- und EBNF-Grammatiken erzeugen können. 
 Nearley.js ist in reinem JavaScript implementiert und kann in jeder Umgebung ausgeführt werden, die JavaScript unterstützt, einschließlich Webbrowsern und 
 serverseitigen Umgebungen.
 
+Es bietet eine Reihe nützlicher Features, darunter JavaScript-Funktionen, genannt \textit{Postprocessor}, bei denen Benutzer Code angeben können, 
+der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden. 
 
-Nearley.js bietet eine Reihe nützlicher Funktionen, darunter JavaScript-Aktionen, genannt \textit{Postprocessor}, bei denen Benutzer Code angeben können, 
-der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden. Nearley.js ist Open-Source und hat eine lebendige Gemeinschaft von Nutzern und 
-Mitwirkenden, was es zu einem zuverlässigen und gut unterstützten Werkzeug für das Parsen komplexer Texte macht.
+\subsection*{kontextfreie Grammatiken (CFGs)}
+Innerhalb der Theorie der formalen Sprachen wird eine kontextfreie Grammatik, auch als "context-free grammar" (CFG) bezeichnet. 
+Sie enthält nur Ersetzungsregeln, bei denen genau ein Nichtterminalsymbol auf eine beliebig lange Abfolge von Nichtterminal- und Terminalsymbolen abgebildet wird.
+Die Regeln haben dabei stets die Form $V \rightarrow w$, wobei \textit{V} ein Nichtterminalsymbol und \textit{w} eine Zeichenkette aus Nichtterminal- und/oder Terminalsymbolen ist.
+
+Die Anwendbarkeit einer Regel auf eine Zeichenkette ist lediglich vom Vorkommen des Nichtterminalsymbols \textit{V} abhängig, nicht jedoch vom Kontext, in dem es 
+sich befindet. Das bedeutet, dass es irrelevant ist, welche Zeichen sich links oder rechts von dem Nichtterminalsymbol befinden. Somit handelt es sich bei 
+den Ersetzungsregeln um sogenannte "kontextfreie" Regeln.
+
+\subsection*{Algorithmus von Earley}
+Der Algorithmus von Earley ist ein Parsing-Algorithmus, der kontextfreie Grammatiken parsen kann. Er wurde 1970 von Jay Earley entwickelt und
+ist ein Bottom-Up-Parser, der die Eingabe von hinten nach vorne verarbeitet. Der Algorithmus von Earley ist ein Algorithmus der Typ-2-Chomsky-Hierarchie,
+der kontextfreie Grammatiken mit mehrdeutigen und rekursiven Regeln parsen kann. 
+
+Um festzustellen, ob eine kontextfreie Grammatik ein gegebenes Wort erzeugen kann, benötigt der Algorithmus als Eingabe sowohl die Grammatik selbst 
+als auch das Wort, welches aus demselben Alphabet besteht.
+
+\subsection*{Metasyntax und EBNF}
+
+Metasyntax und Metasprache beziehen sich auf eine Art von Sprache, die verwendet wird, um die Struktur und Syntax einer anderen Sprache zu beschreiben. 
+Die Metasprache selbst hat ihre eigene Syntax und Grammatik, die zur Beschreibung der Struktur und Syntax der Zielsprache verwendet wird.
+
+Im Kontext der Erweiterten Backus-Naur-Form (EBNF) wird diese als eine formale Metasyntax bezeichnet, da sie dazu dient, kontextfreie Grammatiken 
+darzustellen. Die EBNF ist eine Erweiterung der Backus-Naur-Form (BNF), die ursprünglich für die Programmiersprache Pascal entwickelt wurde. 
+Sie erlaubt es, komplexe Syntax-Regeln in einer leichter verständlichen und kompakteren Schreibweise auszudrücken, indem sie zusätzliche Symbole
+wie Klammern und Wiederholungszeichen einführt.
+
+EBNF wird ebenfalls in der Spezifikation von GEDCOM v7 verwendet, um z.B Mulitplizitäten auszudrücken.
+
+\subsection*{Beispiel}
+
+
+
 
 
 Im Laufe der Implementierung haben wir uns dazu entschieden, die komplette GEDCOM-Grammatik mittels Nearley abzubilden. Dies hat den Vorteil, dass wir 
@@ -88,12 +120,12 @@ nur die betroffene Struktur neu geprüft werden muss.
 \section{Mocha}
 \label{sec: Mocha}
 
-Im Rahmen der Bibliotheksimplementierung, war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
+Im Rahmen der Bibliotheksimplementierung war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
 Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
 die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
 Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
 \\\\
-Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft ob der Wert der Konstante
+Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft, ob der Wert der Konstante
 \textit{value} gleich ihrem zugewiesenem Wert 1 ist.
 Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
 
