@@ -1,6 +1,6 @@
 \chapter{Implementierung \& Test}
 \label{chap: Implementierung und Test}
-In diesem Kapitel wird beschrieben wie das im Kapitel \ref{chap: Konzept} vorgestellte Konzept in der Bibliothek \textit{gedcom7.js} implementiert wird. Dazu wird zuerst darauf eingegangen, wie die Gedcom7 Spezifikation in der Nearley Grammatik abgebildet wird und wie diese Grammatikerstellung automatisiert werden kann. Anschließend wird darauf eingegangen, wie die in Abschnitt \ref{sec: Konzept - Gedcom Strukturen} vorgestellten Gedcom Datenstrukturen implementiert wurden. Zum Schluss wird gezeigt, wie diese Komponenten im \textsc{Gedcom Parser} vereinigt werden und in einem detailierten Beispiel wird die Verwendung des Parsers demonstriert. 
+In diesem Kapitel wird beschrieben wie das im Kapitel \ref{chap: Konzept} vorgestellte Konzept in der Bibliothek \textit{gedcom7.js} implementiert wird. Dazu wird zuerst darauf eingegangen, wie die Gedcom7 Spezifikation in der Nearley Grammatik abgebildet wird und wie diese Grammatikerstellung automatisiert werden kann. Anschließend wird dargestellt, wie die in Abschnitt \ref{sec: Konzept - Gedcom Strukturen} vorgestellten Gedcom Datenstrukturen implementiert wurden. Es wird gezeigt, wie diese Komponenten im \textsc{Gedcom Parser} vereinigt werden und in einem detailierten Beispiel wird die Verwendung des Parsers demonstriert. Zum Schluss wird darauf eingegangen, wie die Bibliothek und die darin enthalten Funktionen getestet wurden.
 
 %========================================================================================
 % SECTION: GEDCOM GRAMMATIK
@@ -468,6 +468,8 @@ Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklas
 	\label{fig: UML Klassendiagramm Family}
 \end{figure}
 \newpage
+\subsection{\textsc{Datatype Structures}}
+...
 \subsection{Klasse \textsc{Dataset}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
 Die Hauptaufgabe der Klasse \textsc{Dataset} besteht darin, Structures zu erstellen und zu verwalten. Dazu werden die in Abbildung \ref{fig: UML Klassendiagramm Dataset} dargestellten Eigenschaften und Methoden verwendet. In den Eigenschaften jeder Instanz der Klasse \textsc{Dataset} werden Header und Trailer, alle Records die enthalten sind, Datenstrukturen zur Verwaltung von Cross-Reference-Identifiern, sowie Informationen über die Verwendung des Byte-Order-Mark und End-Of-Line Characters gespeichert. Bei der Erstellung einer Instanzt der Klasse \textsc{Dataset} über den Konstruktor können Header- Trailer- und Record Informationen übergeben werden, aus denen Instanzen der Klasse \textsc{Structure}, bzw. \textsc{Record} generiert werden. Zudem kann ein leeres Dataset über die Methode \textit{createEmptyDataset()} erstellt werden. Die Hauptaufgaben der Klasse \textsc{Dataset} können zu den folgenden vier Punkten zusammengfasst werden.
@@ -541,7 +543,7 @@ Sollen Informationen über die Kinder der Family ausgegeben werden, kann dies ü
 		 eventDetails: null
 	   }
 \end{javascriptNoCaption}
-realisiert werden. Außerdem kann Datum der Hochzeit herausgefunden werden, kann dies folgendermaßen aussehen:
+realisiert werden. Außerdem kann das Datum der Hochzeit herausgefunden werden mit:
 \begin{javascriptNoCaption}
 	const marrInfo = famF1.getMarriageInformation();
 	console.log(marrInfo.marriages[0].eventDetails.date);
@@ -577,3 +579,89 @@ Wird der Family Record nun ausgegeben, ist die neue DIV-Structure in der Ausgabe
 \end{javascriptNoCaption}
 }
 
+%========================================================================================
+% SECTION: Test
+%========================================================================================
+\section{Test der Implementierung}
+Die Implementierung der Bibliothek \textit{gedcom7.js} wurde im Entwicklungsprozess ausgiebig getestet. Mit Hilfe des in Kapitel \ref{sec: Mocha} vorgestellten JavaScript Test-Frameworks \textit{mocha} wurden insgesamt 176 Test spezifiziert, die die wichtigsten Use-Cases der Bibliothek abdecken. Im Besonderen wurden die Klassen \textsc{Gedcom Parser}, \textsc{Dataset}, \textsc{Structure} und \textsc{Family} getestet. Da der \textsc{Gedcom Parser} intern die vom \textsc{Grammar Generator} erstellte Nearley Grammatik verwendet, wird beim Test der \textsc{Grammar Generator} beim Test des \textsc{Gedcom Parser} indirekt mitgetestet. In zukünftigen Arbeiten sollten jedoch zusätzliche Tests für den Grammatik Generator implementiert werden, da eine korrekte Syntaxüberprüfung die Grundlage für eine fehlerfreie Nutzung der Bibliothek darstellt. Besonders wenn eine Schnittstelle zum \textsc{Grammar Generator} zur Erstellung von Extensions eingeführt wird, sind ausgiebige Testfälle unabdingbar. Außerdem sollten in zukünftigen Arbeiten Tests für die \textit{Datatype Structures} und alle weiteren Records implementiert werden. 
+
+
+Im folgenden wird anhand eines exemplarischen Tests gezeigt, wie die Komponenten der Bibliothek \textit{gedcom7.js}getestet wurden. Zusätzlich zu \textit{Mocha} wurde dazu die \textit{Node.js} Assertion-Bibliothek \textit{Chai} verwendet, mit der ausdrucksstarke und leicht verständliche Testfälle in englischer Sprache definiert werden können. Als Testgrundlage wurden die 7 Gedcom7 Dateien verwendet, die von \textit{Family Search} als Beispieldateien bereitgestellt wurden. Diese Dateien decken die komplette Gedcom7 Spezifikation ab und versuchen alle Structuretypes, Datatypes und Sonderfälle abzudecken. Funktioniert das Parsen und Verarbeiten dieser Dateien korrekt, kann davon ausgegangen werden, dass die Gedcom7 Spezifikation korrekt in der Bibliothek abgebildet wurde.
+
+
+Mit den in Listing \ref{lst: test lesen und schreiben gedcom7 dateien} aufgeführten Testfällen, wird das Lesen und Schreiben von Gedcom7 Dateien getestet. Dazu werden die oben angesprochenen, von \textit{Family Search} als Beispieldateien bereitgestellten, Gedcom7 Dateien mit einer Instanz des \textsc{Gedcom Parser} eingelesen und als \textsc{Dataset} zurückgegeben. Dieses Dataset wird über die Methode \textit{write()} temporär gespeichert und anschließend mit der ursprünglichen Gedcom7 Datei verglichen. Dieser Vergleich kann auf einfache Weise mit der Textvergleichsimplementierung \textit{diff}\footnote{Nähere Informationen sind unter https://www.npmjs.com/package/diff angegeben.} umgesetzt werden, mit der die Inhalte der Dateien Zeichen für Zeichen verglichen werden. 
+
+
+Auf diese Weise wird ebenfalls sichergestellt, dass Gedcom7 Dateien die eingelesen aber unverändert bleiben, nach der Ausgabe identisch bleiben. Dies ist eine wichtige Anforderung, da textbasierte Dateiformate wie der Gedcom Standard gerne über Versionsverwaltung administriert werden. Für diesen Use-Case wäre es nicht annehmbar, wenn sich Änderungen in Dateien ergeben, die nicht angepasst wurden. Damit eine identische Ausgabe möglich ist, müssen im \hyperref[fig: UML Klassendiagramm Dataset]{\textsc{Dataset}} Angaben über die verwendeten EOL-Character und das Byte-Order-Mark gespeichert werden.
+
+\begin{javascript}{Testfälle für das Lesen und Schreiben von korrekten Gedcom7 Dateien}{lst: test lesen und schreiben gedcom7 dateien}
+	describe('test if gedcom file is equivalent before and after parsing', () => {
+		const gedcomParser = new GedcomParser();
+		const path = 'test/sampleData/ExampleFamilySearchGEDCOMFiles/';
+		
+		// Family Search Example Files
+		const gedFiles = [
+			'escapes.ged',
+			'long-url.ged',
+			'maximal70_without_extensions.ged',
+			'minimal70.ged',
+			'remarriage1.ged',
+			'same-sex-marriage.ged',
+			'voidptr.ged'
+		];
+		
+		forEach(gedFiles)
+		.it('#%s', async (fileName) => {
+			// read Gedcom file as String
+			const beforeParsing = await readGedFile(path + fileName);
+			// parse Gedcom String and write it to temp.ged
+			const dataset = gedcomParser.parseString(beforeParsing);
+			await fs.writeFile(path + 'temp.ged', '');
+			await dataset.write(path + 'temp.ged');
+			// read temp.ged as String and compare it with original file
+			const afterParsing = await readGedFile(path + 'temp.ged');
+			
+			// expect files to be equal
+			expect(diffChars(beforeParsing, afterParsing)).to.have.lengthOf(1);
+		});
+	});
+\end{javascript}
+
+In der folgenden Auflistung sind alle weiteren Testfälle aufgeführt, die im Rahmen dieser Arbeit implementiert wurden. Alle Testfälle sind im Repository der Bibliothek im Ordner \textit{Test} abgelegt. 
+
+\bgroup
+\def\arraystretch{1.5}%  1 is the default, change whatever you need
+\setlength{\tabcolsep}{18pt}
+\begin{longtable}{|p{2cm}|p{10cm}|}
+	\hline
+	\textbf{Dataset} & { \vspace{-1.8em}
+		\begin{itemize}
+			\item Vergleich von geschriebenen Gedcom7 Dateien mit dem Original
+			\item Suchen von Records im Dataset
+			\item Fehler finden bei Eingabe von Gedcom7 Dateien mit nicht definiertem Xref
+			\item Fehler finden bei Eingabe von Gedcom7 Dateien mit mehrfach verwendetem Xref
+			\item Warnungsausgabe bei fehlendem Byte-Order-Mark
+			\item Verwendung der richtigen EOL-Character
+	\end{itemize}\vspace{-1.6em}}\\
+	\hline
+	\textbf{Parser} & { \vspace{-1.8em}
+		\begin{itemize}
+			\item Parsen von korrekten Gedcom7 Dateien ohne Fehler
+			\item Syntaxfehler finden beim Parsen von Gedcom7 Dateien mit fehlerhafter Syntax
+			\item Syntaxfehler finden beim Parsen von Gedcom7 Dateien mit fehlendem Header und/oder Trailer
+		\end{itemize}\vspace{-1.6em}}\\
+	\hline
+	\textbf{Structure} & { \vspace{-1.8em}
+		\begin{itemize}
+			\item Finden von Substructures anhand des Tags
+			\item Finden von Substructures anhand des LineValues
+			\item Ändern des LineValues
+			\item Ändern des Xref
+			\item Hinzufügen von einer/mehrere Substructures mit keiner/einer/mehreren Substructures
+		\end{itemize}\vspace{-1.6em}}\\
+	\hline
+	\caption{Bestandteile einer GEDCOM Line und ihre Bedeutung} % needs to go inside longtable environment
+	\label{tab: gedcom line}
+\end{longtable}
+\egroup
+\vspace{1em}
