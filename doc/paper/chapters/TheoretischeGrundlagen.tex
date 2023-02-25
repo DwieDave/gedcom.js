@@ -75,59 +75,22 @@ nur die betroffene Struktur neu geprüft werden muss.
 \section{Mocha}
 \label{sec: Mocha}
 
-Im Rahmen der Implementierung unserer Bibliothek, war es uns ein zentrales Anliegen, das Testen dieser zu gewährleisten. Zu diesem Zweck haben wir uns 
-auf die Suche nach einem geeigneten Testframework für JavaScript begeben. In diesem Kontext stießen wir auf Mocha, welches eine API bereitstellt, die
- das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen.
+Im Rahmen der Bibliotheksimplementierung, war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
+Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
+die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
+Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
 \\\\
-Wie im Beispiel-Test in Listing \ref{lst: mocha example} veranschaulicht wird, wird zunächst ein aussagekräftiger Name für den Test als erster Parameter
- der Mocha-Funktion \textit{describe} übergeben. Im zweiten Parameter wird eine Callback-Funktion übergeben, die den Code für den Test enthält, beginnend
-  mit dem Setup-Code. Hierbei wird in unserem Fall ein Array mit mehreren Gedcom-Dateinamen erstellt, die sich im angegebenen \textit{path} befinden.
+Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft ob der Wert der Konstante
+\textit{value} gleich ihrem zugewiesenem Wert 1 ist.
+Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
 
-Durch die Verwendung der Funktion \textit{forEach}, welche aus einem Mocha-Plugin namens \textit{mocha-each} stammt, wird über alle Dateinamen iteriert. 
-Für jeden Dateinamen wird ein neuer Test erstellt und der Code in der anonymen Callback-Funktion für jeden \textit{fileName} im Array \textit{gedFiles} 
-ausgeführt.
 
-Der Ablauf für eine Datei im Listing \ref{lst: mocha example} ist wie folgt: Zunächst wird die Datei mithilfe der asynchronen Helper-Funktion 
-\textit{readGedFile} eingelesen und in der Variable \textit{beforeParsing} gespeichert. Anschließend wird die Datei mit der Funktion 
-\textit{parseString} des Moduls \textit{gedcomParser} als Dataset geparst. Hierbei wird eine Grammatikprüfung durchgeführt und alle Daten aus der Datei sind
-nach erfolgreicher Prüfung über die Dataset Klasse und deren Methoden zugänglich.
-
-Im nächsten Schritt wird im aktuellen Verzeichnis eine temporäre Datei namens \textit{temp.ged} erstellt und anschließend mit der Funktion 
-\textit{dataset.write} mit den eingelesenen Daten des Datasets beschrieben.
-
-Schließlich wird mithilfe der Funktion \textit{expect}, welche aus dem Mocha-Plugin \textit{chai} stammt, überprüft, ob die eingelesene 
-Datei und das geschriebene Dataset in der \textit{temp.ged} Datei identisch sind.
-\\\\
-Der beschriebene Testmechanismus gewährleistet, dass die Daten, die aus einer GEDCOM-Datei gelesen werden, bei erfolgreichem Parsen nach 
-Schreiben ohne Manipulation am Dataset weiterhin identisch und konsistent sind.
-\\\\
 \begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
-  // GEDCOM READING AND WRITING TEST
-  describe('test if gedcom file is equivalent before and after parsing', () => {
-  	const path = 'test/sampleData/ExampleFamilySearchGEDCOMFiles/';
-  	//correct files
-  	const gedFiles = [
-		'escapes.ged',
-		'long-url.ged',
-		'maximal70_without_extensions.ged',
-		'minimal70.ged',
-		'remarriage1.ged',
-		'same-sex-marriage.ged',
-		'voidptr.ged'
-  	];
-
-  	forEach(gedFiles)
-		.it('#%s', async (fileName) => {
-	  	// read Gedcom file as String
-	  	const beforeParsing = await readGedFile(path + fileName);
-	  	// parse Gedcom String and write it to temp.ged
-	  	const dataset = gedcomParser.parseString(beforeParsing);
-	  	await fs.writeFile(path + 'temp.ged', '');
-	  	await dataset.write(path + 'temp.ged');
-	  	// read temp.ged as String and compare it with original file
-	  	const afterParsing = await readGedFile(path + 'temp.ged');
-	  	// expect files to be equal
-	  	expect(diffChars(beforeParsing, afterParsing)).to.have.lengthOf(1);
+	describe('test example', function () {
+		it('should assert true', function (done) {
+			const value = 1;
+			expect(value).to.equal(1);
+			done();
+		});
 	});
-  });
 \end{javascript}
