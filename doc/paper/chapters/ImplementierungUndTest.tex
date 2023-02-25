@@ -469,7 +469,31 @@ Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklas
 \end{figure}
 \newpage
 \subsection{\textsc{Datatype Structures}}
-...
+
+% TO-DO: GedcomDate Klasse beschreiben und Ausblick auf Erweiterung anderer Datatype Structures
+
+\begin{javascript}{Funktion getDateObject() der Klasse \textsc{GedcomDate}}{lst: getDateObject function}
+	// public method to get the date as an object 
+	// with a descriptor (in case of a special date)
+    getDateObject() {
+        // determine if the date is a single date or a date range
+        const isDateRange = this.startDate !== null && this.endDate !== null;
+        
+        // create result object with conditionally added properties
+        const result = {
+            type: this.lineValType,
+            ...(isDateRange && { startDate: this.startDate, endDate: this.endDate }),
+            ...(!isDateRange && { date: this.startDate }),
+            ...(this.descriptor && { descriptor: this.descriptor }),
+            ...(this.description && { description: this.description }),
+            ...(this.calendar && { calendar: this.calendar }),
+            ...(this.epoch && { epoch: this.epoch })
+        };
+        return result;
+    }
+\end{javascript}
+
+
 \subsection{Klasse \textsc{Dataset}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
 Die Hauptaufgabe der Klasse \textsc{Dataset} besteht darin, Structures zu erstellen und zu verwalten. Dazu werden die in Abbildung \ref{fig: UML Klassendiagramm Dataset} dargestellten Eigenschaften und Methoden verwendet. In den Eigenschaften jeder Instanz der Klasse \textsc{Dataset} werden Header und Trailer, alle Records die enthalten sind, Datenstrukturen zur Verwaltung von Cross-Reference-Identifiern, sowie Informationen über die Verwendung des Byte-Order-Mark und End-Of-Line Characters gespeichert. Bei der Erstellung einer Instanzt der Klasse \textsc{Dataset} über den Konstruktor können Header- Trailer- und Record Informationen übergeben werden, aus denen Instanzen der Klasse \textsc{Structure}, bzw. \textsc{Record} generiert werden. Zudem kann ein leeres Dataset über die Methode \textit{createEmptyDataset()} erstellt werden. Die Hauptaufgaben der Klasse \textsc{Dataset} können zu den folgenden vier Punkten zusammengfasst werden.
