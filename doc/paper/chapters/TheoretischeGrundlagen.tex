@@ -64,7 +64,6 @@ Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Daten
 }
 \section{Nearley}
 \label{sec: Nearley}
-% TO-DO: EBNF erklären bzw. einmal ansprechen -> vielleicht schon im Gedcom-Kapitel?
 Nearley.js ist eine JavaScript-Bibliothek zum Parsen kontextfreier Grammatiken (CFGs). Sie bietet einen vielseitigen und effizienten Parsing-Algorithmus, 
 der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken mit Leichtigkeit zu behandeln. Die Bibliothek ist 
 modular aufgebaut, so dass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus BNF- und EBNF-Grammatiken erzeugen können. 
@@ -105,17 +104,38 @@ EBNF wird ebenfalls in der Spezifikation von GEDCOM v7 verwendet, um z.B Mulitpl
 
 \subsection*{Beispiel}
 
+In Listing \ref*{lst: simple nearley example} wird ein einfaches Beispiel einer Nearley Grammatik gezeigt. 
+Die Grammatik besteht aus sogenannten \textit{Token}, in diesem Fall \textit{reihenfolge} und \textit{ergebnis}.
+Da \textit{reihenfolge} der erste Token ist, ist dies der Einstieg in die Grammatik. 
+Ein Pfeil ($\rightarrow$) wird verwendet, um die Regel eines Tokens zu definieren, das $\vert$-Zeichen wird benutzt, 
+um mehrere Alternativen für einen Token zu definieren.
 
+Dementsprechend kann der Token \textit{reihenfolge} den String \textit{Kein Muenzwurf} oder eine beliebige Anzahl
+von durch Leerzeichen getrennten \textit{ergebnis}-Token enthalten.\\
 
+Die beliebige Anzahl von \textit{ergebnis}-Token wird durch den EBNF-Operator \textit{:*} am Ende der Regel gekennzeichnet.
+Es gibt neben \textit{:*} (0 oder mehr) noch weitere Operatoren, wie z.B. \textit{:+} (1 oder mehr), und \textit{:?} (optional), die in der EBNF-Spezifikation 
+beschrieben werden.\\
 
+Der Token \textit{ergebnis} kann entweder den String \textit{kopf} oder \textit{zahl} enthalten.\\
+Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die Zeichenkette \textit{kopf kopf zahl kopf} oder Ähnliche parsen.
 
-Im Laufe der Implementierung haben wir uns dazu entschieden, die komplette GEDCOM-Grammatik mittels Nearley abzubilden. Dies hat den Vorteil, dass wir 
-alle Regeln der GEDCOM-Spezifikation in einer Prüfung abdecken können. Außerdem bietet Nearley die Möglichkeit Teile der Grammatik in einzelnen Dateien
-auszulagern und nur für Teile der Grammatik Parser zu erstellen. Dies ermöglicht es uns eine Teilprüfung von nur einer GEDCOM-Struktur einer
-ganzen Datei durchzuführen. Dies ist insbesondere bei Manipulationen von einzelnen Strukturen innerhalb einer Datei von Vorteil, da anschließend
-nur die betroffene Struktur neu geprüft werden muss.
+{\begin{javascript}{Beispiel für eine Nearley Grammatik}{lst: simple nearley example}
+	reihenfolge 
+	 -> "Kein Muenzwurf" 
+		| ergebnis (" " ergebnis):*
+	
+	ergebnis 
+	 -> "kopf"
+		| "zahl"
+\end{javascript}}
 
-% TO-DO: Beispiel einer Nearley Grammatik einfügen und erklären
+% Im Laufe der Implementierung haben wir uns dazu entschieden, die komplette GEDCOM-Grammatik mittels Nearley abzubilden. Dies hat den Vorteil, dass wir 
+% alle Regeln der GEDCOM-Spezifikation in einer Prüfung abdecken können. Außerdem bietet Nearley die Möglichkeit Teile der Grammatik in einzelnen Dateien
+% auszulagern und nur für Teile der Grammatik Parser zu erstellen. Dies ermöglicht es uns eine Teilprüfung von nur einer GEDCOM-Struktur einer
+% ganzen Datei durchzuführen. Dies ist insbesondere bei Manipulationen von einzelnen Strukturen innerhalb einer Datei von Vorteil, da anschließend
+% nur die betroffene Struktur neu geprüft werden muss.
+
 
 \section{Mocha}
 \label{sec: Mocha}
