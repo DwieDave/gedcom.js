@@ -3,7 +3,7 @@
 
 \begin{figure}[b]
 	\centering
-	\includegraphics[width=0.92\textwidth]{images/konzept_allgemein.png}
+	\includegraphics[width=0.85\textwidth]{images/konzept_allgemein.png}
 	\caption{Allgemeiner Aufbau}
 	\label{fig: Allgemeiner Aufbau}
 \end{figure}
@@ -127,7 +127,6 @@ Der Payload von Lines kann verschiedene Datentypen haben, die in der Gedcom7 Dat
 \subsection{Dataset}
 \label{subsec: Konzept - Gedcom Strukturen - Dataset}
 Die in Abschnitt \ref{subsec: Konzept - Gedcom Strukturen - Structure} beschriebenen Structures werden in einer \textit{Dataset} Datenstruktur zusammengefasst, die alle genealogischen Informationen einer Gedcom7 Datei enthält. Die Hauptaufgabe des Datasets besteht darin, Structures zu erstellen und zu verwalten. Wird eine Gedcom7 Datei mit korrekter Syntax mit dem in \ref{subsec: Konzept - Gedcom Grammatik - Nearley-Parser für Gedcom7} vorgestellten Nearley Parser eingelesen, extrahiert dieser alle Structure Informationen. Anschließend kann ein \textit{Dataset} erstellt werden, das all diese Informationen einliest, daraus Structures erstellt und die Zusammenhänge zwischen diesen Structures modelliert, sodass, eine Art Baumstruktur mit allen Records entsteht. Um ein Dataset mit neuen genealogischen Informationen anzureichern, sollen Methoden zum Hinzufügen bzw. zum Entfernen von Records bereitgestellt werden. Da das Hinzufügen bzw. Entfernen von Strukturen zu einer inkorrekten Gedcom7 Syntax führen kann, müssen Methoden zur Syntaxüberprüfung implementiert werden. Des Weiteren stellt das Dataset Metainformationen über eine Gedcom7 Datei zur Verfügung und sollte bestimmte Anforderungen überprüfen, die in der Gedcom7 Spezifikation angegeben werden. Beispiele hierfür sind, dass jede Gedcom7 Datei mit dem \textit{Byte-Order-Mark} beginnen sollte oder dass alle Structure, auf die über einen Cross-Reference-Identifier verwiesen wird, definiert seien müssen, bevor auf diese verwiesen wird. 
-\newpage
 %========================================================================================
 % SECTION: GEDCOM PARSER
 %========================================================================================

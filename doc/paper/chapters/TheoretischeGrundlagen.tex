@@ -143,12 +143,12 @@ Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die
 Im Rahmen der Bibliotheksimplementierung war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
 Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
 die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
-Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
-\\\\
+Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet. 
+\\ \\
 Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft, ob der Wert der Konstante
 \textit{value} gleich ihrem zugewiesenem Wert 1 ist.
 Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
-
+\newpage
 \begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
 	describe('test example', function () {
 		it('should assert true', function (done) {
@@ -158,7 +158,7 @@ Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und üb
 		});
 	});
 \end{javascript}
-
+\vspace{1em}
 Durch die Verwendung von Mocha und Chai können noch weitere Testarten durchgeführt werden, um die Funktionalität 
 von \textit{gedcom7.js} zu überprüfen. Beispielsweise können Fehlerfälle überprüft werden, um zu kontrollieren, 
 dass das Programm korrekt auf unerwartete Eingaben reagiert. Auch die Länge von Arrays kann getestet werden, 

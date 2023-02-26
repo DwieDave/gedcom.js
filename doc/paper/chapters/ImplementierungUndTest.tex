@@ -489,8 +489,6 @@ ob eine Datumsspanne oder ein einzelnes Datum vorliegt. Anschließend wird das r
 mit den vorhandenen Properties gefüllt und zurückgegeben. Das start/endDate beeinhaltet ebenfalls die Uhrzeit, 
 welche in GEDCOM als Substructure der Date-Structure angegeben werden kann.
 
-\newpage
-
 \begin{javascript}{Funktion getDateObject() der Klasse \textsc{GedcomDate}}{lst: getDateObject function}
 	// public method to get the date as an object 
 	// with a descriptor (in case of a special date)
@@ -511,7 +509,7 @@ welche in GEDCOM als Substructure der Date-Structure angegeben werden kann.
         return result;
     }
 \end{javascript}
-\vspace{3em}
+\vspace{1em}
 \textbf{Beispiel} \vspace{0.5em} \\
 Der folgende Ausschnitt einer GEDCOM-Datei zeigt ein erweitertes Datum, 
 welches nach erfolgreichem Parsen in der Klasse \textsc{GedcomDate} repräsentiert wird.
@@ -524,7 +522,7 @@ welches nach erfolgreichem Parsen in der Klasse \textsc{GedcomDate} repräsentie
 \end{javascriptNoCaption}
 Wird die Methode \textit{getDateObject()} der Klasse \textsc{GedcomDate} für dieses Datum aufgerufen, 
 wird das Datum in folgendes JavaScript-Objekt umgewandelt:
-\newpage
+
 \begin{javascriptNoCaption}
 	{
 		type: "DateValue",
@@ -552,9 +550,7 @@ Mit Hilfe der Methode \textit{createStructure()} können Structures auf Basis vo
 \vspace{1em}
 \textbf{2. Hinzufügen/Entfernen von Records} \vspace{0.5em} \\
 Die Methoden \textit{addRecord()} kann verwendet werden um neue Records auf Basis von übergebenen Structure Informationen zu erstellen und ins Dataset einzugliedern. Benötigt werden dazu die Gedcom7 URI, der LineValue (sofern dieser vorhanden ist) und die Substructures, die enthalten sein sollen. Anschließend werden die Referenzen im Dataset so angepasst, dass der Record an der richtigen Stelle eingegliedert wird. Mit \textit{removeRecord()} kann ein Record mit der gegebenen Referenz aus dem Dataset entfernt werden. Dabei wird der Eintrag aus der Xref-Map entfernt. Außerdem wird überprüft, ob eine Structure im Dataset über einen Cross-Reference-Identifier auf den entfernten Record verweist. Wenn dies der Fall ist, muss die entsprechende Referenz zu einem @VOID@-Pointer geändert werden, da nicht auf nicht-definierte Xrefs verwiesen werden darf \cite{GEDCOM}. Zusätzlich wird eine Warnung für den Benutzer ausgegeben, um darauf hinzuweisen, dass das Entfernen eines Records dazu führt, dass ebenfalls alle Substructures entfernt werden. 
-
-
-\vspace{1em}
+\newpage
 \textbf{3. Hinzufügen/Entfernen von Structures} \vspace{0.5em} \\
 Mit den gleichen Informationen wie beim Hinzufügen von Records, können auch Structures zum Dataset hinzugefügt werden. Zusätzlich werden die Superstructure und der Record benötigt, in den die Structure eingefügt werden soll, um ein richtiges Eingliedern ins Dataset zu ermöglichen. 
 
@@ -571,11 +567,11 @@ Eine wichtige Anforderung für die Bibliothek \textit{gedcom7.js} war es, dass d
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.65\textwidth]{images/UML_Class_Dataset.png}
+	\includegraphics[width=0.55\textwidth]{images/UML_Class_Dataset.png}
 	\caption{UML Klassendiagramm Dataset}
 	\label{fig: UML Klassendiagramm Dataset}
 \end{figure}
-
+\newpage
 
 %========================================================================================
 % SECTION: GEDCOM Parser
