@@ -468,9 +468,28 @@ Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklas
 	\label{fig: UML Klassendiagramm Family}
 \end{figure}
 \newpage
-\subsection{\textsc{Datatype Structures}}
+\subsection{Datatype Structures: \textsc{GedcomDate} Klasse}
+Um besser mit den Datentypen der GEDCOM-Spezifikation innerhalb der Bibliothek umgehen zu können, 
+wurden Datentyp-Strukturen eingeführt und die Klasse \textsc{GedcomDate} exemplarisch implementiert.
 
-% TO-DO: GedcomDate Klasse beschreiben und Ausblick auf Erweiterung anderer Datatype Structures
+Diese soll als Vorlage für weitere GEDCOM-Datentypen, oder erweiterte Datentypen, genutzt werden.
+Nach dem erfolgreichen Parsen, werden die Klassen für die \textit{Records} und \textit{Structures}, 
+sowie auch die Datentyp-Strukturen erstellt.
+
+Wenn vom Nearley-Parser die GEDCOM-Typen \textit{DateValue}, \textit{DatePeriod} oder \textit{DateExact}
+erkannt werden, wird die Klasse \textsc{GedcomDate} mit den entsprechenden Line-Parametern instanziiert.
+Beim Initialisieren der \textsc{GedcomDate}-Klasse wird das GEDCOM konforme Date, mit Hilfe der Date-Bilbliothek
+\textit{date-fns}, in ein JavaScript-Date-Objekt umgewandelt.
+Je nach GEDCOM-Date-Typ wird das Datum nur in das Attribut \textit{startDate} oder auch und in das Attribut
+\textit{endDate} der Klasse GedcomDate, gespeichert. \\
+Die Klasse \textsc{GedcomDate} bietet eine Methode \textit{getDateObject()}, in der das GEDCOM Datum 
+als JavaScript-Date-Objekt mit Metadaten zum Date-Typ zurückgegeben wird.
+Diese Methode ist in Listing \ref{lst: getDateObject function} abgebildet. Es wird zunächst kontrolliert,
+ob eine Datumsspanne oder ein einzelnes Datum vorliegt. Anschließend wird das result-Objekt konditional
+mit den vorhandenen Properties gefüllt und zurückgegeben. Das start/endDate beeinhaltet ebenfalls die Uhrzeit, 
+welche in GEDCOM als Substructure der Date-Structure angegeben werden kann.
+
+\newpage
 
 \begin{javascript}{Funktion getDateObject() der Klasse \textsc{GedcomDate}}{lst: getDateObject function}
 	// public method to get the date as an object 
@@ -492,8 +511,33 @@ Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklas
         return result;
     }
 \end{javascript}
+\vspace{3em}
+\textbf{Beispiel} \vspace{0.5em} \\
+Der folgende Ausschnitt einer GEDCOM-Datei zeigt ein erweitertes Datum, 
+welches nach erfolgreichem Parsen in der Klasse \textsc{GedcomDate} repräsentiert wird.
 
-
+\begin{javascriptNoCaption}
+	0 @F1@ FAM
+	1 HUSB @I1@
+	1 MARR
+	2 DATE AFT JULIAN 13 MAR 1998 BCE
+\end{javascriptNoCaption}
+Wird die Methode \textit{getDateObject()} der Klasse \textsc{GedcomDate} für dieses Datum aufgerufen, 
+wird das Datum in folgendes JavaScript-Objekt umgewandelt:
+\newpage
+\begin{javascriptNoCaption}
+	{
+		type: "DateValue",
+		date: 1998-03-13T00:00:00,
+		descriptor: "AFT",
+		description: "After date: Exact date unknown, but no earlier than x",
+		calendar: "JULIAN",
+		epoch: "BCE"
+	}
+\end{javascriptNoCaption}
+Die Datatyp-Strukturen und somit auch \textsc{GedcomDate}, stellen somit eine Schnittstelle zwischen den
+GEDCOM Datentypen und JavaScript dar und ermöglichen somit direkten Zugriff auf die
+Daten, ohne zum Beispiel die GEDCOM-eigene Datumstruktur kennen zu müssen.
 \subsection{Klasse \textsc{Dataset}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
 Die Hauptaufgabe der Klasse \textsc{Dataset} besteht darin, Structures zu erstellen und zu verwalten. Dazu werden die in Abbildung \ref{fig: UML Klassendiagramm Dataset} dargestellten Eigenschaften und Methoden verwendet. In den Eigenschaften jeder Instanz der Klasse \textsc{Dataset} werden Header und Trailer, alle Records die enthalten sind, Datenstrukturen zur Verwaltung von Cross-Reference-Identifiern, sowie Informationen über die Verwendung des Byte-Order-Mark und End-Of-Line Characters gespeichert. Bei der Erstellung einer Instanzt der Klasse \textsc{Dataset} über den Konstruktor können Header- Trailer- und Record Informationen übergeben werden, aus denen Instanzen der Klasse \textsc{Structure}, bzw. \textsc{Record} generiert werden. Zudem kann ein leeres Dataset über die Methode \textit{createEmptyDataset()} erstellt werden. Die Hauptaufgaben der Klasse \textsc{Dataset} können zu den folgenden vier Punkten zusammengfasst werden.
