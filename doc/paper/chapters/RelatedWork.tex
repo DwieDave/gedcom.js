@@ -1,0 +1,27 @@
+\chapter{Related Work}
+\label{chap: Related Work}
+Eine umfassende Untersuchung der bestehenden GEDCOM-Bibliotheken wurde vor Beginn der theoretischen Ausarbeitung der Gedcom7-Bibliothek durchgeführt. 
+Dabei wurden auch einige der beliebtesten Bibliotheken, die in Python oder Java entwickelt wurden, untersucht. Zwei Bibliotheken wurden dabei als Orientierung 
+für die Arbeit herangezogen.
+
+\section{gedcom7code/js-parser}
+
+Der js-parser, welcher von Luther Tychonievich, einem Managing Editor von FamilySearch Gedcom, entwickelt wurde, dient als minimaler Parser für Gedcom7-Zeilen. 
+Dieser Parser, der in JavaScript geschrieben wurde, basiert auf einer Regular Expression und liefert die einzelnen Bestandteile einer Zeile zurück. Die grundlegende 
+Struktur einer GEDCOM-Zeile kann damit ermittelt werden.
+
+\section{python-gedcom}
+
+Die zweite Bibliothek, welche interessante Konzepte bezüglich der Handhabung der GEDCOM-Strukturen liefert, ist die \textit{python-gedcom}-Bibliothek. 
+Die an die GEDCOM-Spezifikation angelehnte Klassenhierarchie bot für die Zwecke der Gedcom7-Bibliothek eine ideale Vorlage. Jeder Gedcom-Record besitzt eine eigene Klasse, 
+die von einer Elternklasse Structure erbt.
+
+Ein weiterer Ansatz dieser Bibliothek ist das Speichern der einzelnen Felder in den Klassen für \textit{Record}s oder \textit{Subrecord}s, die eine GEDCOM-Zeile ausmachen. 
+Dies ermöglicht das konsistente Lesen, Interpretieren, Manipulieren und Schreiben von GEDCOM-Dateien
+
+Bei der python-gedcom-Bibliothek wurde die Prüfung der genauen Spezifikationsvorgaben wenig beachtet. Records können somit beliebig
+hinzugefügt werden und nicht spezifikationskonforme Records können erstellt und gespeichert werden.
+\\\\
+Da die Einhaltung der Spezifikation jedoch sehr wichtig ist, wurde in Gedcom7.js eine sehr detaillierte Grammatik mittels Nearley.js erstellt. Diese Grammatik wird
+beim Parsen der Gedcom-Datei und nach jeder Operation an einem Dataset verwendet, um das Dataset auf Korrektheit zu prüfen und somit auch eine korrekte Gedcom-Datei
+zu gewährleisten.

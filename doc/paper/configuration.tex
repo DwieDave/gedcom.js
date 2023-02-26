@@ -1,0 +1,93 @@
+% Listings
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+% \definecolor{custom}{rgb}{0.07,0,1}
+% \definecolor{custom}{rgb}{0.82,0.54,0.44}
+\definecolor{strings}{rgb}{0.71,0,0.04}
+% \definecolor{keywords}{rgb}{0.22,0.58,0.80}
+\definecolor{keywords}{rgb}{0.14,0.00,1.00}
+% \definecolor{ndkeywords}{rgb}{0.82,0.51,0.77}
+\definecolor{ndkeywords}{rgb}{0.75,0.00,0.89}
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, async, function, return, null, catch, switch, var, let, const, if, in, while, do, else, case, break},
+  keywordstyle=\color{keywords}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this, await},
+  ndkeywordstyle=\color{ndkeywords}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{strings}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinestyle{basiccode}{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  gobble=2,
+  framexleftmargin=7mm,
+  xleftmargin=10mm,
+  xrightmargin=.12in,
+  framextopmargin=.05in,
+  framexbottommargin=.04in,
+  escapechar=~,
+  captionpos=t,
+}
+
+\lstnewenvironment{basiccode}
+{\lstset{style=basiccode}}
+{}
+
+\lstnewenvironment{javascript}[2]
+{\lstset{
+  style=basiccode,
+  frame=tb,
+  language=JavaScript,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  %basicstyle={\fontsize{11}{13}\selectfont\ttfamily},
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+%   keywordstyle=\color{blue},
+%   commentstyle=\color{dkgreen},
+%   stringstyle=\color{mauve},
+  captionpos=t,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  escapechar=~,}
+}
+{%
+    \captionof{lstlisting}{#1}
+    \label{#2}
+}
+
+\lstnewenvironment{javascriptNoCaption}
+{\lstset{
+		style=basiccode,
+		frame=tb,
+		language=JavaScript,
+		aboveskip=5mm,
+		belowskip=5mm,
+		framesep=4pt,
+		showstringspaces=false,
+		columns=flexible,
+		%basicstyle={\fontsize{11}{13}\selectfont\ttfamily},
+		basicstyle={\small\ttfamily},
+		numbers=none,
+		numberstyle=\tiny\color{gray},
+		%   keywordstyle=\color{blue},
+		%   commentstyle=\color{dkgreen},
+		%   stringstyle=\color{mauve},
+		captionpos=t,
+		breaklines=true,
+		breakatwhitespace=true,
+		tabsize=4,
+		escapechar=~,}
+}{}

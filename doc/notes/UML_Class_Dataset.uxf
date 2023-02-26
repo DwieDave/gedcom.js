@@ -1,0 +1,74 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>77</x><y>7</y><w>294</w><h>721</h></coordinates><panel_attributes>Dataset
+--
+
+- header: Structure
+- trlr: Structure
+- records: Record[*]
+
+- xrefMap: Object
+- substructsWithXrefDatatype: Object
+- BOM: String
+- BOMset: boolean
+- EOL: Object
+- multipleEOLCharacters: boolean
+
+--
+
++ Dataset (
+        parsedHeader: Object, 
+        parsedRecords: Object[*], 
+        parsedTrlr: Object, 
+        BOMset: boolean
+    )
+_+ createEmptyDataset (gedcomVersion: String): Dataset_
++ checkSyntax ()
+
++ createStructure (
+        parsedOject: Object, 
+        superstruct: Structure, 
+        associatedRecord: Record, 
+        addStructureFlag: boolean
+    ) : Structure
++ createStructureFromStructureParameter (
+        structureParameters: Object, 
+        level: String
+    ) : Structure
+
++ addRecord (record: Object): Record
++ addStructure (
+        struct: Structure, 
+        superstruct: Structure, 
+        associatedRecord: Record
+    ): Structure
++ removeRecord (record: Structure)
++ removeStructure (struct: Structure)
+
++ getRecordByXref (xref: String)
++ getRecrodsByConstructor (constructor: Record)
++ getHeaderRecord (): Structure
++ getFamilyRecords (): Structure
++ getIndividualRecords (): Structure
++ getMultimediaRecords (): Structure
++ getRepositoryRecords (): Structure
++ getSharedNoteRecords (): Structure
++ getSourceRecords (): Structure
++ getSubmitterRecords (): Structure
+
++ getEOL ()
++ convertUri (uri: String): String
++ addXrefToXrefMap (struct: Structure)
++ addSubstructWithXrefDatatype (struct: Structure)
++ removeSubstructWithXrefDatatype (struct: Structure)
++ searchAndRemoveEmptyStructure (struct: Structure)
++ checkForNotDefinedXrefs ()
++ isXrefDefined (xref: String, struct: Structure)
+
++ toString ()
++ printRecords ()
++ write (path: String)
+
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

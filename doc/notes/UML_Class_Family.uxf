@@ -1,0 +1,17 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>10</x><y>10</y><w>470</w><h>250</h></coordinates><panel_attributes>Family
+--
+
+--
++ checkSyntax ()
+
++ getHusband (): Structure
++ getHusbandXref (): String
++ getWife (): Structure
++ getWifeXref (): String
++ getChildren (): Structure[]
++ getChildrenXref (): String
++ getFamilyAttributeStructures (): Structure[]
++ getNumbersOfChildren (): Structure[]
++ getResidenceInformation (): Structure[]
++ getFamilyFacts (): Structure[]
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

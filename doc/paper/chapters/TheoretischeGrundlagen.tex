@@ -1,20 +1,172 @@
 \chapter{Theoretische Grundlagen}
 \label{chap: Theoretische Grundlagen}
-In diesem Kapitel...
+In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dieser Projektarbeit beschrieben. Dazu wird eine kurze Einführung in Genealogie, FamilySearch und GEDCOM im speziellen gegeben, um ein Verständnis für die Thematik aufzubauen. Zudem wird auf mehrere Quellen verwiesen, aus denen tiefergehende Informationen erschlossen werden können. Im Anschluss dazu wird kurz auf die JavaScript Bibliothek \textit{Nearley} und das JavaScript Testframework \textit{Mocha} eingegangen, die für die Umsetzung dieser Projektarbeit relevant werden.
 
 \section{Genealogie und FamilySearch}
-\label{Genealogie und FamilySearch}
+\label{sec: Genealogie und FamilySearch}
 Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von besonderer Bedeutung, die anhand von Beiweisen aus validen Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}.
 
-Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. 
+Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um einen standardisierten Austausch genalogischer Informationen zu ermöglichen, entwickelte die Kirche Jesu Christi der Heiligen der Letzten Tage das Datenformat GEDCOM, das im folgenden Kapitel vorgestellt wird.
+\newpage
+\section{GEDCOM Version 7}
+{
+\label{sec: GEDCOM Version 7}
+Das Datenformat FamilySearch GEDCOM 7.0 ist ein einheitliches, flexibles Format für den Austausch von genealogischen Daten, das 2021 von der Kirche Jesu Christi der Heiligen der Letzten Tage entwickelt wurde. Das Ziel besteht darin, eine langfristige Speicherung von genealogischen Informationen zu ermöglichen, die für zukünftige Genealogen und die von ihnen verwendeten System zugänglich und verständlich sind \cite{GEDCOM}. Die im Rahmen dieser Arbeit verwendete Version 7.0.11 wurde am 01.11.2022 veröffentlicht und stellt die aktuelleste Version des Standards dar\footnote{Stand 31.01.2023}. 
 
-\section{GEDCOM}
-\label{GEDCOM}
+GEDCOM ist ein UTF-8 kodiertes hierarchisches Containerformat, das die Dateinamenserweiterung \textit{.ged} verwendet. Der erste Character einer GEDCOM-Datei sollte das Byte-Order-Mark (U+FEFF) sein. Der Inhalt einer GEDCOM-Datei ist in sog. \textit{Structures} unterteilt, die aus einem \textit{Structure-Type} und einem optionalen \textit{Payload} bestehen und mehrere Substrukturen besitzen können. Hat eine \textit{Structure} eine \textit{Substructure}, dann ist die \textit{Structure} die \textit{Superstructure} der \textit{Structure}. Jede \textit{Substructure} hat genau eine \textit{Superstructure} und ist so eindeutig zugeordnet. Eine \textit{Structure}, die keine \textit{Supertructure} besitzt, heißt \textit{Record}. Alle Records zusammen mit einem Header und einem Trailer bilden ein \textit{Dataset}, das den Inhalt einer GEDCOM-Datei darstellt. \cite{GEDCOM} 
 
+Der \textit{Payload} einer \textit{Structure} ist eine Zeichenkette eines bestimmten Datentyps, die entweder Informationen für die \textit{Supertructure} bereithält, oder einen Zeiger auf eine andere \textit{Structure} repräsentiert und somit auf diese verweist. GEDCOM v7 definiert 11 verschiedene Datentypen in \cite{GEDCOM} mit denen Namen, Daten, Uhrzeiten, Texte und vieles mehr dargestellt werden können. Der \textit{Structure-Type} ist eindeutig definiert durch eine URI und gibt an, welche Bedeutung und welchen Datentyp die \textit{Structure} besitzt, welche \textit{Substructures} enthalten sein können und mit welcher Kardinalität diese auftreten können. \cite{GEDCOM} 
 
+Kodiert wird der Inhalt einer GEDCOM-Datei in sog. \textit{Lines}, die eine Zeichenkettenrepräsentation einer \textit{Structure} (bzw. eines Teils einer \textit{Structure}) darstellen und wie in Listing \ref{lst: gedcom line} aufgebaut sind. Die Bedeutung der einzelnen Bestandteile einer Line ist in Tabelle \ref{tab: gedcom line} spezifiziert.
+\vspace{1em}
+\begin{lstlisting}
+	Level  D  [Xref  D]  Tag  [D  LineVal]  EOL
+\end{lstlisting}
+\captionof{lstlisting}{Aufbau einer GEDCOM Line. Eckige Klammern repräsentieren optionale Inhalte.}
+\label{lst: gedcom line}
+\newpage
+\bgroup
+\def\arraystretch{1.5}%  1 is the default, change whatever you need
+\setlength{\tabcolsep}{18pt}
+\begin{longtable}{|p{2cm}|p{10cm}|}
+	\hline
+	\textbf{Level} & Eine Line beginnt mit einem Level, das die Verhältnisse der \textit{Structures} untereinander beschreibt. Alle \textit{Structures} mit dem kleinstmöglichen Level $0$ sind Records - Level $\ge1$ repräsentieren \textit{Substructures}. Eine \textit{Structure} mit dem Level $x$ ist also die \textit{Superstructure} aller folgenden \textit{Structures} mit dem Level $x+1$. \\
+	\hline
+	\textbf{D} & \textit{D} steht für \textit{Delimiter}, was englisch für Trennzeichen ist und repräsentiert in diesem Fall das Leerzeichen mit dem Unicode $u+0020$. \\
+	\hline
+	\textbf{Xref} & Xref ist die Abkürzung für \textit{Cross-Reference Identifier} und fungiert als Adresse für eine \textit{Structure}. Möchte man von einer \textit{Structure} auf eine andere \textit{Structure} verweisen, kann dies über einen Zeiger-Payload auf die entsprechende \textit{Structure} realisiert werden.\\
+	\hline
+	\textbf{Tag} & Der \textit{Tag} kodiert den \textit{Structure-Type} einer \textit{Structure}.\\
+	\hline
+	\textbf{LineVal} & Im \textit{LineVal} einer Struktur ist der Payload kodiert.\\
+	\hline
+	\textbf{EOL} & EOL steht für End-Of-Line und kodiert das Ende einer Line. Im Format GEDCOM v7 kann dies entweder durch einen Carriage-Return (Unicode U+000D), Line-Feed(Unicode U+000A) oder einen Carriage-Return gefolgt von einem Line-Feed repräsentiert werden.\\
+	\hline
+	\caption{Bestandteile einer GEDCOM Line und ihre Bedeutung} % needs to go inside longtable environment
+	\label{tab: gedcom line}
+\end{longtable}
+\egroup
+\vspace{1em}
+Ein Ausschnitt aus einer GEDCOM-Datei ist in Listing \ref{lst: family record example} dargestellt. Dieser Ausschnitt zeigt einen \textit{Record} vom Typ \textit{Family}, in dem Informationen über eine Familie gespeichert werden können. Der Familie wurde der Cross-Reference Identifier \textit{@F1@} zugewiesen, sodass im Dataset auf dieses verwiesen werden kann. Der Ehemann und die Ehefrau der Familie (engl. Husband und Wife) sind die Individuen \textit{I1} und \textit{I2}, die ebenfalls in der Gedcom7-Datei definiert sind. Dieser Zusammenhang wird über die Cross-Reference Identifier \textit{@I1@} und \textit{@I2@} ausgedrückt. Außerdem wird ein Family-Event, nämlich die Hochzeit der beiden Ehepartner, aufgeführt und auf den 1.März 1951 datiert. Als letzte Information ist die Anzahl der Kinder (NCHI: Number of Children) mit 2 spezifiziert.
+\newpage
+\begin{lstlisting}
+	0 @F1@ FAM
+	1 HUSB @I1@
+	1 WIFE @I2@
+	1 MARR
+	2 DATE 1 MAR 1951
+	1 NCHI 2
+\end{lstlisting}
+\captionof{lstlisting}{Beispiel für einen Family Record}
+\label{lst: family record example}
+\vspace{1em}
+Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Datentypen, usw. und viele weitere Beispiele können in \cite{GEDCOM} nachgelesen werden.
+}
 \section{Nearley}
-\label{Nearley}
+\label{sec: Nearley}
+Nearley.js ist eine JavaScript-Bibliothek zum Parsen kontextfreier Grammatiken (CFGs). Sie bietet einen vielseitigen und effizienten Parsing-Algorithmus, 
+der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken effizient zu behandeln \cite{NearleyDoc}. Die Bibliothek ist 
+modular aufgebaut, sodass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus BNF- und EBNF-Grammatiken erzeugen können. 
+Nearley.js ist in reinem JavaScript implementiert und kann in jeder Umgebung ausgeführt werden, die JavaScript unterstützt, einschließlich Webbrowsern und 
+serverseitigen Umgebungen.
+
+Es bietet eine Reihe nützlicher Features, darunter JavaScript-Funktionen, genannt \textit{Postprocessor}, bei denen Benutzer Code angeben können, 
+der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden \cite{NearleyDoc}. 
+Diese Funktionen können verwendet werden, um die Ausgabe zu formatieren oder die Eingabe zu validieren.
+
+\subsection*{kontextfreie Grammatiken (CFGs)}
+Innerhalb der Theorie der formalen Sprachen wird eine kontextfreie Grammatik, auch als "context-free grammar" (CFG) bezeichnet. 
+Sie enthält nur Ersetzungsregeln, bei denen genau ein Nichtterminalsymbol auf eine beliebig lange Abfolge von Nichtterminal- und Terminalsymbolen abgebildet wird.
+Die Regeln haben dabei stets die Form $V \rightarrow w$, wobei \textit{V} ein Nichtterminalsymbol und \textit{w} eine Zeichenkette aus Nichtterminal- und/oder Terminalsymbolen ist.
+
+Die Anwendbarkeit einer Regel auf eine Zeichenkette ist lediglich vom Vorkommen des Nichtterminalsymbols \textit{V} abhängig, nicht jedoch vom Kontext, in dem es 
+sich befindet. Das bedeutet, dass es irrelevant ist, welche Zeichen sich links oder rechts von dem Nichtterminalsymbol befinden. Somit handelt es sich bei 
+den Ersetzungsregeln um sogenannte "kontextfreie" Regeln.
+
+\subsection*{Algorithmus von Earley}
+Der Algorithmus von Earley ist ein Parsing-Algorithmus, der kontextfreie Grammatiken parsen kann. Er wurde 1970 von Jay Earley entwickelt.
+Im Allgemeinen hat das Parsen mit diesem Parsing-Algorithmus eine zeitliche Komplexität, die proportional zu $n^3$ ist (wobei n die Länge der zu parsenden 
+Zeichenkette ist). Für eindeutige Grammatiken hat der Parser eine Komplexität von $n^2$. Auf einer großen Menge von Grammatiken, zu der die 
+meisten praktischen kontextfreien Grammatiken von Programmiersprachen gehören, läuft der Parser sogar in linearer Zeit \cite{Earley1970}. 
+Der Algorithmus von Earley ist ein Algorithmus der Typ-2-Chomsky-Hierarchie, der kontextfreie Grammatiken mit mehrdeutigen und rekursiven Regeln parsen kann. 
+
+Um festzustellen, ob eine kontextfreie Grammatik ein gegebenes Wort erzeugen kann, benötigt der Algorithmus als Eingabe sowohl die Grammatik selbst 
+als auch das Wort, welches aus demselben Alphabet besteht.
+
+\subsection*{Metasyntax und EBNF}
+
+Metasyntax und Metasprache beziehen sich auf eine Art von Sprache, die verwendet wird, um die Struktur und Syntax einer anderen Sprache zu beschreiben. 
+Die Metasprache selbst hat ihre eigene Syntax und Grammatik, die zur Beschreibung der Struktur und Syntax der Zielsprache verwendet wird.
+
+Im Kontext der Erweiterten Backus-Naur-Form (EBNF) wird diese als eine formale Metasyntax bezeichnet, da sie dazu dient, kontextfreie Grammatiken 
+darzustellen. Die EBNF ist eine Erweiterung der Backus-Naur-Form (BNF), welche von John Naur, nach seiner Hilfe bei der Entwicklung der Programmiersprache
+FORTRAN, während seiner Arbeit an ALGOL entwickelt wurde. Basierend auf der Arbeit des Logikers Emil Post erfand Backus eine Notation, ,
+welche präzise, einfach, aber auch performant genug war, um die Syntax jeder Programmiersprache zu beschreiben \cite{Feynman2016}. 
+EBNF erlaubt es, komplexe Syntax-Regeln in einer leichter verständlichen und kompakteren Schreibweise auszudrücken, indem sie zusätzliche Symbole
+wie Klammern und Wiederholungszeichen einführt.
+
+EBNF wird ebenfalls in der Spezifikation von GEDCOM v7 verwendet, um z.B Mulitplizitäten auszudrücken.
+
+\subsection*{Beispiel}
+
+In Listing \ref*{lst: simple nearley example} wird ein einfaches Beispiel einer Nearley Grammatik gezeigt. 
+Die Grammatik besteht aus sogenannten \textit{Token}, in diesem Fall \textit{reihenfolge} und \textit{ergebnis}.
+Da \textit{reihenfolge} der erste Token ist, ist dies der Einstieg in die Grammatik. 
+Ein Pfeil ($\rightarrow$) wird verwendet, um die Regel eines Tokens zu definieren, das $\vert$-Zeichen wird benutzt, 
+um mehrere Alternativen für einen Token zu definieren.
+
+Dementsprechend kann der Token \textit{reihenfolge} den String \textit{Kein Muenzwurf} oder eine beliebige Anzahl
+von durch Leerzeichen getrennten \textit{ergebnis}-Token enthalten.\\
+
+Die beliebige Anzahl von \textit{ergebnis}-Token wird durch den EBNF-Operator \textit{:*} am Ende der Regel gekennzeichnet.
+Es gibt neben \textit{:*} (0 oder mehr) noch weitere Operatoren, wie z.B. \textit{:+} (1 oder mehr), und \textit{:?} (optional), die in der EBNF-Spezifikation 
+beschrieben werden.\\
+
+Der Token \textit{ergebnis} kann entweder den String \textit{kopf} oder \textit{zahl} enthalten.\\
+Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die Zeichenkette \textit{kopf kopf zahl kopf} oder Ähnliche parsen.
+
+{\begin{javascript}{Beispiel für eine Nearley Grammatik}{lst: simple nearley example}
+	reihenfolge 
+	 -> "Kein Muenzwurf" 
+		| ergebnis (" " ergebnis):*
+	
+	ergebnis 
+	 -> "kopf"
+		| "zahl"
+\end{javascript}}
+
 
 
 \section{Mocha}
-\label{Mocha}
+\label{sec: Mocha}
+
+Im Rahmen der Bibliotheksimplementierung war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
+Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
+die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
+Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
+\\\\
+Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft, ob der Wert der Konstante
+\textit{value} gleich ihrem zugewiesenem Wert 1 ist.
+Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
+
+\begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
+	describe('test example', function () {
+		it('should assert true', function (done) {
+			const value = 1;
+			expect(value).to.equal(1);
+			done();
+		});
+	});
+\end{javascript}
+
+Durch die Verwendung von Mocha und Chai können noch weitere Testarten durchgeführt werden, um die Funktionalität 
+von \textit{gedcom7.js} zu überprüfen. Beispielsweise können Fehlerfälle überprüft werden, um zu kontrollieren, 
+dass das Programm korrekt auf unerwartete Eingaben reagiert. Auch die Länge von Arrays kann getestet werden, 
+um zu prüfen, ob das Programm die erwartete Anzahl von Elementen zurückgibt.
+
+Eine weitere wichtige Testart ist die Überprüfung der Gleichheit von Objekten und Dateien. Dies ist besonders 
+wichtig, um sicherzustellen, dass das Programm die erwarteten Ergebnisse liefert und dass Änderungen an der 
+Software nicht zu unerwarteten Fehlern führen.
+
+Durch diese effiziente Möglichkeit Tests zu schreiben, können potenzielle Fehler in der Software schnell erkannt 
+und behoben werden, was zu einer höheren Zuverlässigkeit und Qualität des Programms führt.

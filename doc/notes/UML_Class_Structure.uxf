@@ -1,0 +1,51 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>50</x><y>0</y><w>510</w><h>750</h></coordinates><panel_attributes>Structure
+--
+
+- uri: String
+- level: String
+- tag: String
+- xref: String
+- lineVal: String
+- lineValType: String
+- EOL: String
+
+- substructures: Structure[*]
+- superstructure: Structure
+- associatedRecord: Structure
+- datasetReference: Dataset
+
+--
+
++ Structure (
+        uri: String,
+        level: String,
+        xref: String,
+        tag: String,
+        lineVal: String,
+        lineValType: String,
+        EOL: String,
+        Substructures: Structure[*],
+        datasetRef: Dataset
+)
++ equals (Structure): boolean
+
++ getSubstructures (): Structure[]
++ getPossibleSubstructs (checkCardinalityFlag: boolean): Structure[]
++ getSubstructuresBy (): Structure[]
++ getSubstructuresByUri (): Structure[]
++ getSubstructuresByTag (): Structure[]
++ getSubstructuresByLineVal (): Structure[]
+
++ addSubstructure (Object)
++ removeSubstructure (Structure)
++ getSuperstructure (): Structure
++ getAssociatedRecord (): Structure
+
++ setXref (String)
++ setLineVal (String)
++ checkSyntax (nearleyParser, String, String)
+
++ print ()
++ toString (): String
++ toLine (boolean?): String
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

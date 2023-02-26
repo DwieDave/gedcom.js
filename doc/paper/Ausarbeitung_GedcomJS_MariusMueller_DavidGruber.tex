@@ -43,6 +43,13 @@
 \setlength{\textheight}{1.1\textheight}
 
 % My Packages
+% Tabelle über mehrere Seiten
+\usepackage{longtable}
+% kursive Captions
+\usepackage[font=md,labelfont=it]{caption}
+
+\usepackage[bottom]{footmisc}
+
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage{hyperref}
 \usepackage{bm}
@@ -57,49 +64,26 @@
 	%stringstyle=\scriptsize\ttfamily,
 	tabsize=4,
 	%numbers=left,
-	%numberstyle=\tiny,
 	%numberblanklines=false,
 	frame=single,
 	framesep=3mm,
 	framexleftmargin=7mm,
 	xleftmargin=10mm,
 	linewidth=144mm,
-	captionpos=b,
+	captionpos=t,
 	% my stuff
 	lineskip=6.0pt
 }
 
-\mdtheorem[
-linecolor=darkgray,
-linewidth=1pt,
-backgroundcolor=white,
-frametitlefont=\sffamily\bfseries\color{white},
-frametitlebackgroundcolor=darkgray
-]{Prob}{Problemstellung: Count-Distinct}[subsection]
+% escape \n characters
+\newcommand*{\escape}[1]{\texttt{\expandafter\string\csname #1\endcsname}}
 
-\mdtheorem[
-linecolor=darkgray,
-linewidth=1pt,
-backgroundcolor=white,
-frametitlefont=\sffamily\bfseries\color{white},
-frametitlebackgroundcolor=darkgray
-]{HLL}{\textsc{HyperLogLog}}[subsection]
-
-\mdtheorem[
-linecolor=darkgray,
-linewidth=1pt,
-backgroundcolor=white,
-frametitlefont=\sffamily\bfseries\color{white},
-frametitlebackgroundcolor=darkgray
-]{CDSQL}{COUNT DISTINCT}[subsection]
-
-
-% TITLE SPACING in chapters
-\newcommand{\sectionSpace}{-3cm}
+% configuration file for environments
+\input{configuration}
 
 
 %------------------ Manuelle Silbentrennung ------------------------------------
-\hyphenation{Ele-men-tar-ob-jek-te ab-ge-tas-tet Aus-wer-tung House-holder-Matrix Least-Squares-Al-go-ri-th-men}
+\hyphenation{Ele-men-tar-ob-jek-te ab-ge-tas-tet Aus-wer-tung House-holder-Matrix Least-Squares-Al-go-ri-th-men kom-plex-er}
 
 
 %------------------ Titelseite -------------------------------------------------
@@ -134,13 +118,16 @@ frametitlebackgroundcolor=darkgray
 \tableofcontents										% Inhaltsverzeichnis
 \listoffigures											% Abbildungsverzeichnis (optional)
 %\listoftables											% Tabellenverzeichnis (optional)
-%\lstlistoflistings										% Listings (optional)
+\lstlistoflistings										% Listings (optional)
 
 
 %------------------ Kapitel ----------------------------------------------------
 \mainmatter
 \input{chapters/EinleitungProblemstellung}
 \input{chapters/TheoretischeGrundlagen}
+\input{chapters/RelatedWork}
+\input{chapters/Konzept}
+\input{chapters/ImplementierungUndTest}
 \input{chapters/ZusammenfassungAusblick}
 
 
