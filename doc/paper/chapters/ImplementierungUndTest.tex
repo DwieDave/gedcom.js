@@ -478,8 +478,8 @@ sowie auch die Datentyp-Strukturen erstellt.
 
 Wenn vom Nearley-Parser die GEDCOM-Typen \textit{DateValue}, \textit{DatePeriod} oder \textit{DateExact}
 erkannt werden, wird die Klasse \textsc{GedcomDate} mit den entsprechenden Line-Parametern instanziiert.
-Beim Initialisieren der \textsc{GedcomDate}-Klasse wird das GEDCOM konforme Date, mit Hilfe der Date-Bilbliothek
-\textit{date-fns}, in ein JavaScript-Date-Objekt umgewandelt.
+Beim Initialisieren der \textsc{GedcomDate}-Klasse wird das spezifikationskonforme Datum, mit Hilfe der 
+Datums-Bilbliothek \textit{date-fns}, in ein JavaScript-Date-Objekt umgewandelt.
 Je nach GEDCOM-Date-Typ wird das Datum nur in das Attribut \textit{startDate} oder auch und in das Attribut
 \textit{endDate} der Klasse GedcomDate, gespeichert. \\
 Die Klasse \textsc{GedcomDate} bietet eine Methode \textit{getDateObject()}, in der das GEDCOM Datum 
@@ -538,6 +538,9 @@ wird das Datum in folgendes JavaScript-Objekt umgewandelt:
 Die Datatyp-Strukturen und somit auch \textsc{GedcomDate}, stellen somit eine Schnittstelle zwischen den
 GEDCOM Datentypen und JavaScript dar und ermöglichen somit direkten Zugriff auf die
 Daten, ohne zum Beispiel die GEDCOM-eigene Datumstruktur kennen zu müssen.
+Andere Datentypen oder durch \textit{Custom tags} erweiterte Datentypen können auf die gleiche Weise 
+implementiert werden.
+
 \subsection{Klasse \textsc{Dataset}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Dataset}
 Die Hauptaufgabe der Klasse \textsc{Dataset} besteht darin, Structures zu erstellen und zu verwalten. Dazu werden die in Abbildung \ref{fig: UML Klassendiagramm Dataset} dargestellten Eigenschaften und Methoden verwendet. In den Eigenschaften jeder Instanz der Klasse \textsc{Dataset} werden Header und Trailer, alle Records die enthalten sind, Datenstrukturen zur Verwaltung von Cross-Reference-Identifiern, sowie Informationen über die Verwendung des Byte-Order-Mark und End-Of-Line Characters gespeichert. Bei der Erstellung einer Instanzt der Klasse \textsc{Dataset} über den Konstruktor können Header- Trailer- und Record Informationen übergeben werden, aus denen Instanzen der Klasse \textsc{Structure}, bzw. \textsc{Record} generiert werden. Zudem kann ein leeres Dataset über die Methode \textit{createEmptyDataset()} erstellt werden. Die Hauptaufgaben der Klasse \textsc{Dataset} können zu den folgenden vier Punkten zusammengfasst werden.

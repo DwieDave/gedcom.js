@@ -65,13 +65,14 @@ Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Daten
 \section{Nearley}
 \label{sec: Nearley}
 Nearley.js ist eine JavaScript-Bibliothek zum Parsen kontextfreier Grammatiken (CFGs). Sie bietet einen vielseitigen und effizienten Parsing-Algorithmus, 
-der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken mit Leichtigkeit zu behandeln. Die Bibliothek ist 
-modular aufgebaut, so dass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus BNF- und EBNF-Grammatiken erzeugen können. 
+der auf dem Algorithmus von Earley basiert und es ermöglicht, mehrdeutige und rekursive Grammatiken effizient zu behandeln \cite{NearleyDoc}. Die Bibliothek ist 
+modular aufgebaut, sodass Benutzer ihre eigenen Parser und Lexer definieren und Parser aus BNF- und EBNF-Grammatiken erzeugen können. 
 Nearley.js ist in reinem JavaScript implementiert und kann in jeder Umgebung ausgeführt werden, die JavaScript unterstützt, einschließlich Webbrowsern und 
 serverseitigen Umgebungen.
 
 Es bietet eine Reihe nützlicher Features, darunter JavaScript-Funktionen, genannt \textit{Postprocessor}, bei denen Benutzer Code angeben können, 
-der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden. 
+der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden \cite{NearleyDoc}. 
+Diese Funktionen können verwendet werden, um die Ausgabe zu formatieren oder die Eingabe zu validieren.
 
 \subsection*{kontextfreie Grammatiken (CFGs)}
 Innerhalb der Theorie der formalen Sprachen wird eine kontextfreie Grammatik, auch als "context-free grammar" (CFG) bezeichnet. 
@@ -83,9 +84,11 @@ sich befindet. Das bedeutet, dass es irrelevant ist, welche Zeichen sich links o
 den Ersetzungsregeln um sogenannte "kontextfreie" Regeln.
 
 \subsection*{Algorithmus von Earley}
-Der Algorithmus von Earley ist ein Parsing-Algorithmus, der kontextfreie Grammatiken parsen kann. Er wurde 1970 von Jay Earley entwickelt und
-ist ein Bottom-Up-Parser, der die Eingabe von hinten nach vorne verarbeitet. Der Algorithmus von Earley ist ein Algorithmus der Typ-2-Chomsky-Hierarchie,
-der kontextfreie Grammatiken mit mehrdeutigen und rekursiven Regeln parsen kann. 
+Der Algorithmus von Earley ist ein Parsing-Algorithmus, der kontextfreie Grammatiken parsen kann. Er wurde 1970 von Jay Earley entwickelt.
+Im Allgemeinen hat das Parsen mit diesem Parsing-Algorithmus eine zeitliche Komplexität, die proportional zu $n^3$ ist (wobei n die Länge der zu parsenden 
+Zeichenkette ist). Für eindeutige Grammatiken hat der Parser eine Komplexität von $n^2$. Auf einer großen Menge von Grammatiken, zu der die 
+meisten praktischen kontextfreien Grammatiken von Programmiersprachen gehören, läuft der Parser sogar in linearer Zeit \cite{Earley1970}. 
+Der Algorithmus von Earley ist ein Algorithmus der Typ-2-Chomsky-Hierarchie, der kontextfreie Grammatiken mit mehrdeutigen und rekursiven Regeln parsen kann. 
 
 Um festzustellen, ob eine kontextfreie Grammatik ein gegebenes Wort erzeugen kann, benötigt der Algorithmus als Eingabe sowohl die Grammatik selbst 
 als auch das Wort, welches aus demselben Alphabet besteht.
@@ -96,8 +99,10 @@ Metasyntax und Metasprache beziehen sich auf eine Art von Sprache, die verwendet
 Die Metasprache selbst hat ihre eigene Syntax und Grammatik, die zur Beschreibung der Struktur und Syntax der Zielsprache verwendet wird.
 
 Im Kontext der Erweiterten Backus-Naur-Form (EBNF) wird diese als eine formale Metasyntax bezeichnet, da sie dazu dient, kontextfreie Grammatiken 
-darzustellen. Die EBNF ist eine Erweiterung der Backus-Naur-Form (BNF), die ursprünglich für die Programmiersprache Pascal entwickelt wurde. 
-Sie erlaubt es, komplexe Syntax-Regeln in einer leichter verständlichen und kompakteren Schreibweise auszudrücken, indem sie zusätzliche Symbole
+darzustellen. Die EBNF ist eine Erweiterung der Backus-Naur-Form (BNF), welche von John Naur, nach seiner Hilfe bei der Entwicklung der Programmiersprache
+FORTRAN, während seiner Arbeit an ALGOL entwickelt wurde. Basierend auf der Arbeit des Logikers Emil Post erfand Backus eine Notation, ,
+welche präzise, einfach, aber auch performant genug war, um die Syntax jeder Programmiersprache zu beschreiben \cite{Feynman2016}. 
+EBNF erlaubt es, komplexe Syntax-Regeln in einer leichter verständlichen und kompakteren Schreibweise auszudrücken, indem sie zusätzliche Symbole
 wie Klammern und Wiederholungszeichen einführt.
 
 EBNF wird ebenfalls in der Spezifikation von GEDCOM v7 verwendet, um z.B Mulitplizitäten auszudrücken.
@@ -130,11 +135,6 @@ Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die
 		| "zahl"
 \end{javascript}}
 
-% Im Laufe der Implementierung haben wir uns dazu entschieden, die komplette GEDCOM-Grammatik mittels Nearley abzubilden. Dies hat den Vorteil, dass wir 
-% alle Regeln der GEDCOM-Spezifikation in einer Prüfung abdecken können. Außerdem bietet Nearley die Möglichkeit Teile der Grammatik in einzelnen Dateien
-% auszulagern und nur für Teile der Grammatik Parser zu erstellen. Dies ermöglicht es uns eine Teilprüfung von nur einer GEDCOM-Struktur einer
-% ganzen Datei durchzuführen. Dies ist insbesondere bei Manipulationen von einzelnen Strukturen innerhalb einer Datei von Vorteil, da anschließend
-% nur die betroffene Struktur neu geprüft werden muss.
 
 
 \section{Mocha}
@@ -143,12 +143,11 @@ Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die
 Im Rahmen der Bibliotheksimplementierung war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
 Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
 die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
-Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
+Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
 \\\\
 Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft, ob der Wert der Konstante
 \textit{value} gleich ihrem zugewiesenem Wert 1 ist.
 Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
-
 
 \begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
 	describe('test example', function () {
@@ -159,3 +158,15 @@ Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und üb
 		});
 	});
 \end{javascript}
+
+Durch die Verwendung von Mocha und Chai können noch weitere Testarten durchgeführt werden, um die Funktionalität 
+von \textit{gedcom7.js} zu überprüfen. Beispielsweise können Fehlerfälle überprüft werden, um zu kontrollieren, 
+dass das Programm korrekt auf unerwartete Eingaben reagiert. Auch die Länge von Arrays kann getestet werden, 
+um zu prüfen, ob das Programm die erwartete Anzahl von Elementen zurückgibt.
+
+Eine weitere wichtige Testart ist die Überprüfung der Gleichheit von Objekten und Dateien. Dies ist besonders 
+wichtig, um sicherzustellen, dass das Programm die erwarteten Ergebnisse liefert und dass Änderungen an der 
+Software nicht zu unerwarteten Fehlern führen.
+
+Durch diese effiziente Möglichkeit Tests zu schreiben, können potenzielle Fehler in der Software schnell erkannt 
+und behoben werden, was zu einer höheren Zuverlässigkeit und Qualität des Programms führt.
