@@ -4,7 +4,7 @@ In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dies
 
 \section{Genealogie und FamilySearch}
 \label{sec: Genealogie und FamilySearch}
-Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von besonderer Bedeutung, die anhand von Beiweisen aus validen Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}.
+Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von besonderer Bedeutung, die anhand valider Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}. FamilySearch ist eine öffentliche genealogische Datenbank als Teil des Projekts der Genealogical Society of Utah, die Menschen dabei hilft, ihre Familiengeschichte durch Webseiten, Apps und persönliche Hilfestellung in über 5000 Family Search Centern auf der ganzen Welt zu erkunden \cite{FamilySearchAbout}.
 
 Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um einen standardisierten Austausch genalogischer Informationen zu ermöglichen, entwickelte die Kirche Jesu Christi der Heiligen der Letzten Tage das Datenformat GEDCOM, das im folgenden Kapitel vorgestellt wird.
 \newpage
@@ -143,12 +143,12 @@ Die Grammatik kann somit entweder den Text \textit{Kein Muenzwurf} oder z.B. die
 Im Rahmen der Bibliotheksimplementierung war es ein zentrales Anliegen, das Testen dieser zu gewährleisten.
 Zu diesem Zweck musste ein geeignetes JavaScript-Testframework gefunden werden. Mocha ist für diesen Einsatz geeignet, da es eine API bereitstellt, 
 die das einfache Erstellen von Tests ermöglicht. Wie bei vielen anderen Testframeworks können Assertion-Funktionen genutzt werden, um die Tests zu überprüfen. 
-Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet.
-\\\\
+Hierbei bietet Mocha die Möglichkeit, verschiedene Assertion-Frameworks zu nutzen \cite{MochaDoc}. In diesem Projekt wurde das Framework \textit{Chai} verwendet. 
+\\ \\
 Ein einfaches Beispiel für einen Mocha-Test mit Chai-Assertion ist in Listing \ref{lst: mocha example} dargestellt. Es wird lediglich überprüft, ob der Wert der Konstante
 \textit{value} gleich ihrem zugewiesenem Wert 1 ist.
 Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und überprüft ob der Parameter der Funktion \textit{expect()} dem Parameter der \textit{equal()} Funktion entspricht.
-
+\newpage
 \begin{javascript}{Beispiel für einen Mocha-Test}{lst: mocha example}
 	describe('test example', function () {
 		it('should assert true', function (done) {
@@ -158,7 +158,7 @@ Die Funktion \textit{expect().to.equal()} stammt aus der Chai-Bibliothek und üb
 		});
 	});
 \end{javascript}
-
+\vspace{1em}
 Durch die Verwendung von Mocha und Chai können noch weitere Testarten durchgeführt werden, um die Funktionalität 
 von \textit{gedcom7.js} zu überprüfen. Beispielsweise können Fehlerfälle überprüft werden, um zu kontrollieren, 
 dass das Programm korrekt auf unerwartete Eingaben reagiert. Auch die Länge von Arrays kann getestet werden, 
