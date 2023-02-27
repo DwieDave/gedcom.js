@@ -1,26 +1,26 @@
 \chapter{Theoretische Grundlagen}
 \label{chap: Theoretische Grundlagen}
-In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dieser Projektarbeit beschrieben. Dazu wird eine kurze Einführung in Genealogie, FamilySearch und GEDCOM im speziellen gegeben, um ein Verständnis für die Thematik aufzubauen. Zudem wird auf mehrere Quellen verwiesen, aus denen tiefergehende Informationen erschlossen werden können. Im Anschluss dazu wird kurz auf die JavaScript Bibliothek \textit{Nearley} und das JavaScript Testframework \textit{Mocha} eingegangen, die für die Umsetzung dieser Projektarbeit relevant werden.
+In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dieser Projektarbeit beschrieben. Dazu wird eine kurze Einführung in Genealogie, FamilySearch und GEDCOM im speziellen gegeben, um ein Verständnis für die Thematik aufzubauen. Zudem wird auf Quellen verwiesen, aus denen tiefergehende Informationen erschlossen werden können. Im Anschluss dazu wird kurz auf die JavaScript Bibliothek \textit{Nearley} und das JavaScript Testframework \textit{Mocha} eingegangen, die für die Umsetzung dieser Projektarbeit relevant werden.
 
 \section{Genealogie und FamilySearch}
 \label{sec: Genealogie und FamilySearch}
-Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von besonderer Bedeutung, die anhand valider Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}. FamilySearch ist eine öffentliche genealogische Datenbank als Teil des Projekts der Genealogical Society of Utah, die Menschen dabei hilft, ihre Familiengeschichte durch Webseiten, Apps und persönliche Hilfestellung in über 5000 Family Search Centern auf der ganzen Welt zu erkunden \cite{FamilySearchAbout}.
+Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von Bedeutung, die anhand valider Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}. FamilySearch ist eine öffentliche genealogische Datenbank als Teil des Projekts der \textit{Genealogical Society of Utah}, die Menschen dabei hilft, ihre Familiengeschichte durch Webseiten, Apps und persönliche Hilfestellung in über 5000 Family Search Centern auf der ganzen Welt zu erkunden \cite{FamilySearchAbout}.
 
 Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um einen standardisierten Austausch genalogischer Informationen zu ermöglichen, entwickelte die Kirche Jesu Christi der Heiligen der Letzten Tage das Datenformat GEDCOM, das im folgenden Kapitel vorgestellt wird.
 \newpage
 \section{GEDCOM Version 7}
 {
 \label{sec: GEDCOM Version 7}
-Das Datenformat FamilySearch GEDCOM 7.0 ist ein einheitliches, flexibles Format für den Austausch von genealogischen Daten, das 2021 von der Kirche Jesu Christi der Heiligen der Letzten Tage entwickelt wurde. Das Ziel besteht darin, eine langfristige Speicherung von genealogischen Informationen zu ermöglichen, die für zukünftige Genealogen und die von ihnen verwendeten System zugänglich und verständlich sind \cite{GEDCOM}. Die im Rahmen dieser Arbeit verwendete Version 7.0.11 wurde am 01.11.2022 veröffentlicht und stellt die aktuelleste Version des Standards dar\footnote{Stand 31.01.2023}. 
+Das Datenformat FamilySearch Gedcom Version 7.0 ist ein einheitliches, flexibles Format für den Austausch von genealogischen Daten, das 2021 von der Kirche Jesu Christi der Heiligen der Letzten Tage entwickelt wurde. Das Ziel besteht darin, eine langfristige Speicherung von genealogischen Informationen zu ermöglichen, die für zukünftige Genealogen und die von ihnen verwendeten System zugänglich und verständlich sind \cite{GEDCOM}. Die im Rahmen dieser Arbeit verwendete Version 7.0.11 wurde am 01.11.2022 veröffentlicht und stellt die aktuelleste Version des Standards dar\footnote{Stand 28.02.2023}. 
 
-GEDCOM ist ein UTF-8 kodiertes hierarchisches Containerformat, das die Dateinamenserweiterung \textit{.ged} verwendet. Der erste Character einer GEDCOM-Datei sollte das Byte-Order-Mark (U+FEFF) sein. Der Inhalt einer GEDCOM-Datei ist in sog. \textit{Structures} unterteilt, die aus einem \textit{Structure-Type} und einem optionalen \textit{Payload} bestehen und mehrere Substrukturen besitzen können. Hat eine \textit{Structure} eine \textit{Substructure}, dann ist die \textit{Structure} die \textit{Superstructure} der \textit{Structure}. Jede \textit{Substructure} hat genau eine \textit{Superstructure} und ist so eindeutig zugeordnet. Eine \textit{Structure}, die keine \textit{Supertructure} besitzt, heißt \textit{Record}. Alle Records zusammen mit einem Header und einem Trailer bilden ein \textit{Dataset}, das den Inhalt einer GEDCOM-Datei darstellt. \cite{GEDCOM} 
+Gedcom7 ist ein UTF-8 kodiertes hierarchisches Containerformat, das die Dateinamenserweiterung \textit{.ged} verwendet. Der erste Character einer Gedcom7-Datei sollte das Byte-Order-Mark (U+FEFF) sein. Der Inhalt einer Gedcom7-Datei ist in sog. \textit{Structures} unterteilt, die aus einem \textit{Structuretype} und einem optionalen \textit{Payload} bestehen und mehrere Substrukturen besitzen können. Hat eine Structure eine \textit{Substructure}, dann ist die Structure die \textit{Superstructure} der Structure. Jede \textit{Substructure} hat genau eine \textit{Superstructure} und ist so eindeutig zugeordnet. Eine Structure, die keine Supertructure besitzt, heißt \textit{Record}. Alle Records zusammen mit einem \textit{Header} und einem \textit{Trailer} bilden ein \textit{Dataset}, das den Inhalt einer Gedcom7-Datei darstellt. \cite{GEDCOM} 
 
-Der \textit{Payload} einer \textit{Structure} ist eine Zeichenkette eines bestimmten Datentyps, die entweder Informationen für die \textit{Supertructure} bereithält, oder einen Zeiger auf eine andere \textit{Structure} repräsentiert und somit auf diese verweist. GEDCOM v7 definiert 11 verschiedene Datentypen in \cite{GEDCOM} mit denen Namen, Daten, Uhrzeiten, Texte und vieles mehr dargestellt werden können. Der \textit{Structure-Type} ist eindeutig definiert durch eine URI und gibt an, welche Bedeutung und welchen Datentyp die \textit{Structure} besitzt, welche \textit{Substructures} enthalten sein können und mit welcher Kardinalität diese auftreten können. \cite{GEDCOM} 
+Der Payload einer Structure ist eine Zeichenkette eines bestimmten Datentyps, die entweder Informationen für die Supertructure bereithält, oder einen Zeiger auf eine andere Structure repräsentiert und somit auf diese verweist. Gedcom Version 7.0 definiert 11 verschiedene Datentypen mit denen Namen, Daten, Uhrzeiten, Texte und vieles mehr dargestellt werden können. Der Structuretype ist eindeutig definiert durch eine URI und gibt an, welche Bedeutung und welchen Datentyp die Structure besitzt, welche Substructures enthalten sein können und mit welcher Kardinalität diese auftreten können. \cite{GEDCOM} 
 
-Kodiert wird der Inhalt einer GEDCOM-Datei in sog. \textit{Lines}, die eine Zeichenkettenrepräsentation einer \textit{Structure} (bzw. eines Teils einer \textit{Structure}) darstellen und wie in Listing \ref{lst: gedcom line} aufgebaut sind. Die Bedeutung der einzelnen Bestandteile einer Line ist in Tabelle \ref{tab: gedcom line} spezifiziert.
+Kodiert wird der Inhalt einer Gedcom7-Datei in sog. \textit{Lines}, die eine Zeichenkettenrepräsentation einer Structure (bzw. eines Teils einer Structure) darstellen und wie in Listing \ref{lst: gedcom line} aufgebaut sind. Die Bedeutung der einzelnen Bestandteile einer Line ist in Tabelle \ref{tab: gedcom line} spezifiziert.
 \vspace{1em}
 \begin{lstlisting}
-	Level  D  [Xref  D]  Tag  [D  LineVal]  EOL
+	Level  D  [Xref  D]  Tag  [D  LineValue]  EOL
 \end{lstlisting}
 \captionof{lstlisting}{Aufbau einer GEDCOM Line. Eckige Klammern repräsentieren optionale Inhalte.}
 \label{lst: gedcom line}
@@ -30,24 +30,24 @@ Kodiert wird der Inhalt einer GEDCOM-Datei in sog. \textit{Lines}, die eine Zeic
 \setlength{\tabcolsep}{18pt}
 \begin{longtable}{|p{2cm}|p{10cm}|}
 	\hline
-	\textbf{Level} & Eine Line beginnt mit einem Level, das die Verhältnisse der \textit{Structures} untereinander beschreibt. Alle \textit{Structures} mit dem kleinstmöglichen Level $0$ sind Records - Level $\ge1$ repräsentieren \textit{Substructures}. Eine \textit{Structure} mit dem Level $x$ ist also die \textit{Superstructure} aller folgenden \textit{Structures} mit dem Level $x+1$. \\
+	\textbf{Level} & Eine Line beginnt mit einem \textit{Level}, das die Verhältnisse der Structures untereinander beschreibt. Alle Structures mit dem kleinstmöglichen Level $0$ sind Records - Level $\ge1$ repräsentieren Substructures. Eine Structure mit dem Level $x$ ist also die Superstructure aller folgenden Structures mit dem Level $x+1$. \\
 	\hline
 	\textbf{D} & \textit{D} steht für \textit{Delimiter}, was englisch für Trennzeichen ist und repräsentiert in diesem Fall das Leerzeichen mit dem Unicode $u+0020$. \\
 	\hline
-	\textbf{Xref} & Xref ist die Abkürzung für \textit{Cross-Reference Identifier} und fungiert als Adresse für eine \textit{Structure}. Möchte man von einer \textit{Structure} auf eine andere \textit{Structure} verweisen, kann dies über einen Zeiger-Payload auf die entsprechende \textit{Structure} realisiert werden.\\
+	\textbf{Xref} & \textit{Xref} ist die Abkürzung für \textit{Cross-Reference Identifier} und fungiert als Adresse für eine Structure. Möchte man von einer Structure auf eine andere Structure verweisen, kann dies über einen Zeiger-Payload auf die entsprechende Structure realisiert werden.\\
 	\hline
-	\textbf{Tag} & Der \textit{Tag} kodiert den \textit{Structure-Type} einer \textit{Structure}.\\
+	\textbf{Tag} & Der \textit{Tag} kodiert den \textit{Structuretype} einer Structure.\\
 	\hline
-	\textbf{LineVal} & Im \textit{LineVal} einer Struktur ist der Payload kodiert.\\
+	\textbf{LineValue} & Im \textit{LineValue} einer Struktur ist der Payload kodiert.\\
 	\hline
-	\textbf{EOL} & EOL steht für End-Of-Line und kodiert das Ende einer Line. Im Format GEDCOM v7 kann dies entweder durch einen Carriage-Return (Unicode U+000D), Line-Feed(Unicode U+000A) oder einen Carriage-Return gefolgt von einem Line-Feed repräsentiert werden.\\
+	\textbf{EOL} & \textit{EOL} steht für \textit{End-Of-Line} und kodiert das Ende einer Line. Im Format Gedcom7 kann dies entweder durch einen \textit{Carriage-Return} (Unicode U+000D), \textit{Line-Feed}(Unicode U+000A) oder einen \textit{Carriage-Return} gefolgt von einem \textit{Line-Feed} repräsentiert werden.\\
 	\hline
 	\caption{Bestandteile einer GEDCOM Line und ihre Bedeutung} % needs to go inside longtable environment
 	\label{tab: gedcom line}
 \end{longtable}
 \egroup
 \vspace{1em}
-Ein Ausschnitt aus einer GEDCOM-Datei ist in Listing \ref{lst: family record example} dargestellt. Dieser Ausschnitt zeigt einen \textit{Record} vom Typ \textit{Family}, in dem Informationen über eine Familie gespeichert werden können. Der Familie wurde der Cross-Reference Identifier \textit{@F1@} zugewiesen, sodass im Dataset auf dieses verwiesen werden kann. Der Ehemann und die Ehefrau der Familie (engl. Husband und Wife) sind die Individuen \textit{I1} und \textit{I2}, die ebenfalls in der Gedcom7-Datei definiert sind. Dieser Zusammenhang wird über die Cross-Reference Identifier \textit{@I1@} und \textit{@I2@} ausgedrückt. Außerdem wird ein Family-Event, nämlich die Hochzeit der beiden Ehepartner, aufgeführt und auf den 1.März 1951 datiert. Als letzte Information ist die Anzahl der Kinder (NCHI: Number of Children) mit 2 spezifiziert.
+Ein Ausschnitt aus einer Gedcom7-Datei ist in Listing \ref{lst: family record example} dargestellt. Dieser Ausschnitt zeigt einen Record vom Typ \textit{Family}, in dem Informationen über eine Familie gespeichert werden können. Der Familie wurde der Cross-Reference Identifier \textit{@F1@} zugewiesen, sodass im Dataset auf dieses verwiesen werden kann. Der Ehemann und die Ehefrau der Familie (engl. Husband und Wife) sind die Individuen \textit{I1} und \textit{I2}, die ebenfalls in der Gedcom7-Datei definiert sind. Dieser Zusammenhang wird über die Cross-Reference Identifier \textit{@I1@} und \textit{@I2@} ausgedrückt. Außerdem wird ein Family-Event, nämlich die Hochzeit der beiden Ehepartner, aufgeführt und auf den 1.März 1951 datiert. Als letzte Information ist die Anzahl der Kinder (NCHI: Number of Children) mit 2 spezifiziert.
 \newpage
 \begin{lstlisting}
 	0 @F1@ FAM
@@ -60,7 +60,7 @@ Ein Ausschnitt aus einer GEDCOM-Datei ist in Listing \ref{lst: family record exa
 \captionof{lstlisting}{Beispiel für einen Family Record}
 \label{lst: family record example}
 \vspace{1em}
-Detaillierte Erklärungen, alle Informationen zu \textit{Structure Types}, Datentypen, usw. und viele weitere Beispiele können in \cite{GEDCOM} nachgelesen werden.
+Detaillierte Erklärungen, alle Informationen zu Structuretypes, Datentypen, usw. und viele weitere Beispiele können in \cite{GEDCOM} nachgelesen werden.
 }
 \section{Nearley}
 \label{sec: Nearley}
@@ -74,7 +74,7 @@ Es bietet eine Reihe nützlicher Features, darunter JavaScript-Funktionen, genan
 der ausgeführt wird, wenn bestimmte Teile der Eingabe erkannt werden \cite{NearleyDoc}. 
 Diese Funktionen können verwendet werden, um die Ausgabe zu formatieren oder die Eingabe zu validieren.
 
-\subsection*{kontextfreie Grammatiken (CFGs)}
+\subsection*{Kontextfreie Grammatiken (CFGs)}
 Innerhalb der Theorie der formalen Sprachen wird eine kontextfreie Grammatik, auch als "context-free grammar" (CFG) bezeichnet. 
 Sie enthält nur Ersetzungsregeln, bei denen genau ein Nichtterminalsymbol auf eine beliebig lange Abfolge von Nichtterminal- und Terminalsymbolen abgebildet wird.
 Die Regeln haben dabei stets die Form $V \rightarrow w$, wobei \textit{V} ein Nichtterminalsymbol und \textit{w} eine Zeichenkette aus Nichtterminal- und/oder Terminalsymbolen ist.
@@ -96,7 +96,7 @@ als auch das Wort, welches aus demselben Alphabet besteht.
 \subsection*{Metasyntax und EBNF}
 
 Metasyntax und Metasprache beziehen sich auf eine Art von Sprache, die verwendet wird, um die Struktur und Syntax einer anderen Sprache zu beschreiben. 
-Die Metasprache selbst hat ihre eigene Syntax und Grammatik, die zur Beschreibung der Struktur und Syntax der Zielsprache verwendet wird.
+Die Metasprache selbst hat ihre eigene Syntax und Grammatik, die zur Beschreibung der Struktur und Syntax der Zielsprache verwendet wird. \cite{Feynman2016}
 
 Im Kontext der Erweiterten Backus-Naur-Form (EBNF) wird diese als eine formale Metasyntax bezeichnet, da sie dazu dient, kontextfreie Grammatiken 
 darzustellen. Die EBNF ist eine Erweiterung der Backus-Naur-Form (BNF), welche von John Naur, nach seiner Hilfe bei der Entwicklung der Programmiersprache
@@ -105,7 +105,7 @@ welche präzise, einfach, aber auch performant genug war, um die Syntax jeder Pr
 EBNF erlaubt es, komplexe Syntax-Regeln in einer leichter verständlichen und kompakteren Schreibweise auszudrücken, indem sie zusätzliche Symbole
 wie Klammern und Wiederholungszeichen einführt.
 
-EBNF wird ebenfalls in der Spezifikation von GEDCOM v7 verwendet, um z.B Mulitplizitäten auszudrücken.
+EBNF wird ebenfalls in der Spezifikation von Gedcom Version 7.0 verwendet, um z.B Mulitplizitäten auszudrücken.
 
 \subsection*{Beispiel}
 

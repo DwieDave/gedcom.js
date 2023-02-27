@@ -39,7 +39,7 @@ Diese Regel akzeptiert eine Line mit dem Level 0, einem syntaktisch korrekten Cr
 		|  "1"  %D  "WIFE"  %D  %Xref  %EOL 
 \end{javascript}
 \vspace{1em}
-Auf diese Weise nimmt würde der Nearley Parser einen Family Record ohne Substructures und einen Family Record mit beliebig vielen HUSB- und WIFE Structures als Substructures als Eingabe akzeptieren. Für die HUSB- und WIFE Structure ist als Payload ein Cross-Reference-Identifier angegeben, da in diesen Structures auf ein \textit{Individual} Record verwiesen wird.
+Auf diese Weise würde der Nearley Parser einen Family Record ohne Substructures und einen Family Record mit beliebig vielen HUSB- und WIFE Structures als Substructures als Eingabe akzeptieren. Für die HUSB- und WIFE Structure ist als Payload ein Cross-Reference-Identifier angegeben, da in diesen Structures auf ein \textit{Individual} Record verwiesen wird.
 
 Sollen nun die weiteren Lines aus Listing \ref{lst: family record example} ebenfalls in die Grammatik aufgenommen werden, müssen Regeln für die Datentypen der Payloads des MARR-Events und der NCHI-Structure definiert werden. Die Anzahl der Kinder wird als  \textit{Integer} Datentyp kodiert, also ein Folge von Dezimalziffern. Nach der Gedcom7 Spezifikation dürfen \textit{Integer} Werte nicht leer sein und führende Nullen sind erlaubt, sollten aber vermieden werden. Eine Regel für den Datentyp \textit{Integer} kann also wie in Listing \ref{lst: nearley regel integer} dargestellt, formuliert werden.
 \vspace{1em}
@@ -50,7 +50,7 @@ Sollen nun die weiteren Lines aus Listing \ref{lst: family record example} ebenf
 \vspace{1em}
 Für das \textit{MARR}-Event, also die Hochzeit der Ehepartner der Familie, ist eine\\\textit{DATE}-Structure zur Spezifikation des Datums der Hochzeit hinterlegt. Dieses Datum wird mit dem Datentyp \textit{DateValue} kodiert, der im Gegensatz zum \textit{Integer} wesentlich mehr Regeln umfasst. Ein \textit{DateValue} kann auf vier verschiedene Weisen dargestellt werden:
 \begin{enumerate}
-	\item \textit{date}: ``JULIAN 13 MAR 1998 BCE''\\Ein mehr oder weniger genau spezifiziertes Datum
+	\item \textit{date}: ``JULIAN 13 MAR 1998''\\Ein mehr oder weniger genau spezifiziertes Datum
 	\item \textit{datePeriod}: ``FROM 15 FEB 2001 TO 23 MAR 2001''\\Ein Zeitintervall, dass von einem Startdatum bis zu einem Enddatum angegeben wird
 	\item \textit{dateRange}: ``BET 15 FEB 2001 AND 23 MAR 2001''\\Ein ungenaueres Zeitintervall, bei dem nur Grenzen angegeben werden
 	\item \textit{dateApprox}: ``ABT 15 FEB 2001''\\Eine Schätzung des Datums (ABT $x$: genaues Datum unbekannt, aber nahe $x$)
@@ -109,13 +109,13 @@ Mit diesem Vorgehen können Nearley Regeln für alle Datentypen, Structures und 
 \textsc{\textbf{1. joinAndUnpackAll()}:} \vspace{0.5em} \\
 Wie in Abschnitt \ref{subsec: Konzept - Gedcom Grammatik - Pre- und Postprozessor} beschrieben, überführt ein \textit{Nearley-Parser} jedes Zeichen, das mit einer Regel übereinstimmt, in ein Array. Bei komplexeren Grammatiken wie der Gedcom7 Spezifikation führt dies dazu, dass sehr viele Arrays ineinander verschachtelt werden, sodass schnell hohe Verschachtelungsgrade erreicht werden. Ein Beispiel hierfür wäre der in Abschnitt \ref{subsec: Implementierung - Gedcom Grammatik - Gedcom7 Syntax in Nearley} definierte Datentyp \textit{DateValue}. Hier würde jeder Bestandteil eines DateValues in ein eigenes Array verschachtelt werden. Wird beispielsweise das Datum 
 \begin{lstlisting}[frame=none]
-			 	13 MAR 1998 BCE
+			 	GREGORIAN 13 MAR 1998
 \end{lstlisting}
 ohne Postprozessoren verarbeitet, wird das Array
 \begin{lstlisting}[frame=none]
-		[13, , [MAR, , [1998, , [BCE, , ]]]]
+		[GREGORIAN, , [13, , [MAR, , [1998]]]]
 \end{lstlisting}
-zurückgegeben, dass eine Weiterverarbeitung sehr umständlich macht. Daher wird der Postprozessor \textit{joinAndUnpackAll()} implementiert, der über die JavaScript Funktion \textit{flat()} alle Elemente des Arrays rekursiv verkettet und anschließend über die Funktion \textit{join()} zu einer Zeichenkette zusammenfügt. Wird dieser Postprozessor einem Datentyp wie \textit{DateValue} zugewiesen, wird jedes syntaktisch korrekte Datum als Zeichenkette zurückgegeben und kann so direkt als LineValue für die weitere Verarbeitung verwendet werden. Die in Listing \ref{lst: nearley regel date} definierte Regel würde sich ergeben zu
+zurückgegeben, dass eine Weiterverarbeitung sehr umständlich macht. Daher wird der Postprozessor \textit{joinAndUnpackAll()} implementiert, der über die JavaScript Funktion \textit{flat()} alle Elemente des Arrays rekursiv verkettet und anschließend über die Funktion \textit{join()} zu einer Zeichenkette zusammenfügt. Wird dieser Postprozessor einem Datentyp wie \textit{DateValue} zugewiesen, wird jedes syntaktisch korrekte Datum in passendem Format zurückgegeben und kann so direkt als LineValue für die weitere Verarbeitung verwendet werden. Die in Listing \ref{lst: nearley regel date} definierte Regel würde sich ergeben zu
 \vspace{1em}
 \begin{javascript}{Erweiterung der Nearley Regel für den Datentyp \textit{DateValue}}{lst: nearley regel date mit postprozessor}
 	DateValue   
@@ -125,7 +125,7 @@ zurückgegeben, dass eine Weiterverarbeitung sehr umständlich macht. Daher wird
 \vspace{1em}
 
 \textsc{\textbf{2. createStructure()}:} \vspace{0.5em} \\
-Der Postprozessor \textit{createStructure()} wird verwendet, um die gelesene Line mit Structure Informationen anzureichern. In der Nearley Regel wird die Line selbst, der Typ und die in der Gedcom7 Spezifikation definierte URI der Line und die Structures bei denen eine Kardinalitätsüberprüfung notwendig ist an den Postprozessor übergeben. Für den in Listing \ref{lst: vollständige nearley grammatik family record} Family Record ergibt sich die Nearley Regel mit Postprozessoraufruf wie folgt:
+Der Postprozessor \textit{createStructure()} wird verwendet, um die gelesene Line mit Structure Informationen anzureichern. In der Nearley Regel wird die Line selbst, der Typ, die in der Gedcom7 Spezifikation definierte URI der Line und die Structures bei denen eine Kardinalitätsüberprüfung notwendig ist an den Postprozessor übergeben. Für den in Listing \ref{lst: vollständige nearley grammatik family record} vorgestellten Family Record ergibt sich die Nearley Regel mit Postprozessoraufruf wie folgt:
 \vspace{1em}
 \begin{javascript}{Nearley Regel zum parsen eines Family Records mit Postprozessor}{lst: nearley regel family record mit postprozessor}
 	record_FAM
@@ -261,12 +261,12 @@ Die Definition der Gedcom Grammatik erfolgt in Form von JavaScript Objekten. Fü
 \vspace{1em}
 
 Das Definitionsobjekt für einen Family Record ist in Listing \ref{lst: Grammatik Definition Family} dargestellt. Anders als bei den Beispielen aus Abschnitt \ref{sec: Implementierung - Gedcom Grammatik} bei denen nur ein Teil der Substructures betrachtet wurde, handelt es sich hierbei um eine vollständige Definition.
-\vspace{1em}
+\vspace{0.8em}
 \begin{javascript}{Grammatik Definition eines Family Records}{lst: Grammatik Definition Family}
 	{
 		uri: 'g7:record-FAM',
 		lineType: lineTypes.FAM_RECORD,
-		info: 'Structure Info coming soon!',
+		info: 'The Family record is a compilation of facts or hypothesized facts about a family.',
 		level: [0],
 		tag: 'FAM',
 		substructs: {
@@ -308,7 +308,7 @@ Mit der Funktion \textit{generateParser()} werden die Nearley Grammatiken für a
 bereit, mit eine Nearley Datei eingelesen und im spezifizierten Pfad kompiliert werden kann. Das Erstellen von Parsern für die Records ist notwendig, da die Nearley Parser für die Syntaxüberprüfung nach Änderung eines Records verwendet werden. Würde nur ein allgemeiner Dataset-Parser erstellt werden, müsste nach jeder Änderung das komplette Dataset überprüft werden, obwohl nur ein Record verändert wurde. 
 
 Im ersten Schritt der Funktion \textit{generateParser()} werden die Include-Statements vorbereitet, die z.B. die Definition der Datentypen enthalten. Anschließend wird für die Record- und Dataset-Grammatiken die Funktion \textit{buildParser()} aufgerufen, die in Listing \ref{lst: GrammarGenerator Funktion buildParser()} dargestellt ist. Hier werden die mit \textit{generateGrammar()} erzeugte Grammatik, die Include-Statements und der Nearley Header in einer Container Datei \textit{NearleyContainer.ne} zusammengefügt. Diese Container Datei wird anschließend zu dem entsprechenden Parser kompiliert und im mit \textit{path} spezifizierten Pfad im Verzeichnis ''\textit{path/parser/}`` abgelegt.
-\vspace{0.9em}
+\vspace{0.8em}
 \begin{javascript}{Funktion buildParser() des Grammatik Generators}{lst: GrammarGenerator Funktion buildParser()}
 	// build nearley-file with include statements and NearleyHeader
 	async buildParser (fileName, include) {
@@ -327,7 +327,6 @@ Im ersten Schritt der Funktion \textit{generateParser()} werden die Include-Stat
 		const grammar = await fs.readFile(`${this.path}nearley/${fileName}.ne`, { encoding: 'utf8' });
 		// append grammar to NearleyContainer file
 		fs.appendFile(this.nearleyContainerPath, grammar);
-		
 		// compile composed NearleyContainer.ne file to nearley parser
 		await exec(`npx nearleyc ${this.nearleyContainerPath} -o ${this.path}parser/${fileName}Parser.js`);
 	}
@@ -341,7 +340,7 @@ Die Struktur einer Gedcom7 Datei wird in der Bibliothek \textit{gedcom7.js} mit 
 
 \subsection{Klasse \textsc{Structure}}
 \label{subsec: Implementierung - Gedcom Struktur - Klasse Structure}
-Die Klasse \textsc{Structure} ist die Überklasse aller Klassen zur Structure-Verwaltung, d.h. Records und Datatyp Structures erben alle Methoden und Eigenschaften von \textsc{Structure}. Diese Methoden und Eigenschaften sind in Abbildung \ref{fig: UML Klassendiagramm Structure} abgebildet. Eine Instanz der Klasse \textsc{Structure} hält alle Informationen über eine Line bereit (URI, Level, Tag, Xref, lineValue, Typ des LineValues, EOL-Zeichen). Außerdem werden Referenzen zu allen Substructures, der Superstructure, dem Record mit dem die Structure assoziiert wird, sowie zum Dataset in dem die Structure enthalten ist bereitgestellt. Außerdem übernimmt die Klasse \textsc{Structure} vier zentrale Aufgaben zur Verwaltung von Gedcom7 Informationen, die von der Klasse \textsc{Dataset} angestoßen werden können.
+Die Klasse \textsc{Structure} ist die Überklasse aller Klassen zur Structure-Verwaltung, d.h. Records und Datatyp Structures erben alle Methoden und Eigenschaften von \textsc{Structure}. Diese Methoden und Eigenschaften sind in Abbildung \ref{fig: UML Klassendiagramm Structure} abgebildet. Eine Instanz der Klasse \textsc{Structure} hält alle Informationen über eine Line bereit (URI, Level, Tag, Xref, lineValue, Typ des LineValues, EOL-Zeichen). Es werden Referenzen zu allen Substructures, der Superstructure, dem Record mit dem die Structure assoziiert wird, sowie zum Dataset in dem die Structure enthalten ist bereitgestellt. Außerdem übernimmt die Klasse \textsc{Structure} vier zentrale Aufgaben zur Verwaltung von Gedcom7 Informationen, die von der Klasse \textsc{Dataset} angestoßen werden können.
 
 \begin{figure}[h]
 	\centering
@@ -394,7 +393,7 @@ resultieren. Diese Structure enthält keinerlei Informationen und kann daher ent
 Die Klasse \textsc{Record} ist die Vaterklasse für Family, Individual, Header, Multimedia, Repository, SharedNote, Source und Submitter und definiert eine Methode zur Syntaxüberprüfung eines Records. Dazu wird der entsprechende Nearley-Parser, der mit dem in Abschnitt \ref{sec: Implementierung - Grammatik Generator} beschriebenen \textsc{GrammarGenerator} erstellt wurde, eingebunden. Dieser bekommt alle Lines des Records kodiert als Zeichenkette als Eingabe und überprüft, ob alle Structures syntaktisch korrekt sind.
 
 
-Des Weiteren stellt die Klasse \textsc{Record} Methoden zur Verfügung, um Informationen aus Structures, die von mehreren Records geteilt werden, zu extrahieren und in gebündelter Form auszugeben. Ein Beispiel hierfür sind die Identifier-Structures, die genutzt werden, um Structures oder ihre Inhalte eindeutig zu identifizieren. Die Klasse \textsc{Record} stellt dafür die Methode \textit{extractIdentifierStructures()} zur Verfügung, mit der alle Identifier-Structures eines Records gesucht und in gebündelt zurückgegeben werden. Wie in Listing \ref{lst: extractIdentifier Funktion} dargestellt, wird die Methode \textit{getSubstructuresByUri()} (siehe Abschnitt \ref{subsec: Implementierung - Gedcom Struktur - Klasse Structure}) verwendet, um alle Identifier-Structures des Records zu finden. Anschließend werden alle Informationen extrahiert und im JSON-Format zurückgegeben. 
+Des Weiteren stellt die Klasse \textsc{Record} Methoden zur Verfügung, um Informationen aus Structures, die von mehreren Records geteilt werden, zu extrahieren und in gebündelter Form auszugeben. Ein Beispiel hierfür sind die Identifier-Structures, die genutzt werden, um Structures oder ihre Inhalte eindeutig zu identifizieren. Die Klasse \textsc{Record} stellt dafür die Methode \textit{extractIdentifierStructures()} zur Verfügung, mit der alle Identifier-Structures eines Records gesucht und zurückgegeben werden. Wie in Listing \ref{lst: extractIdentifier Funktion} dargestellt, wird die Methode \textit{getSubstructuresByUri()} (siehe Abschnitt \ref{subsec: Implementierung - Gedcom Struktur - Klasse Structure}) verwendet, um alle Identifier-Structures des Records zu finden. Anschließend werden alle Informationen extrahiert und im JSON-Format zurückgegeben. 
 \vspace{1em}
 \begin{javascript}{Methode \textit{extractIdentifierStructures()} der Klasse \textsc{Record}}{lst: extractIdentifier Funktion}
 	// extracts content of IDENTIFIER_STRUCTURE
@@ -441,7 +440,7 @@ Alle Eigenschaften und Methoden der Klasse \textsc{Record} sind in Abbildung \re
 Ein Ziel bei der Erstellung der Bibliothek \textit{gedcom7.js} war es, eine Grundlage für die Verarbeitung von Gedcom7 Dateien zu kreieren, die in zukünftigen Arbeiten erweitert werden kann. Daher wurde für diese Arbeit nur die Klasse \textsc{Family} für den Family Record vollständig implementiert. Die Klassen für alle weiteren Records können analog zu dem hier beschrieben Vorgehen erstellt werden, um die Gedcom7 Spezifikation komplett abzubilden. 
 
 
-Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklasse \textsc{Record} mit der Family Grammatik auf. Des Weiteren werden Methoden zur einfachen Verarbeitung von Informationen aus einem Family Record bereitgestellt. Ist ein Anwender beispielsweise an Informationen über die Kinder einer Familie interessiert, müsste er die Gedcom7 Spezifikation studieren, alle Structures die Informationen über ein Kind bereithalten können nacheinander suchen und dann alle Informationen zusammenfügen. Um diese Arbeit zu erleichtern, werden in der Bibliothek \textit{gedcom7.js} die in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführten Convenience-Methoden bereitgestellt. Ein Beispiel hierfür ist die in Listing \ref{lst: extractIdentifier Funktion} abgebildete Methode \textit{getChildrenInformation()}, mit der alle Informationen über die Kinder einer Familie extrahiert werden können. Dazu werden die entsprechenden Strukturen über die Methode \textit{getSubstructuresByUri} gesucht und im JSON-Format zurückgegeben. Alle Methoden und Eigenschaften der Klasse \textsc{Family} sind in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführt.
+Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklasse \textsc{Record} mit der Family Grammatik auf. Des Weiteren werden Methoden zur einfachen Verarbeitung von Informationen aus einem Family Record bereitgestellt. Ist ein Anwender beispielsweise an Informationen über die Kinder einer Familie interessiert, müsste er die Gedcom7 Spezifikation studieren, alle Structures die Informationen über ein Kind bereithalten können nacheinander suchen und dann alle Informationen zusammenfügen. Um diese Arbeit zu erleichtern, werden in der Bibliothek \textit{gedcom7.js} die in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführten Convenience-Methoden bereitgestellt. Ein Beispiel hierfür ist die in Listing \ref{lst: extractIdentifier Funktion} abgebildete Methode \textit{getChildrenInformation()}, mit der alle Informationen über die Kinder einer Familie extrahiert werden können. Dazu werden die entsprechenden Strukturen über die Methode \textit{getSubstructuresByUri()} gesucht und im JSON-Format zurückgegeben. Alle Methoden und Eigenschaften der Klasse \textsc{Family} sind in Abbildung \ref{fig: UML Klassendiagramm Family} aufgeführt.
 \vspace{1em}
 \begin{javascript}{Methode \textit{extractIdentifierStructures} der Klasse \textsc{Record}}{lst: extractIdentifier Funktion}
 	// returns information about the children of this family
@@ -469,25 +468,27 @@ Die Klasse \textsc{Family} ruft die Methode \textit{checkSyntax()} der Vaterklas
 \end{figure}
 \newpage
 \subsection{Datatype Structures: \textsc{GedcomDate} Klasse}
-Um besser mit den Datentypen der GEDCOM-Spezifikation innerhalb der Bibliothek umgehen zu können, 
+Um besser mit den Datentypen der Gedcom7-Spezifikation innerhalb der Bibliothek umgehen zu können, 
 wurden Datentyp-Strukturen eingeführt und die Klasse \textsc{GedcomDate} exemplarisch implementiert.
 
-Diese soll als Vorlage für weitere GEDCOM-Datentypen, oder erweiterte Datentypen, genutzt werden.
+Diese soll als Vorlage für weitere Gedcom7-Datentypen, oder erweiterte Datentypen, genutzt werden.
 Nach dem erfolgreichen Parsen, werden die Klassen für die \textit{Records} und \textit{Structures}, 
 sowie auch die Datentyp-Strukturen erstellt.
 
-Wenn vom Nearley-Parser die GEDCOM-Typen \textit{DateValue}, \textit{DatePeriod} oder \textit{DateExact}
+Wenn vom Nearley-Parser die Datentypen \textit{DateValue}, \textit{DatePeriod} oder \textit{DateExact}
 erkannt werden, wird die Klasse \textsc{GedcomDate} mit den entsprechenden Line-Parametern instanziiert.
 Beim Initialisieren der \textsc{GedcomDate}-Klasse wird das spezifikationskonforme Datum, mit Hilfe der 
 Datums-Bibliothek \textit{date-fns}, in ein JavaScript-Date-Objekt umgewandelt.
-Je nach GEDCOM-Date-Typ wird das Datum nur in das Attribut \textit{startDate} oder auch und in das Attribut
-\textit{endDate} der Klasse GedcomDate, gespeichert. \\
+Je nach Date-Typ wird das Datum nur in das Attribut \textit{startDate} oder auch und in das Attribut
+\textit{endDate} der Klasse GedcomDate, gespeichert.
+
+
 Die Klasse \textsc{GedcomDate} bietet eine Methode \textit{getDateObject()}, in der das GEDCOM Datum 
 als JavaScript-Date-Objekt mit Metadaten zum Date-Typ zurückgegeben wird.
 Diese Methode ist in Listing \ref{lst: getDateObject function} abgebildet. Es wird zunächst kontrolliert,
 ob eine Datumsspanne oder ein einzelnes Datum vorliegt. Anschließend wird das result-Objekt konditional
-mit den vorhandenen Properties gefüllt und zurückgegeben. Das start/endDate beeinhaltet ebenfalls die Uhrzeit, 
-welche in GEDCOM als Substructure der Date-Structure angegeben werden kann.
+mit den vorhandenen Properties gefüllt und zurückgegeben. Das \textit{start}/\textit{endDate} beeinhaltet ebenfalls die Uhrzeit, 
+welche als Substructure der Date-Structure angegeben werden kann.
 
 \begin{javascript}{Funktion getDateObject() der Klasse \textsc{GedcomDate}}{lst: getDateObject function}
 	// public method to get the date as an object 
@@ -511,7 +512,7 @@ welche in GEDCOM als Substructure der Date-Structure angegeben werden kann.
 \end{javascript}
 \vspace{1em}
 \textbf{Beispiel} \vspace{0.5em} \\
-Der folgende Ausschnitt einer GEDCOM-Datei zeigt ein erweitertes Datum, 
+Der folgende Ausschnitt einer Gedcom7 Datei zeigt ein erweitertes Datum, 
 welches nach erfolgreichem Parsen in der Klasse \textsc{GedcomDate} repräsentiert wird.
 
 \begin{javascriptNoCaption}
@@ -533,10 +534,10 @@ wird das Datum in folgendes JavaScript-Objekt umgewandelt:
 		epoch: "BCE"
 	}
 \end{javascriptNoCaption}
-Die Datatyp-Strukturen und somit auch \textsc{GedcomDate}, stellen somit eine Schnittstelle zwischen den
-GEDCOM Datentypen und JavaScript dar und ermöglichen somit direkten Zugriff auf die
-Daten, ohne zum Beispiel die GEDCOM-eigene Datumstruktur kennen zu müssen.
-Andere Datentypen oder durch \textit{Custom tags} erweiterte Datentypen können auf die gleiche Weise 
+Die Datatyp-Strukturen  stellen somit eine Schnittstelle zwischen den
+Gedcom7 Datentypen und JavaScript dar und ermöglichen somit direkten Zugriff auf die
+Daten, ohne zum Beispiel den in der Gedcom Spezfikation definierte Datentypen kennen zu müssen.
+Andere Datentypen oder durch \textit{Custom Tags} erweiterte Datentypen können auf die gleiche Weise 
 implementiert werden.
 
 \subsection{Klasse \textsc{Dataset}}
@@ -563,7 +564,7 @@ Die Klasse \textsc{Dataset} implementiert verschieden Methoden um Records im Dat
 
 \vspace{1em}
 \textbf{5. Ausgabe als Gedcom7 konformer String} \vspace{0.5em} \\
-Eine wichtige Anforderung für die Bibliothek \textit{gedcom7.js} war es, dass die eingelesenen Gedcom7 Dateien wiederausgegeben werden können. Dazu implementiert die Klasse \textsc{Dataset} die Methode \textit{toString()}. In dieser Methode werden für alle Records, Header und Trailer die \textit{toString()} Methode aufgerufen, die in der Klasse Structure so definiert ist, dass alle Structure-Informationen in Form einer Gedcom7-konforme Line zurückgegeben werden. Diese Lines werden in der richtigen Reihenfolge zusammengehangen und ergeben so eine Zeichenkette, die mit Hilfe der asynchronen Methode \textit{write()} am spezifizierten Pfad in Form einer Gedcom7 Datei gespeichert werden kann.
+Eine wichtige Anforderung für die Bibliothek \textit{gedcom7.js} war es, dass die eingelesenen Gedcom7 Dateien wiederausgegeben werden können. Dazu implementiert die Klasse \textsc{Dataset} die Methode \textit{toString()}. In dieser Methode werden für alle Records, Header und Trailer die \textit{toString()}-Methode aufgerufen, die in der Klasse Structure so definiert ist, dass alle Structure-Informationen in Form einer Gedcom7-konforme Line zurückgegeben werden. Diese Lines werden in der richtigen Reihenfolge zusammengehangen und ergeben so eine Zeichenkette, die mit Hilfe der asynchronen Methode \textit{write()} am spezifizierten Pfad in Form einer Gedcom7 Datei gespeichert werden kann.
 
 \begin{figure}[h]
 	\centering
@@ -578,9 +579,8 @@ Eine wichtige Anforderung für die Bibliothek \textit{gedcom7.js} war es, dass d
 %========================================================================================
 \section{Gedcom Parser}
 \label{sec: Implementierung - Gedcom Parser}
-Alle in dieser Arbeit vorgestellten Konzepte und Implementierungen werden im \textsc{Gedcom Parser} vereinigt, der die zentrale Klasse der Bibliothek \textit{gedcom7.js} darstellt. Die Klasse \textsc{GedcomParser} verfügt über die Methode \textit{parseGedFile} mit der Gedcom7 Dateien mit Hilfe der Node.js FileSystem Bibliothek als UTF-8 kodierte Zeichenkette eingelesen und anschließend mit der Methode \textit{parseString} geparsed werden kann. Wie im Konzept in Abschnitt \ref{sec: Konzept - Gedcom Parser} dargestellt, wird ein Nearley Parser erstellt für ein Dataset erstellt, der String geparsed und anschließend aus den extrahierten Informationen eine Instanz der Klasse \textsc{Dataset} erzeugt die zurückgegeben wird. Das Sequenzdiagramm dieser Methode ist in Abbildung \ref{fig: Sequenz Gedcom Parser} dargestellt.
-
-
+Alle in dieser Arbeit vorgestellten Konzepte und Implementierungen werden im \textsc{Gedcom Parser} vereinigt, der die zentrale Klasse der Bibliothek \textit{gedcom7.js} darstellt. Die Klasse \textsc{GedcomParser} verfügt über die Methode \textit{parseGedFile()} mit der Gedcom7 Dateien mit Hilfe der Node.js FileSystem Bibliothek als UTF-8 kodierte Zeichenkette eingelesen und anschließend mit der Methode \textit{parseString()} geparsed werden kann. Wie im Konzept in Abschnitt \ref{sec: Konzept - Gedcom Parser} dargestellt, wird ein Nearley Parser erstellt, der String geparsed und anschließend aus den extrahierten Informationen eine Instanz der Klasse \textsc{Dataset} erzeugt die zurückgegeben wird. Das Sequenzdiagramm dieser Methode ist in Abbildung \ref{fig: Sequenz Gedcom Parser} dargestellt.
+\\ \\
 Im Folgenden wird ein beispielhafter Ablauf für die Verwendung der Bibliothek \textit{gedcom7.js} dargestellt. Dazu wird eine Gedcom7 Datei eingelesen, die den FamilyRecord aus Listing \ref{lst: family record example} enthält:
 
 \vspace{1em}
@@ -590,7 +590,7 @@ Im ersten Schritt wird die Gedcom7 Datei eingelesen, geparsed und in ein Dataset
 \begin{javascriptNoCaption}
 	gedcomParser = new GedcomParser();
 \end{javascriptNoCaption}
-Anschließend wird der Pfad zur Gedcom7 Datei an die Methode \textit{parseGedFile} übergeben. In diesem Beispiel liegt die Datei im selben Verzeichnis, wie die ausgeführte JavaScript-Datei unter dem Namen ''FamilyExample.ged``. 
+Anschließend wird der Pfad zur Gedcom7 Datei an die Methode \textit{parseGedFile()} übergeben. In diesem Beispiel liegt die Datei im selben Verzeichnis, wie die ausgeführte JavaScript-Datei unter dem Namen ''FamilyExample.ged``. 
 \begin{javascriptNoCaption}
 	const dataset = await gedcomParser.parseGedFile('./FamilyExample.ged');
 \end{javascriptNoCaption}
@@ -620,7 +620,7 @@ realisiert werden. Außerdem kann das Datum der Hochzeit herausgefunden werden m
 		 date: 1951-03-01T00:00:00.000TZ
 	   }
 \end{javascriptNoCaption}
-Soll nun die Information zum Family Record hinzugefügt werden, dass die Ehe wieder geschieden wurde, kann dies über die DIV-Structure ausgedrückt werden. Mit Hilfe der Methode \textit{addSubstructure} kann eine DIV-Structure zum Family Record hinzugefügt werden:
+Soll nun die Information zum Family Record hinzugefügt werden, dass die Ehe wieder geschieden wurde, kann dies über die DIV-Structure ausgedrückt werden. Mit Hilfe der Methode \textit{addSubstructure()} kann eine DIV-Structure zum Family Record hinzugefügt werden:
 \begin{javascriptNoCaption}
 	const div = {
 		uri: 'g7:DIV',
@@ -650,15 +650,13 @@ Wird der Family Record nun ausgegeben, ist die neue DIV-Structure in der Ausgabe
 % SECTION: Test
 %========================================================================================
 \section{Test der Implementierung}
-Die Implementierung der Bibliothek \textit{gedcom7.js} wurde im Entwicklungsprozess ausgiebig getestet. Mit Hilfe des in Kapitel \ref{sec: Mocha} vorgestellten JavaScript Test-Frameworks \textit{mocha} wurden insgesamt 176 Test spezifiziert, die die wichtigsten Use-Cases der Bibliothek abdecken. Im Besonderen wurden die Klassen \textsc{Gedcom Parser}, \textsc{Dataset}, \textsc{Structure} und \textsc{Family} getestet. Da der \textsc{Gedcom Parser} intern die vom \textsc{Grammar Generator} erstellte Nearley Grammatik verwendet, wird beim Test der \textsc{Grammar Generator} beim Test des \textsc{Gedcom Parser} indirekt mitgetestet. In zukünftigen Arbeiten sollten jedoch zusätzliche Tests für den Grammatik Generator implementiert werden, da eine korrekte Syntaxüberprüfung die Grundlage für eine fehlerfreie Nutzung der Bibliothek darstellt. Besonders wenn eine Schnittstelle zum \textsc{Grammar Generator} zur Erstellung von Extensions eingeführt wird, sind ausgiebige Testfälle unabdingbar. Außerdem sollten in zukünftigen Arbeiten Tests für die \textit{Datatype Structures} und alle weiteren Records implementiert werden. 
+Die Implementierung der Bibliothek \textit{gedcom7.js} wurde im Entwicklungsprozess ausgiebig getestet. Mit Hilfe des in Kapitel \ref{sec: Mocha} vorgestellten JavaScript Test-Frameworks \textit{Mocha} wurden insgesamt 176 Test spezifiziert, die die wichtigsten Use-Cases der Bibliothek abdecken. Im Besonderen wurden die Klassen \textsc{Gedcom Parser}, \textsc{Dataset} und \textsc{Structure} getestet. Da der \textsc{Gedcom Parser} intern die vom \textsc{Grammar Generator} erstellte Nearley Grammatik verwendet, wird der \textsc{Grammar Generator} beim Test des \textsc{Gedcom Parser} indirekt mitgetestet. In zukünftigen Arbeiten sollten jedoch zusätzliche Tests für den Grammatik Generator implementiert werden, da eine korrekte Syntaxüberprüfung die Grundlage für eine fehlerfreie Nutzung der Bibliothek darstellt. Besonders wenn eine Schnittstelle zum \textsc{Grammar Generator} zur Erstellung von Extensions eingeführt wird, sind ausgiebige Testfälle unabdingbar. Außerdem sollten in zukünftigen Arbeiten Tests für die \textit{Datatype Structures} und alle Records implementiert werden. 
 
 
-Im Folgenden wird anhand eines exemplarischen Tests gezeigt, wie die Komponenten der Bibliothek \textit{gedcom7.js}getestet wurden. Zusätzlich zu \textit{Mocha} wurde dazu die \textit{Node.js} Assertion-Bibliothek \textit{Chai} verwendet, mit der ausdrucksstarke und leicht verständliche Testfälle in englischer Sprache definiert werden können. Als Testgrundlage wurden die 7 Gedcom7 Dateien verwendet, die von \textit{Family Search} als Beispieldateien bereitgestellt wurden. Diese Dateien decken die komplette Gedcom7 Spezifikation ab und versuchen alle Structuretypes, Datatypes und Sonderfälle abzudecken. Funktioniert das Parsen und Verarbeiten dieser Dateien korrekt, kann davon ausgegangen werden, dass die Gedcom7 Spezifikation korrekt in der Bibliothek abgebildet wurde.
+Im Folgenden wird anhand eines exemplarischen Tests gezeigt, wie die Komponenten der Bibliothek \textit{gedcom7.js}getestet wurden. Zusätzlich zu \textit{Mocha} wurde dazu die \textit{Node.js} Assertion-Bibliothek \textit{Chai} verwendet, mit der ausdrucksstarke und leicht verständliche Testfälle in englischer Sprache definiert werden können. Als Testgrundlage wurden die sieben Gedcom7 Dateien verwendet, die von \textit{Family Search} als Beispieldateien bereitgestellt wurden. Diese Dateien decken die komplette Gedcom7 Spezifikation ab und versuchen alle Structuretypes, Datatypes und Sonderfälle abzudecken. Funktioniert das Parsen und Verarbeiten dieser Dateien korrekt, kann davon ausgegangen werden, dass die Gedcom7 Spezifikation korrekt in der Bibliothek abgebildet wurde.
 
 
 Mit den in Listing \ref{lst: test lesen und schreiben gedcom7 dateien} aufgeführten Testfällen, wird das Lesen und Schreiben von Gedcom7 Dateien getestet. Dazu werden die oben angesprochenen, von \textit{Family Search} als Beispieldateien bereitgestellten, Gedcom7 Dateien mit einer Instanz des \textsc{Gedcom Parser} eingelesen und als \textsc{Dataset} zurückgegeben. Dieses Dataset wird über die Methode \textit{write()} temporär gespeichert und anschließend mit der ursprünglichen Gedcom7 Datei verglichen. Dieser Vergleich kann auf einfache Weise mit der Textvergleichsimplementierung \textit{diff}\footnote{Nähere Informationen sind unter https://www.npmjs.com/package/diff angegeben.} umgesetzt werden, mit der die Inhalte der Dateien Zeichen für Zeichen verglichen werden. 
-
-
 Auf diese Weise wird ebenfalls sichergestellt, dass Gedcom7 Dateien die eingelesen aber unverändert bleiben, nach der Ausgabe identisch bleiben. Dies ist eine wichtige Anforderung, da textbasierte Dateiformate wie der Gedcom Standard gerne über Versionsverwaltung administriert werden. Für diesen Use-Case wäre es nicht annehmbar, wenn sich Änderungen in Dateien ergeben, die nicht angepasst wurden. Damit eine identische Ausgabe möglich ist, müssen im \hyperref[fig: UML Klassendiagramm Dataset]{\textsc{Dataset}} Angaben über die verwendeten EOL-Character und das Byte-Order-Mark gespeichert werden.
 
 \begin{javascript}{Testfälle für das Lesen und Schreiben von korrekten Gedcom7 Dateien}{lst: test lesen und schreiben gedcom7 dateien}
@@ -687,7 +685,6 @@ Auf diese Weise wird ebenfalls sichergestellt, dass Gedcom7 Dateien die eingeles
 			await dataset.write(path + 'temp.ged');
 			// read temp.ged as String and compare it with original file
 			const afterParsing = await readGedFile(path + 'temp.ged');
-			
 			// expect files to be equal
 			expect(diffChars(beforeParsing, afterParsing)).to.have.lengthOf(1);
 		});
