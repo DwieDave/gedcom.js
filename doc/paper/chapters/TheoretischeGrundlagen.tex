@@ -1,12 +1,12 @@
 \chapter{Theoretische Grundlagen}
 \label{chap: Theoretische Grundlagen}
-In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dieser Projektarbeit beschrieben. Dazu wird eine kurze Einführung in Genealogie, FamilySearch und GEDCOM im speziellen gegeben, um ein Verständnis für die Thematik aufzubauen. Zudem wird auf Quellen verwiesen, aus denen tiefergehende Informationen erschlossen werden können. Im Anschluss dazu wird kurz auf die JavaScript Bibliothek \textit{Nearley} und das JavaScript Testframework \textit{Mocha} eingegangen, die für die Umsetzung dieser Projektarbeit relevant werden.
+In diesem Kapitel werden die theoretischen Grundlagen für das Verständnis dieser Projektarbeit beschrieben. Dazu wird eine kurze Einführung in Genealogie, FamilySearch und Gedcom im speziellen gegeben, um ein Verständnis für die Thematik aufzubauen. Zudem wird auf Quellen verwiesen, aus denen tiefergehende Informationen erschlossen werden können. Im Anschluss dazu wird kurz auf die JavaScript Bibliothek \textit{Nearley} und das JavaScript Testframework \textit{Mocha} eingegangen, die für die Umsetzung dieser Projektarbeit relevant werden.
 
 \section{Genealogie und FamilySearch}
 \label{sec: Genealogie und FamilySearch}
 Genealogie ist ein Überbegriff für die Familien- und Ahnenforschung und beschäftigt sich mit der historischen Herkunft und der Geschichte von Menschen weltweit \cite{AhnenforschungDE}. Dabei sind insbesondere Abstammungs- und Verwandtschaftsverhältnisse von Bedeutung, die anhand valider Quellen in Stammbäumen zusammengefasst werden, die aufzeigen, wie eine Generation mit der nächsten verbunden ist. Auf Basis der so erlangten Erkenntnisse kann eine Familiengeschichte erstellt werden, die eine biographische Studie einer genealogisch nachgewiesenen Familie und der Gemeinde in der sie lebten, darstellt \cite{SocietyOfGenealogists}. FamilySearch ist eine öffentliche genealogische Datenbank als Teil des Projekts der \textit{Genealogical Society of Utah}, die Menschen dabei hilft, ihre Familiengeschichte durch Webseiten, Apps und persönliche Hilfestellung in über 5000 Family Search Centern auf der ganzen Welt zu erkunden \cite{FamilySearchAbout}.
 
-Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um einen standardisierten Austausch genalogischer Informationen zu ermöglichen, entwickelte die Kirche Jesu Christi der Heiligen der Letzten Tage das Datenformat GEDCOM, das im folgenden Kapitel vorgestellt wird.
+Das Aufkommen des Internets stellte einen Wendepunkt in der Genealogie dar. Die einfachere Kommunikation auch über Landesgrenzen hinweg, ermöglicht es genealogische Informationen auszutauschen und so Gleichgesinnte und Verwandte auf der ganzen Welt zu finden \cite{AhnenforschungDE}. Um einen standardisierten Austausch genalogischer Informationen zu ermöglichen, entwickelte die Kirche Jesu Christi der Heiligen der Letzten Tage das Datenformat Gedcom, das im folgenden Kapitel vorgestellt wird.
 \newpage
 \section{GEDCOM Version 7}
 {
@@ -22,7 +22,7 @@ Kodiert wird der Inhalt einer Gedcom7-Datei in sog. \textit{Lines}, die eine Zei
 \begin{lstlisting}
 	Level  D  [Xref  D]  Tag  [D  LineValue]  EOL
 \end{lstlisting}
-\captionof{lstlisting}{Aufbau einer GEDCOM Line. Eckige Klammern repräsentieren optionale Inhalte.}
+\captionof{lstlisting}{Aufbau einer Gedcom Line. Eckige Klammern repräsentieren optionale Inhalte.}
 \label{lst: gedcom line}
 \newpage
 \bgroup
@@ -42,7 +42,7 @@ Kodiert wird der Inhalt einer Gedcom7-Datei in sog. \textit{Lines}, die eine Zei
 	\hline
 	\textbf{EOL} & \textit{EOL} steht für \textit{End-Of-Line} und kodiert das Ende einer Line. Im Format Gedcom7 kann dies entweder durch einen \textit{Carriage-Return} (Unicode U+000D), \textit{Line-Feed}(Unicode U+000A) oder einen \textit{Carriage-Return} gefolgt von einem \textit{Line-Feed} repräsentiert werden.\\
 	\hline
-	\caption{Bestandteile einer GEDCOM Line und ihre Bedeutung} % needs to go inside longtable environment
+	\caption{Bestandteile einer Gedcom Line und ihre Bedeutung} % needs to go inside longtable environment
 	\label{tab: gedcom line}
 \end{longtable}
 \egroup
